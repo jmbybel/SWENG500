@@ -1,0 +1,65 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>ServiceArch</groupId>
+  <artifactId>ServiceArch</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <build>
+  
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.6.1</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+      
+    </plugins>
+    
+  </build>
+  <dependencies>
+  	<dependency>
+    <groupId>com.vaadin</groupId>
+    <artifactId>vaadin-server</artifactId>
+    <version>8.1.2</version>
+</dependency>
+<dependency>
+    <groupId>com.vaadin</groupId>
+    <artifactId>vaadin-client-compiled</artifactId>
+    <version>8.1.2</version>
+</dependency>
+
+<!-- Optional for extending client-side See: https://vaadin.com/book/-/page/clientside.html
+<dependency>
+    <groupId>com.vaadin</groupId>
+    <artifactId>vaadin-client</artifactId>
+    <version>8.1.2</version>
+    <scope>provided</scope>
+</dependency>
+-->
+
+<!-- Optional for optimizing client-side widgets See: https://vaadin.com/book/-/page/mobile.optimization.html
+<dependency>
+    <groupId>com.vaadin</groupId>
+    <artifactId>vaadin-client-compiler</artifactId>
+    <version>8.1.2</version>
+    <scope>provided</scope>
+</dependency>
+-->
+
+<dependency>
+    <groupId>com.vaadin</groupId>
+    <artifactId>vaadin-themes</artifactId>
+    <version>8.1.2</version>
+</dependency>
+
+<!-- Optional push support for communication See: https://vaadin.com/book/-/page/advanced.push.html
+<dependency>
+    <groupId>com.vaadin</groupId>
+    <artifactId>vaadin-push</artifactId>
+    <version>8.1.2</version>
+</dependency>
+-->
+  </dependencies>
+</project>
