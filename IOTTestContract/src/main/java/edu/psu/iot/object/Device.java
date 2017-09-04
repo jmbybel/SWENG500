@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 //TODO MockDevice is clearly wrong, its not a mock, its a testdevice or a sampleDevice.
-public class MockDevice {
+public class Device {
 
 	private Long id;
 	
@@ -21,11 +21,11 @@ public class MockDevice {
 	//payloads may be the wrong name.... testRequests, or similar might be more appropriate.
 	private List<DevicePayload> payloads = new ArrayList<>();
 	
-	public MockDevice() {
+	public Device() {
 		
 	}
 	
-	public MockDevice(MockDevice copyFrom) {
+	public Device(Device copyFrom) {
 		this.name = "copy of " + copyFrom.getName();
 		this.dataPushMaximumMilliseconds = copyFrom.getDataPushMaximumMilliseconds();
 		this.dataPushMinimumMilliseconds = copyFrom.getDataPushMinimumMilliseconds();

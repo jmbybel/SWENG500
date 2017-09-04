@@ -10,7 +10,7 @@ public class DeviceCluster {
 	
 	private String name;
 	
-	private List<MockDevice> devices;
+	private List<Device> devices;
 
 	public Long getId() {
 		return id;
@@ -28,11 +28,11 @@ public class DeviceCluster {
 		this.name = name;
 	}
 
-	public List<MockDevice> getDevices() {
+	public List<Device> getDevices() {
 		return devices;
 	}
 
-	public void setDevices(List<MockDevice> devices) {
+	public void setDevices(List<Device> devices) {
 		this.devices = devices;
 	}
 	

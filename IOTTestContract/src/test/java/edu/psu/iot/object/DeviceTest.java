@@ -12,14 +12,14 @@ import org.junit.Test;
 
 public class DeviceTest {
 
-	MockDevice objectUnderTest = new MockDevice();
+	Device objectUnderTest = new Device();
 	
 	// verify that cloning the device creates a copy whose ID and sent payloads are cleared out, altering the name to begin with "copy of",
 	// and leaving all other fields intact
 	@Test
 	public void cloneObject_nullsOutId_clearsPayloads_addsCopyToName_otherFieldsIntact() {
 		populateObject();
-		MockDevice newTestObject = new MockDevice(objectUnderTest);
+		Device newTestObject = new Device(objectUnderTest);
 		assertNull(newTestObject.getId());
 		assertEquals(0, newTestObject.getPayloads().size());
 		assertEquals("copy of a test object", newTestObject.getName());
