@@ -3,6 +3,7 @@ package edu.psu.iot.object;
 import java.util.Date;
 import java.util.Map;
 
+// An individual set of fields sent from a device to the endpoint, timestamped with when it was created.
 //TODO confirm name.
 public class DevicePayload {
 

@@ -8,15 +8,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Test;
+
 public class DeviceTest {
 
-	MockDevice objectUnderTest;
+	MockDevice objectUnderTest = new MockDevice();
 	
-	// verify that cloning the device creates a copy whose ID and sent payloads are cleared out, altering the name,
+	// verify that cloning the device creates a copy whose ID and sent payloads are cleared out, altering the name to begin with "copy of",
 	// and leaving all other fields intact
+	@Test
 	public void cloneObject_nullsOutId_clearsPayloads_addsCopyToName_otherFieldsIntact() {
 		populateObject();
-		MockDevice newTestObject = objectUnderTest.clone();
+		MockDevice newTestObject = new MockDevice(objectUnderTest);
 		assertNull(newTestObject.getId());
 		assertEquals(0, newTestObject.getPayloads().size());
 		assertEquals("copy of a test object", newTestObject.getName());
@@ -25,6 +28,7 @@ public class DeviceTest {
 		
 	}
 	
+	//utility method to get a sample device data up and running for tests
 	private void populateObject() {
 		objectUnderTest.setId(12345L);
 		objectUnderTest.setDataPushMaximumMilliseconds(1000L);

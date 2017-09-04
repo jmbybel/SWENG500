@@ -1,5 +1,7 @@
 package edu.psu.iot.object;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,9 +17,21 @@ public class MockDevice {
 	private Long dataPushMaximumMilliseconds;
 	
 	private Map<String, String> inputFields;
-	
+
 	//payloads may be the wrong name.... testRequests, or similar might be more appropriate.
-	private List<DevicePayload> payloads;
+	private List<DevicePayload> payloads = new ArrayList<>();
+	
+	public MockDevice() {
+		
+	}
+	
+	public MockDevice(MockDevice copyFrom) {
+		this.name = "copy of " + copyFrom.getName();
+		this.dataPushMaximumMilliseconds = copyFrom.getDataPushMaximumMilliseconds();
+		this.dataPushMinimumMilliseconds = copyFrom.getDataPushMinimumMilliseconds();
+		this.inputFields = new HashMap<>(copyFrom.getInputFields());
+	}
+	
 
 	public Long getId() {
 		return id;
