@@ -26,6 +26,7 @@ public class Device {
 	}
 	
 	public Device(Device copyFrom) {
+
 		this.name = "copy of " + copyFrom.getName();
 		this.dataPushMaximumMilliseconds = copyFrom.getDataPushMaximumMilliseconds();
 		this.dataPushMinimumMilliseconds = copyFrom.getDataPushMinimumMilliseconds();
