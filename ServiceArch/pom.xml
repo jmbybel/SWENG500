@@ -29,7 +29,12 @@
     <artifactId>vaadin-client-compiled</artifactId>
     <version>8.1.2</version>
 </dependency>
-
+  	<dependency>
+  		<groupId>junit</groupId>
+  		<artifactId>junit</artifactId>
+  		<version>4.12</version>
+  		<scope>test</scope>
+  	</dependency>
 <!-- Optional for extending client-side See: https://vaadin.com/book/-/page/clientside.html
 <dependency>
     <groupId>com.vaadin</groupId>

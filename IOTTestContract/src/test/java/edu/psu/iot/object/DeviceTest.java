@@ -16,6 +16,7 @@ public class DeviceTest {
 	
 	// verify that cloning the device creates a copy whose ID and sent payloads are cleared out, altering the name to begin with "copy of",
 	// and leaving all other fields intact
+	// conncets to story # 18
 	@Test
 	public void cloneObject_nullsOutId_clearsPayloads_addsCopyToName_otherFieldsIntact() {
 		populateObject();
