@@ -14,7 +14,7 @@ public class DeviceTest {
 
 	Device objectUnderTest = new Device();
 	
-	// verify that cloning the device creates a copy whose ID and sent payloads are cleared out, altering the name to begin with "copy of",
+	// verify that cloning the device creates a copy whose ID and sent pay loads are cleared out, altering the name to begin with "copy of",
 	// and leaving all other fields intact
 	// connects to story # 18
 	@Test
