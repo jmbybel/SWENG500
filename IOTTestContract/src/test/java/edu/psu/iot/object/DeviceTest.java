@@ -16,7 +16,7 @@ public class DeviceTest {
 	
 	// verify that cloning the device creates a copy whose ID and sent payloads are cleared out, altering the name to begin with "copy of",
 	// and leaving all other fields intact
-	// conncets to story # 18
+	// connects to story # 18
 	@Test
 	public void cloneObject_nullsOutId_clearsPayloads_addsCopyToName_otherFieldsIntact() {
 		populateObject();
@@ -27,6 +27,74 @@ public class DeviceTest {
 		assertEquals(newTestObject.getDataPushMaximumMilliseconds(),objectUnderTest.getDataPushMaximumMilliseconds());
 		assertEquals(newTestObject.getDataPushMinimumMilliseconds(),objectUnderTest.getDataPushMinimumMilliseconds());
 		
+	}
+	
+	//verify set and get name work as intended
+	@Test
+	public void test_setAndGetName() {
+		populateObject();
+		Device newTestObject = new Device(objectUnderTest);
+		newTestObject.setName("tester");
+		assertEquals(newTestObject.getName(), "tester");
+		
+	}
+	
+	//verify set and get Id work as intended
+	@Test
+	public void test_setAndGetId() {
+		populateObject();
+		Device newTestObject = new Device(objectUnderTest);
+		newTestObject.setId(33258L);
+		long test = new Long(33258L);
+		long objTest = new Long(newTestObject.getId());
+		assertEquals(objTest, test);
+		
+	}
+	
+	//verify set and get inputFields work as intended
+	@Test
+	public void test_setAndGetInputFields() {
+		populateObject();
+		Device newTestObject = new Device(objectUnderTest);
+		Map<String, String> sampleInputData = new HashMap<>();
+		sampleInputData.put("new field", "new value");
+		newTestObject.setInputFields(sampleInputData);
+		assertEquals(newTestObject.getInputFields(), sampleInputData);
+	}
+	
+	//verify set and get Payloads works as intended
+	@Test
+	public void test_setAndGetPayloads() {
+		populateObject();
+		Device newTestObject = new Device(objectUnderTest);
+		DevicePayload aPayload = new DevicePayload();
+		aPayload.setId(999L);
+		List<DevicePayload> samplePayloads = new ArrayList<>();
+		samplePayloads.add(aPayload);
+		newTestObject.setPayloads(samplePayloads);
+		assertEquals(newTestObject.getPayloads(), samplePayloads);
+	}
+	
+	//verify set and get DataPushMinimumMilliseconds works as intended
+	@Test
+	public void test_setAndGetDataPushMinimumMilliseconds() {
+		populateObject();
+		Device newTestObject = new Device(objectUnderTest);
+		newTestObject.setDataPushMinimumMilliseconds(400L);
+		long test = new Long(400L);
+		long objTest = new Long(newTestObject.getDataPushMinimumMilliseconds());
+		assertEquals(objTest, test);
+	}
+	
+	//verify set and get DataPushMaximumMilliseconds works as intended
+	@Test
+	public void test_setAndGetDataPushMaximumMilliseconds() {
+		populateObject();
+		Device newTestObject = new Device(objectUnderTest);
+		newTestObject.setDataPushMaximumMilliseconds(2000L);
+		long test = new Long(2000L);
+		long objTest = new Long(newTestObject.getDataPushMaximumMilliseconds());
+		assertEquals(objTest, test);
 	}
 	
 	//utility method to get a sample device data up and running for tests
