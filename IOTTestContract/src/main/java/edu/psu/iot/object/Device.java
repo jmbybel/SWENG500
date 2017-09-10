@@ -1,36 +1,29 @@
 package edu.psu.iot.object;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-//TODO MockDevice is clearly wrong, its not a mock, its a testdevice or a sampleDevice.
+import java.util.ArrayList;
+import java.util.List;
+//TODO log4j.
 public class Device {
 
 	private Long id;
 	
 	private String name;
 	
-	private Long dataPushMinimumMilliseconds;
-	
-	private Long dataPushMaximumMilliseconds;
-	
-	private Map<String, String> inputFields;
+	private List<Sensor> sensors = new ArrayList<>();
 
-	//payloads may be the wrong name.... testRequests, or similar might be more appropriate.
+	///TODO attach this to the sensor instead of device?
 	private List<DevicePayload> payloads = new ArrayList<>();
 	
 	public Device() {
 		
 	}
 	
+	//Java clone is bad form, use a constructor taking an object of the same type in.
 	public Device(Device copyFrom) {
 
 		this.name = "copy of " + copyFrom.getName();
-		this.dataPushMaximumMilliseconds = copyFrom.getDataPushMaximumMilliseconds();
-		this.dataPushMinimumMilliseconds = copyFrom.getDataPushMinimumMilliseconds();
-		this.inputFields = new HashMap<>(copyFrom.getInputFields());
+		this.sensors = new ArrayList<>(copyFrom.getSensors());
 	}
 	
 
@@ -50,14 +43,6 @@ public class Device {
 		this.name = name;
 	}
 
-	public Map<String, String> getInputFields() {
-		return inputFields;
-	}
-
-	public void setInputFields(Map<String, String> inputFields) {
-		this.inputFields = inputFields;
-	}
-
 	public List<DevicePayload> getPayloads() {
 		return payloads;
 	}
@@ -66,20 +51,12 @@ public class Device {
 		this.payloads = payloads;
 	}
 
-	public Long getDataPushMinimumMilliseconds() {
-		return dataPushMinimumMilliseconds;
+	public List<Sensor> getSensors() {
+		return sensors;
 	}
 
-	public void setDataPushMinimumMilliseconds(Long dataPushMinimumMilliseconds) {
-		this.dataPushMinimumMilliseconds = dataPushMinimumMilliseconds;
-	}
-
-	public Long getDataPushMaximumMilliseconds() {
-		return dataPushMaximumMilliseconds;
-	}
-
-	public void setDataPushMaximumMilliseconds(Long dataPushMaximumMilliseconds) {
-		this.dataPushMaximumMilliseconds = dataPushMaximumMilliseconds;
+	public void setSensors(List<Sensor> sensors) {
+		this.sensors = sensors;
 	}
 
 }
