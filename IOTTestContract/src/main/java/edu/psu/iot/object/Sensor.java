@@ -2,7 +2,9 @@ package edu.psu.iot.object;
 
 import java.util.Map;
 
-public class Sensor {
+import edu.psu.iot.object.intf.JsonObject;
+
+public class Sensor extends JsonObject {
 
 	private Long id;
 

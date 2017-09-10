@@ -3,9 +3,11 @@ package edu.psu.iot.object;
 import java.util.Date;
 import java.util.Map;
 
+import edu.psu.iot.object.intf.JsonObject;
+
 // data received from the endpoint under test.
 // TODO this needs to relate to a single device, a single payload, or a cluster of devices in some meaningful way but I don't know how.
-public class EndpointResponseData {
+public class EndpointResponseData extends JsonObject {
 
 	private Long id;
 	

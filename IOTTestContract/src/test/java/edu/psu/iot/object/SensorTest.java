@@ -8,6 +8,8 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.google.gson.Gson;
+
 public class SensorTest {
 
 	private Sensor objectUnderTest = new Sensor();
@@ -50,4 +52,14 @@ public class SensorTest {
 		objectUnderTest.setDataPushMinimumMilliseconds(1001L);
 		objectUnderTest.setInputFields(new HashMap<>());
 	}
+
+	//TODO more work going to be needed for a full test!
+	@Test
+	public void jsonObjectFlattenAndExpand() {
+		String jsonObject = objectUnderTest.toJson();
+		Gson gson =new Gson();
+		Sensor deviceFromJson = gson.fromJson(jsonObject, Sensor.class);
+		assertEquals(deviceFromJson.getId(), objectUnderTest.getId());
+	}
+	
 }

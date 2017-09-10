@@ -9,6 +9,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.google.gson.Gson;
+
 public class DeviceTest {
 
 	Device objectUnderTest = new Device();
@@ -57,6 +59,16 @@ public class DeviceTest {
 		assertEquals(objectUnderTest.getPayloads(), samplePayloads);
 	}
 	
+	//TODO more work going to be needed for a full test!
+	@Test
+	public void jsonObjectFlattenAndExpand() {
+		String jsonObject = objectUnderTest.toJson();
+		Gson gson =new Gson();
+		Device deviceFromJson = gson.fromJson(jsonObject, Device.class);
+		assertEquals(deviceFromJson.getId(), objectUnderTest.getId());
+		assertEquals(deviceFromJson.getSensors().get(0).getId(), objectUnderTest.getSensors().get(0).getId());
+	}
+	
 	
 	//utility method to get a sample device data up and running for tests
 	private void populateObject() {
@@ -68,5 +80,10 @@ public class DeviceTest {
 			samplePayloads.add(aPayload);
 		objectUnderTest.setPayloads(samplePayloads);
 		
+		List<Sensor> sensors = new ArrayList<>();
+			Sensor junkSensor = new Sensor();
+			junkSensor.setId(999L);
+			sensors.add(junkSensor);
+		objectUnderTest.setSensors(sensors);
 	}
 }

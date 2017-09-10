@@ -3,8 +3,12 @@ package edu.psu.iot.object;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.google.gson.Gson;
+
+import edu.psu.iot.object.intf.JsonObject;
 //TODO log4j.
-public class Device {
+public class Device extends JsonObject{
 
 	private Long id;
 	

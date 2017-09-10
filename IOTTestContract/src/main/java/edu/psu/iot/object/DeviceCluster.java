@@ -2,9 +2,11 @@ package edu.psu.iot.object;
 
 import java.util.List;
 
+import edu.psu.iot.object.intf.JsonObject;
+
 //A collection of devices that can be named as a whole set.
 // in the UI layer this will allow us to manage groups of devices at a time.
-public class DeviceCluster {
+public class DeviceCluster extends JsonObject {
 
 	private Long id;
 	
