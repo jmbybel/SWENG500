@@ -13,7 +13,7 @@ public class DevicePayload extends JsonObject {
 	
 	private Date createdDateTime;
 	
-	//TODO should this actually be a single string in JSOn format by now?
+	//TODO should this actually be a single string in JSON format by now?
 	private Map<String, String> payloadData;
 
 	public Long getId() {

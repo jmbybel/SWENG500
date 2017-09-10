@@ -18,6 +18,7 @@ public class SensorTest {
 	public void setUp() {
 		populateObject();
 	}
+
 	//verify set and get inputFields work as intended
 	@Test
 	public void test_setAndGetInputFields() {
