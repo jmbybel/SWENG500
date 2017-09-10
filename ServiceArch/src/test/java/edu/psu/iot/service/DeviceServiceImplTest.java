@@ -14,8 +14,8 @@ public class DeviceServiceImplTest {
 
 	private DeviceServiceImpl objectUnderTest = new DeviceServiceImpl();
 	
-	//the expectation of this test is that the returning object would be a File with the same data as the initial Device, 
-	//ready to be sent for download by the user
+	// the expectation of this test is that the returning object would be a File with the same data as the initial Device, 
+	// ready to be sent for download by the user
 	@Test
 	public void getDataGeneratorAsDownloadbleFile_producesFileWithSameData() {
 		Device anExistingDevice = new Device();
