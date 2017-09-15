@@ -1,5 +1,7 @@
 package edu.psu.iot.object;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import edu.psu.iot.object.intf.JsonObject;
@@ -13,6 +15,9 @@ public class Sensor extends JsonObject {
 	private Long dataPushMaximumMilliseconds;
 	
 	private Map<String, String> inputFields;
+	
+	//moved into Sensor
+	private List<DevicePayload> payloads = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -44,6 +49,14 @@ public class Sensor extends JsonObject {
 
 	public void setDataPushMaximumMilliseconds(Long dataPushMaximumMilliseconds) {
 		this.dataPushMaximumMilliseconds = dataPushMaximumMilliseconds;
+	}
+	
+	public List<DevicePayload> getPayloads() {
+		return payloads;
+	}
+
+	public void setPayloads(List<DevicePayload> payloads) {
+		this.payloads = payloads;
 	}
 	
 	

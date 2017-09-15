@@ -2,7 +2,9 @@ package edu.psu.iot.object;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Before;
@@ -52,6 +54,17 @@ public class SensorTest {
 		objectUnderTest.setDataPushMaximumMilliseconds(1000L);
 		objectUnderTest.setDataPushMinimumMilliseconds(1001L);
 		objectUnderTest.setInputFields(new HashMap<>());
+	}
+	
+	//verify set and get Payloads works as intended
+	@Test
+	public void test_setAndGetPayloads() {
+		DevicePayload aPayload = new DevicePayload();
+		aPayload.setId(999L);
+		List<DevicePayload> samplePayloads = new ArrayList<>();
+		samplePayloads.add(aPayload);
+		objectUnderTest.setPayloads(samplePayloads);
+		assertEquals(objectUnderTest.getPayloads(), samplePayloads);
 	}
 
 	//TODO more work going to be needed for a full test!
