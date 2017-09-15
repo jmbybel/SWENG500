@@ -1,1 +1,1 @@
-Frontend for Team 1's SWENG 500 project.
+Web Server for Team 1's SWENG 500 project.
