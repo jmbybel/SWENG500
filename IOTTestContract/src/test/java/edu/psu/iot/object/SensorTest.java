@@ -24,7 +24,60 @@ public class SensorTest {
 		populateObject();
 	}
 
+	//verify set and get name work as intended
+	@Test
+	public void test_setAndGetName() {
+		objectUnderTest.setName("tester");
+		assertEquals(objectUnderTest.getName(), "tester");
+		
+	}
 	
+	//verify set and get Id work as intended
+	@Test
+	public void test_setAndGetId() {
+		Long test = new Long(33258L);
+		objectUnderTest.setId(test.longValue());
+		assertEquals(objectUnderTest.getId(), test);
+	}
+	
+	//verify set and get value work as intended
+	@Test
+	public void test_setAndGetValue() {
+		Long test = new Long(80L);
+		objectUnderTest.setValue(test.longValue());
+		assertEquals(objectUnderTest.getValue(), test);
+	}
+	
+	//verify set and get floor work as intended
+	@Test
+	public void test_setAndGetFloor() {
+		Long test = new Long(20L);
+		objectUnderTest.setFloor(test.longValue());
+		assertEquals(objectUnderTest.getFloor(), test);
+	}
+	
+	//verify set and get ceil work as intended
+	@Test
+	public void test_setAndGetCeil() {
+		Long test = new Long(1002L);
+		objectUnderTest.setCeil(test.longValue());
+		assertEquals(objectUnderTest.getCeil(), test);
+	}
+	
+	//verify set and get sensor type work as intended
+	@Test
+	public void test_setAndGetSensorType() {
+		objectUnderTest.setSensorType("Random");
+		assertEquals(objectUnderTest.getSensorType(), "Random");
+	}
+	
+	//verify set and get interval work as intended
+	@Test
+	public void test_setAndGetInterval() {
+		int test = 2;
+		objectUnderTest.setInterval(test);
+		assertEquals(objectUnderTest.getInterval(), test);
+	}
 	
 	//verify set and get expiration work as intended
 	@Test
