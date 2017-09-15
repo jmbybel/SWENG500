@@ -1,15 +1,30 @@
 import static spark.Spark.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
-    	exception(Exception.class, (e, req, res) -> e.printStackTrace()); // print all exceptions
+    	configureExceptionHandling();
         enableCORS();
-    	
+
+        // In-memory data store for POC
+        List<String> deviceList = new ArrayList<String>();
+        
+        get("/get-all-devices", (request, response) -> {
+        	System.out.println(String.format("Returning: %s", deviceList.toString()));
+        	return deviceList.toString();
+        });
+        
         post("/create-new-device", (request, response) -> {
         	System.out.println(String.format("Creating Device: %s", request.body()));
-
+        	deviceList.add(request.body());
         	return String.format("Success! Device Created: %s", request.body());
         });
+    }
+    
+    private static void configureExceptionHandling() {
+    	exception(Exception.class, (e, req, res) -> e.printStackTrace()); // print all exceptions
     }
     
     private static void enableCORS() {

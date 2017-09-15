@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, NavLink, Route } from 'react-router-dom';
 import HomePage from './HomePage';
+import NewDevicePage from '../containers/NewDevicePage';
 
 // This is a class-based component because the current
 // version of hot reloading won't hot reload a stateless
@@ -20,6 +21,7 @@ class App extends React.Component {
         </div>
         <Switch>
           <Route exact path="/" component={HomePage} />
+          <Route exact path="/create-new-device" component={NewDevicePage} />
         </Switch>
       </div>
     );
