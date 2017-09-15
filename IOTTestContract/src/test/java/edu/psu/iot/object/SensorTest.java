@@ -2,7 +2,10 @@ package edu.psu.iot.object;
 
 import static org.junit.Assert.assertEquals;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,54 +20,43 @@ public class SensorTest {
 	private Sensor objectUnderTest = new Sensor();
 
 	@Before
-	public void setUp() {
+	public void setUp() throws ParseException {
 		populateObject();
 	}
 
-	//verify set and get inputFields work as intended
-	@Test
-	public void test_setAndGetInputFields() {
-		populateObject();
-		Map<String, String> sampleInputData = new HashMap<>();
-		sampleInputData.put("new field", "new value");
-		objectUnderTest.setInputFields(sampleInputData);
-		assertEquals(objectUnderTest.getInputFields(), sampleInputData);
-	}
-
-	//verify set and get DataPushMinimumMilliseconds works as intended
-	@Test
-	public void test_setAndGetDataPushMinimumMilliseconds() {
-		objectUnderTest.setDataPushMinimumMilliseconds(400L);
-		long test = new Long(400L);
-		long objTest = new Long(objectUnderTest.getDataPushMinimumMilliseconds());
-		assertEquals(objTest, test);
-	}
 	
-	//verify set and get DataPushMaximumMilliseconds works as intended
-	@Test
-	public void test_setAndGetDataPushMaximumMilliseconds() {
-		objectUnderTest.setDataPushMaximumMilliseconds(2000L);
-		long test = new Long(2000L);
-		long objTest = new Long(objectUnderTest.getDataPushMaximumMilliseconds());
-		assertEquals(objTest, test);
-	}
 	
-	private void populateObject() {
-		objectUnderTest.setId(123L);
-		objectUnderTest.setDataPushMaximumMilliseconds(1000L);
-		objectUnderTest.setDataPushMinimumMilliseconds(1001L);
-		objectUnderTest.setInputFields(new HashMap<>());
+	//verify set and get expiration work as intended
+	@Test
+	public void test_setAndGetExpiration() throws ParseException {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+		String strDate = "30/09/2017 11:30:12";
+		Date dateTest = dateFormat.parse(strDate);
+		objectUnderTest.setExpiration(dateTest);
+		assertEquals(objectUnderTest.getExpiration(), dateTest);
 	}
 	
 	//verify set and get Payloads works as intended
 	@Test
 	public void test_setAndGetPayloads() {
-		DevicePayload aPayload = new DevicePayload();
+		Payload aPayload = new Payload();
 		aPayload.setId(999L);
-		List<DevicePayload> samplePayloads = new ArrayList<>();
+		List<Payload> samplePayloads = new ArrayList<>();
 		samplePayloads.add(aPayload);
 		objectUnderTest.setPayloads(samplePayloads);
 		assertEquals(objectUnderTest.getPayloads(), samplePayloads);
+	}
+	
+	private void populateObject() throws ParseException {
+		objectUnderTest.setId(123L);
+		objectUnderTest.setName("Test Sensor");
+		objectUnderTest.setValue(100L);
+		objectUnderTest.setFloor(20L);
+		objectUnderTest.setCeil(1000L);
+		objectUnderTest.setSensorType("Sine");
+		objectUnderTest.setInterval(1);
+		objectUnderTest.setExpiration(new Date());
+		objectUnderTest.setPayloads(new ArrayList<>());
 	}
 
 	//TODO more work going to be needed for a full test!

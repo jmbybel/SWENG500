@@ -14,7 +14,7 @@ public class DevicePayloadTest {
 	// Should set the DevicePayload id and return the same id when calling the getter
 	public void test_setAndGetId() {
 		// Arrange
-		DevicePayload objectUnderTest = new DevicePayload();
+		Payload objectUnderTest = new Payload();
 		Long expectedId = new Long(33258L);
 		Long actualId;
 
@@ -30,7 +30,7 @@ public class DevicePayloadTest {
 	// Should set the DevicePayload CreatedDateTime and return the same CreatedDateTime when calling the getter
 	public void test_setAndGetCreatedDateTime() {
 		// Arrange
-		DevicePayload objectUnderTest = new DevicePayload();
+		Payload objectUnderTest = new Payload();
 		Date expectedDateTime = new Date();
 		Date actualDateTime;
 		
@@ -46,7 +46,7 @@ public class DevicePayloadTest {
 	// Should set the DevicePayload PayloadData and return the same PayloadData when calling the getter
 	public void test_setAndGetPayloadData() {
 		// Arrange
-		DevicePayload objectUnderTest = new DevicePayload();
+		Payload objectUnderTest = new Payload();
 		Map<String, String> expectedPayloadData = new HashMap<String, String>();
 		expectedPayloadData.put("testKey", "testValue");
 		Map<String, String> actualPayloadData;
