@@ -4,7 +4,6 @@ import NewDeviceTextInput from './NewDeviceTextInput';
 import { 
   PageHeader, 
   Button,
-  Label,
 } from 'react-bootstrap';
 
 class NewDeviceForm extends React.Component {
@@ -32,12 +31,14 @@ class NewDeviceForm extends React.Component {
     const {
       props: {
         saveNewDevice,
+        onHistoryChanged,
         history,
       },
     } = this;
 
     saveNewDevice(this.state.device);
     history.push('/view-devices');
+    onHistoryChanged('/view-devices');
   }
 
   render() {
@@ -67,7 +68,7 @@ class NewDeviceForm extends React.Component {
           className={'saveButton'}
           bsStyle="primary"
           onClick={this.save}>
-          Save
+          Save
         </Button>
       </section>
     );

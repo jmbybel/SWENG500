@@ -6,30 +6,17 @@ class MainMenu extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this.navItemKeyToUriMap = new Map([
-      [
-        1,
-        '/',
-      ],
-      [
-        2,
-        '/create-new-device',
-      ],
-      [
-        3,
-        '/view-devices',
-      ],
-    ]);
     this.onSelect = this.onSelect.bind(this);
   }
 
   onSelect(selectedKey) {
     const {
       props: {
+        navItemKeyToUriMap,
         onSelect,
       }
     } = this;
-    const path = this.navItemKeyToUriMap.get(selectedKey);
+    const path = navItemKeyToUriMap[selectedKey - 1].value;
 
     onSelect(selectedKey, path);
   }

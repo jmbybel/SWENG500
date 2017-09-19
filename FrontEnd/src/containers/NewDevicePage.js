@@ -10,7 +10,8 @@ export const NewDevicePage = (props) => {
     <NewDeviceForm
       device={props.device}
       history={props.history}
-      saveNewDevice={props.actions.saveNewDevice} />
+      saveNewDevice={props.actions.saveNewDevice}
+      onHistoryChanged={props.onHistoryChanged} />
   );
 };
 

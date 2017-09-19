@@ -14,10 +14,25 @@ class App extends React.Component {
   constructor(props, context) {
     super(props, context);
 
+    this.navItemKeyToUriMap = [
+      {
+        key: 1,
+        value: '/',
+      },
+      {
+        key: 2,
+        value: '/create-new-device',
+      },
+      {
+        key: 3,
+        value: '/view-devices',
+      },
+    ];
     this.state = {
       selectedTab: 1,
     };
     this.onSelect = this.onSelect.bind(this);
+    this.onHistoryChanged = this.onHistoryChanged.bind(this);
   }
 
   onSelect(selectedTab, path) {
@@ -34,6 +49,14 @@ class App extends React.Component {
       history.push(path);
     });
   }
+
+  onHistoryChanged(path) {
+    const selectedTab = this.navItemKeyToUriMap.find(element => element.value === path).key;
+
+    this.setState({
+      selectedTab,
+    });
+  }
   
   render() {
     const {
@@ -44,12 +67,10 @@ class App extends React.Component {
 
     return (
       <section>
-        <MainMenu 
-          selectedTab={selectedTab}
-          onSelect={this.onSelect} />
+        <MainMenu selectedTab={selectedTab} onSelect={this.onSelect} navItemKeyToUriMap={this.navItemKeyToUriMap} />
         <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route exact path="/create-new-device" component={NewDevicePage} />
+          <Route exact path="/" component={() => <HomePage history={this.props.history} onHistoryChanged={this.onHistoryChanged} />} />
+          <Route exact path="/create-new-device" component={() => <NewDevicePage history={this.props.history} onHistoryChanged={this.onHistoryChanged} />} />
           <Route exact path="/view-devices" component={DevicesPage} />
         </Switch>
       </section>
