@@ -1,6 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import NewDeviceTextInput from './NewDeviceTextInput';
+import { 
+  PageHeader, 
+  Button,
+  Label,
+} from 'react-bootstrap';
 
 class NewDeviceForm extends React.Component {
   constructor(props, context) {
@@ -24,7 +29,15 @@ class NewDeviceForm extends React.Component {
   }
 
   save() {
-    this.props.saveNewDevice(this.state.device);
+    const {
+      props: {
+        saveNewDevice,
+        history,
+      },
+    } = this;
+
+    saveNewDevice(this.state.device);
+    history.push('/view-devices');
   }
 
   render() {
@@ -35,25 +48,35 @@ class NewDeviceForm extends React.Component {
     } = this;
 
     return (
-      <div>
-        <h2>New Device Form</h2>
-        <table>
-          <tbody>
-            <tr>
-              <td><label htmlFor="device">New Device Name</label></td>
-              <td><NewDeviceTextInput name="device" value={device.name} onChange={this.newDeviceKeypress} /></td>
-            </tr>
-          </tbody>
-        </table>
-        <br/>
-        <input type="submit" value="Save" onClick={this.save}/>
-      </div>
+      <section 
+        className={'newDeviceForm'}>
+        <PageHeader>
+          New Device Form
+        </PageHeader>
+        <div
+          className={'input'}>
+          <span
+            className={'labelSpan'}>
+            New Device Name
+          </span>
+          <NewDeviceTextInput
+            value={device.name}
+            onChange={this.newDeviceKeypress} />
+        </div>
+        <Button
+          className={'saveButton'}
+          bsStyle="primary"
+          onClick={this.save}>
+          Save
+        </Button>
+      </section>
     );
   }
 }
 
 NewDeviceForm.propTypes = {
   device: PropTypes.object,
+  history: PropTypes.object,
   saveNewDevice: PropTypes.func.isRequired,
 };
 

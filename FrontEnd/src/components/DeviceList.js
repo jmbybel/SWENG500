@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { PageHeader } from 'react-bootstrap';
 
 class DeviceList extends React.Component {
   constructor(props, context) {
@@ -11,9 +12,9 @@ class DeviceList extends React.Component {
   mapDevices(devices) {
     return devices.length > 0
       ? devices.map((device, index) => (
-          <tr key={index}>
-            <td>{device.device.name}</td>
-          </tr>
+          <div key={index}>
+            {device.device.name}
+          </div>
         ))
       : null;
   }
@@ -26,18 +27,10 @@ class DeviceList extends React.Component {
     } = this;
 
     return (
-      <div>
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.mapDevices(devices)}
-          </tbody>
-        </table>
-      </div>
+      <section>
+        <PageHeader>Device List</PageHeader>
+        {this.mapDevices(devices)}
+      </section>
     );
   }
 }

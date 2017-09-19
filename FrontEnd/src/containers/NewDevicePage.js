@@ -9,12 +9,14 @@ export const NewDevicePage = (props) => {
   return (
     <NewDeviceForm
       device={props.device}
+      history={props.history}
       saveNewDevice={props.actions.saveNewDevice} />
   );
 };
 
 NewDevicePage.propTypes = {
   device: PropTypes.object,
+  history: PropTypes.object,
   actions: PropTypes.object.isRequired,
 };
 

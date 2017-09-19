@@ -31,6 +31,7 @@
   "dependencies": {
     "object-assign": "4.1.0",
     "react": "15.5.4",
+    "react-bootstrap": "0.31.3",
     "react-dom": "15.5.4",
     "react-redux": "5.0.5",
     "react-router-dom": "4.0.0",
