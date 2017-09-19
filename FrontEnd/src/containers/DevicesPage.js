@@ -3,24 +3,23 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as deviceActions from '../actions/deviceActions';
-import NewDeviceForm from '../components/NewDeviceForm';
+import DeviceList from '../components/DeviceList';
 
-export const NewDevicePage = (props) => {
+export const DevicesPage = (props) => {
   return (
-    <NewDeviceForm
-      device={props.device}
-      saveNewDevice={props.actions.saveNewDevice} />
+    <DeviceList
+      devices={props.devices.devices} />
   );
 };
 
-NewDevicePage.propTypes = {
-  device: PropTypes.object,
+DevicesPage.propTypes = {
+  devices: PropTypes.object,
   actions: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
-    device: state.device,
+    devices: state.devices,
   };
 }
 
@@ -33,4 +32,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(NewDevicePage);
+)(DevicesPage);

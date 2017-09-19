@@ -7,40 +7,30 @@ class NewDeviceForm extends React.Component {
     super(props, context);
 
     this.state = {
-      newDeviceName: props.newDeviceName,
+      device: {
+        name: '',
+      }
     };
-    this.mapDevices = this.mapDevices.bind(this);
     this.newDeviceKeypress = this.newDeviceKeypress.bind(this);
     this.save = this.save.bind(this);
   }
 
-  mapDevices(devices) {
-    return devices
-      ? devices.map((device, index) => (
-          <tr key={index}>
-            <td>{device.name}</td>
-          </tr>
-        ))
-      : null;
-  }
-
   newDeviceKeypress(name, value) {
     this.setState({
-      newDeviceName: value,
+      device: {
+        name: value,
+      },
     });
   }
 
   save() {
-    this.props.saveNewDevice(this.state.newDeviceName);
+    this.props.saveNewDevice(this.state.device);
   }
 
   render() {
     const {
-      props: {
-        devices,
-      },
       state: {
-        newDeviceName,
+        device,
       },
     } = this;
 
@@ -50,33 +40,20 @@ class NewDeviceForm extends React.Component {
         <table>
           <tbody>
             <tr>
-              <td><label htmlFor="newDeviceName">New Device Name</label></td>
-              <td><NewDeviceTextInput name="newDeviceName" value={newDeviceName} onChange={this.newDeviceKeypress} /></td>
+              <td><label htmlFor="device">New Device Name</label></td>
+              <td><NewDeviceTextInput name="device" value={device.name} onChange={this.newDeviceKeypress} /></td>
             </tr>
           </tbody>
         </table>
         <br/>
         <input type="submit" value="Save" onClick={this.save}/>
-        <br />
-        <br />
-        <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.mapDevices(devices)}
-        </tbody>
-      </table>
       </div>
     );
   }
 }
 
 NewDeviceForm.propTypes = {
-  devices: PropTypes.array,
-  newDeviceName: PropTypes.string,
+  device: PropTypes.object,
   saveNewDevice: PropTypes.func.isRequired,
 };
 

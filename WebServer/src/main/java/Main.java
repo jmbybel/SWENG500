@@ -19,7 +19,7 @@ public class Main {
         post("/create-new-device", (request, response) -> {
         	System.out.println(String.format("Creating Device: %s", request.body()));
         	deviceList.add(request.body());
-        	return String.format("Success! Device Created: %s", request.body());
+        	return String.format(request.body());
         });
     }
     

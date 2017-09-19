@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Switch, NavLink, Route } from 'react-router-dom';
 import HomePage from './HomePage';
 import NewDevicePage from '../containers/NewDevicePage';
+import DevicesPage from '../containers/DevicesPage';
 
 // This is a class-based component because the current
 // version of hot reloading won't hot reload a stateless
@@ -18,10 +19,13 @@ class App extends React.Component {
           <NavLink exact to="/" activeStyle={activeStyle}>Home</NavLink>
           {' | '}
           <NavLink to="/create-new-device" activeStyle={activeStyle}>Create New Device</NavLink>
+          {' | '}
+          <NavLink to="/view-devices" activeStyle={activeStyle}>View Devices</NavLink>
         </div>
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/create-new-device" component={NewDevicePage} />
+          <Route exact path="/view-devices" component={DevicesPage} />
         </Switch>
       </div>
     );
