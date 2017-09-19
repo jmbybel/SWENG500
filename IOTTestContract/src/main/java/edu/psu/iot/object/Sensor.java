@@ -1,19 +1,42 @@
 package edu.psu.iot.object;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import edu.psu.iot.object.intf.JsonObject;
 
 public class Sensor extends JsonObject {
 
+	private String name;
+	
 	private Long id;
-
-	private Long dataPushMinimumMilliseconds;
 	
-	private Long dataPushMaximumMilliseconds;
+	private Long value;
 	
-	private Map<String, String> inputFields;
+	//TODO check default values for floor and ceil
+	private Long floor = 0L;
+	
+	private Long ceil = 100L;
+	
+	//Will be either Sine, Ramp, Binary, or Random
+	private String sensorType;
+	
+	private int interval;
+	
+	private Date expiration = new Date();
+	
+	private List<Payload> payloads = new ArrayList<>();
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -21,29 +44,61 @@ public class Sensor extends JsonObject {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public Map<String, String> getInputFields() {
-		return inputFields;
+	
+	public Long getValue() {
+		return value;
 	}
 
-	public void setInputFields(Map<String, String> inputFields) {
-		this.inputFields = inputFields;
+	public void setValue(Long value) {
+		this.value = value;
+	}
+	
+	public Long getFloor() {
+		return floor;
 	}
 
-	public Long getDataPushMinimumMilliseconds() {
-		return dataPushMinimumMilliseconds;
+	public void setFloor(Long floor) {
+		this.floor = floor;
+	}
+	
+	public Long getCeil() {
+		return ceil;
 	}
 
-	public void setDataPushMinimumMilliseconds(Long dataPushMinimumMilliseconds) {
-		this.dataPushMinimumMilliseconds = dataPushMinimumMilliseconds;
+	public void setCeil(Long ceil) {
+		this.ceil = ceil;
+	}
+	
+	public String getSensorType() {
+		return sensorType;
 	}
 
-	public Long getDataPushMaximumMilliseconds() {
-		return dataPushMaximumMilliseconds;
+	public void setSensorType(String sensorType) {
+		this.sensorType = sensorType;
+	}
+	
+	public int getInterval() {
+		return interval;
 	}
 
-	public void setDataPushMaximumMilliseconds(Long dataPushMaximumMilliseconds) {
-		this.dataPushMaximumMilliseconds = dataPushMaximumMilliseconds;
+	public void setInterval(int interval) {
+		this.interval = interval;
+	}
+	
+	public Date getExpiration() {
+		return expiration;
+	}
+
+	public void setExpiration(Date expiration) {
+		this.expiration = expiration;
+	}
+	
+	public List<Payload> getPayloads() {
+		return payloads;
+	}
+
+	public void setPayloads(List<Payload> payloads) {
+		this.payloads = payloads;
 	}
 	
 	

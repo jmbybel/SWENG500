@@ -2,6 +2,7 @@ package edu.psu.iot.object;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -15,9 +16,9 @@ public class Device extends JsonObject{
 	private String name;
 	
 	private List<Sensor> sensors = new ArrayList<>();
-
-	///TODO attach this to the sensor instead of device?
-	private List<DevicePayload> payloads = new ArrayList<>();
+	
+	//TODO check default expiration?
+	private Date expiration = new Date();  
 	
 	public Device() {
 		
@@ -29,7 +30,6 @@ public class Device extends JsonObject{
 		this.name = "copy of " + copyFrom.getName();
 		this.sensors = new ArrayList<>(copyFrom.getSensors());
 	}
-	
 
 	public Long getId() {
 		return id;
@@ -47,20 +47,20 @@ public class Device extends JsonObject{
 		this.name = name;
 	}
 
-	public List<DevicePayload> getPayloads() {
-		return payloads;
-	}
-
-	public void setPayloads(List<DevicePayload> payloads) {
-		this.payloads = payloads;
-	}
-
 	public List<Sensor> getSensors() {
 		return sensors;
 	}
 
 	public void setSensors(List<Sensor> sensors) {
 		this.sensors = sensors;
+	}
+	
+	public Date getExpiration() {
+		return expiration;
+	}
+
+	public void setExpiration(Date expiration) {
+		this.expiration = expiration;
 	}
 
 }

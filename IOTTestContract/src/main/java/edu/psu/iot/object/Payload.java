@@ -7,7 +7,7 @@ import edu.psu.iot.object.intf.JsonObject;
 
 // An individual set of fields sent from a device to the endpoint, timestamped with when it was created.
 //TODO confirm name.
-public class DevicePayload extends JsonObject {
+public class Payload extends JsonObject {
 
 	private Long id;
 	
