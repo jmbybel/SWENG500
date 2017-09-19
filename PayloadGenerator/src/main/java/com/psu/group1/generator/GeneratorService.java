@@ -14,13 +14,11 @@ import java.util.concurrent.TimeUnit;
  * Hello world!
  *
  */
-public class App 
+public class GeneratorService 
 {
-    public static void main( String[] args )
+    GeneratorService()
     {
-    	
-        System.out.println( "Hello World!" );
-        Payload payload = new Payload();
+    	Payload payload = new Payload();
         ScheduledExecutorService ses = Executors.newScheduledThreadPool(5);
         ses.scheduleAtFixedRate(payload, 0, 5, TimeUnit.SECONDS);
 
