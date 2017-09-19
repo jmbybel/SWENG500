@@ -8,7 +8,7 @@ public class Main {
     	configureExceptionHandling();
         enableCORS();
 
-        // In-memory data store for POC
+        // In-memory data store for PoC
         List<String> deviceList = new ArrayList<String>();
         
         get("/get-all-devices", (request, response) -> {
