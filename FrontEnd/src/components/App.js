@@ -14,18 +14,18 @@ class App extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this.navItemKeyToUriMap = [
+    this.navItemEventKeyToUriArray = [
       {
-        key: 1,
-        value: '/',
+        navItemKey: 1,
+        uri: '/',
       },
       {
-        key: 2,
-        value: '/create-new-device',
+        navItemKey: 2,
+        uri: '/create-new-device',
       },
       {
-        key: 3,
-        value: '/view-devices',
+        navItemKey: 3,
+        uri: '/view-devices',
       },
     ];
     this.state = {
@@ -51,7 +51,7 @@ class App extends React.Component {
   }
 
   onHistoryChanged(path) {
-    const selectedTab = this.navItemKeyToUriMap.find(element => element.value === path).key;
+    const selectedTab = this.navItemEventKeyToUriArray.find(element => element.uri === path).navItemKey;
 
     this.setState({
       selectedTab,
@@ -67,7 +67,7 @@ class App extends React.Component {
 
     return (
       <section>
-        <MainMenu selectedTab={selectedTab} onSelect={this.onSelect} navItemKeyToUriMap={this.navItemKeyToUriMap} />
+        <MainMenu selectedTab={selectedTab} onSelect={this.onSelect} navItemEventKeyToUriArray={this.navItemEventKeyToUriArray} />
         <Switch>
           <Route exact path="/" component={() => <HomePage history={this.props.history} onHistoryChanged={this.onHistoryChanged} />} />
           <Route exact path="/create-new-device" component={() => <NewDevicePage history={this.props.history} onHistoryChanged={this.onHistoryChanged} />} />

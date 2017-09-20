@@ -12,11 +12,11 @@ class MainMenu extends React.Component {
   onSelect(selectedKey) {
     const {
       props: {
-        navItemKeyToUriMap,
+        navItemEventKeyToUriArray,
         onSelect,
       }
     } = this;
-    const path = navItemKeyToUriMap[selectedKey - 1].value;
+    const path = navItemEventKeyToUriArray[selectedKey - 1].uri;
 
     onSelect(selectedKey, path);
   }
@@ -45,6 +45,7 @@ class MainMenu extends React.Component {
 }
 
 MainMenu.propTypes = {
+  navItemEventKeyToUriArray: PropTypes.array,
   selectedTab: PropTypes.number,
   onSelect: PropTypes.func,
 };

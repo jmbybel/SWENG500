@@ -1,13 +1,17 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from 'enzyme';
 import HomePage from './HomePage';
 
 describe('<HomePage />', () => {
-    it('should have a header called \'Team 1 - IoT Project- SWENG500\'', () => {
-      const wrapper = shallow(<HomePage />);
+    it('should have a header called \'Mock IoT Data Generator Project\'', () => {
+      // Arrange
+      const expected = 'Mock IoT Data Generator Project';
+
+      // Act
+      const wrapper = render(<HomePage />);
       const actual = wrapper.find('h1').text();
-      const expected = 'Team 1 - IoT Project- SWENG500';
-  
+      
+      // Assert
       expect(actual).toEqual(expected);
     });
   });
