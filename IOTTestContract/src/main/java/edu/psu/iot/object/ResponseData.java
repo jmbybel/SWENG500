@@ -7,7 +7,7 @@ import edu.psu.iot.object.intf.JsonObject;
 
 // data received from the endpoint under test.
 // TODO this needs to relate to a single device, a single payload, or a cluster of devices in some meaningful way but I don't know how.
-public class EndpointResponseData extends JsonObject {
+public class ResponseData extends JsonObject {
 
 	private Long id;
 	
