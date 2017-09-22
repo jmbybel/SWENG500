@@ -16,11 +16,10 @@ import java.util.concurrent.TimeUnit;
  */
 public class GeneratorService 
 {
-    GeneratorService()
+    public static void main(String[] args)
     {
     	Payload payload = new Payload();
         ScheduledExecutorService ses = Executors.newScheduledThreadPool(5);
         ses.scheduleAtFixedRate(payload, 0, 5, TimeUnit.SECONDS);
-
     }
 }
