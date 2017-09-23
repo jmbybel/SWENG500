@@ -4,6 +4,8 @@ import java.io.File;
 
 import edu.psu.iot.object.Device;
 import edu.psu.iot.object.DeviceCluster;
+import edu.psu.iot.object.Payload;
+import edu.psu.iot.object.ResponseData;
 import edu.psu.iot.object.Sensor;
 
 //TODO don't even 
@@ -25,15 +27,24 @@ public interface DeviceService {
 	//CRUD delete
 	public boolean deleteDevice(String id);
 	//copy
-	public Device cloneDevice(String id);
-	
+	public Device cloneDevice(Device original);
+	public Device insertUpdateDevice(Device device);
+	/*
 	public DeviceCluster getClusterByID(String id);
 	public boolean deleteCluster(String id);
-	public DeviceCluster cloneCluster(String id);
-	public DeviceCluster updateCluster(DeviceCluster cluster);
-	
+	public DeviceCluster cloneCluster(DeviceCluster original);
+	public DeviceCluster insertUpdateCluster(DeviceCluster cluster);
+	*/
 	public Sensor getSensorById(String id);
 	public boolean deleteSensor(String id);
-	public Sensor cloneSensor(String id);
-	public Sensor updateSensor(Sensor sensor);
+	public Sensor cloneSensor(Sensor original);
+	public Sensor insertUpdateSensor(Sensor sensor);
+
+	public Payload getPayloadById(String id);
+	public boolean deletePayload(String id);
+	public Payload insertPayload(Payload sensor);
+	
+	public ResponseData getResponseDataById(String id);
+	public boolean deleteResponseData(String id);
+	public ResponseData insertResponseData(ResponseData sensor);
 }

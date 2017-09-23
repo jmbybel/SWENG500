@@ -19,16 +19,7 @@
     
   </build>
   <dependencies>
-  	<dependency>
-    <groupId>com.vaadin</groupId>
-    <artifactId>vaadin-server</artifactId>
-    <version>8.1.2</version>
-</dependency>
-<dependency>
-    <groupId>com.vaadin</groupId>
-    <artifactId>vaadin-client-compiled</artifactId>
-    <version>8.1.2</version>
-</dependency>
+  	
   	<dependency>
   		<groupId>junit</groupId>
   		<artifactId>junit</artifactId>

@@ -1,6 +1,11 @@
 package edu.psu.iot.persistence;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
+
+import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,6 +17,8 @@ import com.mongodb.MongoSocketOpenException;
 
 import edu.psu.iot.database.MongoDbPersistence;
 import edu.psu.iot.object.Device;
+import edu.psu.iot.object.Payload;
+import edu.psu.iot.object.ResponseData;
 import edu.psu.iot.object.Sensor;
 
 public class MongoDbPersistenceTest {
@@ -45,30 +52,88 @@ public class MongoDbPersistenceTest {
 	}
 	
 	/**
-	 * Insert an object into the Device collection, and then check that the single Sensor added can be retrieved from the database
-	 * and that its name matches the original one...
-	 * Saving a Sensor as a separate Collection requries a bit more work, but may not be necessary if we really only save Devices here.
+	 * perform all CRUD operations for a device.
 	 */
 	@Test
-	public void insertDeviceAndGetSensor() {
-
-		Device resultDevice= null;
-		 try {
-			 Device d = new Device();
-			 Sensor s = new Sensor();
-			 s.setName("sampleSensor.");
-			 d.getSensors().add(s);
-			 d.setName("SAMPLER");
-		 
-			 
-			 resultDevice = objectUnderTest.createUpdateDevice(d);
+	public void deviceCrud() {
+			 Device initialDevice = new Device();
+			 initialDevice.setName("SAMPLER");
+			 Device resultDevice = objectUnderTest.createDevice(initialDevice);//create
+			 resultDevice.setName("NewName");
 			 System.out.println(resultDevice.getId());
-			 if (!d.getSensors().get(0).getName().equals(resultDevice.getSensors().get(0).getName())) {//rehydrated sensor is the same name as original
-				 fail();
-			 }
-		 } finally {//if this is connected to the database, clean up.
-			 objectUnderTest.deleteDevice(resultDevice.getId());
-		 }
+			 objectUnderTest.updateDevice(resultDevice);//update
+			 Device readResultDevice = objectUnderTest.readDeviceById(resultDevice.getId());//read
+			 assertEquals(resultDevice.getName(), readResultDevice.getName());
+
+			 assertTrue(objectUnderTest.deleteDevice(resultDevice.getId()));
 	}
 	
+	/**
+	 * perform all CRUD operations for a sensor.
+	 */
+	@Test
+	public void sensorCrud() {
+			 Sensor initialObject = new Sensor();
+			 initialObject.setName("sampleSensor.");
+			 Sensor resultSensor = objectUnderTest.createSensor(initialObject);//create
+			 resultSensor.setName("NewName");
+			 objectUnderTest.updateSensor(resultSensor);//update
+			 Sensor readResult = objectUnderTest.readSensorById(resultSensor.getId());//read
+			 assertEquals(resultSensor.getName(), readResult.getName());
+			 assertTrue(objectUnderTest.deleteSensor(resultSensor.getId()));
+	}
+	
+	/**
+	 * Payload does not have Update operations available.
+	 */
+	@Test
+	public void payloadCrd() {
+			 Payload initialObject = new Payload();
+			 initialObject.setCreatedDateTime(new Date());
+			 Payload resultPayload = objectUnderTest.createPayload(initialObject);//create
+			 Payload readResult = objectUnderTest.readPayloadById(resultPayload.getId());//read
+			 assertEquals(resultPayload.getCreatedDateTime(), readResult.getCreatedDateTime());
+			 assertTrue(objectUnderTest.deletePayload(resultPayload.getId()));
+
+	}
+	
+	@Test(expected=UnsupportedOperationException.class)
+	public void payloadUpdateFails() {
+		 objectUnderTest.updatePayload(new Payload());
+		 fail();//exception before getting here prevents this
+	}
+	
+	/**
+	 * ResponseData crud, also does not have Update operation available.
+	 */
+	@Test
+	public void responseDataCrd() {
+		ResponseData initialObject = new ResponseData();
+			 initialObject.setCreatedDateTime(new Date());
+			 ResponseData resultPayload = objectUnderTest.createResponseData(initialObject);//create
+			 ResponseData readResult = objectUnderTest.readResponseDataById(resultPayload.getId());//read
+			 assertEquals(resultPayload.getCreatedDateTime(), readResult.getCreatedDateTime());
+			 assertTrue(objectUnderTest.deleteResponseData(resultPayload.getId()));
+
+	}
+
+	
+	@Test(expected=UnsupportedOperationException.class)
+	public void responseDataUpdateFails() {
+		 objectUnderTest.updateResponseData(new ResponseData());
+		 fail();//exception before getting here prevents this
+	}
+
+	/**
+	 * Insert a device into the database, then delete it. then try to read that device's ID again. Should come up null.
+	 */
+	@Test
+	public void readNothing() {
+		 Device initialDevice = new Device();
+		 initialDevice = objectUnderTest.createDevice(initialDevice);//create
+		 objectUnderTest.deleteDevice(initialDevice.getId());
+		 Device readResultDevice = objectUnderTest.readDeviceById(initialDevice.getId());//read
+		 assertNull(readResultDevice);
+	}
+
 }
