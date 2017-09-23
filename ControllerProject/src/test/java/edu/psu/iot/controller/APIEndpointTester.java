@@ -1,5 +1,6 @@
 package edu.psu.iot.controller;
 
+import static org.junit.Assert.fail;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.*;
@@ -33,18 +34,18 @@ public class APIEndpointTester {
 	@Test
 	public void getDevice_returnsJsonDevice() {
 		Device deviceToJson = new Device();
-		deviceToJson.setId(1L);
+		deviceToJson.setId("1");
 		deviceToJson.setName("a sample device");
-		when(mockService.getDeviceById(any(Long.class))).thenReturn(deviceToJson);
-		String jsonObject = objectUnderTest.getDevice(1L);
+		when(mockService.getDeviceById(any(String.class))).thenReturn(deviceToJson);
+		String jsonObject = objectUnderTest.getDevice("1");
 		Gson gson = new Gson();
 		Device deviceFromJson =  gson.fromJson(jsonObject, Device.class);
 		assertEquals(deviceToJson.getId(), deviceFromJson.getId());
 	}
 
 	public void getDevice_badId_errorJson() {
-		when(mockService.getDeviceById(any(Long.class))).thenReturn(null);
-		String jsonObject = objectUnderTest.getDevice(1L);
+		when(mockService.getDeviceById(any(String.class))).thenReturn(null);
+		String jsonObject = objectUnderTest.getDevice("1");
 		String[] errorText = jsonObject.split("error");
 		if (errorText.length == 1) {
 			fail();//if there is no error object in the returning JSON, fail.
@@ -56,10 +57,9 @@ public class APIEndpointTester {
 	@Test
 	public void getSensor_returnsJsonSensor() {
 		Sensor sensorToJson = new Sensor();
-		sensorToJson.setId(1L);
-		sensorToJson.setDataPushMaximumMilliseconds(100L);
-		when(mockService.getSensorById(any(Long.class))).thenReturn(sensorToJson);
-		String jsonObject = objectUnderTest.getSensor(1L);
+		sensorToJson.setId("1");
+		when(mockService.getSensorById(any(String.class))).thenReturn(sensorToJson);
+		String jsonObject = objectUnderTest.getSensor("1");
 		Gson gson = new Gson();
 		Sensor sensorFromJson =  gson.fromJson(jsonObject, Sensor.class);
 		assertEquals(sensorToJson.getId(), sensorFromJson.getId());
@@ -67,8 +67,8 @@ public class APIEndpointTester {
 	}
 
 	public void getSensor_badId_errorJson() {
-		when(mockService.getDeviceById(any(Long.class))).thenReturn(null);
-		String jsonObject = objectUnderTest.getSensor(1L);
+		when(mockService.getDeviceById(any(String.class))).thenReturn(null);
+		String jsonObject = objectUnderTest.getSensor("1");
 		String[] errorText = jsonObject.split("error");
 		if (errorText.length == 1) {
 			fail();//if there is no error object in the returning JSON, fail.

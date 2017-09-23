@@ -7,16 +7,17 @@ import org.junit.Test;
 import org.mongojack.JacksonDBCollection;
 import org.mongojack.WriteResult;
 
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoSocketOpenException;
 
+import edu.psu.iot.database.MongoDbPersistence;
 import edu.psu.iot.object.Device;
 import edu.psu.iot.object.Sensor;
 
 public class MongoDbPersistenceTest {
 
+	MongoDbPersistence objectUnderTest = new MongoDbPersistence();
+	
 	@Before
 	public void setUp() {
 		
@@ -50,28 +51,23 @@ public class MongoDbPersistenceTest {
 	 */
 	@Test
 	public void insertDeviceAndGetSensor() {
-		JacksonDBCollection<Device, String> jackCollection = null;
-		WriteResult<Device, String> mongoJackWriteResult = null;
-		 try {
 
-			MongoClient mongoClient = new MongoClient();
-			DB aDatabase = mongoClient.getDB("sweng500");
-			DBCollection collection = aDatabase.getCollection("device");
-			jackCollection = JacksonDBCollection.wrap(collection, Device.class, String.class);
-			 
+		Device resultDevice= null;
+		 try {
 			 Device d = new Device();
-				 Sensor s = new Sensor();
-				 s.setName("sampleSensor.");
+			 Sensor s = new Sensor();
+			 s.setName("sampleSensor.");
 			 d.getSensors().add(s);
 			 d.setName("SAMPLER");
-			 mongoJackWriteResult = jackCollection.insert(d);
-			 Device resultDevice = mongoJackWriteResult.getSavedObject();
+		 
+			 
+			 resultDevice = objectUnderTest.createUpdateDevice(d);
 			 System.out.println(resultDevice.getId());
 			 if (!d.getSensors().get(0).getName().equals(resultDevice.getSensors().get(0).getName())) {//rehydrated sensor is the same name as original
 				 fail();
 			 }
 		 } finally {//if this is connected to the database, clean up.
-//			 jackCollection.removeById(mongoJackWriteResult.getSavedId().toString());
+			 objectUnderTest.deleteDevice(resultDevice.getId());
 		 }
 	}
 	

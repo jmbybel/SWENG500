@@ -1,8 +1,8 @@
 package edu.psu.iot.controller;
 
 import edu.psu.iot.contract.DeviceService;
-
-//TODO actually a servlet. or whatever Spring gives us.
+import edu.psu.iot.object.Device;
+import edu.psu.iot.object.Sensor;
 
 public class APIEndpoint {
 
@@ -18,7 +18,6 @@ public class APIEndpoint {
 	private static final String URI_PART_PAYLOAD = "payload";
 	private static final String URI_PART_RESPONSE = "response";
 	
-	//TODO if we're using spring add autowiring here.
 	private DeviceService deviceService;
 	
 	/*
@@ -27,5 +26,13 @@ public class APIEndpoint {
 	}
 	*/
 
+	public String getDevice(String id) {
+		Device d = deviceService.getDeviceById(id);
+		return d.toJson();
+	}
 	
+	public String getSensor(String id) {
+		Sensor s = deviceService.getSensorById(id);
+		return s.toJson();
+	}
 }

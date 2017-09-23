@@ -21,19 +21,19 @@ public interface DeviceService {
 	public void updateDataGeneratorInputFields(Device theDeviceToAlter);
 	
 	//CRUD read
-	public Device getDeviceById(Long id);
+	public Device getDeviceById(String id);
 	//CRUD delete
-	public boolean deleteDevice(Long id);
+	public boolean deleteDevice(String id);
 	//copy
-	public Device cloneDevice(Long id);
+	public Device cloneDevice(String id);
 	
-	public DeviceCluster getClusterByID(Long id);
-	public boolean deleteCluster(Long id);
-	public DeviceCluster cloneCluster(Long id);
+	public DeviceCluster getClusterByID(String id);
+	public boolean deleteCluster(String id);
+	public DeviceCluster cloneCluster(String id);
 	public DeviceCluster updateCluster(DeviceCluster cluster);
 	
-	public Sensor getSensorById(Long id);
-	public boolean deleteSensor(Long id);
-	public Sensor cloneSensor(Long id);
+	public Sensor getSensorById(String id);
+	public boolean deleteSensor(String id);
+	public Sensor cloneSensor(String id);
 	public Sensor updateSensor(Sensor sensor);
 }

@@ -28,37 +28,38 @@ public class DeviceServiceImpl implements DeviceService{
 	}
 
 	@Override
-	public Device getDeviceById(Long id) {
+	public Device getDeviceById(String id) {
+		
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean deleteDevice(Long id) {
+	public boolean deleteDevice(String id) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public Device cloneDevice(Long id) {
+	public Device cloneDevice(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public DeviceCluster getClusterByID(Long id) {
+	public DeviceCluster getClusterByID(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean deleteCluster(Long id) {
+	public boolean deleteCluster(String id) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public DeviceCluster cloneCluster(Long id) {
+	public DeviceCluster cloneCluster(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -70,19 +71,19 @@ public class DeviceServiceImpl implements DeviceService{
 	}
 
 	@Override
-	public Sensor getSensorById(Long id) {
+	public Sensor getSensorById(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean deleteSensor(Long id) {
+	public boolean deleteSensor(String id) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public Sensor cloneSensor(Long id) {
+	public Sensor cloneSensor(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

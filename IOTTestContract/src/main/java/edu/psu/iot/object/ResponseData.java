@@ -9,7 +9,7 @@ import edu.psu.iot.object.intf.JsonObject;
 // TODO this needs to relate to a single device, a single payload, or a cluster of devices in some meaningful way but I don't know how.
 public class ResponseData extends JsonObject {
 
-	private Long id;
+	private String id;
 	
 	private Map<String, String> responseData;
 	//TODO: will EndpointResponseData be related to a single devicePayload, single device, a cluster of devices, or a mix?
@@ -19,11 +19,11 @@ public class ResponseData extends JsonObject {
 	
 	private Date createdDateTime;
 	
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
