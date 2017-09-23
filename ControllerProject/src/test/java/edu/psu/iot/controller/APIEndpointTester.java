@@ -10,6 +10,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import com.google.gson.Gson;
 
@@ -26,7 +27,8 @@ public class APIEndpointTester {
 	
 	@Before
 	public void setUp() {
-		
+		MockitoAnnotations.initMocks(this);
+		objectUnderTest.setDeviceService(mockService);
 	}
 	
 	//Test that our API will call to the DeviceService and fetch a Device, then return that as a json object to the user
@@ -37,7 +39,7 @@ public class APIEndpointTester {
 		deviceToJson.setId("1");
 		deviceToJson.setName("a sample device");
 		when(mockService.getDeviceById(any(String.class))).thenReturn(deviceToJson);
-		String jsonObject = objectUnderTest.getDevice("1");
+		String jsonObject = objectUnderTest.getDeviceById("1");
 		Gson gson = new Gson();
 		Device deviceFromJson =  gson.fromJson(jsonObject, Device.class);
 		assertEquals(deviceToJson.getId(), deviceFromJson.getId());
@@ -45,7 +47,7 @@ public class APIEndpointTester {
 
 	public void getDevice_badId_errorJson() {
 		when(mockService.getDeviceById(any(String.class))).thenReturn(null);
-		String jsonObject = objectUnderTest.getDevice("1");
+		String jsonObject = objectUnderTest.getDeviceById("1");
 		String[] errorText = jsonObject.split("error");
 		if (errorText.length == 1) {
 			fail();//if there is no error object in the returning JSON, fail.
@@ -59,7 +61,7 @@ public class APIEndpointTester {
 		Sensor sensorToJson = new Sensor();
 		sensorToJson.setId("1");
 		when(mockService.getSensorById(any(String.class))).thenReturn(sensorToJson);
-		String jsonObject = objectUnderTest.getSensor("1");
+		String jsonObject = objectUnderTest.getSensorById("1");
 		Gson gson = new Gson();
 		Sensor sensorFromJson =  gson.fromJson(jsonObject, Sensor.class);
 		assertEquals(sensorToJson.getId(), sensorFromJson.getId());
@@ -68,7 +70,7 @@ public class APIEndpointTester {
 
 	public void getSensor_badId_errorJson() {
 		when(mockService.getDeviceById(any(String.class))).thenReturn(null);
-		String jsonObject = objectUnderTest.getSensor("1");
+		String jsonObject = objectUnderTest.getSensorById("1");
 		String[] errorText = jsonObject.split("error");
 		if (errorText.length == 1) {
 			fail();//if there is no error object in the returning JSON, fail.
