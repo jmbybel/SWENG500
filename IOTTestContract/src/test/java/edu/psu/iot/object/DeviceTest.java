@@ -46,8 +46,8 @@ public class DeviceTest {
 	//verify set and get Id work as intended
 	@Test
 	public void test_setAndGetId() {
-		Long test = new Long(33258L);
-		objectUnderTest.setId(test.longValue());
+		String test = "000";
+		objectUnderTest.setId(test);
 		assertEquals(objectUnderTest.getId(), test);
 	}
 	
@@ -66,7 +66,7 @@ public class DeviceTest {
 	public void test_setAndGetSensors() {
 		List<Sensor> sensors = new ArrayList<>();
 		Sensor testSensor = new Sensor();
-		testSensor.setId(30L);
+		testSensor.setId("30");
 		sensors.add(testSensor);
 		objectUnderTest.setSensors(sensors);
 		assertEquals(objectUnderTest.getSensors(), sensors);
@@ -76,6 +76,7 @@ public class DeviceTest {
 	@Test
 	public void jsonObjectFlattenAndExpand() {
 		String jsonObject = objectUnderTest.toJson();
+		System.out.println(jsonObject);
 		Gson gson =new Gson();
 		Device deviceFromJson = gson.fromJson(jsonObject, Device.class);
 		assertEquals(deviceFromJson.getId(), objectUnderTest.getId());
@@ -85,18 +86,12 @@ public class DeviceTest {
 	
 	//utility method to get a sample device data up and running for tests
 	private void populateObject() {
-		objectUnderTest.setId(12345L);
+		objectUnderTest.setId("12345L");
 		objectUnderTest.setName("a test object");
-		/*
-		DevicePayload aPayload = new DevicePayload();
-			aPayload.setId(999L);
-		List<DevicePayload> samplePayloads = new ArrayList<>();
-			samplePayloads.add(aPayload);
-		objectUnderTest.setPayloads(samplePayloads);
-		*/
+				
 		List<Sensor> sensors = new ArrayList<>();
 			Sensor junkSensor = new Sensor();
-			junkSensor.setId(999L);
+			junkSensor.setId("999L");
 			sensors.add(junkSensor);
 		objectUnderTest.setSensors(sensors);
 	}

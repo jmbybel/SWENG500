@@ -3,13 +3,20 @@ package edu.psu.iot.object;
 import java.util.Date;
 import java.util.Map;
 
+import org.mongojack.MongoCollection;
+import org.mongojack.ObjectId;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import edu.psu.iot.object.intf.JsonObject;
 
 // data received from the endpoint under test.
 // TODO this needs to relate to a single device, a single payload, or a cluster of devices in some meaningful way but I don't know how.
+
+@MongoCollection(name="endpointResponse")
 public class EndpointResponseData extends JsonObject {
 
-	private Long id;
+	private String id;
 	
 	private Map<String, String> responseData;
 	//TODO: will EndpointResponseData be related to a single devicePayload, single device, a cluster of devices, or a mix?
@@ -18,12 +25,16 @@ public class EndpointResponseData extends JsonObject {
 	//private DeviceCluster sourceCluster;
 	
 	private Date createdDateTime;
-	
-	public Long getId() {
+
+	@ObjectId
+	@JsonProperty("_id")
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	@ObjectId
+	@JsonProperty("_id")
+	public void setId(String id) {
 		this.id = id;
 	}
 

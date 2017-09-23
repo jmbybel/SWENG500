@@ -35,36 +35,16 @@
   		<version>4.12</version>
   		<scope>test</scope>
   	</dependency>
-<!-- Optional for extending client-side See: https://vaadin.com/book/-/page/clientside.html
+    <dependency>
+        <groupId>org.mongodb</groupId>
+        <artifactId>mongodb-driver</artifactId>
+        <version>3.5.0</version>
+    </dependency>
 <dependency>
-    <groupId>com.vaadin</groupId>
-    <artifactId>vaadin-client</artifactId>
-    <version>8.1.2</version>
-    <scope>provided</scope>
-</dependency>
--->
-
-<!-- Optional for optimizing client-side widgets See: https://vaadin.com/book/-/page/mobile.optimization.html
-<dependency>
-    <groupId>com.vaadin</groupId>
-    <artifactId>vaadin-client-compiler</artifactId>
-    <version>8.1.2</version>
-    <scope>provided</scope>
-</dependency>
--->
-
-<dependency>
-    <groupId>com.vaadin</groupId>
-    <artifactId>vaadin-themes</artifactId>
-    <version>8.1.2</version>
+    <groupId>org.mongojack</groupId>
+    <artifactId>mongojack</artifactId>
+    <version>2.7.0</version>
 </dependency>
 
-<!-- Optional push support for communication See: https://vaadin.com/book/-/page/advanced.push.html
-<dependency>
-    <groupId>com.vaadin</groupId>
-    <artifactId>vaadin-push</artifactId>
-    <version>8.1.2</version>
-</dependency>
--->
   </dependencies>
 </project>

@@ -35,8 +35,8 @@ public class SensorTest {
 	//verify set and get Id work as intended
 	@Test
 	public void test_setAndGetId() {
-		Long test = new Long(33258L);
-		objectUnderTest.setId(test.longValue());
+		String test = "32555";
+		objectUnderTest.setId(test);
 		assertEquals(objectUnderTest.getId(), test);
 	}
 	
@@ -93,7 +93,7 @@ public class SensorTest {
 	@Test
 	public void test_setAndGetPayloads() {
 		Payload aPayload = new Payload();
-		aPayload.setId(999L);
+		aPayload.setId("928");
 		List<Payload> samplePayloads = new ArrayList<>();
 		samplePayloads.add(aPayload);
 		objectUnderTest.setPayloads(samplePayloads);
@@ -101,7 +101,7 @@ public class SensorTest {
 	}
 	
 	private void populateObject() throws ParseException {
-		objectUnderTest.setId(123L);
+		objectUnderTest.setId("111");
 		objectUnderTest.setName("Test Sensor");
 		objectUnderTest.setValue(100L);
 		objectUnderTest.setFloor(20L);
