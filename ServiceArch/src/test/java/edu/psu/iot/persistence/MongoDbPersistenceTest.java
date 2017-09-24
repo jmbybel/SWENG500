@@ -97,12 +97,6 @@ public class MongoDbPersistenceTest {
 
 	}
 	
-	@Test(expected=UnsupportedOperationException.class)
-	public void payloadUpdateFails() {
-		 objectUnderTest.updatePayload(new Payload());
-		 fail();//exception before getting here prevents this
-	}
-	
 	/**
 	 * ResponseData crud, also does not have Update operation available.
 	 */
@@ -116,19 +110,12 @@ public class MongoDbPersistenceTest {
 			 assertTrue(objectUnderTest.deleteResponseData(resultPayload.getId()));
 
 	}
-
 	
-	@Test(expected=UnsupportedOperationException.class)
-	public void responseDataUpdateFails() {
-		 objectUnderTest.updateResponseData(new ResponseData());
-		 fail();//exception before getting here prevents this
-	}
-
 	/**
 	 * Insert a device into the database, then delete it. then try to read that device's ID again. Should come up null.
 	 */
 	@Test
-	public void readNothing() {
+	public void readNothingFromDatabase() {
 		 Device initialDevice = new Device();
 		 initialDevice = objectUnderTest.createDevice(initialDevice);//create
 		 objectUnderTest.deleteDevice(initialDevice.getId());

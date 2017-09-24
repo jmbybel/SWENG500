@@ -62,11 +62,6 @@ public class MongoDbPersistence {
 		return saveObject(thePayload);
 	}
 	
-	//Not allowed.
-	public Payload updatePayload(Payload thePayload) {
-		throw new UnsupportedOperationException();
-	}
-	
 	public Payload readPayloadById(String id) {
 		return readObjectById(Payload.class, id);
 	}
@@ -78,11 +73,6 @@ public class MongoDbPersistence {
 	public ResponseData createResponseData(ResponseData thePayload) {
 
 		return saveObject(thePayload);
-	}
-	
-	//Not allowed.
-	public ResponseData updateResponseData(ResponseData thePayload) {
-		throw new UnsupportedOperationException();
 	}
 	
 	public ResponseData readResponseDataById(String id) {

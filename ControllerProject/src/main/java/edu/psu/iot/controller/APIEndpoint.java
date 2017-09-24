@@ -2,41 +2,28 @@ package edu.psu.iot.controller;
 
 import com.google.gson.Gson;
 
-import edu.psu.iot.contract.DeviceService;
+import edu.psu.iot.constants.ApiConstants;
 import edu.psu.iot.object.Device;
 import edu.psu.iot.object.Sensor;
+import edu.psu.iot.service.DeviceServiceImpl;
 
 public class APIEndpoint {
 
-	private static final String URI_PART_CREATE = "create";
-	private static final String URI_PART_READ = "read";
-	private static final String URI_PART_UPDATE = "update";
-	private static final String URI_PART_DELETE = "delete";
-	private static final String URI_PART_COPY = "copy";
 	
-	private static final String URI_PART_DEVICE = "device";
-	private static final String URI_PART_SENSOR = "sensor";
-	private static final String URI_PART_CLUSTER = "cluster";
-	private static final String URI_PART_PAYLOAD = "payload";
-	private static final String URI_PART_RESPONSE = "response";
+	private DeviceServiceImpl deviceService;
 	
-	private DeviceService deviceService;
-	
-	/*
-	public void doPost(HttpServletRequest req, HttpServletResponse resp) {
-		//call down to individual operations
-	}
-	*/
-
 	public String createUpdateDevice(String json) {
 		Gson gson = new Gson();
 		Device device = gson.fromJson(json, Device.class);
 		device = deviceService.insertUpdateDevice(device);
-		return device.toString();
+		return gson.toJson(device);
 	}
 	
 	public String getDeviceById(String id) {
 		Device device = deviceService.getDeviceById(id);
+		if (device == null) {
+			return ApiConstants.COULD_NOT_FIND_MATCH;
+		}
 		return device.toJson();
 	}
 	
@@ -53,6 +40,9 @@ public class APIEndpoint {
 	
 	public String getSensorById(String id) {
 		Sensor sensor = deviceService.getSensorById(id);
+		if (sensor == null) {
+			return ApiConstants.COULD_NOT_FIND_MATCH;
+		}
 		return sensor.toJson();
 	}
 
@@ -60,13 +50,12 @@ public class APIEndpoint {
 		return Boolean.toString(deviceService.deleteSensor(id));
 	}
 
-	public DeviceService getDeviceService() {
+	public DeviceServiceImpl getDeviceService() {
 		return deviceService;
 	}
 
-	public void setDeviceService(DeviceService deviceService) {
+	public void setDeviceService(DeviceServiceImpl deviceService) {
 		this.deviceService = deviceService;
 	}
-	
 	
 }
