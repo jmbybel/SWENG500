@@ -2,6 +2,8 @@ package com.psu.group1.generator;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.ScheduledExecutorService;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.*;
 /*
  * SIN - executes a sin function with min and max and a period equal to 100 times the interval
@@ -15,7 +17,7 @@ enum SensorType {
 }
 
 public class Sensor implements Runnable{	//Represents a sensor based on a unique id.
-	
+	private static final Logger logger = LogManager.getLogger();
 	String name;
 	int id;
 	double max;
@@ -42,7 +44,7 @@ public class Sensor implements Runnable{	//Represents a sensor based on a unique
 			long maxInterval, 
 			boolean randomInterval)			//interval in milliseconds
 	{
-		
+		logger.debug(">>sensorConstructor()");
 		this.id = id;
 		this.currentValue = initialValue;
 		this.max = max;
@@ -57,22 +59,22 @@ public class Sensor implements Runnable{	//Represents a sensor based on a unique
 		
 		min = Math.min(min,max);
 		max = Math.max(min, max);
-	
+		logger.debug("<<sensorConstructor()");
 	}
 	
 	
 	public void start(ScheduledExecutorService ses)
 	{
+		logger.debug(">>sensorStart()");
 		this.enable = true;
 		ses.schedule(this, 0, TimeUnit.MILLISECONDS);
 		this.ses = ses;
+		logger.debug("<<sensorStart()");
 	}
-	
-
 	
 	public void run() 
 	{		
-		
+		logger.debug(">>sensorRun()");
 			JSONObject payload = new JSONObject();
 			payload.put("name", this.name);
 			payload.put("id", this.id);
@@ -89,17 +91,28 @@ public class Sensor implements Runnable{	//Represents a sensor based on a unique
 					
 					interval = Util.getRandomLong(minInterval, maxInterval);
 				}
-				ses.schedule(this, interval, TimeUnit.MILLISECONDS);
+				
+				//if start is called on sensor without a ses as input this gives null pointer error
+				//so I added a check 
+				if(this.ses!=null)
+				{
+					ses.schedule(this, interval, TimeUnit.MILLISECONDS);
+				}
 			}
+			logger.debug("<<sensorRun()");
 	}
 	
 	public void stop(){
+		logger.debug(">>sensorStop()");
 		this.enable = false;
+		logger.debug("<<sensorStop()");
 	}
 	
 	public void start(){
+		logger.debug(">>sensorStartNoArg()");
 		this.enable = true;
 		run();
+		logger.debug("<<sensorStartNoArg()");
 	}
 
 }
