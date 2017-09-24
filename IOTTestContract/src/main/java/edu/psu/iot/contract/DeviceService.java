@@ -48,3 +48,4 @@ public interface DeviceService {
 	public boolean deleteResponseData(String id);
 	public ResponseData insertResponseData(ResponseData sensor);
 }
+
