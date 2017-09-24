@@ -15,8 +15,8 @@ public class SensorService
 			double max, 			//max value of sensor
 			double min, 			//min value of sensor
 			long duration,			//duration in milliseconds
-			long interval,
-			SensorType type)			//interval in milliseconds{
+			long interval,			//interval in milliseconds
+			SensorType type)		//SensorType	
     {	 
     	Sensor sensor = new Sensor(name,id,initialValue,max,min,duration,interval,type);
     	sensor.start(this.ses);
