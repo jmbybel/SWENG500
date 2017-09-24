@@ -50,9 +50,4 @@ public class Payload extends JsonObject {
 		this.payloadData = payloadData;
 	}
 	
-
-	public String toJsonString() {
-		//TODO;
-		return null;
-	}
 }

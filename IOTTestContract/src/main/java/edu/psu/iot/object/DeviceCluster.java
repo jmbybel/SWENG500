@@ -52,3 +52,4 @@ public class DeviceCluster extends JsonObject {
 
 	
 }
+
