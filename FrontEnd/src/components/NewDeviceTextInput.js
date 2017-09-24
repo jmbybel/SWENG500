@@ -17,7 +17,6 @@ const NewDeviceTextInput = (props) => {
 };
 
 NewDeviceTextInput.propTypes = {
-  name: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   value: PropTypes.oneOfType([
     PropTypes.string,

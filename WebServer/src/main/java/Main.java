@@ -8,7 +8,7 @@ public class Main {
     	configureExceptionHandling();
         enableCORS();
 
-        // In-memory data store for POC
+        // In-memory data store for PoC
         List<String> deviceList = new ArrayList<String>();
         
         get("/get-all-devices", (request, response) -> {
@@ -19,7 +19,7 @@ public class Main {
         post("/create-new-device", (request, response) -> {
         	System.out.println(String.format("Creating Device: %s", request.body()));
         	deviceList.add(request.body());
-        	return String.format("Success! Device Created: %s", request.body());
+        	return String.format(request.body());
         });
     }
     

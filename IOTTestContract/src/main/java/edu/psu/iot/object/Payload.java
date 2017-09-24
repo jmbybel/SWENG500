@@ -3,24 +3,34 @@ package edu.psu.iot.object;
 import java.util.Date;
 import java.util.Map;
 
+import org.mongojack.MongoCollection;
+import org.mongojack.ObjectId;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import edu.psu.iot.object.intf.JsonObject;
 
 // An individual set of fields sent from a device to the endpoint, timestamped with when it was created.
 //TODO confirm name.
+@MongoCollection(name="payload")
 public class Payload extends JsonObject {
 
-	private Long id;
+	private String id;
 	
 	private Date createdDateTime;
 	
 	//TODO should this actually be a single string in JSON format by now?
 	private Map<String, String> payloadData;
 
-	public Long getId() {
+	@ObjectId
+	@JsonProperty("_id")
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	@ObjectId
+	@JsonProperty("_id")
+	public void setId(String id) {
 		this.id = id;
 	}
 

@@ -5,13 +5,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.google.gson.Gson;
+import org.mongojack.MongoCollection;
+import org.mongojack.ObjectId;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import edu.psu.iot.object.intf.JsonObject;
 //TODO log4j.
+@MongoCollection(name="device")
 public class Device extends JsonObject{
 
-	private Long id;
+	private String id;
 	
 	private String name;
 	
@@ -31,11 +35,15 @@ public class Device extends JsonObject{
 		this.sensors = new ArrayList<>(copyFrom.getSensors());
 	}
 
-	public Long getId() {
+	@ObjectId
+	@JsonProperty("_id")
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	@ObjectId
+	@JsonProperty("_id")
+	public void setId(String id) {
 		this.id = id;
 	}
 

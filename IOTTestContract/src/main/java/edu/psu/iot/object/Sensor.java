@@ -5,13 +5,19 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.mongojack.MongoCollection;
+import org.mongojack.ObjectId;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import edu.psu.iot.object.intf.JsonObject;
 
+@MongoCollection(name="sensor")
 public class Sensor extends JsonObject {
 
 	private String name;
 	
-	private Long id;
+	private String id;
 	
 	private Long value;
 	
@@ -36,12 +42,16 @@ public class Sensor extends JsonObject {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public Long getId() {
+
+	@ObjectId
+	@JsonProperty("_id")
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	@ObjectId
+	@JsonProperty("_id")
+	public void setId(String id) {
 		this.id = id;
 	}
 	

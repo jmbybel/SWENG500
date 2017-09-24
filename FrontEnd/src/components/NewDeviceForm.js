@@ -1,82 +1,83 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import NewDeviceTextInput from './NewDeviceTextInput';
+import { 
+  PageHeader, 
+  Button,
+} from 'react-bootstrap';
 
 class NewDeviceForm extends React.Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
-      newDeviceName: props.newDeviceName,
+      device: {
+        name: '',
+      }
     };
-    this.mapDevices = this.mapDevices.bind(this);
     this.newDeviceKeypress = this.newDeviceKeypress.bind(this);
     this.save = this.save.bind(this);
   }
 
-  mapDevices(devices) {
-    return devices
-      ? devices.map((device, index) => (
-          <tr key={index}>
-            <td>{device.name}</td>
-          </tr>
-        ))
-      : null;
-  }
-
   newDeviceKeypress(name, value) {
     this.setState({
-      newDeviceName: value,
+      device: {
+        name: value,
+      },
     });
   }
 
   save() {
-    this.props.saveNewDevice(this.state.newDeviceName);
+    const {
+      props: {
+        saveNewDevice,
+        onHistoryChanged,
+        history,
+      },
+    } = this;
+
+    saveNewDevice(this.state.device);
+    history.push('/view-devices');
+    onHistoryChanged('/view-devices');
   }
 
   render() {
     const {
-      props: {
-        devices,
-      },
       state: {
-        newDeviceName,
+        device,
       },
     } = this;
 
     return (
-      <div>
-        <h2>New Device Form</h2>
-        <table>
-          <tbody>
-            <tr>
-              <td><label htmlFor="newDeviceName">New Device Name</label></td>
-              <td><NewDeviceTextInput name="newDeviceName" value={newDeviceName} onChange={this.newDeviceKeypress} /></td>
-            </tr>
-          </tbody>
-        </table>
-        <br/>
-        <input type="submit" value="Save" onClick={this.save}/>
-        <br />
-        <br />
-        <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.mapDevices(devices)}
-        </tbody>
-      </table>
-      </div>
+      <section 
+        className={'newDeviceForm'}>
+        <PageHeader>
+          New Device Form
+        </PageHeader>
+        <div
+          className={'input'}>
+          <span
+            className={'labelSpan'}>
+            New Device Name
+          </span>
+          <NewDeviceTextInput
+            value={device.name}
+            onChange={this.newDeviceKeypress} />
+        </div>
+        <Button
+          className={'saveButton'}
+          bsStyle="primary"
+          onClick={this.save}>
+          Save
+        </Button>
+      </section>
     );
   }
 }
 
 NewDeviceForm.propTypes = {
-  devices: PropTypes.array,
-  newDeviceName: PropTypes.string,
+  device: PropTypes.object,
+  history: PropTypes.object,
   saveNewDevice: PropTypes.func.isRequired,
 };
 

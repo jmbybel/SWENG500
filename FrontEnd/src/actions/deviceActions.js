@@ -1,12 +1,12 @@
-import * as types from '../constants/actionTypes';
+import * as types from '../constants/ActionTypes';
 import deviceApi from '../api/deviceApi';
 
 export function loadDevicesSuccess(devices) {
   return {type: types.LOAD_DEVICES_SUCCESS, devices};
 }
 
-export function saveNewDeviceSuccess(newDevice) {
-  return {type: types.SAVE_NEW_DEVICE, newDevice};
+export function saveNewDeviceSuccess(device) {
+  return {type: types.SAVE_NEW_DEVICE, device};
 }
 
 export function loadDevices() {

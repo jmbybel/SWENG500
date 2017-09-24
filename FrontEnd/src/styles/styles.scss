@@ -1,15 +1,12 @@
 /* Variables */
-$vin-blue: #5bb7db;
-$vin-green: #60b044;
-$vin-red: #ff0000;
+$blue: #5bb7db;
 
 /* Styles */
 body {
   font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  line-height: 1.4em;
   color: #4d4d4d;
-  min-width: 230px;
-  max-width: 550px;
+  min-width: 400px;
+  max-width: 1000px;
   margin: 0 auto;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
@@ -17,15 +14,20 @@ body {
   font-weight: 300;
 }
 
-td {
-	padding: 12px;
-}
-
 h2 {
-	color: $vin-blue;
+	color: $blue;
 }
 
-.savings { color: $vin-green; }
-.loss { color: $vin-red; }
-input.small { width: 100px; }
-td.fuel-savings-label { width: 175px; }
+.newDeviceForm {
+  .input {
+    display: block;
+    margin-bottom: 30px;
+
+    .labelSpan {
+      margin-right: 20px;
+    }
+  }
+  .saveButton {
+    min-width: 80px;
+  }
+}

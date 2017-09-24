@@ -1,12 +1,12 @@
 import React from 'react';
+import { PageHeader } from 'react-bootstrap';
 
 const HomePage = () => {
   return (
-    <div>
-      <h1>Team 1 - IoT Project- SWENG500</h1>
-
+    <section>
+      <PageHeader>Mock IoT Data Generator Project</PageHeader>
       <h2>Let's make some mock IoT devices!</h2>
-    </div>
+    </section>
   );
 };
 

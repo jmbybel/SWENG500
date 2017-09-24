@@ -15,8 +15,8 @@ public class DevicePayloadTest {
 	public void test_setAndGetId() {
 		// Arrange
 		Payload objectUnderTest = new Payload();
-		Long expectedId = new Long(33258L);
-		Long actualId;
+		String expectedId = "33258";
+		String actualId;
 
 		// Act
 		objectUnderTest.setId(expectedId);

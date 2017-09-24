@@ -4,6 +4,8 @@ import java.io.File;
 
 import edu.psu.iot.object.Device;
 import edu.psu.iot.object.DeviceCluster;
+import edu.psu.iot.object.Payload;
+import edu.psu.iot.object.ResponseData;
 import edu.psu.iot.object.Sensor;
 
 //TODO don't even 
@@ -21,19 +23,28 @@ public interface DeviceService {
 	public void updateDataGeneratorInputFields(Device theDeviceToAlter);
 	
 	//CRUD read
-	public Device getDeviceById(Long id);
+	public Device getDeviceById(String id);
 	//CRUD delete
-	public boolean deleteDevice(Long id);
+	public boolean deleteDevice(String id);
 	//copy
-	public Device cloneDevice(Long id);
+	public Device cloneDevice(Device original);
+	public Device insertUpdateDevice(Device device);
+	/*
+	public DeviceCluster getClusterByID(String id);
+	public boolean deleteCluster(String id);
+	public DeviceCluster cloneCluster(DeviceCluster original);
+	public DeviceCluster insertUpdateCluster(DeviceCluster cluster);
+	*/
+	public Sensor getSensorById(String id);
+	public boolean deleteSensor(String id);
+	public Sensor cloneSensor(Sensor original);
+	public Sensor insertUpdateSensor(Sensor sensor);
+
+	public Payload getPayloadById(String id);
+	public boolean deletePayload(String id);
+	public Payload insertPayload(Payload sensor);
 	
-	public DeviceCluster getClusterByID(Long id);
-	public boolean deleteCluster(Long id);
-	public DeviceCluster cloneCluster(Long id);
-	public DeviceCluster updateCluster(DeviceCluster cluster);
-	
-	public Sensor getSensorById(Long id);
-	public boolean deleteSensor(Long id);
-	public Sensor cloneSensor(Long id);
-	public Sensor updateSensor(Sensor sensor);
+	public ResponseData getResponseDataById(String id);
+	public boolean deleteResponseData(String id);
+	public ResponseData insertResponseData(ResponseData sensor);
 }
