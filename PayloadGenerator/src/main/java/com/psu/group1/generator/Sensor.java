@@ -23,7 +23,12 @@ public class Sensor implements Runnable{	//Represents a sensor based on a unique
 	double currentValue;
 	long duration;
 	long interval;
+	long minInterval;
+	long maxInterval;
+	boolean randomInterval = false;
 	SensorType type;
+	boolean enable = true; 			//Set to false in order to stop the task from executing.
+	ScheduledExecutorService ses;   //Service currently executing this runnable.
 	
 	Sensor(	String name,
 			int id, 				//unique integer id
@@ -32,7 +37,10 @@ public class Sensor implements Runnable{	//Represents a sensor based on a unique
 			double min, 			//min value of sensor
 			long duration,			//duration in milliseconds
 			long interval,
-			SensorType type)			//interval in milliseconds
+			SensorType type,
+			long minInterval,
+			long maxInterval, 
+			boolean randomInterval)			//interval in milliseconds
 	{
 		
 		this.id = id;
@@ -43,30 +51,55 @@ public class Sensor implements Runnable{	//Represents a sensor based on a unique
 		this.interval = interval;
 		this.name = name;
 		this.type = type;
+		this.minInterval = minInterval;
+		this.maxInterval = maxInterval;
+		this.randomInterval = randomInterval;
 		
-		if(min>max){
-			min = max;
-		}
+		min = Math.min(min,max);
+		max = Math.max(min, max);
+	
 	}
 	
 	
 	public void start(ScheduledExecutorService ses)
 	{
-		ses.scheduleAtFixedRate(this, 0, interval, TimeUnit.MILLISECONDS);
+		this.enable = true;
+		ses.schedule(this, 0, TimeUnit.MILLISECONDS);
+		this.ses = ses;
 	}
+	
+
 	
 	public void run() 
 	{		
-		JSONObject payload = new JSONObject();
-		payload.put("name", this.name);
-		payload.put("id", this.id);
-		payload.put("value", currentValue);
-		System.out.println(payload);
-
 		
-		if(type == SensorType.RANDOM){
-			currentValue = ((max-min)*Math.random()) + min;
-		}		
+			JSONObject payload = new JSONObject();
+			payload.put("name", this.name);
+			payload.put("id", this.id);
+			payload.put("value", currentValue);
+			System.out.println(payload);
+			
+			if(enable == true){
+				
+				if(type == SensorType.RANDOM){
+					currentValue = ((max-min)*Math.random()) + min;
+				}		
+				
+				if(randomInterval == true){
+					
+					interval = Util.getRandomLong(minInterval, maxInterval);
+				}
+				ses.schedule(this, interval, TimeUnit.MILLISECONDS);
+			}
+	}
+	
+	public void stop(){
+		this.enable = false;
+	}
+	
+	public void start(){
+		this.enable = true;
+		run();
 	}
 
 }
