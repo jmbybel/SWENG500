@@ -25,8 +25,12 @@ public class Sensor implements Runnable{	//Represents a sensor based on a unique
 	double currentValue;
 	long duration;
 	long interval;
+	int sinValue;
+	int sinInterval; //degrees
 	long minInterval;
 	long maxInterval;
+	boolean rampFlagUp = true;
+	boolean rampFlagDown = false;
 	boolean randomInterval = false;
 	SensorType type;
 	boolean enable = true; 			//Set to false in order to stop the task from executing.
@@ -40,6 +44,7 @@ public class Sensor implements Runnable{	//Represents a sensor based on a unique
 			long duration,			//duration in milliseconds
 			long interval,
 			SensorType type,
+			int sinInterval,
 			long minInterval,
 			long maxInterval, 
 			boolean randomInterval)			//interval in milliseconds
@@ -53,6 +58,8 @@ public class Sensor implements Runnable{	//Represents a sensor based on a unique
 		this.interval = interval;
 		this.name = name;
 		this.type = type;
+		this.sinValue = sinInterval;
+		this.sinInterval = sinInterval;
 		this.minInterval = minInterval;
 		this.maxInterval = maxInterval;
 		this.randomInterval = randomInterval;
@@ -85,8 +92,43 @@ public class Sensor implements Runnable{	//Represents a sensor based on a unique
 				
 				if(type == SensorType.RANDOM){
 					currentValue = ((max-min)*Math.random()) + min;
-				}		
-				
+				}	
+				if(type == SensorType.BINARY){
+					if(currentValue == max)
+					{
+						currentValue = min;
+					}
+					else
+					{
+						currentValue = max;
+					}
+				}
+				if(type == SensorType.RAMP){
+					if(currentValue == max)
+					{
+						rampFlagUp = false;
+						rampFlagDown = true;
+					}
+					if(currentValue == min)
+					{
+						rampFlagUp = true;
+						rampFlagDown = false;
+					}
+					if(currentValue <= max && rampFlagUp == true)
+					{
+						currentValue = currentValue + 1;
+						rampFlagUp = true;
+					}
+					if(currentValue >= min && rampFlagDown == true)
+					{
+						currentValue = currentValue - 1;
+						rampFlagDown = true;
+					}
+				}
+				if(type == SensorType.SIN){
+					currentValue = Math.sin(sinValue);
+					sinValue += sinInterval; 
+				}
 				if(randomInterval == true){
 					
 					interval = Util.getRandomLong(minInterval, maxInterval);

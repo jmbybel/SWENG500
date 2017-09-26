@@ -24,12 +24,13 @@ public class SensorService
 			long duration,			//duration in milliseconds
 			long interval,			//interval in milliseconds
 			SensorType type,
+			int sinInterval,
 			long minInterval,
 			long maxInterval, 
 			boolean randomInterval)		//SensorType	
     {	 
     	logger.debug(">>sensorServiceConstructor()");
-    	Sensor sensor = new Sensor(name,id,initialValue,max,min,duration,interval,type,minInterval,maxInterval,randomInterval);
+    	Sensor sensor = new Sensor(name,id,initialValue,max,min,duration,interval,type,sinInterval,minInterval,maxInterval,randomInterval);
     	sensor.start(this.ses);
     	sensorList.put(Integer.valueOf(id), sensor);
     	logger.info("SS SensorList: {}", sensorList);

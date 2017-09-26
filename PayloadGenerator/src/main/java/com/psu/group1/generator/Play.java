@@ -10,7 +10,11 @@ public class Play {
 		logger.debug(">>main()");
 		// TODO Auto-generated method stub
 		SensorService ss = new SensorService();
-		ss.createSensor("New Sensor", 1, 72, 90, 60, 0, 1000, SensorType.RANDOM, 1000, 5000, true);
+		ss.createSensor("Random Sensor", 1, 72, 90, 60, 0, 1000, SensorType.RANDOM, 0, 1000, 5000, true);
+		ss.createSensor("Binary Sensor", 2, 1, 2, 1, 0, 1000, SensorType.BINARY, 0, 1000, 5000, false);
+		ss.createSensor("Ramp Sensor", 3, 5, 10, 1, 0, 1000, SensorType.RAMP, 0, 1000, 5000, true);
+		ss.createSensor("Sin Sensor", 4, 0, 0, 0, 0, 1000, SensorType.SIN, 10, 1000, 5000, true);
+		logger.info("SS SensorList: {}", ss.sensorList);
 		logger.info("SS SensorList: {}", ss.sensorList);
 		/*try {
 			Thread.sleep(10000);

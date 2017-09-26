@@ -25,7 +25,7 @@ public class PayloadGeneratorTest extends TestCase{
 	public void testCreateSensorService()
 	{
 		SensorService ss = new SensorService();
-		ss.createSensor("Test", 1, 0, 1, 0, 0, 1000, SensorType.BINARY, 1000, 5000, true);
+		ss.createSensor("Test", 1, 0, 1, 0, 0, 1000, SensorType.BINARY, 0, 1000, 5000, true);
 		assertEquals((ss.sensorList).size(), 1);
 		//assertEquals("{\"name\":\"Test\",\"id\":1,\"value\":0}", outContent.toString());
 	}
@@ -33,7 +33,7 @@ public class PayloadGeneratorTest extends TestCase{
 	public void testStopSensorService()
 	{
 		SensorService ss = new SensorService();
-		ss.createSensor("Test", 1, 0, 1, 0, 0, 1000, SensorType.BINARY, 1000, 5000, true);
+		ss.createSensor("Test", 1, 0, 1, 0, 0, 1000, SensorType.BINARY, 0, 1000, 5000, true);
 		ss.stopSensor(1);
 		assertEquals((ss.sensorList.get(1)).enable, false);
 	}
@@ -41,7 +41,7 @@ public class PayloadGeneratorTest extends TestCase{
 	public void testStartSensorService()
 	{
 		SensorService ss = new SensorService();
-		ss.createSensor("Test", 1, 0, 1, 0, 0, 1000, SensorType.BINARY, 1000, 5000, true);
+		ss.createSensor("Test", 1, 0, 1, 0, 0, 1000, SensorType.BINARY, 0, 1000, 5000, true);
 		ss.stopSensor(1);
 		ss.startSensor(1);
 		assertEquals((ss.sensorList.get(1)).enable, true);
@@ -50,14 +50,14 @@ public class PayloadGeneratorTest extends TestCase{
 	public void testDeleteSensorService()
 	{
 		SensorService ss = new SensorService();
-		ss.createSensor("Test", 1, 0, 1, 0, 0, 1000, SensorType.BINARY, 1000, 5000, true);
+		ss.createSensor("Test", 1, 0, 1, 0, 0, 1000, SensorType.BINARY, 0, 1000, 5000, true);
 		ss.deleteSensor(1);
 		assertEquals((ss.sensorList).size(), 0);
 	}
 	
 	public void testSensorStartAndRun()
 	{
-		Sensor sensor = new Sensor("Test", 1, 0, 1, 0, 0, 1000, SensorType.BINARY, 1000, 5000, true);
+		Sensor sensor = new Sensor("Test", 1, 0, 1, 0, 0, 1000, SensorType.BINARY, 0, 1000, 5000, true);
 		sensor.start();
 		assertEquals(sensor.enable, true);
 		assertTrue(sensor.interval != 1000);
@@ -66,7 +66,7 @@ public class PayloadGeneratorTest extends TestCase{
 	
 	public void testSensorStartAndStop()
 	{
-		Sensor sensor = new Sensor("Test", 1, 0, 1, 0, 0, 1000, SensorType.BINARY, 1000, 5000, true);
+		Sensor sensor = new Sensor("Test", 1, 0, 1, 0, 0, 1000, SensorType.BINARY, 0, 1000, 5000, true);
 		sensor.start();
 		assertEquals(sensor.enable, true);
 		sensor.stop();
@@ -75,7 +75,7 @@ public class PayloadGeneratorTest extends TestCase{
 	
 	public void testSensorConstructor()
 	{
-		Sensor sensor = new Sensor("Test", 1, 0, 1, 0, 0, 1000, SensorType.BINARY, 1000, 5000, true);
+		Sensor sensor = new Sensor("Test", 1, 0, 1, 0, 0, 1000, SensorType.BINARY, 0, 1000, 5000, true);
 		assertEquals(sensor.name, "Test");
 		assertEquals(sensor.id, 1);
 		assertEquals(sensor.currentValue, 0.0);
