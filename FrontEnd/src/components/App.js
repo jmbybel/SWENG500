@@ -11,24 +11,23 @@ import DevicesPage from '../containers/DevicesPage';
 // version of hot reloading won't hot reload a stateless
 // component at the top-level.
 class App extends React.Component {
-  static navItemEventKeyToUriArray = [
-    {
-      navItemKey: 1,
-      uri: '/',
-    },
-    {
-      navItemKey: 2,
-      uri: '/create-new-device',
-    },
-    {
-      navItemKey: 3,
-      uri: '/view-devices',
-    },
-  ];
-  
   constructor(props, context) {
     super(props, context);
 
+    this.navItemEventKeyToUriArray = [
+      {
+        navItemKey: 1,
+        uri: '/',
+      },
+      {
+        navItemKey: 2,
+        uri: '/create-new-device',
+      },
+      {
+        navItemKey: 3,
+        uri: '/view-devices',
+      },
+    ];
     this.state = {
       selectedTab: 1,
     };
