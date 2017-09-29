@@ -1,0 +1,17 @@
+{"name":"Random Sensor","id":1,"value":72}
+{"name":"Sin Sensor","id":4,"value":0}
+{"name":"Binary Sensor","id":2,"value":1}
+{"name":"Ramp Sensor","id":3,"value":5}
+{"name":"Binary Sensor","id":2,"value":2}
+{"name":"Binary Sensor","id":2,"value":1}
+{"name":"Ramp Sensor","id":3,"value":5}
+{"name":"Random Sensor","id":1,"value":72}
+{"name":"Test","id":1,"value":0}
+{"name":"Sin Sensor","id":4,"value":0}
+{"name":"Test","id":1,"value":0}
+{"name":"Test","id":1,"value":0}
+{"name":"Binary Sensor","id":2,"value":1}
+{"name":"Test","id":1,"value":0}
+{"name":"Test","id":1,"value":0}
+{"name":"Test","id":1,"value":0}
+{"name":"Test","id":1,"value":0}

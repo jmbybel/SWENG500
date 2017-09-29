@@ -15,7 +15,6 @@ public class Play {
 		ss.createSensor("Ramp Sensor", 3, 5, 10, 1, 0, 1000, SensorType.RAMP, 0, 1000, 5000, true);
 		ss.createSensor("Sin Sensor", 4, 0, 0, 0, 0, 1000, SensorType.SIN, 10, 1000, 5000, true);
 		logger.info("SS SensorList: {}", ss.sensorList);
-		logger.info("SS SensorList: {}", ss.sensorList);
 		/*try {
 			Thread.sleep(10000);
 			ss.stopSensor(1);

@@ -1,5 +1,9 @@
 package com.psu.group1.generator;
 import java.util.concurrent.TimeUnit;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.concurrent.ScheduledExecutorService;
 
 import org.apache.logging.log4j.LogManager;
@@ -86,21 +90,44 @@ public class Sensor implements Runnable{	//Represents a sensor based on a unique
 			payload.put("name", this.name);
 			payload.put("id", this.id);
 			payload.put("value", currentValue);
+
+			logger.info("current payload: {}", payload.toString());
+			//mock endpoint to file
+	        BufferedWriter output = null;
+	        try {
+	            File file = new File("mockoutput.txt");
+	            output = new BufferedWriter(new FileWriter(file, true));
+	            output.write(payload.toString() + "\n");
+	        } catch ( IOException e ) {
+	            e.printStackTrace();
+	        }finally {
+	            if ( output != null ) {
+	                try {
+						output.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+	              }
+	        }
+	        
 			System.out.println(payload);
 			
 			if(enable == true){
 				
 				if(type == SensorType.RANDOM){
 					currentValue = ((max-min)*Math.random()) + min;
+					logger.info("currentValue Random: {}", currentValue);
 				}	
 				if(type == SensorType.BINARY){
 					if(currentValue == max)
 					{
 						currentValue = min;
+						logger.info("currentValue Binary min: {}", currentValue);
 					}
 					else
 					{
 						currentValue = max;
+						logger.info("currentValue Binary max: {}", currentValue);
 					}
 				}
 				if(type == SensorType.RAMP){
@@ -108,30 +135,36 @@ public class Sensor implements Runnable{	//Represents a sensor based on a unique
 					{
 						rampFlagUp = false;
 						rampFlagDown = true;
+						logger.info("currentValue Ramp max: {}", currentValue);
 					}
 					if(currentValue == min)
 					{
 						rampFlagUp = true;
 						rampFlagDown = false;
+						logger.info("currentValue Ramp min: {}", currentValue);
 					}
 					if(currentValue <= max && rampFlagUp == true)
 					{
 						currentValue = currentValue + 1;
+						logger.info("currentValue Ramp up: {}", currentValue);
 						rampFlagUp = true;
 					}
 					if(currentValue >= min && rampFlagDown == true)
 					{
 						currentValue = currentValue - 1;
+						logger.info("currentValue Ramp down: {}", currentValue);
 						rampFlagDown = true;
 					}
 				}
 				if(type == SensorType.SIN){
 					currentValue = Math.sin(sinValue);
 					sinValue += sinInterval; 
+					logger.info("currentValue Sin: {}", currentValue);
+					logger.info("sinValue: {}", sinValue);
 				}
 				if(randomInterval == true){
-					
 					interval = Util.getRandomLong(minInterval, maxInterval);
+					logger.info("RandomInterval: {}", interval);
 				}
 				
 				//if start is called on sensor without a ses as input this gives null pointer error
