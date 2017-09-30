@@ -4,6 +4,11 @@ public interface ApiConstants {
 
 	public String COULD_NOT_FIND_MATCH = "{\"error\": \"Could not find a match for the provided ID\"}";
 	
+	public String COULD_NOT_CONVERT_FROM_JSON = "{\"error\": \"Could not create the object from the JSON string passed in\"}";
+	
+	public String DELETE_SUCCESS = "{\"action\": \"success\"}";
+	
+	public String DELETE_FAILED = "{\"action\": \"failed. ID may have been incorrect\"}";
 	
 //don't think these are needed now.
 	public final String URI_PART_CREATE = "create";

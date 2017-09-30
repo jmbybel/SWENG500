@@ -16,6 +16,7 @@ import org.mockito.MockitoAnnotations;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
+import edu.psu.iot.constants.ApiConstants;
 import edu.psu.iot.database.MongoDbPersistence;
 import edu.psu.iot.object.Device;
 import edu.psu.iot.object.Sensor;
@@ -49,9 +50,21 @@ public class APIEndpointTester {
 		deviceWithId.setId("123");
 		
 		when (mockDbLayer.createDevice(any(Device.class))).thenReturn(deviceWithId);
-		String resultJson = objectUnderTest.createUpdateDevice(gson.toJson(firstDevice));
+		
+		String json = gson.toJson(firstDevice);
+		System.out.println(json);
+		
+		String resultJson = objectUnderTest.createUpdateDevice(json);
 		assertTrue(resultJson.contains(deviceWithId.getId()));
 		verify(mockDbLayer, times(1)).createDevice(any(Device.class));
+	}
+	
+	//Verify that if you attempt to create a device with bad JSON, you get an error message stating that the object could not be created from the JSON.
+	@Test
+	public void breakCreateDevice() {
+		String invalidJson= "}{{";
+		String result = objectUnderTest.createUpdateDevice(invalidJson);
+		assertEquals(result, ApiConstants.COULD_NOT_CONVERT_FROM_JSON);
 	}
 	
 	@Test
@@ -69,15 +82,17 @@ public class APIEndpointTester {
 		String objectId = "123";
 		when (mockDbLayer.deleteDevice(objectId)).thenReturn(true);
 		String isTrue = objectUnderTest.deleteDevice(objectId);
-		assertTrue(Boolean.valueOf(isTrue));
+		assertEquals(isTrue, ApiConstants.DELETE_SUCCESS);
 		verify(mockDbLayer, times(1)).deleteDevice(any(String.class));
 	}
 	
-
-	@Test(expected=JsonSyntaxException.class)
-	public void createUpdateDevice_badJson() {
-		String json = "{BAD JSON}";
-		objectUnderTest.createUpdateDevice(json);
+	@Test
+	public void deleteDevice_badId() {
+		String objectId = "123";
+		when (mockDbLayer.deleteDevice(objectId)).thenReturn(false);
+		String isTrue = objectUnderTest.deleteDevice(objectId);
+		assertEquals(isTrue, ApiConstants.DELETE_FAILED);
+		verify(mockDbLayer, times(1)).deleteDevice(any(String.class));
 	}
 	
 	@Test
@@ -131,9 +146,19 @@ public class APIEndpointTester {
 		String objectId = "123";
 		when (mockDbLayer.deleteSensor(objectId)).thenReturn(true);
 		String isTrue = objectUnderTest.deleteSensor(objectId);
-		assertTrue(Boolean.valueOf(isTrue));
+		assertEquals(isTrue, ApiConstants.DELETE_SUCCESS);
 		verify(mockDbLayer, times(1)).deleteSensor(any(String.class));
 	}
+	
+	@Test
+	public void deleteSensor_failedAtDb() {
+		String objectId = "123";
+		when (mockDbLayer.deleteSensor(objectId)).thenReturn(false);
+		String isTrue = objectUnderTest.deleteSensor(objectId);
+		assertEquals(isTrue, ApiConstants.DELETE_FAILED);
+		verify(mockDbLayer, times(1)).deleteSensor(any(String.class));
+	}
+	
 	
 	
 	//Test that our API will call to the DeviceService and fetch a Sensor, then return that as a json object to the user
@@ -148,6 +173,15 @@ public class APIEndpointTester {
 		assertEquals(sensorToJson.getId(), sensorFromJson.getId());
 		
 	}
+	
+	@Test
+	public void doSomething() {
+		String json = "{\"id\":\"1\",\"floor\":words,\"ceil\":words,\"interval\":0,\"expiration\":\"Sep 30, 2017 2:05:52 PM\",\"payloads\":[]}";
+		System.out.println(objectUnderTest.createUpdateSensor(json));
+	}
+
+	
+	
 	@Test
 	public void getSensor_badId_errorJson() {
 		when(serviceLayer.getDeviceById(any(String.class))).thenReturn(null);
@@ -156,5 +190,13 @@ public class APIEndpointTester {
 		if (errorText.length == 1) {
 			fail();//if there is no error object in the returning JSON, fail.
 		}
+	}
+
+	//Verify that if you attempt to create a device with bad JSON, you get an error message stating that the object could not be created from the JSON.
+	@Test
+	public void breakCreateSensor() {
+		String invalidJson= "}{{";
+		String result = objectUnderTest.createUpdateSensor(invalidJson);
+		assertEquals(result, ApiConstants.COULD_NOT_CONVERT_FROM_JSON);
 	}
 }

@@ -1,16 +1,14 @@
 package edu.psu.iot.persistence;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mongojack.JacksonDBCollection;
-import org.mongojack.WriteResult;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoSocketOpenException;
@@ -36,8 +34,6 @@ public class MongoDbPersistenceTest {
 	 */
 	@Test
 	public void testLocalhostDatabaseConnectivity() {
-		JacksonDBCollection<Device, String> jackCollection = null;
-		WriteResult<Device, String> mongoJackWriteResult = null;
 		 try {
 
 			MongoClient mongoClient = new MongoClient();
