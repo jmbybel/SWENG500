@@ -1,10 +1,8 @@
 # Frontend for IoT SWENG 500 Project Group 1
 
-Frontend piece of the project which handles the UI layer and sending user requests to the server.
+Frontend of the project which handles the UI layer and sending user requests to the server.
 
 ## Getting Started
-
-Don't have any instructions yet for getting this on your system, but they would go here.
 
 ### Prerequisites
 
