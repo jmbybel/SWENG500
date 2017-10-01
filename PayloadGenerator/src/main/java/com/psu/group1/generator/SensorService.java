@@ -15,7 +15,7 @@ public class SensorService
 	
 	ScheduledExecutorService ses = Executors.newScheduledThreadPool(25);
     SensorService(){}
-    public void createSensor(	
+    public void createSensor(	//Delete this eventually
     		String name,			//name of the sensor
 			int id, 				//unique integer id
 			double initialValue, 	//starting value of sensor
@@ -33,6 +33,16 @@ public class SensorService
     	Sensor sensor = new Sensor(name,id,initialValue,max,min,duration,interval,type,sinInterval,minInterval,maxInterval,randomInterval);
     	sensor.start(this.ses);
     	sensorList.put(Integer.valueOf(id), sensor);
+    	logger.info("SS SensorList: {}", sensorList);
+    	logger.debug("<<sensorServiceConstructor()");
+    }
+    
+    public void createSensor(SensorConfig config)		//SensorType	
+    {	 
+    	logger.debug(">>sensorServiceConstructor()");
+    	Sensor sensor = new Sensor(config);
+    	sensor.start(this.ses);
+    	sensorList.put(Integer.valueOf(config.getId()), sensor);
     	logger.info("SS SensorList: {}", sensorList);
     	logger.debug("<<sensorServiceConstructor()");
     }

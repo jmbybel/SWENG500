@@ -29,7 +29,7 @@ public class Sensor implements Runnable{	//Represents a sensor based on a unique
 	double currentValue;
 	long duration;
 	long interval;
-	int sinValue;
+	int sinValue = 10;
 	int sinInterval; //degrees
 	long minInterval;
 	long maxInterval;
@@ -39,6 +39,10 @@ public class Sensor implements Runnable{	//Represents a sensor based on a unique
 	SensorType type;
 	boolean enable = true; 			//Set to false in order to stop the task from executing.
 	ScheduledExecutorService ses;   //Service currently executing this runnable.
+	long startTime;
+	boolean isFirstRun = true;
+	long endTime;
+
 	
 	Sensor(	String name,
 			int id, 				//unique integer id
@@ -62,7 +66,6 @@ public class Sensor implements Runnable{	//Represents a sensor based on a unique
 		this.interval = interval;
 		this.name = name;
 		this.type = type;
-		this.sinValue = sinInterval;
 		this.sinInterval = sinInterval;
 		this.minInterval = minInterval;
 		this.maxInterval = maxInterval;
@@ -72,7 +75,26 @@ public class Sensor implements Runnable{	//Represents a sensor based on a unique
 		max = Math.max(min, max);
 		logger.debug("<<sensorConstructor()");
 	}
-	
+	Sensor(SensorConfig config)			//interval in milliseconds
+	{
+		logger.debug(">>sensorConstructor()");
+		this.id = config.getId();
+		this.currentValue = config.getInitialValue();
+		this.max = config.getMax();
+		this.min = config.getMin();
+		this.duration = config.getDuration();
+		this.interval = config.getInterval();
+		this.name = config.getName();
+		this.type = config.getType();
+		this.sinInterval = config.getSinInterval();
+		this.minInterval = config.getMinInterval();
+		this.maxInterval = config.getMaxInterval();
+		this.randomInterval = config.isRandomInterval();
+		
+		min = Math.min(min,max);
+		max = Math.max(min, max);
+		logger.debug("<<sensorConstructor()");
+	}
 	
 	public void start(ScheduledExecutorService ses)
 	{
@@ -86,6 +108,11 @@ public class Sensor implements Runnable{	//Represents a sensor based on a unique
 	public void run() 
 	{		
 		logger.debug(">>sensorRun()");
+		if(isFirstRun){
+			startTime = System.currentTimeMillis();
+			endTime = startTime + duration;
+			isFirstRun = false;
+		}
 			JSONObject payload = new JSONObject();
 			payload.put("name", this.name);
 			payload.put("id", this.id);
@@ -112,7 +139,7 @@ public class Sensor implements Runnable{	//Represents a sensor based on a unique
 	        
 			System.out.println(payload);
 			
-			if(enable == true){
+			if(enable == true && ((System.currentTimeMillis() < endTime) || duration == 0)){
 				
 				if(type == SensorType.RANDOM){
 					currentValue = ((max-min)*Math.random()) + min;
