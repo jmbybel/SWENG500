@@ -24,13 +24,13 @@ npm install
 ```
 npm run build
 ```
-This should build and start the project.
+This will build and start the project.
 
 4. For hot reloading while developing, run
 ```
 npm run start -s
 ```
-this will result in saved changes to disk automatically updating the browser window with those changes.
+this will result in saved changes to disk automatically updating the browser window with these changes.
 
 ## Running the tests
 
