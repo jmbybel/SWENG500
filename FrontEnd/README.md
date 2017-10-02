@@ -25,6 +25,7 @@ npm install
 npm run build
 ```
 This should build and start the project.
+
 4. For hot reloading while developing, run
 ```
 npm run start -s
@@ -40,7 +41,7 @@ npm run test
 
 ## Deployment
 
-All distribution files will be placed in the ../FrontEnd/dist folder after executing 
+All distribution files will be placed in the /FrontEnd/dist folder after executing 
 ```
 npm run build
 ```
