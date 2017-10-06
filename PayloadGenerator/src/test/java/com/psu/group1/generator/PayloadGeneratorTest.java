@@ -3,6 +3,8 @@ package com.psu.group1.generator;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
+
 import junit.framework.TestCase;
 /*
 import java.io.ByteArrayOutputStream;
@@ -12,6 +14,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.contrib.java.lang.system.SystemOutRule;
 */
+
+
 
 public class PayloadGeneratorTest extends TestCase{
 	
@@ -34,6 +38,7 @@ public class PayloadGeneratorTest extends TestCase{
 	{
 		SensorService ss = new SensorService();
 		SensorConfig config = new SensorConfig();
+		config.setName("Test Create SS");
 		config.setId(1);
 		config.setRandomInterval(true);
 		ss.createSensor(config);
@@ -46,6 +51,7 @@ public class PayloadGeneratorTest extends TestCase{
 		SensorService ss = new SensorService();
 		SensorConfig config = new SensorConfig();
 		config.setId(1);
+		config.setName("Test Stop SS");
 		config.setRandomInterval(true);
 		ss.createSensor(config);
 		ss.stopSensor(1);
@@ -56,6 +62,7 @@ public class PayloadGeneratorTest extends TestCase{
 	{
 		SensorService ss = new SensorService();
 		SensorConfig config = new SensorConfig();
+		config.setName("Test Start SS");
 		config.setId(1);
 		config.setRandomInterval(true);
 		ss.createSensor(config);
@@ -68,6 +75,7 @@ public class PayloadGeneratorTest extends TestCase{
 	{
 		SensorService ss = new SensorService();
 		SensorConfig config = new SensorConfig();
+		config.setName("Test Delete SS");
 		config.setId(1);
 		config.setRandomInterval(true);
 		ss.createSensor(config);
@@ -79,6 +87,7 @@ public class PayloadGeneratorTest extends TestCase{
 	{
 		SensorConfig config = new SensorConfig();
 		config.setId(1);
+		config.setName("Test Sensor Start and Run");
 		config.setRandomInterval(true);
 		Sensor sensor = new Sensor(config);
 		sensor.start();
@@ -91,6 +100,7 @@ public class PayloadGeneratorTest extends TestCase{
 	{
 		SensorConfig config = new SensorConfig();
 		config.setId(1);
+		config.setName("Test Sensor Start and Stop");
 		config.setRandomInterval(true);
 		Sensor sensor = new Sensor(config);
 		sensor.start();
@@ -123,6 +133,52 @@ public class PayloadGeneratorTest extends TestCase{
 		Long test = Util.getRandomLong(10,20);
 		assertTrue(test <= 20);
 		assertTrue(test >= 10);
+	}
+	
+	public void testSensorDurations() throws InterruptedException
+	{
+		SensorService ss = new SensorService();
+		SensorConfig config = new SensorConfig();
+		config.setName("Test Duration");
+		config.setId(1);
+		config.setType(SensorType.BINARY);
+		config.setDuration(5000);
+		ss.createSensor(config);
+		
+		TimeUnit.SECONDS.sleep(5);
+		
+		int zeroCount = 0;
+		int oneHundredCount = 0;
+		
+		File file = new File("logFile.txt");
+		
+		try {
+		    @SuppressWarnings("resource")
+			Scanner scanner = new Scanner(file);
+		    while (scanner.hasNextLine()) {
+		        String line = scanner.nextLine();
+		   
+	            if(line.contains("{\"name\":\"Test Duration\",\"id\":1,\"value\":0}")) {
+	            	zeroCount++;
+	            }
+	            
+	            if(line.contains("{\"name\":\"Test Duration\",\"id\":1,\"value\":100}")){
+	            	oneHundredCount++;
+	            }
+		    }
+		} catch(FileNotFoundException e) { 
+		    System.err.println("Output file not found");
+		}
+		
+		if(zeroCount == 3 && oneHundredCount == 2)
+		{
+			assertTrue(true);
+		}
+		else
+		{
+			assertTrue(false);
+		}
+	
 	}
 	
 	//tests log file works and multiple sensor types work as well

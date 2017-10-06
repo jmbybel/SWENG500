@@ -52,6 +52,8 @@ The file need is:
 PayloadGeneratorTest.java
 ```
 
+Delete the logFile.txt each time to refresh the test results to confirm they work as expected.
+
 Run as a JUnit Test to see the test results pass to ensure the code is operating as expected.
 
 ## Deployment

@@ -14,7 +14,10 @@ public class Play {
 		//Simulate the "Validator" sending us a config
 		SensorConfig config = new SensorConfig();
 		config.setInterval(1000);
+		config.setName("Duration Sensor");
+		config.setDuration(5000);
 		config.setRandomInterval(false);
+		config.setId(100);
 		ss.createSensor(config);
 		
 		
