@@ -16,7 +16,7 @@ Any examples we need for getting this up?
 
 ### Installing
 
-Steps for installing the Data Geneator
+Steps for installing the Data Generator
 
 First step is to have all the files on your machine.
 
@@ -24,6 +24,7 @@ First step is to have all the files on your machine.
 Play.java 
 Sensor.java
 SensorService.java
+SensorConfig.java
 Util.java
 ```
 

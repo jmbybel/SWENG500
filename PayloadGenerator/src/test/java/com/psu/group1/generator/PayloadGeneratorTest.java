@@ -1,18 +1,21 @@
 package com.psu.group1.generator;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.PrintStream;
 import java.util.Scanner;
-
 import junit.framework.TestCase;
+/*
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.contrib.java.lang.system.SystemOutRule;
+*/
 
 public class PayloadGeneratorTest extends TestCase{
+	
+	/*
 	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 	private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
 	
@@ -25,11 +28,15 @@ public class PayloadGeneratorTest extends TestCase{
 	//also can be used to test output, not working atm either
 	@Rule
     public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
-
+	*/
+	
 	public void testCreateSensorService()
 	{
 		SensorService ss = new SensorService();
-		ss.createSensor("Test", 1, 0, 1, 0, 0, 1000, SensorType.BINARY, 0, 1000, 5000, true);
+		SensorConfig config = new SensorConfig();
+		config.setId(1);
+		config.setRandomInterval(true);
+		ss.createSensor(config);
 		assertEquals((ss.sensorList).size(), 1);
 		//assertEquals("{\"name\":\"Test\",\"id\":1,\"value\":0}", outContent.toString());
 	}
@@ -37,7 +44,10 @@ public class PayloadGeneratorTest extends TestCase{
 	public void testStopSensorService()
 	{
 		SensorService ss = new SensorService();
-		ss.createSensor("Test", 1, 0, 1, 0, 0, 1000, SensorType.BINARY, 0, 1000, 5000, true);
+		SensorConfig config = new SensorConfig();
+		config.setId(1);
+		config.setRandomInterval(true);
+		ss.createSensor(config);
 		ss.stopSensor(1);
 		assertEquals((ss.sensorList.get(1)).enable, false);
 	}
@@ -45,7 +55,10 @@ public class PayloadGeneratorTest extends TestCase{
 	public void testStartSensorService()
 	{
 		SensorService ss = new SensorService();
-		ss.createSensor("Test", 1, 0, 1, 0, 0, 1000, SensorType.BINARY, 0, 1000, 5000, true);
+		SensorConfig config = new SensorConfig();
+		config.setId(1);
+		config.setRandomInterval(true);
+		ss.createSensor(config);
 		ss.stopSensor(1);
 		ss.startSensor(1);
 		assertEquals((ss.sensorList.get(1)).enable, true);
@@ -54,14 +67,20 @@ public class PayloadGeneratorTest extends TestCase{
 	public void testDeleteSensorService()
 	{
 		SensorService ss = new SensorService();
-		ss.createSensor("Test", 1, 0, 1, 0, 0, 1000, SensorType.BINARY, 0, 1000, 5000, true);
+		SensorConfig config = new SensorConfig();
+		config.setId(1);
+		config.setRandomInterval(true);
+		ss.createSensor(config);
 		ss.deleteSensor(1);
 		assertEquals((ss.sensorList).size(), 0);
 	}
 	
 	public void testSensorStartAndRun()
 	{
-		Sensor sensor = new Sensor("Test", 1, 0, 1, 0, 0, 1000, SensorType.BINARY, 0, 1000, 5000, true);
+		SensorConfig config = new SensorConfig();
+		config.setId(1);
+		config.setRandomInterval(true);
+		Sensor sensor = new Sensor(config);
 		sensor.start();
 		assertEquals(sensor.enable, true);
 		assertTrue(sensor.interval != 1000);
@@ -70,7 +89,10 @@ public class PayloadGeneratorTest extends TestCase{
 	
 	public void testSensorStartAndStop()
 	{
-		Sensor sensor = new Sensor("Test", 1, 0, 1, 0, 0, 1000, SensorType.BINARY, 0, 1000, 5000, true);
+		SensorConfig config = new SensorConfig();
+		config.setId(1);
+		config.setRandomInterval(true);
+		Sensor sensor = new Sensor(config);
 		sensor.start();
 		assertEquals(sensor.enable, true);
 		sensor.stop();
@@ -79,18 +101,20 @@ public class PayloadGeneratorTest extends TestCase{
 	
 	public void testSensorConstructor()
 	{
-		Sensor sensor = new Sensor("Test", 1, 0, 1, 0, 0, 1000, SensorType.BINARY, 0, 1000, 5000, true);
-		assertEquals(sensor.name, "Test");
-		assertEquals(sensor.id, 1);
+		SensorConfig config = new SensorConfig();
+		Sensor sensor = new Sensor(config);
+		assertEquals(sensor.name, "name");
+		assertEquals(sensor.id, -1);
 		assertEquals(sensor.currentValue, 0.0);
-		assertEquals(sensor.max, 1.0);
+		assertEquals(sensor.max, 100.0);
 		assertEquals(sensor.min, 0.0);
 		assertEquals(sensor.duration, 0);
 		assertEquals(sensor.interval, 1000);
-		assertEquals(sensor.type, SensorType.BINARY);
+		assertEquals(sensor.type, SensorType.RANDOM);
+		assertEquals(sensor.sinInterval, 10);
 		assertEquals(sensor.minInterval, 1000);
 		assertEquals(sensor.maxInterval, 5000);
-		assertEquals(sensor.randomInterval, true);
+		assertEquals(sensor.randomInterval, false);
 		assertEquals(sensor.enable, true);
 	}
 	
@@ -101,59 +125,102 @@ public class PayloadGeneratorTest extends TestCase{
 		assertTrue(test >= 10);
 	}
 	
-	public void testDifferentSensorsOutputToMockEndpointFile()
+	//tests log file works and multiple sensor types work as well
+	public void testDifferentSensorsOutputToLogFile()
 	{
 		SensorService ss = new SensorService();
-		ss.createSensor("Random Sensor", 1, 72, 90, 60, 0, 1000, SensorType.RANDOM, 0, 1000, 5000, true);
-		ss.createSensor("Binary Sensor", 2, 1, 2, 1, 0, 1000, SensorType.BINARY, 0, 1000, 5000, false);
-		ss.createSensor("Ramp Sensor", 3, 5, 10, 1, 0, 1000, SensorType.RAMP, 0, 1000, 5000, true);
-		ss.createSensor("Sin Sensor", 4, 0, 0, 0, 0, 1000, SensorType.SIN, 10, 1000, 5000, true);
-		File file = new File("mockoutput.txt");
-
+		
+		//Create a Random Sensor config
+		SensorConfig randomConfig = new SensorConfig();
+		randomConfig.setName("Random Sensor");
+		randomConfig.setId(1);
+		randomConfig.setInitialValue(72);
+		randomConfig.setMax(90);
+		randomConfig.setMin(60);
+		randomConfig.setType(SensorType.RANDOM);
+		randomConfig.setRandomInterval(true);
+		ss.createSensor(randomConfig);
+		
+		//Create a Binary Sensor config
+		SensorConfig binaryConfig = new SensorConfig();
+		binaryConfig.setName("Binary Sensor");
+		binaryConfig.setId(2);
+		binaryConfig.setInitialValue(1);
+		binaryConfig.setMax(2);
+		binaryConfig.setMin(1);
+		binaryConfig.setType(SensorType.BINARY);
+		ss.createSensor(binaryConfig);
+		
+		//Create a Ramp Sensor config
+		SensorConfig rampConfig = new SensorConfig();
+		rampConfig.setName("Ramp Sensor");
+		rampConfig.setId(3);
+		rampConfig.setInitialValue(5);
+		rampConfig.setMax(10);
+		rampConfig.setMin(1);
+		rampConfig.setType(SensorType.RAMP);
+		rampConfig.setRandomInterval(true);
+		ss.createSensor(rampConfig);
+		
+		//Create a Sin Sensor config
+		SensorConfig sinConfig = new SensorConfig();
+		sinConfig.setName("Sin Sensor");
+		sinConfig.setId(4);
+		sinConfig.setInitialValue(0);
+		sinConfig.setMax(0);
+		sinConfig.setMin(0);
+		sinConfig.setType(SensorType.SIN);
+		sinConfig.setRandomInterval(true);
+		ss.createSensor(sinConfig);
+		
+		
+		File file = new File("logFile.txt");
+		boolean BinFlag = false;
+		boolean RanFlag = false;
+		boolean RamFlag = false;
+		boolean SinFlag = false;
+		
 		try {
 		    @SuppressWarnings("resource")
 			Scanner scanner = new Scanner(file);
-
-		    int lineNum = 0;
 		    while (scanner.hasNextLine()) {
 		        String line = scanner.nextLine();
-		        lineNum++;
-		        if(lineNum < 5) { 
-		            if(line.contains("{\"name\":\"Binary Sensor\",\"id\":2,\"value\":1}")) {
-		            	assertTrue(true);
-		            }
-		            else{
-		            	if(line.contains("{\"name\":\"Random Sensor\",\"id\":1,\"value\":72}")){
-		            		assertTrue(true);
-		            	}
-		            	else{
-		            		if(line.contains("{\"name\":\"Ramp Sensor\",\"id\":3,\"value\":5}")){
-		            			assertTrue(true);
-		            		}
-		            		else{
-		            			if(line.contains("{\"name\":\"Sin Sensor\",\"id\":4,\"value\":0}")){
-		            				assertTrue(true);
-		            			}
-		            			else{
-		            				assertTrue(false);
-		            			}
-		            		}
-		            	}
-		            }
-		            		
-		        }
-		        if(lineNum == 5) { 
-		            break;
-		        }
+		   
+	            if(line.contains("{\"name\":\"Binary Sensor\",\"id\":2,\"value\":1}")) {
+	            	BinFlag = true;
+	            }
+	            
+	            if(line.contains("{\"name\":\"Random Sensor\",\"id\":1,\"value\":72}")){
+	            	RanFlag = true;
+	            }
+
+        		if(line.contains("{\"name\":\"Ramp Sensor\",\"id\":3,\"value\":5}")){
+        			RamFlag = true;
+        		}
+        		
+    			if(line.contains("{\"name\":\"Sin Sensor\",\"id\":4,\"value\":0}")){
+    				SinFlag = true;
+    			}
 		    }
 		} catch(FileNotFoundException e) { 
 		    System.err.println("Output file not found");
 		}
+		
+		if(BinFlag && SinFlag && RanFlag && RamFlag)
+		{
+			assertTrue(true);
+		}
+		else
+		{
+			assertTrue(false);
+		}
 	}
 	
+	/*
 	@After
 	public void cleanUpStreams() {
 	    System.setOut(null);
 	    System.setErr(null);
 	}
+	*/
 }

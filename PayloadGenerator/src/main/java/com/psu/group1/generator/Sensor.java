@@ -43,39 +43,7 @@ public class Sensor implements Runnable{	//Represents a sensor based on a unique
 	boolean isFirstRun = true;
 	long endTime;
 
-	
-	Sensor(	String name,
-			int id, 				//unique integer id
-			double initialValue, 	//starting value of sensor
-			double max, 			//max value of sensor
-			double min, 			//min value of sensor
-			long duration,			//duration in milliseconds
-			long interval,
-			SensorType type,
-			int sinInterval,
-			long minInterval,
-			long maxInterval, 
-			boolean randomInterval)			//interval in milliseconds
-	{
-		logger.debug(">>sensorConstructor()");
-		this.id = id;
-		this.currentValue = initialValue;
-		this.max = max;
-		this.min = min;
-		this.duration = duration;
-		this.interval = interval;
-		this.name = name;
-		this.type = type;
-		this.sinInterval = sinInterval;
-		this.minInterval = minInterval;
-		this.maxInterval = maxInterval;
-		this.randomInterval = randomInterval;
-		
-		min = Math.min(min,max);
-		max = Math.max(min, max);
-		logger.debug("<<sensorConstructor()");
-	}
-	Sensor(SensorConfig config)			//interval in milliseconds
+	Sensor(SensorConfig config)			
 	{
 		logger.debug(">>sensorConstructor()");
 		this.id = config.getId();
@@ -119,10 +87,10 @@ public class Sensor implements Runnable{	//Represents a sensor based on a unique
 			payload.put("value", currentValue);
 
 			logger.info("current payload: {}", payload.toString());
-			//mock endpoint to file
+			//log to file, TODO:Add timestamps?
 	        BufferedWriter output = null;
 	        try {
-	            File file = new File("mockoutput.txt");
+	            File file = new File("logFile.txt");
 	            output = new BufferedWriter(new FileWriter(file, true));
 	            output.write(payload.toString() + "\n");
 	        } catch ( IOException e ) {
