@@ -1,6 +1,7 @@
 package edu.psu.iot.service;
 
 import java.io.File;
+import java.util.List;
 
 import edu.psu.iot.database.MongoDbPersistence;
 import edu.psu.iot.object.Device;
@@ -45,7 +46,6 @@ public class DeviceServiceImpl {
 		original.setId(null);
 		return databaseAccess.createDevice(original);
 	}
-
 	
 	public Device insertUpdateDevice(Device device) {
 		if (device.getId() == null) {
@@ -54,6 +54,10 @@ public class DeviceServiceImpl {
 			device = databaseAccess.updateDevice(device);
 		}
 		return device;
+	}
+	
+	public List<Device> getAllDevices() {
+		return databaseAccess.getAllDevices();
 	}
 /*
 	
@@ -81,22 +85,26 @@ public class DeviceServiceImpl {
 	}
 */
 	
+	@Deprecated
 	public Sensor getSensorById(String id) {
 		return databaseAccess.readSensorById(id);
 	}
 
-	
+	//TODO needs a rework
+	@Deprecated
 	public boolean deleteSensor(String id) {
 		return databaseAccess.deleteSensor(id);
 	}
 
-	
+	//TODO needs a rework
+	@Deprecated
 	public Sensor cloneSensor(Sensor original) {
 		original.setId(null);
 		return databaseAccess.createSensor(original);
 	}
 
-	
+
+	@Deprecated
 	public Sensor insertUpdateSensor(Sensor sensor) {
 		if (sensor.getId() == null) {
 			sensor = databaseAccess.createSensor(sensor);

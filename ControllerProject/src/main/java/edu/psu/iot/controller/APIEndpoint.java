@@ -1,5 +1,9 @@
 package edu.psu.iot.controller;
 
+import java.util.List;
+
+import com.google.gson.Gson;
+
 import edu.psu.iot.constants.ApiConstants;
 import edu.psu.iot.object.Device;
 import edu.psu.iot.object.Sensor;
@@ -16,7 +20,7 @@ public class APIEndpoint {
 	private ObjectFromJsonValidator validator = new ObjectFromJsonValidator();
 	
 	/**
-	 * Receives a JSON string, and attempts to save it to the database.
+	 * Receives a JSON string of a Device, and all of its child objects, and attempts to save it to the database.
 	 *
 	 * @param json
 	 * @return the updated Device as a JSON string, or an Error json containing the top-level text of the Exception thrown.
@@ -51,9 +55,10 @@ public class APIEndpoint {
 	}
 	
 	/**
-	 * Database responds with operation success/fail boolean. in either case, give the UI layer a JSON object with some verbiage to display.
+	 * Database responds with operation success/fail boolean. in either case, give the UI layer a JSON object with some verbage to display.
 	 * @param id
 	 * @return
+	 * TODO deleting a device means we should probably also delete every request/response for all sensors attached.
 	 */
 	public String deleteDevice(String id) {
 		boolean result = deviceService.deleteDevice(id);
@@ -65,8 +70,32 @@ public class APIEndpoint {
 	}
 	
 	/**
-	 * 
+	 * Load all devices for display -- the master list.
+	 * @return
 	 */
+	public String getAllDevices() {
+		List<Device> deviceList = deviceService.getAllDevices();
+		Gson gson = new Gson();
+				
+		return  gson.toJson(deviceList);
+	}
+	
+	/**
+	 * TODO: work in progress
+	 * For a given sensor ID, find all request/response pairs that the Payload Generator has done and return those.
+	 * @return
+	 */
+	public String getAllPayloadResponsesBySensor(String sensorId) {
+		//TODO return deviceService.getAllPayloadResponsesBySensor(sensorId);
+		
+		return null;
+	}
+	
+	
+	/**
+	 * @deprecated don't create sensors directly, instead call the insert/update Device with the new data.
+	 */
+	@Deprecated
 	public String createUpdateSensor(String json) {
 		String returnString;
 		try {
@@ -80,6 +109,10 @@ public class APIEndpoint {
 		return returnString;
 	}
 	
+	/**
+	 * @deprecated All sensors should be pulled from the DB within the Device fetch, so this should not be needed
+	 */
+	@Deprecated
 	public String getSensorById(String id) {
 		Sensor sensor = null;
 		//TODO placeholder for start of try/catch block for db errors bubbling up
@@ -90,6 +123,11 @@ public class APIEndpoint {
 		return sensor.toJson();
 	}
 
+	/**
+	 * @deprecated Also do this by performing an Update on the Device.
+	 * TODO we will need to also 
+	 */
+	@Deprecated
 	public String deleteSensor(String id) {
 		boolean result = deviceService.deleteSensor(id);
 		if (result) {

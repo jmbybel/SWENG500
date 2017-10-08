@@ -5,6 +5,10 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
 
@@ -114,6 +118,21 @@ public class APIEndpointTester {
 		if (errorText.length == 1) {
 			fail();//if there is no error object in the returning JSON, fail.
 		}
+	}
+	
+	@Test
+	public void getAllDevices() {
+		List<Device> myDevs = new ArrayList<>();
+			Device device1 = new Device();
+			device1.setName("a sample device");
+			Device device2 = new Device();
+			device2.setName("a different device");
+			myDevs.add(device1);
+			myDevs.add(device2);
+		when(serviceLayer.getAllDevices()).thenReturn(myDevs);
+		String resultString = objectUnderTest.getAllDevices();
+		assertTrue(resultString.contains("sample"));
+		assertTrue(resultString.contains("different"));
 	}
 	
 	//verify that a sensor JSON sent to the API gets passed to the database layer and reaches the createSensor method

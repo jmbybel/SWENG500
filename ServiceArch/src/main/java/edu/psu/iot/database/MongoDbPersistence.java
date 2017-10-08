@@ -1,5 +1,11 @@
 package edu.psu.iot.database;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.mongojack.DBCursor;
 import org.mongojack.JacksonDBCollection;
 import org.mongojack.WriteResult;
 
@@ -15,6 +21,7 @@ import edu.psu.iot.object.intf.JsonObject;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class MongoDbPersistence {
+	private static final Logger logger = LogManager.getLogger();
 
 	MongoClient mongoClient;
 	DB aDatabase;
@@ -39,6 +46,10 @@ public class MongoDbPersistence {
 	
 	public boolean deleteSensor(String id) {
 		return deleteObjectById(Sensor.class, id);
+	}
+	
+	public List<Device> getAllDevices() {
+		return findAll(Device.class);
 	}
 	
 	public Device createDevice(Device theDevice) {
@@ -86,13 +97,26 @@ public class MongoDbPersistence {
 	//TODO logging + throwing exceptions.
 	
 	private <T extends JsonObject> T saveObject(T target) {//throws DatabaseActionException{
+		logger.debug("MongoDbPersistence.saveObject on class " + target.getClass().getSimpleName());
+		
 		DBCollection collection = aDatabase.getCollection(target.getClass().getSimpleName());
 		JacksonDBCollection<T, String> jackCollection = JacksonDBCollection.wrap(collection, (Class<T>)target.getClass(), String.class);
 		WriteResult<T, String> mongoJackWriteResult = jackCollection.insert(target);
-		return mongoJackWriteResult.getSavedObject();
+		T result = mongoJackWriteResult.getSavedObject();
+		
+		logger.debug("Succeeded, object id is: " + result.getId());
+		
+		return result;
 	}
 	
+	/**
+	 * Update a document of a given type, returning the updated object
+	 * @param target
+	 * @return
+	 */
 	private <T extends JsonObject> T updateObject(T target) {//throws DatabaseActionException {
+		logger.debug("MongoDbPersistence.updateObject on class " + target.getClass().getSimpleName() + " with ID: " + target.getId());
+		
 		DBCollection collection = aDatabase.getCollection(target.getClass().getSimpleName());
 		JacksonDBCollection<T, String> jackCollection = JacksonDBCollection.wrap(collection, (Class<T>)target.getClass(), String.class);
 		WriteResult<T, String> mongoJackWriteResult = jackCollection.updateById(target.getId(), target);
@@ -103,16 +127,61 @@ public class MongoDbPersistence {
 		}*/
 	}
 	
-	private <T extends JsonObject> T readObjectById(Class c, String id) {//throws DatabaseActionException{
-		DBCollection collection = aDatabase.getCollection(c.getSimpleName());
-		JacksonDBCollection<T, String> jackCollection = JacksonDBCollection.wrap(collection, c, String.class);
-		return jackCollection.findOneById(id);
+	/**
+	 * Fetch one item of a given class, matching ID
+	 * @param clazz
+	 * @param id
+	 * @return
+	 */
+	private <T extends JsonObject> T readObjectById(Class clazz, String id) {//throws DatabaseActionException{
+		logger.debug("MongoDbPersistence.readObjectById on class " + clazz.getSimpleName() + " with ID: " + id);
+		DBCollection collection = aDatabase.getCollection(clazz.getSimpleName());
+		JacksonDBCollection<T, String> jackCollection = JacksonDBCollection.wrap(collection, clazz, String.class);
+		T result = jackCollection.findOneById(id);
+		logger.debug("object found: " + result.toJson());
+		return result;
 	}
 	
-	private boolean deleteObjectById(Class c, String id) {//throws DatabaseActionException{ TODO
-		DBCollection collection = aDatabase.getCollection(c.getSimpleName());
-		JacksonDBCollection<JsonObject, String> jackCollection = JacksonDBCollection.wrap(collection, c, String.class);
+	/**
+	 * Delete an object from the collection matching the class passed in here.
+	 * @param clazz
+	 * @param id
+	 * @return
+	 */
+	private boolean deleteObjectById(Class clazz, String id) {//throws DatabaseActionException{ TODO
+		logger.debug("MongoDbPersistence.deleteObjectById on class " + clazz.getSimpleName());
+		
+		DBCollection collection = aDatabase.getCollection(clazz.getSimpleName());
+		JacksonDBCollection<JsonObject, String> jackCollection = JacksonDBCollection.wrap(collection, clazz, String.class);
 		WriteResult wr = jackCollection.removeById(id);
+		
+		logger.debug("Database acknowledged delete: " + wr.getWriteResult().wasAcknowledged());
+		
 		return wr.getWriteResult().wasAcknowledged();
+	}
+	
+	/**
+	 * Given a class, find all elements in a MongoDB collection matching it and return as a list of Java objects of that class
+	 * @param clazz the class name. The class should also be the name of the collection in the database.
+	 * @return
+	 */
+	private <T extends JsonObject> List<T> findAll(Class clazz) {
+		logger.debug("MongoDbPersistence.findAll on class " + clazz.getSimpleName());
+		
+		DBCollection collection = aDatabase.getCollection(clazz.getSimpleName());
+		JacksonDBCollection<T, String> jackCollection = JacksonDBCollection.wrap(collection, clazz, String.class);
+		DBCursor<T> cursor =  jackCollection.find();//no params = get everything.
+		List<T> returnList = new ArrayList<>();
+		try {
+			while(cursor.hasNext()) {
+				returnList.add(cursor.next());
+			}
+		} finally {
+			cursor.close();
+		}
+		
+		logger.debug("found " + returnList.size() + " matches");
+		
+		return returnList;
 	}
 }
