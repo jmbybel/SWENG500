@@ -15,7 +15,6 @@ import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 
 import edu.psu.iot.object.Device;
-import edu.psu.iot.object.Payload;
 import edu.psu.iot.object.ResponseData;
 import edu.psu.iot.object.Sensor;
 import edu.psu.iot.object.intf.JsonObject;

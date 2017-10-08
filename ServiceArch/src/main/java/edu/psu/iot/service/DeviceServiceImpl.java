@@ -2,6 +2,7 @@ package edu.psu.iot.service;
 
 import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 import edu.psu.iot.database.MongoDbPersistence;
 import edu.psu.iot.object.Device;
@@ -44,10 +45,16 @@ public class DeviceServiceImpl {
 	
 	public Device cloneDevice(Device original) {
 		original.setId(null);
+		//sensors will need to be given new IDs too.
+		for (Sensor s: original.getSensors()) {
+			s.setId(null);
+		}
+		giveIdsToSensors(original);
 		return databaseAccess.createDevice(original);
 	}
 	
 	public Device insertUpdateDevice(Device device) {
+		giveIdsToSensors(device);
 		if (device.getId() == null) {
 			device = databaseAccess.createDevice(device);
 		} else {
@@ -164,5 +171,14 @@ public class DeviceServiceImpl {
 		this.databaseAccess = databaseAccess;
 	}
 	
-	
+	//have Java generate IDs for the sensors we're inserting with the device.
+	private void giveIdsToSensors(Device theDevice) {
+		if (!theDevice.getSensors().isEmpty()) {
+			for (Sensor aSensor: theDevice.getSensors()) {
+				if (aSensor.getId() == null) {//make a new UUID for that sensor before persisting.
+					aSensor.setId(UUID.randomUUID().toString());
+				}
+			}
+		}
+	}
 }

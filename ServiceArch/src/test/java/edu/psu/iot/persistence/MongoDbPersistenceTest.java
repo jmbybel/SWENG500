@@ -109,6 +109,31 @@ public class MongoDbPersistenceTest {
 
 	}
 	
+	//insert a bunch of devices and then see if they all come back from the database after
+	//Note, as written this will fail right out when we're actually putting data in and not deleting after.
+	@Test
+	public void getAllDevices() {
+
+		 Device initialDevice = new Device();
+		 initialDevice.setName("SAMPLER");
+		 Device resultDevice = objectUnderTest.createDevice(initialDevice);//create
+		 initialDevice.setName("Number 2");
+		 Device resultDevice2 = objectUnderTest.createDevice(initialDevice);//create
+		 initialDevice.setName("Number three");
+		 Device resultDevice3 = objectUnderTest.createDevice(initialDevice);//create
+		 
+		 List<Device> resultList = objectUnderTest.getAllDevices();
+		 
+		 //cleanup
+		 objectUnderTest.deleteDevice(resultDevice.getId());
+		 objectUnderTest.deleteDevice(resultDevice2.getId());
+		 objectUnderTest.deleteDevice(resultDevice3.getId());
+		 
+		 assertTrue(resultList.contains(resultDevice3));
+		 assertTrue(resultList.contains(resultDevice2));
+		 assertTrue(resultList.contains(resultDevice));
+	}
+	
 	/**
 	 * Add 3 pieces of ResponseData to the database, then query the DB for the two with a requestData sensor ID of "asdf"
 	 */
