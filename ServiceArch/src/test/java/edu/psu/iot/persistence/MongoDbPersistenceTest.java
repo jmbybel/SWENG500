@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -82,6 +83,7 @@ public class MongoDbPersistenceTest {
 	/**
 	 * Payload does not have Update operations available.
 	 */
+	/*
 	@Test
 	public void payloadCrd() {
 			 Payload initialObject = new Payload();
@@ -92,7 +94,7 @@ public class MongoDbPersistenceTest {
 			 assertTrue(objectUnderTest.deletePayload(resultPayload.getId()));
 
 	}
-	
+	*/
 	/**
 	 * ResponseData crud, also does not have Update operation available.
 	 */
@@ -105,6 +107,34 @@ public class MongoDbPersistenceTest {
 			 assertEquals(resultPayload.getCreatedDateTime(), readResult.getCreatedDateTime());
 			 assertTrue(objectUnderTest.deleteResponseData(resultPayload.getId()));
 
+	}
+	
+	/**
+	 * Add 3 pieces of ResponseData to the database, then query the DB for the two with a requestData sensor ID of "asdf"
+	 */
+	@Test
+	public void getAllPayloadResponsesBySensorId() {
+		//TODO
+		ResponseData initialObject = new ResponseData();
+		Payload requestData = new Payload();
+		requestData.setSensorId("asdf");
+		initialObject.setRequestData(requestData);
+		
+		ResponseData success1 = objectUnderTest.createResponseData(initialObject);//create
+		ResponseData success2 = objectUnderTest.createResponseData(initialObject);//create 2
+		
+		requestData.setSensorId("fdsa");
+		ResponseData success3 = objectUnderTest.createResponseData(initialObject);//create 3, this one has a different payload sensorID
+		
+		String sensorId = "asdf";
+		
+		List<ResponseData> results = objectUnderTest.getAllPayloadResponsesBySensorId(sensorId);
+		
+		//cleanup.
+		objectUnderTest.deleteResponseData(success1.getId());
+		objectUnderTest.deleteResponseData(success2.getId());
+		objectUnderTest.deleteResponseData(success3.getId());
+		assertEquals(results.size(), 2);
 	}
 	
 	/**

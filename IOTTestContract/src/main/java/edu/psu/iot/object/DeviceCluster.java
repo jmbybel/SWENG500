@@ -11,7 +11,6 @@ import edu.psu.iot.object.intf.JsonObject;
 
 //A collection of devices that can be named as a whole set.
 // in the UI layer this will allow us to manage groups of devices at a time.
-@MongoCollection(name="deviceCluster")
 public class DeviceCluster extends JsonObject {
 
 	private String id;
@@ -21,14 +20,10 @@ public class DeviceCluster extends JsonObject {
 	private List<Device> devices;
 
 
-	@ObjectId
-	@JsonProperty("_id")
 	public String getId() {
 		return id;
 	}
 
-	@ObjectId
-	@JsonProperty("_id")
 	public void setId(String id) {
 		this.id = id;
 	}

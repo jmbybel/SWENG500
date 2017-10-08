@@ -23,6 +23,7 @@ import com.google.gson.JsonSyntaxException;
 import edu.psu.iot.constants.ApiConstants;
 import edu.psu.iot.database.MongoDbPersistence;
 import edu.psu.iot.object.Device;
+import edu.psu.iot.object.ResponseData;
 import edu.psu.iot.object.Sensor;
 import edu.psu.iot.service.DeviceServiceImpl;
 
@@ -133,6 +134,20 @@ public class APIEndpointTester {
 		String resultString = objectUnderTest.getAllDevices();
 		assertTrue(resultString.contains("sample"));
 		assertTrue(resultString.contains("different"));
+	}
+	
+	@Test
+	public void getResponseDataBySensorId() {
+		List<ResponseData> responses = new ArrayList<>();
+			responses.add(new ResponseData());
+		ResponseData populatedResponse = new ResponseData();
+			populatedResponse.setId("SOME ID");
+			responses.add(populatedResponse);
+		when(serviceLayer.getAllPayloadResponsesBySensor(any(String.class))).thenReturn(responses);
+		
+		String resultString = objectUnderTest.getAllPayloadResponsesBySensor("asdf");
+		
+		assertTrue(resultString.contains("SOME ID"));
 	}
 	
 	//verify that a sensor JSON sent to the API gets passed to the database layer and reaches the createSensor method

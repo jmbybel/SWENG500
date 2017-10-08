@@ -4,11 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -93,11 +89,9 @@ public class SensorTest {
 	@Test
 	public void test_setAndGetPayloads() {
 		Payload aPayload = new Payload();
-		aPayload.setId("928");
-		List<Payload> samplePayloads = new ArrayList<>();
-		samplePayloads.add(aPayload);
-		objectUnderTest.setPayloads(samplePayloads);
-		assertEquals(objectUnderTest.getPayloads(), samplePayloads);
+		aPayload.setSensorId("928");
+		objectUnderTest.setPayloadConfiguration(aPayload);
+		assertEquals(objectUnderTest.getPayloadConfiguration(), aPayload);
 	}
 	
 	private void populateObject() throws ParseException {
@@ -109,7 +103,6 @@ public class SensorTest {
 		objectUnderTest.setSensorType("Sine");
 		objectUnderTest.setInterval(1);
 		objectUnderTest.setExpiration(new Date());
-		objectUnderTest.setPayloads(new ArrayList<>());
 	}
 
 	//TODO more work going to be needed for a full test!

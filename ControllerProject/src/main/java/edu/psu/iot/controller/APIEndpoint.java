@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 
 import edu.psu.iot.constants.ApiConstants;
 import edu.psu.iot.object.Device;
+import edu.psu.iot.object.ResponseData;
 import edu.psu.iot.object.Sensor;
 import edu.psu.iot.service.DeviceServiceImpl;
 
@@ -81,14 +82,13 @@ public class APIEndpoint {
 	}
 	
 	/**
-	 * TODO: work in progress
 	 * For a given sensor ID, find all request/response pairs that the Payload Generator has done and return those.
 	 * @return
 	 */
 	public String getAllPayloadResponsesBySensor(String sensorId) {
-		//TODO return deviceService.getAllPayloadResponsesBySensor(sensorId);
-		
-		return null;
+		List<ResponseData> payloadResponses = deviceService.getAllPayloadResponsesBySensor(sensorId);
+		Gson gson = new Gson();
+		return gson.toJson(payloadResponses);
 	}
 	
 	

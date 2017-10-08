@@ -12,15 +12,15 @@ public class DevicePayloadTest {
 
 	@Test
 	// Should set the DevicePayload id and return the same id when calling the getter
-	public void test_setAndGetId() {
+	public void test_setAndGetSensorId() {
 		// Arrange
 		Payload objectUnderTest = new Payload();
 		String expectedId = "33258";
 		String actualId;
 
 		// Act
-		objectUnderTest.setId(expectedId);
-		actualId = objectUnderTest.getId();
+		objectUnderTest.setSensorId(expectedId);
+		actualId = objectUnderTest.getSensorId();
 		
 		// Assert
 		assertEquals(expectedId, actualId);

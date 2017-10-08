@@ -149,6 +149,10 @@ public class DeviceServiceImpl {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public List<ResponseData> getAllPayloadResponsesBySensor(String sensorId) {
+		return databaseAccess.getAllPayloadResponsesBySensorId(sensorId);
+	}
 
 
 	public MongoDbPersistence getDatabaseAccess() {

@@ -11,19 +11,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import edu.psu.iot.object.intf.JsonObject;
 
 // data received from the endpoint under test.
-// TODO this needs to relate to a single device, a single payload, or a cluster of devices in some meaningful way but I don't know how.
 @MongoCollection(name="responseData")
 public class ResponseData extends JsonObject {
 
 	private String id;
 	
 	private Map<String, String> responseData;
-	//TODO: will EndpointResponseData be related to a single devicePayload, single device, a cluster of devices, or a mix?
-	//private MockDevice sourceDevice;
-	//private DevicePayload sourcePayload;
-	//private DeviceCluster sourceCluster;
 	
 	private Date createdDateTime;
+	
+	private Payload requestData;
 
 	@ObjectId
 	@JsonProperty("_id")
@@ -53,11 +50,12 @@ public class ResponseData extends JsonObject {
 		this.createdDateTime = createdDateTime;
 	}
 	
-	
+	public Payload getRequestData() {
+		return requestData;
+	}
 
-	public String toJsonString() {
-		//TODO;
-		return null;
+	public void setRequestData(Payload requestData) {
+		this.requestData = requestData;
 	}
 	
 }

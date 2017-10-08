@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mongojack.DBCursor;
+import org.mongojack.DBQuery;
 import org.mongojack.JacksonDBCollection;
 import org.mongojack.WriteResult;
 
@@ -67,7 +68,7 @@ public class MongoDbPersistence {
 	public boolean deleteDevice(String id) {
 		return deleteObjectById(Device.class, id);
 	}
-
+/*
 	public Payload createPayload(Payload thePayload) {
 
 		return saveObject(thePayload);
@@ -80,7 +81,7 @@ public class MongoDbPersistence {
 	public boolean deletePayload(String id) {
 		return deleteObjectById(Payload.class, id);
 	}
-	
+	*/
 	public ResponseData createResponseData(ResponseData thePayload) {
 
 		return saveObject(thePayload);
@@ -94,7 +95,20 @@ public class MongoDbPersistence {
 		return deleteObjectById(ResponseData.class, id);
 	}
 	
-	//TODO logging + throwing exceptions.
+	public List<ResponseData> getAllPayloadResponsesBySensorId(String sensorId) {
+		logger.debug("MongoDBPersistence.getAllPayloadResponsesBySensorId on ID: " + sensorId);
+		//TODO it MAY be necessary to make this more generic, but for now, the only query we need to specify something for is the 
+		// payload's sensorID
+
+		DBCollection collection = aDatabase.getCollection(ResponseData.class.getSimpleName());
+		JacksonDBCollection<ResponseData, String> jackCollection = JacksonDBCollection.wrap(collection, ResponseData.class, String.class);
+		DBCursor<ResponseData> cursor = jackCollection.find(DBQuery.is("requestData.sensorId", sensorId));
+		List<ResponseData> result = makeListFromDbCursorData(cursor);
+		
+		logger.debug("Found " + result.size() + " matches.");
+		
+		return result;
+	}
 	
 	private <T extends JsonObject> T saveObject(T target) {//throws DatabaseActionException{
 		logger.debug("MongoDbPersistence.saveObject on class " + target.getClass().getSimpleName());
@@ -171,6 +185,17 @@ public class MongoDbPersistence {
 		DBCollection collection = aDatabase.getCollection(clazz.getSimpleName());
 		JacksonDBCollection<T, String> jackCollection = JacksonDBCollection.wrap(collection, clazz, String.class);
 		DBCursor<T> cursor =  jackCollection.find();//no params = get everything.
+		List<T> returnList = makeListFromDbCursorData(cursor);
+		
+		logger.debug("found " + returnList.size() + " matches");
+		
+		return returnList;
+	}
+	
+	/*
+	 * boilerplate
+	 */
+	private <T extends JsonObject> List<T> makeListFromDbCursorData(DBCursor<T> cursor) {
 		List<T> returnList = new ArrayList<>();
 		try {
 			while(cursor.hasNext()) {
@@ -179,9 +204,7 @@ public class MongoDbPersistence {
 		} finally {
 			cursor.close();
 		}
-		
-		logger.debug("found " + returnList.size() + " matches");
-		
 		return returnList;
 	}
+	
 }
