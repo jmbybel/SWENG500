@@ -9,7 +9,7 @@ describe('<DeviceList />', () => {
 
     // Assert
     expect(result.node.type).toEqual('section');
-    expect(result.node.props.children.length).toEqual(1);
+    expect(result.node.props.children.length).toEqual(2);
     const pageHeader = result.node.props.children[0];
     expect(pageHeader.type.name).toEqual('PageHeader');
   });
@@ -28,8 +28,9 @@ describe('<DeviceList />', () => {
     // Assert
     expect(result.node.type).toEqual('section');
     expect(result.node.props.children.length).toEqual(2);
-    const div = result.node.props.children[1];
-    expect(div.type.name).toEqual('div');
+    const divArray = result.node.props.children[1];
+    const div = divArray[0]
+    expect(div.type).toEqual('div');
   });
 
   it('render: should render multiple divs for multiple devices if multiple exist', () => {
@@ -50,11 +51,13 @@ describe('<DeviceList />', () => {
 
     // Assert
     expect(result.node.type).toEqual('section');
-    expect(result.node.props.children.length).toEqual(3);
-    const div = result.node.props.children[1];
-    expect(div.type.name).toEqual('div');
-    const div2 = result.node.props.children[2];
-    expect(div2.type.name).toEqual('div');
+    expect(result.node.props.children.length).toEqual(2);
+    const divArray = result.node.props.children[1];
+    const div = divArray[0]
+    expect(div.type).toEqual('div');
+    const div2 = divArray[1];
+    expect(div2.type).toEqual('div');
+    expect(divArray.length).toEqual(2);
   });
 
   it('render: should not render divs for devices if none exist', () => {
@@ -64,6 +67,6 @@ describe('<DeviceList />', () => {
 
     // Assert
     expect(result.node.type).toEqual('section');
-    expect(result.node.props.children.length).toEqual(1);
+    expect(result.node.props.children.length).toEqual(2);
   });
 });
