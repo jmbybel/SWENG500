@@ -3,6 +3,11 @@ import static spark.Spark.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.psu.group1.generator.SensorConfig;
+import com.psu.group1.generator.SensorService;
+
+import edu.psu.iot.controller.APIEndpoint;
+
 public class Main {
     public static void main(String[] args) {
     	configureExceptionHandling();
@@ -10,16 +15,31 @@ public class Main {
 
         // In-memory data store for PoC
         List<String> deviceList = new ArrayList<String>();
+        APIEndpoint endpoint = new APIEndpoint();
         
         get("/get-all-devices", (request, response) -> {
-        	System.out.println(String.format("Returning: %s", deviceList.toString()));
-        	return deviceList.toString();
+        	//System.out.println(String.format("Returning: %s", deviceList.toString()));
+        	
+        	System.out.println(endpoint.getAllDevices());
+        	return endpoint.getAllDevices();
+        	
+        	
+        	//return deviceList.toString();
         });
         
         post("/create-new-device", (request, response) -> {
         	System.out.println(String.format("Creating Device: %s", request.body()));
-        	deviceList.add(request.body());
-        	return String.format(request.body());
+        	//deviceList.add(request.body());
+        	
+        	SensorService ss = new SensorService();
+        	ss.createSensor(new SensorConfig());
+        	
+        	
+        	return endpoint.createUpdateDevice(request.body());
+        	
+        	
+        	//return String.format(request.body());
+        	
         });
     }
     

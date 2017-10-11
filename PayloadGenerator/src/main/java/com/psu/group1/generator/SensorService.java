@@ -14,7 +14,7 @@ public class SensorService
 	Map<Integer, Sensor> sensorList = new HashMap<Integer, Sensor>();
 	
 	ScheduledExecutorService ses = Executors.newScheduledThreadPool(25);
-    SensorService(){}
+    public SensorService(){}
 
     public void createSensor(SensorConfig config)	
     {	 

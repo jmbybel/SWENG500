@@ -111,6 +111,6 @@ public class SensorConfig {
 	long maxInterval = 5000; 
 	boolean randomInterval = false;
 		
-	SensorConfig(){}
+	public SensorConfig(){}
 	
 }
