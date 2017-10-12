@@ -1,4 +1,4 @@
-package edu.psu.iot.generator.impl;
+package edu.psu.iot.generator.sensor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

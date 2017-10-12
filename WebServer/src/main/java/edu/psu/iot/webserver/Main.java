@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.psu.iot.api.APIEndpoint;
-import edu.psu.iot.generator.impl.SensorConfig;
-import edu.psu.iot.generator.impl.SensorService;
+import edu.psu.iot.generator.sensor.SensorConfig;
+import edu.psu.iot.generator.sensor.SensorService;
 
 public class Main {
     public static void main(String[] args) {
@@ -30,7 +30,7 @@ public class Main {
         	System.out.println(String.format("Creating Device: %s", request.body()));
         	//deviceList.add(request.body());
         	
-        	SensorService ss = new edu.psu.iot.generator.impl.SensorService();
+        	SensorService ss = new edu.psu.iot.generator.sensor.SensorService();
         	ss.createSensor(new SensorConfig());
         	
         	

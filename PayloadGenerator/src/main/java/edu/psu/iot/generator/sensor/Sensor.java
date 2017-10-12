@@ -1,4 +1,4 @@
-package edu.psu.iot.generator.impl;
+package edu.psu.iot.generator.sensor;
 import java.util.concurrent.TimeUnit;
 import java.io.BufferedWriter;
 import java.io.File;

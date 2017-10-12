@@ -1,99 +1,125 @@
-package edu.psu.iot.generator.impl;
+package edu.psu.iot.generator.sensor;
 
-public class SensorConfig {
+import edu.psu.iot.generator.interfaces.ISensorConfig;
+
+public class SensorConfig implements ISensorConfig {
 	
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	
+	@Override
 	public int getId() {
 		return id;
 	}
 
+	@Override
 	public void setId(int id) {
 		this.id = id;
 	}
 
+	@Override
 	public double getInitialValue() {
 		return initialValue;
 	}
 
+	@Override
 	public void setInitialValue(double initialValue) {
 		this.initialValue = initialValue;
 	}
 
+	@Override
 	public double getMax() {
 		return max;
 	}
 
+	@Override
 	public void setMax(double max) {
 		this.max = max;
 	}
 
+	@Override
 	public double getMin() {
 		return min;
 	}
 
+	@Override
 	public void setMin(double min) {
 		this.min = min;
 	}
 
+	@Override
 	public long getDuration() {
 		return duration;
 	}
 
+	@Override
 	public void setDuration(long duration) {
 		this.duration = duration;
 	}
 
+	@Override
 	public long getInterval() {
 		return interval;
 	}
 
+	@Override
 	public void setInterval(long interval) {
 		this.interval = interval;
 	}
 
+	@Override
 	public SensorType getType() {
 		return type;
 	}
 
+	@Override
 	public void setType(SensorType type) {
 		this.type = type;
 	}
 
+	@Override
 	public int getSinInterval() {
 		return sinInterval;
 	}
 
+	@Override
 	public void setSinInterval(int sinInterval) {
 		this.sinInterval = sinInterval;
 	}
 
+	@Override
 	public long getMinInterval() {
 		return minInterval;
 	}
 
+	@Override
 	public void setMinInterval(long minInterval) {
 		this.minInterval = minInterval;
 	}
 
+	@Override
 	public long getMaxInterval() {
 		return maxInterval;
 	}
 
+	@Override
 	public void setMaxInterval(long maxInterval) {
 		this.maxInterval = maxInterval;
 	}
 
+	@Override
 	public boolean isRandomInterval() {
 		return randomInterval;
 	}
 
+	@Override
 	public void setRandomInterval(boolean randomInterval) {
 		this.randomInterval = randomInterval;
 	}

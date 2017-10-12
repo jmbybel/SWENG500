@@ -10,11 +10,11 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.Before;
 
-import edu.psu.iot.generator.impl.Sensor;
-import edu.psu.iot.generator.impl.SensorConfig;
-import edu.psu.iot.generator.impl.SensorService;
-import edu.psu.iot.generator.impl.SensorType;
-import edu.psu.iot.generator.impl.Util;
+import edu.psu.iot.generator.sensor.Sensor;
+import edu.psu.iot.generator.sensor.SensorConfig;
+import edu.psu.iot.generator.sensor.SensorService;
+import edu.psu.iot.generator.sensor.SensorType;
+import edu.psu.iot.generator.sensor.Util;
 import junit.framework.TestCase;
 /*
 import java.io.ByteArrayOutputStream;
