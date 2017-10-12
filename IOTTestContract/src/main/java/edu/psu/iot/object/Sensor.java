@@ -3,7 +3,7 @@ package edu.psu.iot.object;
 import java.util.Date;
 import java.util.UUID;
 
-import edu.psu.iot.object.intf.JsonObject;
+import edu.psu.iot.object.base.JsonObject;
 
 /**
  * This is a single sensor, a group of which will make up a given Device.

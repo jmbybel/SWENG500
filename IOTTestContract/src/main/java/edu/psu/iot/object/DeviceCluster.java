@@ -7,7 +7,7 @@ import org.mongojack.ObjectId;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import edu.psu.iot.object.intf.JsonObject;
+import edu.psu.iot.object.base.JsonObject;
 
 //A collection of devices that can be named as a whole set.
 // in the UI layer this will allow us to manage groups of devices at a time.

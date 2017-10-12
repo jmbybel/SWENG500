@@ -1,4 +1,4 @@
-package edu.psu.iot.persistence;
+package edu.psu.iot.persistence.mongodb;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -14,15 +14,16 @@ import org.junit.Test;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoSocketOpenException;
 
-import edu.psu.iot.database.MongoDbPersistence;
+import edu.psu.iot.database.DatabaseRepository;
+import edu.psu.iot.database.mongodb.MongoRepository;
 import edu.psu.iot.object.Device;
 import edu.psu.iot.object.Payload;
 import edu.psu.iot.object.ResponseData;
 import edu.psu.iot.object.Sensor;
 
-public class MongoDbPersistenceTest {
+public class MongoRepositoryTest {
 
-	MongoDbPersistence objectUnderTest = new MongoDbPersistence();
+	DatabaseRepository objectUnderTest = new MongoRepository();
 	
 	@Before
 	public void setUp() {

@@ -1,23 +1,24 @@
-package edu.psu.iot.controller;
+package edu.psu.iot.api;
 
 import java.util.List;
 
 import com.google.gson.Gson;
 
-import edu.psu.iot.constants.ApiConstants;
 import edu.psu.iot.object.Device;
 import edu.psu.iot.object.ResponseData;
 import edu.psu.iot.object.Sensor;
-import edu.psu.iot.service.DeviceServiceImpl;
+import edu.psu.iot.service.IDataService;
+import edu.psu.iot.service.impl.DataService;
+import edu.psu.iot.validation.ObjectFromJsonValidator;
 
 /**
- * These will be the methods hit by our REST calls.
+ * This is the only thing the WebServer interacts with.
  *
  */
 public class APIEndpoint {
 
 	
-	private DeviceServiceImpl deviceService = new DeviceServiceImpl();
+	private edu.psu.iot.service.IDataService deviceService = new DataService();
 	private ObjectFromJsonValidator validator = new ObjectFromJsonValidator();
 	
 	/**
@@ -140,11 +141,11 @@ public class APIEndpoint {
 	
 
 	
-	public DeviceServiceImpl getDeviceService() {
+	public IDataService getDeviceService() {
 		return deviceService;
 	}
 
-	public void setDeviceService(DeviceServiceImpl deviceService) {
+	public void setDeviceService(edu.psu.iot.service.IDataService deviceService) {
 		this.deviceService = deviceService;
 	}
 

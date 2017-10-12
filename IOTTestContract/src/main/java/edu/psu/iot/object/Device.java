@@ -10,7 +10,7 @@ import org.mongojack.ObjectId;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import edu.psu.iot.object.intf.JsonObject;
+import edu.psu.iot.object.base.JsonObject;
 //TODO log4j.
 @MongoCollection(name="device")
 public class Device extends JsonObject{

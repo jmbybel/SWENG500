@@ -22,6 +22,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry combineaccessrules="false" kind="src" path="/IOTTestContract"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Objects"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

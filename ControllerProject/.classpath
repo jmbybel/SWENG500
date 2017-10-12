@@ -11,8 +11,8 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry combineaccessrules="false" kind="src" path="/IOTTestContract"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/ServiceArch"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Objects"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/DatabaseLayer"/>
 	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
 		<attributes>
 			<attribute name="optional" value="true"/>

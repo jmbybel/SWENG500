@@ -1,4 +1,4 @@
-package edu.psu.iot.controller;
+package edu.psu.iot.validation;
 
 import com.google.gson.Gson;
 

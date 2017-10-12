@@ -6,7 +6,7 @@ import java.util.List;
 import com.psu.group1.generator.SensorConfig;
 import com.psu.group1.generator.SensorService;
 
-import edu.psu.iot.controller.APIEndpoint;
+import edu.psu.iot.api.APIEndpoint;
 
 public class Main {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package edu.psu.iot.object.intf;
+package edu.psu.iot.object.base;
 
 import com.google.gson.Gson;
 

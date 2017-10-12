@@ -9,10 +9,11 @@ import java.io.File;
 import org.junit.Test;
 
 import edu.psu.iot.object.Device;
+import edu.psu.iot.service.impl.DataService;
 
-public class DeviceServiceImplTest {
+public class DataServiceTest {
 
-	private DeviceServiceImpl objectUnderTest = new DeviceServiceImpl();
+	private IDataService objectUnderTest = new DataService();
 	
 	// the expectation of this test is that the returning object would be a File with the same data as the initial Device, 
 	// ready to be sent for download by the user

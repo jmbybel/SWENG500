@@ -1,4 +1,4 @@
-package edu.psu.iot.database;
+package edu.psu.iot.database.mongodb;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,56 +14,93 @@ import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 
+import edu.psu.iot.database.DatabaseRepository;
 import edu.psu.iot.object.Device;
 import edu.psu.iot.object.ResponseData;
 import edu.psu.iot.object.Sensor;
-import edu.psu.iot.object.intf.JsonObject;
+import edu.psu.iot.object.base.JsonObject;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
-public class MongoDbPersistence {
+public class MongoRepository implements DatabaseRepository {
 	private static final Logger logger = LogManager.getLogger();
 
 	MongoClient mongoClient;
 	DB aDatabase;
 	
-	public MongoDbPersistence() {
+	public MongoRepository() {
 		mongoClient = new MongoClient();
 		aDatabase = mongoClient.getDB("sweng500");
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.psu.iot.database.mongodb.DatabaseRepository#createSensor(edu.psu.iot.object.Sensor)
+	 */
+	@Override
 	public Sensor createSensor(Sensor theSensor) {
 
 		return saveObject(theSensor);
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.psu.iot.database.mongodb.DatabaseRepository#updateSensor(edu.psu.iot.object.Sensor)
+	 */
+	@Override
 	public Sensor updateSensor(Sensor theSensor) {
 		return updateObject(theSensor);
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.psu.iot.database.mongodb.DatabaseRepository#readSensorById(java.lang.String)
+	 */
+	@Override
 	public Sensor readSensorById(String id) {
 		return readObjectById(Sensor.class, id);
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.psu.iot.database.mongodb.DatabaseRepository#deleteSensor(java.lang.String)
+	 */
+	@Override
 	public boolean deleteSensor(String id) {
 		return deleteObjectById(Sensor.class, id);
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.psu.iot.database.mongodb.DatabaseRepository#getAllDevices()
+	 */
+	@Override
 	public List<Device> getAllDevices() {
 		return findAll(Device.class);
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.psu.iot.database.mongodb.DatabaseRepository#createDevice(edu.psu.iot.object.Device)
+	 */
+	@Override
 	public Device createDevice(Device theDevice) {
 		return saveObject(theDevice);
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.psu.iot.database.mongodb.DatabaseRepository#updateDevice(edu.psu.iot.object.Device)
+	 */
+	@Override
 	public Device updateDevice(Device theDevice) {
 		return updateObject(theDevice);
 	}
 
+	/* (non-Javadoc)
+	 * @see edu.psu.iot.database.mongodb.DatabaseRepository#readDeviceById(java.lang.String)
+	 */
+	@Override
 	public Device readDeviceById(String id) {
 		return readObjectById(Device.class, id);
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.psu.iot.database.mongodb.DatabaseRepository#deleteDevice(java.lang.String)
+	 */
+	@Override
 	public boolean deleteDevice(String id) {
 		return deleteObjectById(Device.class, id);
 	}
@@ -81,19 +118,35 @@ public class MongoDbPersistence {
 		return deleteObjectById(Payload.class, id);
 	}
 	*/
+	/* (non-Javadoc)
+	 * @see edu.psu.iot.database.mongodb.DatabaseRepository#createResponseData(edu.psu.iot.object.ResponseData)
+	 */
+	@Override
 	public ResponseData createResponseData(ResponseData thePayload) {
 
 		return saveObject(thePayload);
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.psu.iot.database.mongodb.DatabaseRepository#readResponseDataById(java.lang.String)
+	 */
+	@Override
 	public ResponseData readResponseDataById(String id) {
 		return readObjectById(ResponseData.class, id);
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.psu.iot.database.mongodb.DatabaseRepository#deleteResponseData(java.lang.String)
+	 */
+	@Override
 	public boolean deleteResponseData(String id) {
 		return deleteObjectById(ResponseData.class, id);
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.psu.iot.database.mongodb.DatabaseRepository#getAllPayloadResponsesBySensorId(java.lang.String)
+	 */
+	@Override
 	public List<ResponseData> getAllPayloadResponsesBySensorId(String sensorId) {
 		logger.debug("MongoDBPersistence.getAllPayloadResponsesBySensorId on ID: " + sensorId);
 		//TODO it MAY be necessary to make this more generic, but for now, the only query we need to specify something for is the 

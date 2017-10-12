@@ -1,16 +1,15 @@
-package edu.psu.iot.controller;
+package edu.psu.iot.api;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.times;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,31 +17,31 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 
-import edu.psu.iot.constants.ApiConstants;
-import edu.psu.iot.database.MongoDbPersistence;
+import edu.psu.iot.api.APIEndpoint;
+import edu.psu.iot.database.DatabaseRepository;
+import edu.psu.iot.database.mongodb.MongoRepository;
 import edu.psu.iot.object.Device;
 import edu.psu.iot.object.ResponseData;
 import edu.psu.iot.object.Sensor;
-import edu.psu.iot.service.DeviceServiceImpl;
+import edu.psu.iot.service.impl.DataService;
 
-public class APIEndpointTester {
+public class APIEndpointTest {
 
 	private APIEndpoint objectUnderTest = new APIEndpoint();
 	
 	
-	private DeviceServiceImpl serviceLayer = new DeviceServiceImpl();
+	private DataService serviceLayer = new DataService();
 	
 	@Mock
-	private MongoDbPersistence mockDbLayer;
+	private DatabaseRepository mockDbLayer;
 	
 	private Gson gson = new Gson();
 	
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
-		serviceLayer.setDatabaseAccess(mockDbLayer);
+		serviceLayer.setRepository(mockDbLayer);
 		objectUnderTest.setDeviceService(serviceLayer);
 	}
 	
