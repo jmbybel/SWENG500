@@ -1,3 +1,5 @@
+package edu.psu.iot.webserver;
+
 import static spark.Spark.*;
 
 import java.util.ArrayList;
@@ -13,8 +15,6 @@ public class Main {
     	configureExceptionHandling();
         enableCORS();
 
-        // In-memory data store for PoC
-        List<String> deviceList = new ArrayList<String>();
         APIEndpoint endpoint = new APIEndpoint();
         
         get("/get-all-devices", (request, response) -> {
