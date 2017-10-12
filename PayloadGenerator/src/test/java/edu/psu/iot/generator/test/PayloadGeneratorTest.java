@@ -1,10 +1,20 @@
-package com.psu.group1.generator;
+package edu.psu.iot.generator.test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
+import org.junit.Before;
+
+import edu.psu.iot.generator.impl.Sensor;
+import edu.psu.iot.generator.impl.SensorConfig;
+import edu.psu.iot.generator.impl.SensorService;
+import edu.psu.iot.generator.impl.SensorType;
+import edu.psu.iot.generator.impl.Util;
 import junit.framework.TestCase;
 /*
 import java.io.ByteArrayOutputStream;
@@ -55,7 +65,7 @@ public class PayloadGeneratorTest extends TestCase{
 		config.setRandomInterval(true);
 		ss.createSensor(config);
 		ss.stopSensor(1);
-		assertEquals((ss.sensorList.get(1)).enable, false);
+		assertEquals((ss.sensorList.get(1)).isEnable(), false);
 	}
 	
 	public void testStartSensorService()
@@ -68,7 +78,7 @@ public class PayloadGeneratorTest extends TestCase{
 		ss.createSensor(config);
 		ss.stopSensor(1);
 		ss.startSensor(1);
-		assertEquals((ss.sensorList.get(1)).enable, true);
+		assertEquals((ss.sensorList.get(1)).isEnable(), true);
 	}
 	
 	public void testDeleteSensorService()
@@ -91,8 +101,8 @@ public class PayloadGeneratorTest extends TestCase{
 		config.setRandomInterval(true);
 		Sensor sensor = new Sensor(config);
 		sensor.start();
-		assertEquals(sensor.enable, true);
-		assertTrue(sensor.interval != 1000);
+		assertEquals(sensor.isEnable(), true);
+		assertTrue(sensor.getInterval() != 1000);
 		//assertEquals("{\"name\":\"Test\",\"id\":1,\"value\":0}", systemOutRule.getLog());
 	}
 	
@@ -104,28 +114,28 @@ public class PayloadGeneratorTest extends TestCase{
 		config.setRandomInterval(true);
 		Sensor sensor = new Sensor(config);
 		sensor.start();
-		assertEquals(sensor.enable, true);
+		assertEquals(sensor.isEnable(), true);
 		sensor.stop();
-		assertEquals(sensor.enable, false);
+		assertEquals(sensor.isEnable(), false);
 	}
 	
 	public void testSensorConstructor()
 	{
 		SensorConfig config = new SensorConfig();
 		Sensor sensor = new Sensor(config);
-		assertEquals(sensor.name, "name");
-		assertEquals(sensor.id, -1);
-		assertEquals(sensor.currentValue, 0.0);
-		assertEquals(sensor.max, 100.0);
-		assertEquals(sensor.min, 0.0);
-		assertEquals(sensor.duration, 0);
-		assertEquals(sensor.interval, 1000);
-		assertEquals(sensor.type, SensorType.RANDOM);
-		assertEquals(sensor.sinInterval, 10);
-		assertEquals(sensor.minInterval, 1000);
-		assertEquals(sensor.maxInterval, 5000);
-		assertEquals(sensor.randomInterval, false);
-		assertEquals(sensor.enable, true);
+		assertEquals(sensor.getName(), "name");
+		assertEquals(sensor.getId(), -1);
+		assertEquals(sensor.getCurrentValue(), 0.0);
+		assertEquals(sensor.getMax(), 100.0);
+		assertEquals(sensor.getMin(), 0.0);
+		assertEquals(sensor.getDuration(), 0);
+		assertEquals(sensor.getInterval(), 1000);
+		assertEquals(sensor.getType(), SensorType.RANDOM);
+		assertEquals(sensor.getSinInterval(), 10);
+		assertEquals(sensor.getMinInterval(), 1000);
+		assertEquals(sensor.getMaxInterval(), 5000);
+		assertEquals(sensor.isRandomInterval(), false);
+		assertEquals(sensor.isEnable(), true);
 	}
 	
 	public void testGetRandomLong()

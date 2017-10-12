@@ -1,4 +1,4 @@
-package com.psu.group1.generator;
+package edu.psu.iot.generator.impl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 public class SensorService 
 {
 	private static final Logger logger = LogManager.getLogger();
-	Map<Integer, Sensor> sensorList = new HashMap<Integer, Sensor>();
+	public Map<Integer, Sensor> sensorList = new HashMap<Integer, Sensor>();
 	
 	ScheduledExecutorService ses = Executors.newScheduledThreadPool(25);
     public SensorService(){}

@@ -3,10 +3,9 @@ import static spark.Spark.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.psu.group1.generator.SensorConfig;
-import com.psu.group1.generator.SensorService;
-
 import edu.psu.iot.api.APIEndpoint;
+import edu.psu.iot.generator.impl.SensorConfig;
+import edu.psu.iot.generator.impl.SensorService;
 
 public class Main {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package com.psu.group1.generator;
+package edu.psu.iot.generator.impl;
 
 public class SensorConfig {
 	
