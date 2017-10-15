@@ -10,11 +10,8 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.Before;
 
-import edu.psu.iot.generator.sensor.Sensor;
-import edu.psu.iot.generator.sensor.SensorConfig;
-import edu.psu.iot.generator.sensor.SensorService;
-import edu.psu.iot.generator.sensor.SensorType;
-import edu.psu.iot.generator.sensor.Util;
+
+import edu.psu.iot.generator.sensor.*;
 import junit.framework.TestCase;
 /*
 import java.io.ByteArrayOutputStream;
@@ -95,15 +92,20 @@ public class PayloadGeneratorTest extends TestCase{
 	
 	public void testSensorStartAndRun()
 	{
-		SensorConfig config = new SensorConfig();
-		config.setId(1);
-		config.setName("Test Sensor Start and Run");
-		config.setRandomInterval(true);
-		Sensor sensor = new Sensor(config);
-		sensor.start();
-		assertEquals(sensor.isEnable(), true);
-		assertTrue(sensor.getInterval() != 1000);
-		//assertEquals("{\"name\":\"Test\",\"id\":1,\"value\":0}", systemOutRule.getLog());
+		try{
+			SensorConfig config = new SensorConfig();
+			config.setId(1);
+			config.setName("Test Sensor Start and Run");
+			config.setRandomInterval(true);
+			Sensor sensor = SensorFactory.createSensor(config);
+			sensor.start();
+			assertEquals(sensor.isEnable(), true);
+			assertTrue(sensor.getInterval() != 1000);
+			//assertEquals("{\"name\":\"Test\",\"id\":1,\"value\":0}", systemOutRule.getLog());
+		} catch (SensorTypeInvalidException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void testSensorStartAndStop()
@@ -112,30 +114,44 @@ public class PayloadGeneratorTest extends TestCase{
 		config.setId(1);
 		config.setName("Test Sensor Start and Stop");
 		config.setRandomInterval(true);
-		Sensor sensor = new Sensor(config);
-		sensor.start();
-		assertEquals(sensor.isEnable(), true);
-		sensor.stop();
-		assertEquals(sensor.isEnable(), false);
+		Sensor sensor;
+		try {
+			sensor = SensorFactory.createSensor(config);
+			sensor.start();
+			assertEquals(sensor.isEnable(), true);
+			sensor.stop();
+			assertEquals(sensor.isEnable(), false);
+		} catch (SensorTypeInvalidException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public void testSensorConstructor()
 	{
 		SensorConfig config = new SensorConfig();
-		Sensor sensor = new Sensor(config);
-		assertEquals(sensor.getName(), "name");
-		assertEquals(sensor.getId(), -1);
-		assertEquals(sensor.getCurrentValue(), 0.0);
-		assertEquals(sensor.getMax(), 100.0);
-		assertEquals(sensor.getMin(), 0.0);
-		assertEquals(sensor.getDuration(), 0);
-		assertEquals(sensor.getInterval(), 1000);
-		assertEquals(sensor.getType(), SensorType.RANDOM);
-		assertEquals(sensor.getSinInterval(), 10);
-		assertEquals(sensor.getMinInterval(), 1000);
-		assertEquals(sensor.getMaxInterval(), 5000);
-		assertEquals(sensor.isRandomInterval(), false);
-		assertEquals(sensor.isEnable(), true);
+		Sensor sensor;
+		try {
+			sensor = SensorFactory.createSensor(config);
+			assertEquals(sensor.getName(), "name");
+			assertEquals(sensor.getId(), -1);
+			assertEquals(sensor.getCurrentValue(), 0.0);
+			assertEquals(sensor.getMax(), 100.0);
+			assertEquals(sensor.getMin(), 0.0);
+			assertEquals(sensor.getDuration(), 0);
+			assertEquals(sensor.getInterval(), 1000);
+			assertEquals(sensor.getType(), SensorType.RANDOM);
+			assertEquals(sensor.getSinInterval(), 10);
+			assertEquals(sensor.getMinInterval(), 1000);
+			assertEquals(sensor.getMaxInterval(), 5000);
+			assertEquals(sensor.isRandomInterval(), false);
+			assertEquals(sensor.isEnable(), true);
+		} catch (SensorTypeInvalidException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public void testGetRandomLong()
@@ -147,6 +163,18 @@ public class PayloadGeneratorTest extends TestCase{
 	
 	public void testSensorDurations() throws InterruptedException
 	{
+		
+		File file = new File("logFile.txt");
+		PrintWriter writer;
+		try {
+			writer = new PrintWriter(file);
+			writer.print("");
+			writer.close();
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		SensorService ss = new SensorService();
 		SensorConfig config = new SensorConfig();
 		config.setName("Test Duration");
@@ -159,8 +187,6 @@ public class PayloadGeneratorTest extends TestCase{
 		
 		int zeroCount = 0;
 		int oneHundredCount = 0;
-		
-		File file = new File("logFile.txt");
 		
 		try {
 		    @SuppressWarnings("resource")
@@ -179,7 +205,8 @@ public class PayloadGeneratorTest extends TestCase{
 		} catch(FileNotFoundException e) { 
 		    System.err.println("Output file not found");
 		}
-		
+		System.out.println(zeroCount);
+		System.out.println(oneHundredCount);
 		if(zeroCount == 3 && oneHundredCount == 2)
 		{
 			assertTrue(true);
@@ -194,6 +221,19 @@ public class PayloadGeneratorTest extends TestCase{
 	//tests log file works and multiple sensor types work as well
 	public void testDifferentSensorsOutputToLogFile()
 	{
+		
+		File file = new File("logFile.txt");
+		 
+		try {
+			PrintWriter writer = new PrintWriter(file);
+			writer.print("");
+			writer.close();
+			System.out.println("I cleared the file");
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		SensorService ss = new SensorService();
 		
 		//Create a Random Sensor config
@@ -239,38 +279,56 @@ public class PayloadGeneratorTest extends TestCase{
 		sinConfig.setRandomInterval(true);
 		ss.createSensor(sinConfig);
 		
-		
-		File file = new File("logFile.txt");
 		boolean BinFlag = false;
 		boolean RanFlag = false;
 		boolean RamFlag = false;
 		boolean SinFlag = false;
-		
 		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			//File file1 = new File("logFile.txt");
 		    @SuppressWarnings("resource")
 			Scanner scanner = new Scanner(file);
+		    
+		    int lines = 0;
+		    
+		    System.out.println("Why am I not entering this while loop?");
 		    while (scanner.hasNextLine()) {
+		    	
+		    	lines++;
+		    	System.out.println(lines);
+		    	
 		        String line = scanner.nextLine();
 		   
 	            if(line.contains("{\"name\":\"Binary Sensor\",\"id\":2,\"value\":1}")) {
 	            	BinFlag = true;
+	            	System.out.println("BinFlag true");
 	            }
 	            
 	            if(line.contains("{\"name\":\"Random Sensor\",\"id\":1,\"value\":72}")){
 	            	RanFlag = true;
+	            	System.out.println("RanFlag true");
 	            }
 
         		if(line.contains("{\"name\":\"Ramp Sensor\",\"id\":3,\"value\":5}")){
         			RamFlag = true;
+        			System.out.println("RamFlag true");
         		}
         		
     			if(line.contains("{\"name\":\"Sin Sensor\",\"id\":4,\"value\":0}")){
     				SinFlag = true;
+    				System.out.println("SinFlag true");
     			}
 		    }
 		} catch(FileNotFoundException e) { 
 		    System.err.println("Output file not found");
 		}
+		
+		
 		
 		if(BinFlag && SinFlag && RanFlag && RamFlag)
 		{
@@ -280,6 +338,75 @@ public class PayloadGeneratorTest extends TestCase{
 		{
 			assertTrue(false);
 		}
+	}
+	
+	public void testQueue(){
+		
+		try {
+			SensorConfig config = new SensorConfig();
+			config.setInterval(1000);
+			config.setType(SensorType.RANDOM);
+			config.setDuration(5000);
+			config.setId(10);
+			config.setName("Queue Test");
+			
+			SensorService ss = new SensorService();
+			ss.createSensor(config);
+			
+			Thread.sleep(5000);
+			
+			assertTrue(!(ss.getSensorList().isEmpty()));
+			assertTrue(ss.getQueue().size() == 5);
+			
+			while(!ss.getQueue().isEmpty()){
+				System.out.println(ss.getQueue().poll().toString());
+			}
+			
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+	}
+	
+	public void testSensorServiceInitialize(){
+		
+		try {
+			SensorConfig config = new SensorConfig();
+			config.setInterval(1000);
+			config.setType(SensorType.RANDOM);
+			config.setDuration(5000);
+			config.setId(10);
+			config.setName("Initialize Test");
+			
+			SensorService ss = new SensorService();
+			
+			assertTrue(ss.sensorList.isEmpty());
+			assertTrue(ss.getQueue().isEmpty());
+			
+			ss.createSensor(config);
+			
+			Thread.sleep(5000);
+			
+			assertTrue(!(ss.getSensorList().isEmpty()));
+			System.out.println("Queue Size is" + ss.getQueue().size());
+			assertTrue(!ss.getQueue().isEmpty());
+			
+			ss.initialize();
+			
+			assertTrue(ss.sensorList.isEmpty());
+			assertTrue(ss.getQueue().isEmpty());	
+			
+			
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		
 	}
 	
 	/*

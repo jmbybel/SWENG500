@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.concurrent.ScheduledExecutorService;
+import edu.psu.iot.generator.queue.*;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,8 +19,8 @@ import org.json.*;
  */
 
 
-public class Sensor implements Runnable{	//Represents a sensor based on a unique id.
-	private static final Logger logger = LogManager.getLogger();
+public abstract class Sensor implements Runnable{	//Represents a sensor based on a unique id.
+	protected static final Logger logger = LogManager.getLogger();
 	private String name;
 	private int id;
 	private double max;
@@ -79,96 +80,65 @@ public class Sensor implements Runnable{	//Represents a sensor based on a unique
 			endTime = startTime + getDuration();
 			isFirstRun = false;
 		}
-			JSONObject payload = new JSONObject();
-			payload.put("name", this.getName());
-			payload.put("id", this.getId());
-			payload.put("value", getCurrentValue());
+		
+		JSONObject payload = new JSONObject();
+		payload.put("name", this.getName());
+		payload.put("id", this.getId());
+		payload.put("value", getCurrentValue());
 
-			logger.info("current payload: {}", payload.toString());
-			//log to file, TODO:Add timestamps?
-	        BufferedWriter output = null;
-	        try {
-	            File file = new File("logFile.txt");
-	            output = new BufferedWriter(new FileWriter(file, true));
-	            output.write(payload.toString() + "\n");
-	        } catch ( IOException e ) {
-	            e.printStackTrace();
-	        }finally {
-	            if ( output != null ) {
-	                try {
-						output.close();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-	              }
-	        }
+		logger.info("current payload: {}", payload.toString());
+		//log to file, TODO:Add timestamps?
+        BufferedWriter output = null;
+        
+        try {
+            File file = new File("logFile.txt");
+            output = new BufferedWriter(new FileWriter(file, true));
+            output.write(payload.toString() + "\n");
+            PayloadQueue.getQueue().add(payload);	//Adds payload to list.
+        } 
+        catch ( IOException e ) {
+            e.printStackTrace();
+        }
+        finally {
+            if ( output != null ) {
+                try {
+					output.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+              }
+        }
 	        
-			System.out.println(payload);
+		System.out.println(payload);
+		
+		if(isEnable() == true && ((System.currentTimeMillis() < endTime) || getDuration() == 0)){
+
+			this.setCurrentValue(this.calcValue());
+		}
 			
-			if(isEnable() == true && ((System.currentTimeMillis() < endTime) || getDuration() == 0)){
-				
-				if(getType() == SensorType.RANDOM){
-					setCurrentValue(((getMax()-getMin())*Math.random()) + getMin());
-					logger.info("currentValue Random: {}", getCurrentValue());
-				}	
-				if(getType() == SensorType.BINARY){
-					if(getCurrentValue() == getMax())
-					{
-						setCurrentValue(getMin());
-						logger.info("currentValue Binary min: {}", getCurrentValue());
-					}
-					else
-					{
-						setCurrentValue(getMax());
-						logger.info("currentValue Binary max: {}", getCurrentValue());
-					}
-				}
-				if(getType() == SensorType.RAMP){
-					if(getCurrentValue() == getMax())
-					{
-						rampFlagUp = false;
-						rampFlagDown = true;
-						logger.info("currentValue Ramp max: {}", getCurrentValue());
-					}
-					if(getCurrentValue() == getMin())
-					{
-						rampFlagUp = true;
-						rampFlagDown = false;
-						logger.info("currentValue Ramp min: {}", getCurrentValue());
-					}
-					if(getCurrentValue() <= getMax() && rampFlagUp == true)
-					{
-						setCurrentValue(getCurrentValue() + 1);
-						logger.info("currentValue Ramp up: {}", getCurrentValue());
-						rampFlagUp = true;
-					}
-					if(getCurrentValue() >= getMin() && rampFlagDown == true)
-					{
-						setCurrentValue(getCurrentValue() - 1);
-						logger.info("currentValue Ramp down: {}", getCurrentValue());
-						rampFlagDown = true;
-					}
-				}
-				if(getType() == SensorType.SIN){
-					setCurrentValue(Math.sin(sinValue));
-					sinValue += getSinInterval(); 
-					logger.info("currentValue Sin: {}", getCurrentValue());
-					logger.info("sinValue: {}", sinValue);
-				}
-				if(isRandomInterval() == true){
-					setInterval(Util.getRandomLong(getMinInterval(), getMaxInterval()));
-					logger.info("RandomInterval: {}", getInterval());
-				}
-				
-				//if start is called on sensor without a ses as input this gives null pointer error
-				//so I added a check 
-				if(this.ses!=null)
-				{
-					ses.schedule(this, getInterval(), TimeUnit.MILLISECONDS);
-				}
-			}
-			logger.debug("<<sensorRun()");
+		if(isRandomInterval() == true){
+			setInterval(Util.getRandomLong(getMinInterval(), getMaxInterval()));
+			logger.info("RandomInterval: {}", getInterval()); 
+		}
+		
+		
+		
+		
+		
+		//Need to call the calcValue thing here.
+		//if start is called on sensor without a ses as input this gives null pointer error
+		//so I added a check 
+		
+		if(this.ses!=null)
+		{
+			ses.schedule(this, getInterval(), TimeUnit.MILLISECONDS);
+		}
+		
+		logger.debug("<<sensorRun()");
 	}
+
+	abstract public double calcValue();
+	
 	
 	public void stop(){
 		logger.debug(">>sensorStop()");
