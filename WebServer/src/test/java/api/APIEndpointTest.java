@@ -1,4 +1,4 @@
-package edu.psu.iot.api;
+package api;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -18,9 +18,8 @@ import org.mockito.MockitoAnnotations;
 
 import com.google.gson.Gson;
 
-import edu.psu.iot.api.APIEndpoint;
-import edu.psu.iot.database.DatabaseRepository;
-import edu.psu.iot.database.mongodb.MongoRepository;
+import api.APIEndpoint;
+import api.ApiConstants;
 import edu.psu.iot.object.Device;
 import edu.psu.iot.object.ResponseData;
 import edu.psu.iot.object.Sensor;
@@ -31,17 +30,15 @@ public class APIEndpointTest {
 	private APIEndpoint objectUnderTest = new APIEndpoint();
 	
 	
-	private DataService serviceLayer = new DataService();
-	
 	@Mock
-	private DatabaseRepository mockDbLayer;
+	private DataService serviceLayer;
+	
 	
 	private Gson gson = new Gson();
 	
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
-		serviceLayer.setRepository(mockDbLayer);
 		objectUnderTest.setDeviceService(serviceLayer);
 	}
 	
@@ -53,14 +50,14 @@ public class APIEndpointTest {
 		Device deviceWithId = new Device();
 		deviceWithId.setId("123");
 		
-		when (mockDbLayer.createDevice(any(Device.class))).thenReturn(deviceWithId);
+		when (serviceLayer.insertUpdateDevice(any(Device.class))).thenReturn(deviceWithId);
 		
 		String json = gson.toJson(firstDevice);
 		System.out.println(json);
 		
 		String resultJson = objectUnderTest.createUpdateDevice(json);
 		assertTrue(resultJson.contains(deviceWithId.getId()));
-		verify(mockDbLayer, times(1)).createDevice(any(Device.class));
+		verify(serviceLayer, times(1)).insertUpdateDevice(any(Device.class));
 	}
 	
 	//Verify that if you attempt to create a device with bad JSON, you get an error message stating that the object could not be created from the JSON.
@@ -76,27 +73,27 @@ public class APIEndpointTest {
 		Device deviceWithId = new Device();
 		deviceWithId.setId("123");
 		
-		when (mockDbLayer.updateDevice(any(Device.class))).thenReturn(new Device());
+		when (serviceLayer.insertUpdateDevice(any(Device.class))).thenReturn(new Device());
 		objectUnderTest.createUpdateDevice(gson.toJson(deviceWithId));
-		verify(mockDbLayer, times(1)).updateDevice(any(Device.class));
+		verify(serviceLayer, times(1)).insertUpdateDevice(any(Device.class));
 	}
 	
 	@Test
 	public void deleteDevice() {
 		String objectId = "123";
-		when (mockDbLayer.deleteDevice(objectId)).thenReturn(true);
+		when (serviceLayer.deleteDevice(objectId)).thenReturn(true);
 		String isTrue = objectUnderTest.deleteDevice(objectId);
 		assertEquals(isTrue, ApiConstants.DELETE_SUCCESS);
-		verify(mockDbLayer, times(1)).deleteDevice(any(String.class));
+		verify(serviceLayer, times(1)).deleteDevice(any(String.class));
 	}
 	
 	@Test
 	public void deleteDevice_badId() {
 		String objectId = "123";
-		when (mockDbLayer.deleteDevice(objectId)).thenReturn(false);
+		when (serviceLayer.deleteDevice(objectId)).thenReturn(false);
 		String isTrue = objectUnderTest.deleteDevice(objectId);
 		assertEquals(isTrue, ApiConstants.DELETE_FAILED);
-		verify(mockDbLayer, times(1)).deleteDevice(any(String.class));
+		verify(serviceLayer, times(1)).deleteDevice(any(String.class));
 	}
 	
 	@Test
@@ -157,10 +154,10 @@ public class APIEndpointTest {
 		Sensor secondSensor = new Sensor();
 		secondSensor.setId("123");
 		
-		when (mockDbLayer.createSensor(any(Sensor.class))).thenReturn(secondSensor);
+		when (serviceLayer.insertUpdateSensor(any(Sensor.class))).thenReturn(secondSensor);
 		String resultJson = objectUnderTest.createUpdateSensor(gson.toJson(theSensorToTest));
 		assertTrue(resultJson.contains(secondSensor.getId()));
-		verify(mockDbLayer, times(1)).createSensor(any(Sensor.class));
+		verify(serviceLayer, times(1)).insertUpdateSensor(any(Sensor.class));
 	}
 	
 	//test that passing through the createUpdateSensor method will trigger a DB update, if the sensor has an ID already
@@ -169,27 +166,27 @@ public class APIEndpointTest {
 		Sensor sensorWithId = new Sensor();
 		sensorWithId.setId("123");
 		
-		when (mockDbLayer.updateSensor(any(Sensor.class))).thenReturn(new Sensor());
+		when (serviceLayer.insertUpdateSensor(any(Sensor.class))).thenReturn(new Sensor());
 		objectUnderTest.createUpdateSensor(gson.toJson(sensorWithId));
-		verify(mockDbLayer, times(1)).updateSensor(any(Sensor.class));
+		verify(serviceLayer, times(1)).insertUpdateSensor(any(Sensor.class));
 	}
 	
 	@Test
 	public void deleteSensor() {
 		String objectId = "123";
-		when (mockDbLayer.deleteSensor(objectId)).thenReturn(true);
+		when (serviceLayer.deleteSensor(objectId)).thenReturn(true);
 		String isTrue = objectUnderTest.deleteSensor(objectId);
 		assertEquals(isTrue, ApiConstants.DELETE_SUCCESS);
-		verify(mockDbLayer, times(1)).deleteSensor(any(String.class));
+		verify(serviceLayer, times(1)).deleteSensor(any(String.class));
 	}
 	
 	@Test
 	public void deleteSensor_failedAtDb() {
 		String objectId = "123";
-		when (mockDbLayer.deleteSensor(objectId)).thenReturn(false);
+		when (serviceLayer.deleteSensor(objectId)).thenReturn(false);
 		String isTrue = objectUnderTest.deleteSensor(objectId);
 		assertEquals(isTrue, ApiConstants.DELETE_FAILED);
-		verify(mockDbLayer, times(1)).deleteSensor(any(String.class));
+		verify(serviceLayer, times(1)).deleteSensor(any(String.class));
 	}
 	
 	

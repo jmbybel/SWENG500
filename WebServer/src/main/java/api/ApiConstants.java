@@ -1,4 +1,4 @@
-package edu.psu.iot.api;
+package api;
 
 public interface ApiConstants {
 

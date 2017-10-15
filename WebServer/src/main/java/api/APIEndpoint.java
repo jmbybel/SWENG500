@@ -1,15 +1,15 @@
-package edu.psu.iot.api;
+package api;
 
 import java.util.List;
 
 import com.google.gson.Gson;
 
+import api.validation.JsonToObjectValidator;
 import edu.psu.iot.object.Device;
 import edu.psu.iot.object.ResponseData;
 import edu.psu.iot.object.Sensor;
 import edu.psu.iot.service.IDataService;
 import edu.psu.iot.service.impl.DataService;
-import edu.psu.iot.validation.ObjectFromJsonValidator;
 
 /**
  * This is the only thing the WebServer interacts with.
@@ -19,7 +19,7 @@ public class APIEndpoint {
 
 	
 	private edu.psu.iot.service.IDataService deviceService = new DataService();
-	private ObjectFromJsonValidator validator = new ObjectFromJsonValidator();
+	private JsonToObjectValidator validator = new JsonToObjectValidator();
 	
 	/**
 	 * Receives a JSON string of a Device, and all of its child objects, and attempts to save it to the database.
@@ -149,11 +149,11 @@ public class APIEndpoint {
 		this.deviceService = deviceService;
 	}
 
-	public ObjectFromJsonValidator getValidator() {
+	public JsonToObjectValidator getValidator() {
 		return validator;
 	}
 
-	public void setValidator(ObjectFromJsonValidator validator) {
+	public void setValidator(JsonToObjectValidator validator) {
 		this.validator = validator;
 	}
 	

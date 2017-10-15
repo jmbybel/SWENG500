@@ -1,11 +1,11 @@
-package edu.psu.iot.validation;
+package api.validation;
 
 import com.google.gson.Gson;
 
 import edu.psu.iot.object.Device;
 import edu.psu.iot.object.Sensor;
 
-public class ObjectFromJsonValidator {
+public class JsonToObjectValidator {
 	
 	private Gson gsonTool = new Gson();
 

@@ -5,7 +5,7 @@ import static spark.Spark.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.psu.iot.api.APIEndpoint;
+import api.APIEndpoint;
 import edu.psu.iot.generator.sensor.SensorConfig;
 import edu.psu.iot.generator.sensor.SensorService;
 
