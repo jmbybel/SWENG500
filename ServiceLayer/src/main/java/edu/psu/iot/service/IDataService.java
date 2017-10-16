@@ -1,6 +1,5 @@
 package edu.psu.iot.service;
 
-import java.io.File;
 import java.util.List;
 
 import edu.psu.iot.database.DatabaseRepository;
@@ -11,12 +10,6 @@ import edu.psu.iot.object.Sensor;
 
 public interface IDataService {
 
-	File getDataGeneratorAsDownloadbleFile(Device theDeviceToConvert);
-
-	Device createDataGeneratorFromUploadedFile(File incomingFile);
-
-	void updateDataGeneratorInputFields(Device theDeviceToAlter);
-
 	Device getDeviceById(String id);
 
 	boolean deleteDevice(String id);
@@ -26,41 +19,18 @@ public interface IDataService {
 	Device insertUpdateDevice(Device device);
 
 	List<Device> getAllDevices();
-	/*
-		
-		public DeviceCluster getClusterByID(String id) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-	
-		
-		public boolean deleteCluster(String id) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-	
-		
-		public DeviceCluster cloneCluster(String id) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-	
-		
-		public DeviceCluster insertUpdateCluster(DeviceCluster cluster) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-	*/
 
 	Sensor getSensorById(String id);
 
-	//TODO needs a rework
 	boolean deleteSensor(String id);
 
-	//TODO needs a rework
 	Sensor cloneSensor(Sensor original);
 
 	Sensor insertUpdateSensor(Sensor sensor);
+	
+	Boolean startSensor(String sensorId) ;
+	
+	Boolean stopSensor(String sensorId);
 
 	Payload getPayloadById(String id);
 

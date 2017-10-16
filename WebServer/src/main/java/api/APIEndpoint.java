@@ -20,6 +20,7 @@ public class APIEndpoint {
 	
 	private edu.psu.iot.service.IDataService deviceService = new DataService();
 	private JsonToObjectValidator validator = new JsonToObjectValidator();
+	Gson gson = new Gson();
 	
 	/**
 	 * Receives a JSON string of a Device, and all of its child objects, and attempts to save it to the database.
@@ -76,9 +77,7 @@ public class APIEndpoint {
 	 * @return
 	 */
 	public String getAllDevices() {
-		List<Device> deviceList = deviceService.getAllDevices();
-		Gson gson = new Gson();
-				
+		List<Device> deviceList = deviceService.getAllDevices();		
 		return  gson.toJson(deviceList);
 	}
 	
@@ -88,15 +87,14 @@ public class APIEndpoint {
 	 */
 	public String getAllPayloadResponsesBySensor(String sensorId) {
 		List<ResponseData> payloadResponses = deviceService.getAllPayloadResponsesBySensor(sensorId);
-		Gson gson = new Gson();
 		return gson.toJson(payloadResponses);
 	}
 	
 	
 	/**
-	 * @deprecated don't create sensors directly, instead call the insert/update Device with the new data.
+	 *  don't create sensors directly, instead call the insert/update Device with the new data.
 	 */
-	@Deprecated
+	
 	public String createUpdateSensor(String json) {
 		String returnString;
 		try {
@@ -111,9 +109,9 @@ public class APIEndpoint {
 	}
 	
 	/**
-	 * @deprecated All sensors should be pulled from the DB within the Device fetch, so this should not be needed
+	 *  All sensors should be pulled from the DB within the Device fetch, so this should not be needed
 	 */
-	@Deprecated
+	
 	public String getSensorById(String id) {
 		Sensor sensor = null;
 		//TODO placeholder for start of try/catch block for db errors bubbling up
@@ -125,10 +123,10 @@ public class APIEndpoint {
 	}
 
 	/**
-	 * @deprecated Also do this by performing an Update on the Device.
+	 *  Also do this by performing an Update on the Device.
 	 * TODO we will need to also 
 	 */
-	@Deprecated
+	
 	public String deleteSensor(String id) {
 		boolean result = deviceService.deleteSensor(id);
 		if (result) {
@@ -139,6 +137,13 @@ public class APIEndpoint {
 	}
 	
 	
+	public String startSensor(String id) {
+		return gson.toJson(deviceService.startSensor(id));
+	}
+	
+	public String stopSensor(String id) {
+		return gson.toJson(deviceService.stopSensor(id));
+	}
 
 	
 	public IDataService getDeviceService() {

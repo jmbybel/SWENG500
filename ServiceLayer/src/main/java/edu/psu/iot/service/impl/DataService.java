@@ -1,11 +1,11 @@
 package edu.psu.iot.service.impl;
 
-import java.io.File;
 import java.util.List;
-import java.util.UUID;
 
 import edu.psu.iot.database.DatabaseRepository;
 import edu.psu.iot.database.mongodb.MongoRepository;
+import edu.psu.iot.generator.interfaces.ISensorService;
+import edu.psu.iot.generator.sensor.SensorService;
 import edu.psu.iot.object.Device;
 import edu.psu.iot.object.Payload;
 import edu.psu.iot.object.ResponseData;
@@ -15,37 +15,7 @@ import edu.psu.iot.service.IDataService;
 public class DataService implements IDataService {
 	
 	private DatabaseRepository repository = new MongoRepository();
-
-	
-	/* (non-Javadoc)
-	 * @see edu.psu.iot.service.impl.IDataService#getDataGeneratorAsDownloadbleFile(edu.psu.iot.object.Device)
-	 */
-	@Override
-	public File getDataGeneratorAsDownloadbleFile(Device theDeviceToConvert) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
-	/* (non-Javadoc)
-	 * @see edu.psu.iot.service.impl.IDataService#createDataGeneratorFromUploadedFile(java.io.File)
-	 */
-	@Override
-	public Device createDataGeneratorFromUploadedFile(File incomingFile) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
-	/* (non-Javadoc)
-	 * @see edu.psu.iot.service.impl.IDataService#updateDataGeneratorInputFields(edu.psu.iot.object.Device)
-	 */
-	@Override
-	public void updateDataGeneratorInputFields(Device theDeviceToAlter) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	private ISensorService sensorService = new SensorService();
 	
 	/* (non-Javadoc)
 	 * @see edu.psu.iot.service.impl.IDataService#getDeviceById(java.lang.String)
@@ -75,7 +45,6 @@ public class DataService implements IDataService {
 		for (Sensor s: original.getSensors()) {
 			s.setId(null);
 		}
-		giveIdsToSensors(original);
 		return repository.createDevice(original);
 	}
 	
@@ -84,7 +53,6 @@ public class DataService implements IDataService {
 	 */
 	@Override
 	public Device insertUpdateDevice(Device device) {
-		giveIdsToSensors(device);
 		if (device.getId() == null) {
 			device = repository.createDevice(device);
 		} else {
@@ -100,59 +68,35 @@ public class DataService implements IDataService {
 	public List<Device> getAllDevices() {
 		return repository.getAllDevices();
 	}
-/*
-	
-	public DeviceCluster getClusterByID(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
-	public boolean deleteCluster(String id) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	
-	public DeviceCluster cloneCluster(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
-	public DeviceCluster insertUpdateCluster(DeviceCluster cluster) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-*/
 	
 	/* (non-Javadoc)
 	 * @see edu.psu.iot.service.impl.IDataService#getSensorById(java.lang.String)
 	 */
 	@Override
-	@Deprecated
 	public Sensor getSensorById(String id) {
 		return repository.readSensorById(id);
 	}
 
-	//TODO needs a rework
 	/* (non-Javadoc)
 	 * @see edu.psu.iot.service.impl.IDataService#deleteSensor(java.lang.String)
 	 */
 	@Override
-	@Deprecated
 	public boolean deleteSensor(String id) {
+		
+		//TODO uncomment the sensorService call
+//		sensorService.deleteSensor(id);
 		return repository.deleteSensor(id);
 	}
 
-	//TODO needs a rework
 	/* (non-Javadoc)
 	 * @see edu.psu.iot.service.impl.IDataService#cloneSensor(edu.psu.iot.object.Sensor)
 	 */
 	@Override
-	@Deprecated
 	public Sensor cloneSensor(Sensor original) {
 		original.setId(null);
+		
+		//TODO
+//		sensorService.createSensor(some method in SensorService to copy an existing sensor?);
 		return repository.createSensor(original);
 	}
 
@@ -161,7 +105,6 @@ public class DataService implements IDataService {
 	 * @see edu.psu.iot.service.impl.IDataService#insertUpdateSensor(edu.psu.iot.object.Sensor)
 	 */
 	@Override
-	@Deprecated
 	public Sensor insertUpdateSensor(Sensor sensor) {
 		if (sensor.getId() == null) {
 			sensor = repository.createSensor(sensor);
@@ -170,7 +113,28 @@ public class DataService implements IDataService {
 		}
 		return sensor;
 	}
-
+	
+	/**
+	 * a direct call to the Sensor Service to add it to the list of active sensors for test data generation.
+	 * @param sensorId
+	 * @return
+	 */
+	public Boolean startSensor(String sensorId) {
+		//TODO
+//		return sensorService.startSensor(id);
+		return null;
+	}
+	
+	/**
+	 * a direct call to the Sensor Service to remove it from the list of active sensors for test data generation.
+	 * @param sensorId
+	 * @return
+	 */
+	public Boolean stopSensor(String sensorId) {
+		//TODO
+//		return sensorService.stopSensor(id);
+		return null;
+	}
 	
 	/* (non-Javadoc)
 	 * @see edu.psu.iot.service.impl.IDataService#getPayloadById(java.lang.String)
@@ -191,7 +155,6 @@ public class DataService implements IDataService {
 		return false;
 	}
 
-	
 	/* (non-Javadoc)
 	 * @see edu.psu.iot.service.impl.IDataService#insertPayload(edu.psu.iot.object.Payload)
 	 */
@@ -201,7 +164,6 @@ public class DataService implements IDataService {
 		return null;
 	}
 
-	
 	/* (non-Javadoc)
 	 * @see edu.psu.iot.service.impl.IDataService#getResponseDataById(java.lang.String)
 	 */
@@ -239,28 +201,12 @@ public class DataService implements IDataService {
 		return repository.getAllPayloadResponsesBySensorId(sensorId);
 	}
 
-
 	/* (non-Javadoc)
 	 * @see edu.psu.iot.service.impl.IDataService#getDatabaseAccess()
 	 */
-
-	
-	//have Java generate IDs for the sensors we're inserting with the device.
-	private void giveIdsToSensors(Device theDevice) {
-		if (!theDevice.getSensors().isEmpty()) {
-			for (Sensor aSensor: theDevice.getSensors()) {
-				if (aSensor.getId() == null) {//make a new UUID for that sensor before persisting.
-					aSensor.setId(UUID.randomUUID().toString());
-				}
-			}
-		}
-	}
-
-
 	public DatabaseRepository getRepository() {
 		return repository;
 	}
-
 
 	public void setRepository(DatabaseRepository repository) {
 		this.repository = repository;

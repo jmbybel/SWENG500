@@ -2,7 +2,10 @@
 
 ##Installation
 https://docs.mongodb.com/manual/administration/install-enterprise/
+The link should point to a copy tthat is not paid, if that changes, the community edition should be fine.
+
 Follow the guide to install on your local machine.
+
 
 ###Install test
 Once you have installed, run the "mongod" executable from the install location to start the database. 
@@ -44,7 +47,7 @@ The code invoked by the UI when looking up request/response tests for a given se
 As of the writing of this, some things are not fully in place to support this. 
 
 ## To be deprecated
-API and lower access to anything except Device and Payload Request/Response
+API and lower access to anything except Sensor and Payload Request/Response
 
 ##Console basics
 you might need to debug things directly in the database if your data is not coming across well.
@@ -64,3 +67,31 @@ Other stuff
 	db.device.deleteOne
 	db.device.deleteMany
 	db.device.replaceOne
+	
+	
+	
+
+## Built With
+
+* [MongoDB](http://mongodb.com/) - NoSQL database.
+* [MongoJack](http://mongojack.com/) - Jackson JSON mapper with convenience methods for the Mongo database.
+* [GSON] (https://github.com/google/gson) - Google's JSON-Object converter
+
+## Versioning
+
+We used [github](https://github.com/jmbybel/SWENG500). 
+
+## Authors
+
+* **Cory Perdue** - *Initial and continued setup of Data Generator* - [dk-csperdue](https://github.com/dk-csperdue)
+* **Michael Cantu** - *Assistance working on and testing Data Generator* - [MichaelCantu93](https://github.com/MichaelCantu93)
+* **David Lambl** - *Group member working on front end* - [davidlambl](https://github.com/davidlambl)
+* **Jeremy Bybel** - *Group member working on database* - [jmbybel](https://github.com/jmbybel)
+* **James Ward** - *Scrum Master* - [wardja28](https://github.com/wardja28)
+
+See also the list of [contributors](https://github.com/jmbybel/SWENG500/graphs/contributors) who participated in this project.
+
+## Acknowledgments
+
+* Thanks to our Group 1 for all doing such great work!
+
