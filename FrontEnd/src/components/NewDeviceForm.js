@@ -32,11 +32,11 @@ class NewDeviceForm extends React.Component {
     this.save = this.save.bind(this);
   }
 
-  newDeviceKeypress(name, value) {
+  newDeviceKeypress(field, value) {
+    const device = this.state.device;
+    device[field] = value;
     this.setState({
-      device: {
-        name: value,
-      },
+      device,
     });
   }
 
@@ -79,10 +79,10 @@ class NewDeviceForm extends React.Component {
             Name
           </span>
           <NewDeviceTextInput
+            name={'name'}
             value={device.name}
             onChange={this.newDeviceKeypress} />
         </div>
-        {/* Start new fields  */}
         <div
           className={'input'}>
           <span
@@ -90,6 +90,7 @@ class NewDeviceForm extends React.Component {
             Initial Value
           </span>
           <NewDeviceTextInput
+            name={'initialValue'}
             value={device.initialValue}
             onChange={this.newDeviceKeypress} />
         </div>
@@ -100,6 +101,7 @@ class NewDeviceForm extends React.Component {
             Max Value
           </span>
           <NewDeviceTextInput
+            name={'maxValue'}
             value={device.max}
             onChange={this.newDeviceKeypress} />
         </div>
@@ -110,6 +112,7 @@ class NewDeviceForm extends React.Component {
             Min Value
           </span>
           <NewDeviceTextInput
+            name={'minValue'}
             value={device.min}
             onChange={this.newDeviceKeypress} />
         </div>
@@ -120,6 +123,7 @@ class NewDeviceForm extends React.Component {
             Duration in Milliseconds
           </span>
           <NewDeviceTextInput
+            name={'duration'}
             value={device.duration}
             onChange={this.newDeviceKeypress} />
         </div>
@@ -130,6 +134,7 @@ class NewDeviceForm extends React.Component {
             Interval in Milliseconds
           </span>
           <NewDeviceTextInput
+            name={'interval'}
             value={device.interval}
             onChange={this.newDeviceKeypress} />
         </div>
@@ -150,6 +155,7 @@ class NewDeviceForm extends React.Component {
             Sin interval
           </span>
           <NewDeviceTextInput
+            name={'sinInterval'}
             value={device.sinInterval}
             onChange={this.newDeviceKeypress} />
         </div>
@@ -160,6 +166,7 @@ class NewDeviceForm extends React.Component {
             Minimum Interval
           </span>
           <NewDeviceTextInput
+            name={'minInterval'}
             value={device.min}
             onChange={this.newDeviceKeypress} />
         </div>
@@ -170,6 +177,7 @@ class NewDeviceForm extends React.Component {
             Maximum Interval
           </span>
           <NewDeviceTextInput
+            name={'maxInterval'}
             value={device.maxInterval}
             onChange={this.newDeviceKeypress} />
         </div>
@@ -183,7 +191,6 @@ class NewDeviceForm extends React.Component {
             id={'randomIntervalDropdown'}
             onSelect={this.dropdownOnSelect} />
         </div>
-
         <Button
           className={'saveButton'}
           bsStyle="primary"
