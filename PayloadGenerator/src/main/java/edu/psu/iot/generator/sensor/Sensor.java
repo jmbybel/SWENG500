@@ -6,7 +6,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.concurrent.ScheduledExecutorService;
 import edu.psu.iot.generator.queue.*;
+import edu.psu.iot.generator.sensor.Util;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.*;
@@ -21,6 +28,9 @@ import org.json.*;
 
 public abstract class Sensor implements Runnable{	//Represents a sensor based on a unique id.
 	protected static final Logger logger = LogManager.getLogger();
+	RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(30 * 1000).build();
+	HttpClient httpClient = HttpClientBuilder.create().setDefaultRequestConfig(requestConfig).build();
+	
 	private String name;
 	private int id;
 	private double max;
@@ -36,6 +46,7 @@ public abstract class Sensor implements Runnable{	//Represents a sensor based on
 	boolean rampFlagDown = false;
 	private boolean randomInterval = false;
 	private SensorType type;
+	String urlEndpoint;
 	private boolean enable = true; 			//Set to false in order to stop the task from executing.
 	ScheduledExecutorService ses;   //Service currently executing this runnable.
 	long startTime;
@@ -57,11 +68,13 @@ public abstract class Sensor implements Runnable{	//Represents a sensor based on
 		this.setMinInterval(config.getMinInterval());
 		this.setMaxInterval(config.getMaxInterval());
 		this.setRandomInterval(config.isRandomInterval());
+		this.setUrlEndpoint(config.getUrlEndpoint());
 		
 		setMin(Math.min(getMin(),getMax()));
 		setMax(Math.max(getMin(), getMax()));
 		logger.debug("<<sensorConstructor()");
 	}
+
 	
 	public void start(ScheduledExecutorService ses)
 	{
@@ -109,6 +122,12 @@ public abstract class Sensor implements Runnable{	//Represents a sensor based on
               }
         }
 	        
+        try {
+			postEndpoint(this.urlEndpoint, payload);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println(payload);
 		
 		if(isEnable() == true && ((System.currentTimeMillis() < endTime) || getDuration() == 0)){
@@ -140,6 +159,14 @@ public abstract class Sensor implements Runnable{	//Represents a sensor based on
 
 	abstract public double calcValue();
 	
+	public void postEndpoint (String url, JSONObject payload) throws Exception {
+        HttpPost request = new HttpPost(url);
+        StringEntity params =new StringEntity(payload.toString());
+        request.addHeader("content-type", "application/json");
+        request.setEntity(params);
+        HttpResponse response = httpClient.execute(request);
+        //TODO: Handle response
+    }
 	
 	public void stop(){
 		logger.debug(">>sensorStop()");
@@ -176,6 +203,14 @@ public abstract class Sensor implements Runnable{	//Represents a sensor based on
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getUrlEndpoint() {
+		return urlEndpoint;
+	}
+
+	public void setUrlEndpoint(String urlEndpoint) {
+		this.urlEndpoint = urlEndpoint;
 	}
 
 	public int getId() {
