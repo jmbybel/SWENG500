@@ -20,27 +20,35 @@ public class SensorService implements ISensorService {
 	ScheduledExecutorService ses = Executors.newScheduledThreadPool(25);
 	
     public SensorService(){
+    	logger.debug(">>SensorServiceConstructor()");
     	ses.shutdown();
     	ses = Executors.newScheduledThreadPool(25);
     	this.clearQueue();
     	sensorList.clear();   	
+    	logger.debug("<<SensorServiceConstructor()");
     }
     
     public void initialize(){
+    	logger.debug(">>SensorServieInitialize()");
     	ses.shutdown();
     	ses = Executors.newScheduledThreadPool(25);
     	this.clearQueue();
     	sensorList.clear();
+    	logger.debug("<<SensorServiceInitialize()");
     }
     
     
     public LinkedList<JSONObject> getQueue(){
+    	logger.debug(">>SensorServicegetQueue()");
+    	logger.debug("<<SensorServicegetQueue()");
     	return PayloadQueue.getQueue();
     }
     
     public void clearQueue(){
+    	logger.debug(">>clearQueue()");
     	PayloadQueue.getQueue().clear();
     	System.out.println("The queue size after clearing is " + PayloadQueue.getQueue().size());
+    	logger.debug("<<clearQueue()");
     }
     
     @Override
@@ -65,6 +73,7 @@ public class SensorService implements ISensorService {
     @Override
     public Map<Integer,Sensor> getSensorList(){
     	logger.debug(">>getSensorList()");
+    	logger.debug("<<getSensorList()");
     	return this.sensorList;
     }
     

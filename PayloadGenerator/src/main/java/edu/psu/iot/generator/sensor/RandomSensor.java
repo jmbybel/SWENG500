@@ -8,7 +8,9 @@ public class RandomSensor extends Sensor {
 	}
 	
 	public double calcValue(){
+		logger.debug(">>calcValue()");
 		logger.info("currentValue Random: {}", getCurrentValue());
+		logger.debug("<<calcValue()");
 		return ((getMax()-getMin())*Math.random()) + getMin();
 	}
 

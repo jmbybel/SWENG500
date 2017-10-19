@@ -114,6 +114,7 @@ public abstract class Sensor implements Runnable{	//Represents a sensor based on
 		if(isEnable() == true && ((System.currentTimeMillis() < endTime) || getDuration() == 0)){
 
 			this.setCurrentValue(this.calcValue());
+			logger.info("currentValue: {}", this.calcValue());
 		}
 			
 		if(isRandomInterval() == true){

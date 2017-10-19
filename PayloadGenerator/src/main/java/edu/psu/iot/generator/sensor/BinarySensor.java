@@ -8,14 +8,17 @@ public class BinarySensor extends Sensor {
 	}
 	
 	public double calcValue(){
+		logger.debug(">>calcValue()");
 		if(getCurrentValue() == getMax())
 		{
 			logger.info("currentValue Binary min: {}", getCurrentValue());
+			logger.debug("<<calcValue(Min)");
 			return getMin();
 		}
 		else
 		{
 			logger.info("currentValue Binary max: {}", getCurrentValue());
+			logger.debug("<<calcValue(Max)");
 			return getMax();
 		}
 	}

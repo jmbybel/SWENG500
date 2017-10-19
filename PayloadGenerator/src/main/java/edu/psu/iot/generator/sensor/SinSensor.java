@@ -8,11 +8,11 @@ public class SinSensor extends Sensor {
 	}
 	
 	public double calcValue(){
-		
+		logger.debug(">>calcValue(Sin)");
 		sinValue += getSinInterval(); 
 		logger.info("currentValue Sin: {}", getCurrentValue());
 		logger.info("sinValue: {}", sinValue);
-		
+		logger.debug("<<calcValue(Sin)");
 		return Math.sin(sinValue);
 	}
 

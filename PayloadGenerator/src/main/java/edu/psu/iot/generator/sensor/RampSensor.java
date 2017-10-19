@@ -9,6 +9,7 @@ public class RampSensor extends Sensor {
 	}
 	
 	public double calcValue(){
+		logger.debug(">>calcValue()");
 		if(getCurrentValue() == getMax())
 		{
 			rampFlagUp = false;
@@ -27,6 +28,7 @@ public class RampSensor extends Sensor {
 			
 			logger.info("currentValue Ramp up: {}", getCurrentValue());
 			rampFlagUp = true;
+			logger.debug("<<calcValue(RampUp)");
 			return getCurrentValue() + 1;
 		}
 		else
@@ -34,6 +36,7 @@ public class RampSensor extends Sensor {
 			
 			logger.info("currentValue Ramp down: {}", getCurrentValue());
 			rampFlagDown = true;
+			logger.debug("<<calcValue(RampDown)");
 			return getCurrentValue() - 1;
 		}
 	}
