@@ -62,9 +62,9 @@ Example of data that comes out of system running to the front end and endpoint:
 ## Built With
 
 * [Java](http://www.java.com/) - The coding framework
-* [Node.js] (https://nodejs.org/en/) - The front end framework 
-* [React] (https://reactjs.org/) - The front end utility
-* [MongoDB] (https://www.mongodb.com/) - The database  
+* [Node.js](https://nodejs.org/en/) - The front end framework 
+* [React](https://reactjs.org/) - The front end utility
+* [MongoDB](https://www.mongodb.com/) - The database  
 * [Maven](https://maven.apache.org/) - Dependency Management
 * [JUnit](https://junit.org/) - Used to unit test the system
 
