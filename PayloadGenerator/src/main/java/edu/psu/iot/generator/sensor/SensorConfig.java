@@ -113,6 +113,16 @@ public class SensorConfig implements ISensorConfig {
 	public void setMaxInterval(long maxInterval) {
 		this.maxInterval = maxInterval;
 	}
+	
+	@Override
+	public String getUrlEndpoint() {
+		return urlEndpoint;
+	}
+
+	@Override
+	public void setUrlEndpoint(String url) {
+		this.urlEndpoint = url;
+	}
 
 	@Override
 	public boolean isRandomInterval() {
@@ -136,6 +146,7 @@ public class SensorConfig implements ISensorConfig {
 	long minInterval = 1000;
 	long maxInterval = 5000; 
 	boolean randomInterval = false;
+	String urlEndpoint = "http://18.216.43.18:8081/contentListener"; //Nifi default
 		
 	public SensorConfig(){}
 	

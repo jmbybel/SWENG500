@@ -51,4 +51,8 @@ public interface ISensorConfig {
 	public boolean isRandomInterval();
 
 	public void setRandomInterval(boolean randomInterval);
+
+	public void setUrlEndpoint(String url);
+
+	String getUrlEndpoint();
 }

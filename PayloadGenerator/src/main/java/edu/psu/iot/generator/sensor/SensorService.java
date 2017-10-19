@@ -28,6 +28,7 @@ public class SensorService implements ISensorService {
     	logger.debug("<<SensorServiceConstructor()");
     }
     
+    @Override
     public void initialize(){
     	logger.debug(">>SensorServieInitialize()");
     	ses.shutdown();
@@ -37,13 +38,14 @@ public class SensorService implements ISensorService {
     	logger.debug("<<SensorServiceInitialize()");
     }
     
-    
+    @Override
     public LinkedList<JSONObject> getQueue(){
     	logger.debug(">>SensorServicegetQueue()");
     	logger.debug("<<SensorServicegetQueue()");
     	return PayloadQueue.getQueue();
     }
     
+    @Override
     public void clearQueue(){
     	logger.debug(">>clearQueue()");
     	PayloadQueue.getQueue().clear();
