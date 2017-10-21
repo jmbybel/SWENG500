@@ -2,12 +2,13 @@ package edu.psu.iot.database;
 
 import java.util.List;
 
-import edu.psu.iot.object.Device;
-import edu.psu.iot.object.ResponseData;
+import edu.psu.iot.object.Payload;
 import edu.psu.iot.object.Sensor;
 
 public interface DatabaseRepository {
 
+	List<Sensor> getAllSensors();
+	
 	Sensor createSensor(Sensor theSensor);
 
 	Sensor updateSensor(Sensor theSensor);
@@ -16,36 +17,11 @@ public interface DatabaseRepository {
 
 	boolean deleteSensor(String id);
 
-	List<Device> getAllDevices();
-
-	Device createDevice(Device theDevice);
-
-	Device updateDevice(Device theDevice);
-
-	Device readDeviceById(String id);
-
-	boolean deleteDevice(String id);
-
-	/*
-	public Payload createPayload(Payload thePayload) {
+	Payload createPayload(Payload thePayload);
 	
-		return saveObject(thePayload);
-	}
+	Payload readPayloadById(String id);
 	
-	public Payload readPayloadById(String id) {
-		return readObjectById(Payload.class, id);
-	}
-	
-	public boolean deletePayload(String id) {
-		return deleteObjectById(Payload.class, id);
-	}
-	*/
-	ResponseData createResponseData(ResponseData thePayload);
+	boolean deletePayload(String id);
 
-	ResponseData readResponseDataById(String id);
-
-	boolean deleteResponseData(String id);
-
-	List<ResponseData> getAllPayloadResponsesBySensorId(String sensorId);
-
+	List<Payload> getAllPayloadsBySensorId(String sensorId);
 }

@@ -5,8 +5,7 @@ import java.util.List;
 import com.google.gson.Gson;
 
 import api.validation.JsonToObjectValidator;
-import edu.psu.iot.object.Device;
-import edu.psu.iot.object.ResponseData;
+import edu.psu.iot.object.Payload;
 import edu.psu.iot.object.Sensor;
 import edu.psu.iot.service.IDataService;
 import edu.psu.iot.service.impl.DataService;
@@ -18,75 +17,16 @@ import edu.psu.iot.service.impl.DataService;
 public class APIEndpoint {
 
 	
-	private edu.psu.iot.service.IDataService deviceService = new DataService();
+	private edu.psu.iot.service.IDataService dataService = new DataService();
 	private JsonToObjectValidator validator = new JsonToObjectValidator();
 	Gson gson = new Gson();
-	
-	/**
-	 * Receives a JSON string of a Device, and all of its child objects, and attempts to save it to the database.
-	 *
-	 * @param json
-	 * @return the updated Device as a JSON string, or an Error json containing the top-level text of the Exception thrown.
-	 */
-	public String createUpdateDevice(String json) {
-		String returnString;
-		try {
-			Device validatedDevice = validator.validateDevice(json);
-			validatedDevice = deviceService.insertUpdateDevice(validatedDevice);
-			return validatedDevice.toJson();
-		} catch (Exception ex) {
-			//TODO this is only the error for when the validator fails to create a Device object.
-			returnString = ApiConstants.COULD_NOT_CONVERT_FROM_JSON;
-		}
-		return returnString;
-	}
-	
-	/**
-	 * Service layer & MongoDB return null if the ID does not match an object in the database.
-	 * In that case, we return an error string stating the object could not be found for that ID.
-	 * @param id
-	 * @return
-	 */
-	public String getDeviceById(String id) {
-		Device device = null;
-		//TODO later on put the next line into a try/catch for database issues.
-		device = deviceService.getDeviceById(id);
-		if (device == null) {
-			return ApiConstants.COULD_NOT_FIND_MATCH;
-		}
-		return device.toJson();
-	}
-	
-	/**
-	 * Database responds with operation success/fail boolean. in either case, give the UI layer a JSON object with some verbage to display.
-	 * @param id
-	 * @return
-	 * TODO deleting a device means we should probably also delete every request/response for all sensors attached.
-	 */
-	public String deleteDevice(String id) {
-		boolean result = deviceService.deleteDevice(id);
-		if (result) {
-			return ApiConstants.DELETE_SUCCESS;
-		} else {
-			return ApiConstants.DELETE_FAILED;
-		}
-	}
-	
-	/**
-	 * Load all devices for display -- the master list.
-	 * @return
-	 */
-	public String getAllDevices() {
-		List<Device> deviceList = deviceService.getAllDevices();		
-		return  gson.toJson(deviceList);
-	}
-	
+		
 	/**
 	 * For a given sensor ID, find all request/response pairs that the Payload Generator has done and return those.
 	 * @return
 	 */
-	public String getAllPayloadResponsesBySensor(String sensorId) {
-		List<ResponseData> payloadResponses = deviceService.getAllPayloadResponsesBySensor(sensorId);
+	public String getAllPayloadsBySensor(String sensorId) {
+		List<Payload> payloadResponses = dataService.getAllPayloadsBySensor(sensorId);
 		return gson.toJson(payloadResponses);
 	}
 	
@@ -99,13 +39,18 @@ public class APIEndpoint {
 		String returnString;
 		try {
 			Sensor validatedSensor = validator.validateSensor(json);
-			validatedSensor = deviceService.insertUpdateSensor(validatedSensor);
+			validatedSensor = dataService.insertUpdateSensor(validatedSensor);
 			return validatedSensor.toJson();
 		} catch (Exception ex) {
 			//TODO this is only the error for when the validator fails to create a Device object.
 			returnString = ApiConstants.COULD_NOT_CONVERT_FROM_JSON;
 		}
 		return returnString;
+	}
+	
+	public String getAllSensors() {
+		List<Sensor> allSensors = dataService.getAllSensors();
+		return gson.toJson(allSensors);
 	}
 	
 	/**
@@ -115,7 +60,7 @@ public class APIEndpoint {
 	public String getSensorById(String id) {
 		Sensor sensor = null;
 		//TODO placeholder for start of try/catch block for db errors bubbling up
-		sensor = deviceService.getSensorById(id);
+		sensor = dataService.getSensorById(id);
 		if (sensor == null) {
 			return ApiConstants.COULD_NOT_FIND_MATCH;
 		}
@@ -128,7 +73,7 @@ public class APIEndpoint {
 	 */
 	
 	public String deleteSensor(String id) {
-		boolean result = deviceService.deleteSensor(id);
+		boolean result = dataService.deleteSensor(id);
 		if (result) {
 			return ApiConstants.DELETE_SUCCESS;
 		} else {
@@ -138,20 +83,20 @@ public class APIEndpoint {
 	
 	
 	public String startSensor(String id) {
-		return gson.toJson(deviceService.startSensor(id));
+		return gson.toJson(dataService.startSensor(id));
 	}
 	
 	public String stopSensor(String id) {
-		return gson.toJson(deviceService.stopSensor(id));
+		return gson.toJson(dataService.stopSensor(id));
 	}
 
 	
 	public IDataService getDeviceService() {
-		return deviceService;
+		return dataService;
 	}
 
 	public void setDeviceService(edu.psu.iot.service.IDataService deviceService) {
-		this.deviceService = deviceService;
+		this.dataService = deviceService;
 	}
 
 	public JsonToObjectValidator getValidator() {

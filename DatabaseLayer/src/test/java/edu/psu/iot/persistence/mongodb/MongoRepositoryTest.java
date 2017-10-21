@@ -5,7 +5,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.Date;
 import java.util.List;
 
 import org.junit.Before;
@@ -16,9 +15,7 @@ import com.mongodb.MongoSocketOpenException;
 
 import edu.psu.iot.database.DatabaseRepository;
 import edu.psu.iot.database.mongodb.MongoRepository;
-import edu.psu.iot.object.Device;
 import edu.psu.iot.object.Payload;
-import edu.psu.iot.object.ResponseData;
 import edu.psu.iot.object.Sensor;
 
 public class MongoRepositoryTest {
@@ -47,23 +44,6 @@ public class MongoRepositoryTest {
 			 ex.printStackTrace();
 			 fail();
 		 }
-	}
-	
-	/**
-	 * perform all CRUD operations for a device.
-	 */
-	@Test
-	public void deviceCrud() {
-			 Device initialDevice = new Device();
-			 initialDevice.setName("SAMPLER");
-			 Device resultDevice = objectUnderTest.createDevice(initialDevice);//create
-			 resultDevice.setName("NewName");
-			 System.out.println(resultDevice.getId());
-			 objectUnderTest.updateDevice(resultDevice);//update
-			 Device readResultDevice = objectUnderTest.readDeviceById(resultDevice.getId());//read
-			 assertEquals(resultDevice.getName(), readResultDevice.getName());
-
-			 assertTrue(objectUnderTest.deleteDevice(resultDevice.getId()));
 	}
 	
 	/**
@@ -96,70 +76,31 @@ public class MongoRepositoryTest {
 
 	}
 	*/
-	/**
-	 * ResponseData crud, also does not have Update operation available.
-	 */
-	@Test
-	public void responseDataCrd() {
-		ResponseData initialObject = new ResponseData();
-			 initialObject.setCreatedDateTime(new Date());
-			 ResponseData resultPayload = objectUnderTest.createResponseData(initialObject);//create
-			 ResponseData readResult = objectUnderTest.readResponseDataById(resultPayload.getId());//read
-			 assertEquals(resultPayload.getCreatedDateTime(), readResult.getCreatedDateTime());
-			 assertTrue(objectUnderTest.deleteResponseData(resultPayload.getId()));
 
-	}
-	
-	//insert a bunch of devices and then see if they all come back from the database after
-	//Note, as written this will fail right out when we're actually putting data in and not deleting after.
-	@Test
-	public void getAllDevices() {
-
-		 Device initialDevice = new Device();
-		 initialDevice.setName("SAMPLER");
-		 Device resultDevice = objectUnderTest.createDevice(initialDevice);//create
-		 initialDevice.setName("Number 2");
-		 Device resultDevice2 = objectUnderTest.createDevice(initialDevice);//create
-		 initialDevice.setName("Number three");
-		 Device resultDevice3 = objectUnderTest.createDevice(initialDevice);//create
-		 
-		 List<Device> resultList = objectUnderTest.getAllDevices();
-		 
-		 //cleanup
-		 objectUnderTest.deleteDevice(resultDevice.getId());
-		 objectUnderTest.deleteDevice(resultDevice2.getId());
-		 objectUnderTest.deleteDevice(resultDevice3.getId());
-		 
-		 assertTrue(resultList.contains(resultDevice3));
-		 assertTrue(resultList.contains(resultDevice2));
-		 assertTrue(resultList.contains(resultDevice));
-	}
 	
 	/**
 	 * Add 3 pieces of ResponseData to the database, then query the DB for the two with a requestData sensor ID of "asdf"
 	 */
 	@Test
-	public void getAllPayloadResponsesBySensorId() {
+	public void getAllPayloadsResponsesBySensorId() {
 		//TODO
-		ResponseData initialObject = new ResponseData();
-		Payload requestData = new Payload();
-		requestData.setSensorId("asdf");
-		initialObject.setRequestData(requestData);
+		Payload initialObject = new Payload();
+		initialObject.setSensorId("asdf");
 		
-		ResponseData success1 = objectUnderTest.createResponseData(initialObject);//create
-		ResponseData success2 = objectUnderTest.createResponseData(initialObject);//create 2
+		Payload success1 = objectUnderTest.createPayload(initialObject);//create
+		Payload success2 = objectUnderTest.createPayload(initialObject);//create 2
 		
-		requestData.setSensorId("fdsa");
-		ResponseData success3 = objectUnderTest.createResponseData(initialObject);//create 3, this one has a different payload sensorID
+		initialObject.setSensorId("fdsa");
+		Payload success3 = objectUnderTest.createPayload(initialObject);//create 3, this one has a different payload sensorID
 		
 		String sensorId = "asdf";
 		
-		List<ResponseData> results = objectUnderTest.getAllPayloadResponsesBySensorId(sensorId);
+		List<Payload> results = objectUnderTest.getAllPayloadsBySensorId(sensorId);
 		
 		//cleanup.
-		objectUnderTest.deleteResponseData(success1.getId());
-		objectUnderTest.deleteResponseData(success2.getId());
-		objectUnderTest.deleteResponseData(success3.getId());
+		objectUnderTest.deletePayload(success1.getId());
+		objectUnderTest.deletePayload(success2.getId());
+		objectUnderTest.deletePayload(success3.getId());
 		assertEquals(results.size(), 2);
 	}
 	
@@ -168,10 +109,10 @@ public class MongoRepositoryTest {
 	 */
 	@Test
 	public void readNothingFromDatabase() {
-		 Device initialDevice = new Device();
-		 initialDevice = objectUnderTest.createDevice(initialDevice);//create
-		 objectUnderTest.deleteDevice(initialDevice.getId());
-		 Device readResultDevice = objectUnderTest.readDeviceById(initialDevice.getId());//read
+		 Sensor initialDevice = new Sensor();
+		 initialDevice = objectUnderTest.createSensor(initialDevice);//create
+		 objectUnderTest.deleteSensor(initialDevice.getId());
+		 Sensor readResultDevice = objectUnderTest.readSensorById(initialDevice.getId());//read
 		 assertNull(readResultDevice);
 	}
 

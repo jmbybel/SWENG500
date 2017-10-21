@@ -6,9 +6,7 @@ import edu.psu.iot.database.DatabaseRepository;
 import edu.psu.iot.database.mongodb.MongoRepository;
 import edu.psu.iot.generator.interfaces.ISensorService;
 import edu.psu.iot.generator.sensor.SensorService;
-import edu.psu.iot.object.Device;
 import edu.psu.iot.object.Payload;
-import edu.psu.iot.object.ResponseData;
 import edu.psu.iot.object.Sensor;
 import edu.psu.iot.service.IDataService;
 
@@ -17,56 +15,8 @@ public class DataService implements IDataService {
 	private DatabaseRepository repository = new MongoRepository();
 	private ISensorService sensorService = new SensorService();
 	
-	/* (non-Javadoc)
-	 * @see edu.psu.iot.service.impl.IDataService#getDeviceById(java.lang.String)
-	 */
-	@Override
-	public Device getDeviceById(String id) {
-		return repository.readDeviceById(id);
-	}
-
-	
-	/* (non-Javadoc)
-	 * @see edu.psu.iot.service.impl.IDataService#deleteDevice(java.lang.String)
-	 */
-	@Override
-	public boolean deleteDevice(String id) {
-		return repository.deleteDevice(id);
-	}
-
-	
-	/* (non-Javadoc)
-	 * @see edu.psu.iot.service.impl.IDataService#cloneDevice(edu.psu.iot.object.Device)
-	 */
-	@Override
-	public Device cloneDevice(Device original) {
-		original.setId(null);
-		//sensors will need to be given new IDs too.
-		for (Sensor s: original.getSensors()) {
-			s.setId(null);
-		}
-		return repository.createDevice(original);
-	}
-	
-	/* (non-Javadoc)
-	 * @see edu.psu.iot.service.impl.IDataService#insertUpdateDevice(edu.psu.iot.object.Device)
-	 */
-	@Override
-	public Device insertUpdateDevice(Device device) {
-		if (device.getId() == null) {
-			device = repository.createDevice(device);
-		} else {
-			device = repository.updateDevice(device);
-		}
-		return device;
-	}
-	
-	/* (non-Javadoc)
-	 * @see edu.psu.iot.service.impl.IDataService#getAllDevices()
-	 */
-	@Override
-	public List<Device> getAllDevices() {
-		return repository.getAllDevices();
+	public List<Sensor> getAllSensors() {
+		return repository.getAllSensors();
 	}
 	
 	/* (non-Javadoc)
@@ -165,40 +115,11 @@ public class DataService implements IDataService {
 	}
 
 	/* (non-Javadoc)
-	 * @see edu.psu.iot.service.impl.IDataService#getResponseDataById(java.lang.String)
-	 */
-	@Override
-	public ResponseData getResponseDataById(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
-	/* (non-Javadoc)
-	 * @see edu.psu.iot.service.impl.IDataService#deleteResponseData(java.lang.String)
-	 */
-	@Override
-	public boolean deleteResponseData(String id) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	
-	/* (non-Javadoc)
-	 * @see edu.psu.iot.service.impl.IDataService#insertResponseData(edu.psu.iot.object.ResponseData)
-	 */
-	@Override
-	public ResponseData insertResponseData(ResponseData sensor) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	/* (non-Javadoc)
 	 * @see edu.psu.iot.service.impl.IDataService#getAllPayloadResponsesBySensor(java.lang.String)
 	 */
 	@Override
-	public List<ResponseData> getAllPayloadResponsesBySensor(String sensorId) {
-		return repository.getAllPayloadResponsesBySensorId(sensorId);
+	public List<Payload> getAllPayloadsBySensor(String sensorId) {
+		return repository.getAllPayloadsBySensorId(sensorId);
 	}
 
 	/* (non-Javadoc)

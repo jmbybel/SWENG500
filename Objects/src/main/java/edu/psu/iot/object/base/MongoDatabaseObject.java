@@ -2,7 +2,7 @@ package edu.psu.iot.object.base;
 
 import com.google.gson.Gson;
 
-public abstract class JsonObject {
+public abstract class MongoDatabaseObject {
 
 	public String toJson() {
 		Gson gson = new Gson();

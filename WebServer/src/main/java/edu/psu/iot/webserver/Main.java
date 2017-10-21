@@ -19,8 +19,8 @@ public class Main {
         get("/get-all-devices", (request, response) -> {
         	//System.out.println(String.format("Returning: %s", deviceList.toString()));
         	
-        	System.out.println(endpoint.getAllDevices());
-        	return endpoint.getAllDevices();
+        	System.out.println(endpoint.getAllSensors());
+        	return endpoint.getAllSensors();
         	
         	
         	//return deviceList.toString();
@@ -34,7 +34,7 @@ public class Main {
         	ss.createSensor(new SensorConfig());
         	
         	
-        	return endpoint.createUpdateDevice(request.body());
+        	return endpoint.createUpdateSensor(request.body());
         	
         	
         	//return String.format(request.body());

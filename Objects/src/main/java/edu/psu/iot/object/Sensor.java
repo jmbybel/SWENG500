@@ -3,7 +3,7 @@ package edu.psu.iot.object;
 import java.util.Date;
 import java.util.UUID;
 
-import edu.psu.iot.object.base.JsonObject;
+import edu.psu.iot.object.base.MongoDatabaseObject;
 
 /**
  * This is a single sensor, a group of which will make up a given Device.
@@ -12,7 +12,7 @@ import edu.psu.iot.object.base.JsonObject;
  * @author lynyc
  *
  */
-public class Sensor extends JsonObject {
+public class Sensor extends MongoDatabaseObject {
 
 	private String name;
 	
