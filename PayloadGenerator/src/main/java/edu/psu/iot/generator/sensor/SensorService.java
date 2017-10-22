@@ -21,12 +21,12 @@ import edu.psu.iot.generator.queue.PayloadQueue;
 public class SensorService implements ISensorService {
 	
 	private static final Logger logger = LogManager.getLogger();
-	public Map<Integer, Sensor> sensorList = new HashMap<Integer, Sensor>();
-	ScheduledExecutorService ses = Executors.newScheduledThreadPool(25);
+	private static Map<Integer, Payload> sensorList = new HashMap<Integer, Payload>();
+	private static ScheduledExecutorService ses = Executors.newScheduledThreadPool(25);
 	
     public SensorService(){
     	logger.debug(">>SensorServiceConstructor()");
-    	ses.shutdown();
+    	ses.shutdownNow();
     	ses = Executors.newScheduledThreadPool(25);
     	this.clearQueue();
     	sensorList.clear();   	
@@ -36,7 +36,7 @@ public class SensorService implements ISensorService {
     @Override
     public void initialize(){
     	logger.debug(">>SensorServieInitialize()");
-    	ses.shutdown();
+    	ses.shutdownNow();
     	ses = Executors.newScheduledThreadPool(25);
     	this.clearQueue();
     	sensorList.clear();
@@ -59,16 +59,16 @@ public class SensorService implements ISensorService {
     }
     
     @Override
-    public void createSensor(SensorConfig config)	
+    public void createSensor(Sensor config)	
     {	 
     	logger.debug(">>sensorServiceConstructor()");
     	
 		try {
-			Sensor sensor;
+			Payload sensor;
 			sensor = SensorFactory.createSensor(config);
 			sensor.start(this.ses);
 	    	sensorList.put(Integer.valueOf(config.getId()), sensor);
-		} catch (SensorTypeInvalidException e) {
+		} catch (PayloadTypeInvalidException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -78,7 +78,7 @@ public class SensorService implements ISensorService {
     }
     
     @Override
-    public Map<Integer,Sensor> getSensorList(){
+    public Map<Integer,Payload> getSensorList(){
     	logger.debug(">>getSensorList()");
     	logger.debug("<<getSensorList()");
     	return this.sensorList;

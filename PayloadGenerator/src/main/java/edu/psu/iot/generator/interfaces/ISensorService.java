@@ -7,8 +7,8 @@ import java.util.concurrent.Executors;
 import org.json.JSONObject;
 
 import edu.psu.iot.generator.queue.PayloadQueue;
+import edu.psu.iot.generator.sensor.Payload;
 import edu.psu.iot.generator.sensor.Sensor;
-import edu.psu.iot.generator.sensor.SensorConfig;
 
 public interface ISensorService {
 	
@@ -18,9 +18,9 @@ public interface ISensorService {
     
     public void clearQueue();
 	
-    public void createSensor(SensorConfig config);
+    public void createSensor(Sensor config);
     
-    public Map<Integer,Sensor> getSensorList();
+    public Map<Integer,Payload> getSensorList();
     
     public void startSensor(int id);
     

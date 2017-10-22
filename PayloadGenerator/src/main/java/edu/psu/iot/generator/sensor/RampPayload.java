@@ -1,8 +1,10 @@
 package edu.psu.iot.generator.sensor;
 
-public class RampSensor extends Sensor {
+import edu.psu.iot.generator.interfaces.ISensor;
 
-	public RampSensor(SensorConfig config) {
+public class RampPayload extends Payload {
+
+	public RampPayload(ISensor config) {
 		super(config);
 		// TODO Auto-generated constructor stub
 		

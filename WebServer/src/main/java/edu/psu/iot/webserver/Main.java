@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import api.APIEndpoint;
-import edu.psu.iot.generator.sensor.SensorConfig;
+import edu.psu.iot.generator.sensor.Sensor;
 import edu.psu.iot.generator.sensor.SensorService;
 
 public class Main {
@@ -25,7 +25,7 @@ public class Main {
         post("/create-new-sensor", (request, response) -> {
         	System.out.println(String.format("Creating Sensor: %s", request.body()));
         	SensorService ss = new edu.psu.iot.generator.sensor.SensorService();
-        	ss.createSensor(new SensorConfig());
+        	ss.createSensor(new Sensor());
 
         	return endpoint.createUpdateSensor(request.body());
         });

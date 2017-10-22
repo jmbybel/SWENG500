@@ -1,8 +1,10 @@
 package edu.psu.iot.generator.sensor;
 
-public class BinarySensor extends Sensor {
+import edu.psu.iot.generator.interfaces.ISensor;
 
-	public BinarySensor(SensorConfig config) {
+public class BinaryPayload extends Payload {
+
+	public BinaryPayload(ISensor config) {
 		super(config);
 		// TODO Auto-generated constructor stub
 	}

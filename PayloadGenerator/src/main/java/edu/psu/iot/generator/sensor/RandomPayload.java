@@ -1,8 +1,10 @@
 package edu.psu.iot.generator.sensor;
 
-public class RandomSensor extends Sensor {
+import edu.psu.iot.generator.interfaces.ISensor;
 
-	public RandomSensor(SensorConfig config) {
+public class RandomPayload extends Payload {
+
+	public RandomPayload(ISensor config) {
 		super(config);
 		// TODO Auto-generated constructor stub
 	}

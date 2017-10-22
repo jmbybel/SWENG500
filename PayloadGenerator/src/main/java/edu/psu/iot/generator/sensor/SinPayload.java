@@ -1,8 +1,10 @@
 package edu.psu.iot.generator.sensor;
 
-public class SinSensor extends Sensor {
+import edu.psu.iot.generator.interfaces.ISensor;
 
-	public SinSensor(SensorConfig config) {
+public class SinPayload extends Payload {
+
+	public SinPayload(ISensor config) {
 		super(config);
 		// TODO Auto-generated constructor stub
 	}
