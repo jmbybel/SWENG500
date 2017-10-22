@@ -5,7 +5,7 @@ const HomePage = () => {
   return (
     <section>
       <PageHeader>Mock IoT Data Generator Project</PageHeader>
-      <h2>Let's make some mock IoT devices!</h2>
+      <h2>Let's make some mock IoT sensors!</h2>
     </section>
   );
 };

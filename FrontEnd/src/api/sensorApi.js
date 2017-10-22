@@ -1,19 +1,19 @@
-class deviceApi {
-    static getAllDevices() {
-        return fetch('http://localhost:4567/get-all-devices').then(response => {
+class sensorApi {
+    static getAllSensors() {
+        return fetch('http://localhost:4567/get-all-sensors').then(response => {
             return response.json();
         }).catch(error => {
             return error;
         });
     }
 
-    static createDevice(device) {
-        const request = new Request('http://localhost:4567/create-new-device', {
+    static createSensor(sensor) {
+        const request = new Request('http://localhost:4567/create-new-sensor', {
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json'
             }),
-            body: JSON.stringify({ device })
+            body: JSON.stringify({ sensor })
         });
 
         return fetch(request).then(response => {
@@ -24,4 +24,4 @@ class deviceApi {
     }
 }
 
-export default deviceApi;
+export default sensorApi;

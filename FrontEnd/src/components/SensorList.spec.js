@@ -1,11 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import DeviceList from './DeviceList';
+import SensorList from './SensorList';
 
-describe('<DeviceList />', () => {
+describe('<SensorList />', () => {
   it('render: should render a PageHeader component', () => {
     // Arrange, Act
-    const result = shallow(<DeviceList devices={[]} />);
+    const result = shallow(<SensorList sensors={[]} />);
 
     // Assert
     expect(result.node.type).toEqual('section');
@@ -14,16 +14,16 @@ describe('<DeviceList />', () => {
     expect(pageHeader.type.name).toEqual('PageHeader');
   });
 
-  it('render: should render a div for a device if one exists', () => {
+  it('render: should render a div for a sensor if one exists', () => {
     // Arrange, Act
-    const devices = [
+    const sensors = [
       {
-        device: {
+        sensor: {
           name: 'name1',
         },
       },
     ];
-    const result = shallow(<DeviceList devices={devices} />);
+    const result = shallow(<SensorList sensors={sensors} />);
 
     // Assert
     expect(result.node.type).toEqual('section');
@@ -33,21 +33,21 @@ describe('<DeviceList />', () => {
     expect(div.type).toEqual('div');
   });
 
-  it('render: should render multiple divs for multiple devices if multiple exist', () => {
+  it('render: should render multiple divs for multiple sensors if multiple exist', () => {
     // Arrange, Act
-    const devices = [
+    const sensors = [
       {
-        device: {
+        sensor: {
           name: 'name1',
         },
       },
       {
-        device: {
+        sensor: {
           name: 'name2',
         },
       },
     ];
-    const result = shallow(<DeviceList devices={devices} />);
+    const result = shallow(<SensorList sensors={sensors} />);
 
     // Assert
     expect(result.node.type).toEqual('section');
@@ -60,10 +60,10 @@ describe('<DeviceList />', () => {
     expect(divArray.length).toEqual(2);
   });
 
-  it('render: should not render divs for devices if none exist', () => {
+  it('render: should not render divs for sensors if none exist', () => {
     // Arrange, Act
-    const devices = [];
-    const result = shallow(<DeviceList devices={devices} />);
+    const sensors = [];
+    const result = shallow(<SensorList sensors={sensors} />);
 
     // Assert
     expect(result.node.type).toEqual('section');

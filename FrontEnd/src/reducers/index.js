@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
-import devices from './deviceReducer';
+import sensors from './sensorReducer';
 
 const rootReducer = combineReducers({
-    devices,
+    sensors,
     routing: routerReducer
 });
 

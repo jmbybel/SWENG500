@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const NewDeviceTextInput = (props) => {
+const NewSensorTextInput = (props) => {
   const handleChange = (e) => {
     props.onChange(props.name, e.target.value);
   };
@@ -16,7 +16,7 @@ const NewDeviceTextInput = (props) => {
   );
 };
 
-NewDeviceTextInput.propTypes = {
+NewSensorTextInput.propTypes = {
   placeholder: PropTypes.string,
   value: PropTypes.oneOfType([
     PropTypes.string,
@@ -25,4 +25,4 @@ NewDeviceTextInput.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-export default NewDeviceTextInput;
+export default NewSensorTextInput;

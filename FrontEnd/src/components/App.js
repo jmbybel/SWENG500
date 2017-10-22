@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import MainMenu from './MainMenu';
 import { Switch, Route } from 'react-router-dom';
 import HomePage from './HomePage';
-import NewDevicePage from '../containers/NewDevicePage';
-import DevicesPage from '../containers/DevicesPage';
+import NewSensorPage from '../containers/NewSensorPage';
+import SensorsPage from '../containers/SensorsPage';
 
 // This is a class-based component because the current
 // version of hot reloading won't hot reload a stateless
@@ -21,11 +21,11 @@ class App extends React.Component {
       },
       {
         navItemKey: 2,
-        uri: '/create-new-device',
+        uri: '/create-new-sensor',
       },
       {
         navItemKey: 3,
-        uri: '/view-devices',
+        uri: '/view-sensors',
       },
     ];
     this.state = {
@@ -57,7 +57,7 @@ class App extends React.Component {
       selectedTab,
     });
   }
-  
+
   render() {
     const {
       state: {
@@ -70,8 +70,8 @@ class App extends React.Component {
         <MainMenu selectedTab={selectedTab} onSelect={this.onSelect} navItemEventKeyToUriArray={this.navItemEventKeyToUriArray} />
         <Switch>
           <Route exact path="/" component={() => <HomePage history={this.props.history} onHistoryChanged={this.onHistoryChanged} />} />
-          <Route exact path="/create-new-device" component={() => <NewDevicePage history={this.props.history} onHistoryChanged={this.onHistoryChanged} />} />
-          <Route exact path="/view-devices" component={DevicesPage} />
+          <Route exact path="/create-new-sensor" component={() => <NewSensorPage history={this.props.history} onHistoryChanged={this.onHistoryChanged} />} />
+          <Route exact path="/view-sensors" component={SensorsPage} />
         </Switch>
       </section>
     );

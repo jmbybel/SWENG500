@@ -2,34 +2,34 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as deviceActions from '../actions/deviceActions';
-import DeviceList from '../components/DeviceList';
+import * as sensorActions from '../actions/sensorActions';
+import SensorList from '../components/SensorList';
 
-export const DevicesPage = (props) => {
+export const SensorsPage = (props) => {
   return (
-    <DeviceList
-      devices={props.devices.devices} />
+    <SensorList
+      sensors={props.sensors.sensors} />
   );
 };
 
-DevicesPage.propTypes = {
-  devices: PropTypes.object,
+SensorsPage.propTypes = {
+  sensors: PropTypes.object,
   actions: PropTypes.object.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
-    devices: state.devices,
+    sensors: state.sensors,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(deviceActions, dispatch)
+    actions: bindActionCreators(sensorActions, dispatch)
   };
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(DevicesPage);
+)(SensorsPage);

@@ -53,9 +53,9 @@ describe('<App />', () => {
     expect(homePage.props.path).toEqual(expected);
   });
 
-  it('render: should have a route defined for the NewDevicePage', () => {
+  it('render: should have a route defined for the NewSensorPage', () => {
     // Arrange
-    const expected = '/create-new-device';
+    const expected = '/create-new-sensor';
 
     // Act
     const result = shallow(<App history={{}} />);
@@ -65,13 +65,13 @@ describe('<App />', () => {
     expect(result.node.props.children.length).toEqual(2);
     const swch = result.node.props.children[1];
     expect(swch.type.name).toEqual('Switch');
-    const newDevicePage = swch.props.children[1];
-    expect(newDevicePage.props.path).toEqual(expected);
+    const newSensorPage = swch.props.children[1];
+    expect(newSensorPage.props.path).toEqual(expected);
   });
 
-  it('render: should have a route defined for the DevicesPage', () => {
+  it('render: should have a route defined for the SensorsPage', () => {
     // Arrange
-    const expected = '/view-devices';
+    const expected = '/view-sensors';
 
     // Act
     const result = shallow(<App history={{}} />);
@@ -81,7 +81,7 @@ describe('<App />', () => {
     expect(result.node.props.children.length).toEqual(2);
     const swch = result.node.props.children[1];
     expect(swch.type.name).toEqual('Switch');
-    const viewDevices = swch.props.children[2];
-    expect(viewDevices.props.path).toEqual(expected);
+    const viewSensors = swch.props.children[2];
+    expect(viewSensors.props.path).toEqual(expected);
   });
 });

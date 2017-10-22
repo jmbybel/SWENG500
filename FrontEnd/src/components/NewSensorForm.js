@@ -1,19 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import NewDeviceTextInput from './NewDeviceTextInput';
-import NewDeviceSensorTypeDropdown from './NewDeviceSensorTypeDropdown';
-import NewDeviceRandomIntervalDropdown from './NewDeviceRandomIntervalDropdown';
+import NewSensorTextInput from './NewSensorTextInput';
+import NewSensorSensorTypeDropdown from './NewSensorSensorTypeDropdown';
+import NewSensorRandomIntervalDropdown from './NewSensorRandomIntervalDropdown';
 import {
   PageHeader,
   Button,
 } from 'react-bootstrap';
 
-class NewDeviceForm extends React.Component {
+class NewSensorForm extends React.Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
-      device: {
+      sensor: {
         name: '',
         initialValue: 0,
         max: 0,
@@ -27,16 +27,16 @@ class NewDeviceForm extends React.Component {
         randomInterval: '',
       }
     };
-    this.newDeviceKeypress = this.newDeviceKeypress.bind(this);
+    this.newSensorKeypress = this.newSensorKeypress.bind(this);
     this.dropdownOnSelect = this.dropdownOnSelect.bind(this);
     this.save = this.save.bind(this);
   }
 
-  newDeviceKeypress(field, value) {
-    const device = this.state.device;
-    device[field] = value;
+  newSensorKeypress(field, value) {
+    const sensor = this.state.sensor;
+    sensor[field] = value;
     this.setState({
-      device,
+      sensor,
     });
   }
 
@@ -48,29 +48,29 @@ class NewDeviceForm extends React.Component {
   save() {
     const {
       props: {
-        saveNewDevice,
+        saveNewSensor,
         onHistoryChanged,
         history,
       },
     } = this;
 
-    saveNewDevice(this.state.device);
-    history.push('/view-devices');
-    onHistoryChanged('/view-devices');
+    saveNewSensor(this.state.sensor);
+    history.push('/view-sensors');
+    onHistoryChanged('/view-sensors');
   }
 
   render() {
     const {
       state: {
-        device,
+        sensor,
       },
     } = this;
 
     return (
       <section
-        className={'newDeviceForm'}>
+        className={'newSensorForm'}>
         <PageHeader>
-          New Device Form
+          New Sensor Form
         </PageHeader>
         <div
           className={'input'}>
@@ -78,10 +78,10 @@ class NewDeviceForm extends React.Component {
             className={'labelSpan'}>
             Name
           </span>
-          <NewDeviceTextInput
+          <NewSensorTextInput
             name={'name'}
-            value={device.name}
-            onChange={this.newDeviceKeypress} />
+            value={sensor.name}
+            onChange={this.newSensorKeypress} />
         </div>
         <div
           className={'input'}>
@@ -89,10 +89,10 @@ class NewDeviceForm extends React.Component {
             className={'labelSpan'}>
             Initial Value
           </span>
-          <NewDeviceTextInput
+          <NewSensorTextInput
             name={'initialValue'}
-            value={device.initialValue}
-            onChange={this.newDeviceKeypress} />
+            value={sensor.initialValue}
+            onChange={this.newSensorKeypress} />
         </div>
         <div
           className={'input'}>
@@ -100,10 +100,10 @@ class NewDeviceForm extends React.Component {
             className={'labelSpan'}>
             Max Value
           </span>
-          <NewDeviceTextInput
+          <NewSensorTextInput
             name={'maxValue'}
-            value={device.max}
-            onChange={this.newDeviceKeypress} />
+            value={sensor.max}
+            onChange={this.newSensorKeypress} />
         </div>
         <div
           className={'input'}>
@@ -111,10 +111,10 @@ class NewDeviceForm extends React.Component {
             className={'labelSpan'}>
             Min Value
           </span>
-          <NewDeviceTextInput
+          <NewSensorTextInput
             name={'minValue'}
-            value={device.min}
-            onChange={this.newDeviceKeypress} />
+            value={sensor.min}
+            onChange={this.newSensorKeypress} />
         </div>
         <div
           className={'input'}>
@@ -122,10 +122,10 @@ class NewDeviceForm extends React.Component {
             className={'labelSpan'}>
             Duration in Milliseconds
           </span>
-          <NewDeviceTextInput
+          <NewSensorTextInput
             name={'duration'}
-            value={device.duration}
-            onChange={this.newDeviceKeypress} />
+            value={sensor.duration}
+            onChange={this.newSensorKeypress} />
         </div>
         <div
           className={'input'}>
@@ -133,10 +133,10 @@ class NewDeviceForm extends React.Component {
             className={'labelSpan'}>
             Interval in Milliseconds
           </span>
-          <NewDeviceTextInput
+          <NewSensorTextInput
             name={'interval'}
-            value={device.interval}
-            onChange={this.newDeviceKeypress} />
+            value={sensor.interval}
+            onChange={this.newSensorKeypress} />
         </div>
         <div
           className={'input'}>
@@ -144,7 +144,7 @@ class NewDeviceForm extends React.Component {
             className={'labelSpan'}>
             Sensor Type
           </span>
-          <NewDeviceSensorTypeDropdown
+          <NewSensorSensorTypeDropdown
             id={'sensorTypeDropdown'}
             onSelect={this.dropdownOnSelect} />
         </div>
@@ -154,10 +154,10 @@ class NewDeviceForm extends React.Component {
             className={'labelSpan'}>
             Sin interval
           </span>
-          <NewDeviceTextInput
+          <NewSensorTextInput
             name={'sinInterval'}
-            value={device.sinInterval}
-            onChange={this.newDeviceKeypress} />
+            value={sensor.sinInterval}
+            onChange={this.newSensorKeypress} />
         </div>
         <div
           className={'input'}>
@@ -165,10 +165,10 @@ class NewDeviceForm extends React.Component {
             className={'labelSpan'}>
             Minimum Interval
           </span>
-          <NewDeviceTextInput
+          <NewSensorTextInput
             name={'minInterval'}
-            value={device.min}
-            onChange={this.newDeviceKeypress} />
+            value={sensor.min}
+            onChange={this.newSensorKeypress} />
         </div>
         <div
           className={'input'}>
@@ -176,10 +176,10 @@ class NewDeviceForm extends React.Component {
             className={'labelSpan'}>
             Maximum Interval
           </span>
-          <NewDeviceTextInput
+          <NewSensorTextInput
             name={'maxInterval'}
-            value={device.maxInterval}
-            onChange={this.newDeviceKeypress} />
+            value={sensor.maxInterval}
+            onChange={this.newSensorKeypress} />
         </div>
         <div
           className={'input'}>
@@ -187,7 +187,7 @@ class NewDeviceForm extends React.Component {
             className={'labelSpan'}>
             Random Interval
           </span>
-          <NewDeviceRandomIntervalDropdown
+          <NewSensorRandomIntervalDropdown
             id={'randomIntervalDropdown'}
             onSelect={this.dropdownOnSelect} />
         </div>
@@ -202,10 +202,10 @@ class NewDeviceForm extends React.Component {
   }
 }
 
-NewDeviceForm.propTypes = {
-  device: PropTypes.object,
+NewSensorForm.propTypes = {
+  sensor: PropTypes.object,
   history: PropTypes.object,
-  saveNewDevice: PropTypes.func.isRequired,
+  saveNewSensor: PropTypes.func.isRequired,
 };
 
-export default NewDeviceForm;
+export default NewSensorForm;

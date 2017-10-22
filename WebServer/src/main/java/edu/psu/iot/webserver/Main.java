@@ -16,29 +16,18 @@ public class Main {
 
         APIEndpoint endpoint = new APIEndpoint();
         
-        get("/get-all-devices", (request, response) -> {
-        	//System.out.println(String.format("Returning: %s", deviceList.toString()));
-        	
+        get("/get-all-sensors", (request, response) -> {
         	System.out.println(endpoint.getAllSensors());
+        	
         	return endpoint.getAllSensors();
-        	
-        	
-        	//return deviceList.toString();
         });
         
-        post("/create-new-device", (request, response) -> {
-        	System.out.println(String.format("Creating Device: %s", request.body()));
-        	//deviceList.add(request.body());
-        	
+        post("/create-new-sensor", (request, response) -> {
+        	System.out.println(String.format("Creating Sensor: %s", request.body()));
         	SensorService ss = new edu.psu.iot.generator.sensor.SensorService();
         	ss.createSensor(new SensorConfig());
-        	
-        	
+
         	return endpoint.createUpdateSensor(request.body());
-        	
-        	
-        	//return String.format(request.body());
-        	
         });
     }
     

@@ -2,15 +2,15 @@ import { combineReducers } from 'redux'
 import { LOAD_DEVICES_SUCCESS, SAVE_NEW_DEVICE } from '../constants/ActionTypes'
 import initialState from './initialState';
 
-const devices = (state = initialState.devices, action) => {
+const sensors = (state = initialState.sensors, action) => {
   switch (action.type) {
     case SAVE_NEW_DEVICE:
       return [
-        ...state.filter(device => device.device.name !== action.device.device.name),
-        Object.assign({}, action.device)
+        ...state.filter(sensor => sensor.sensor.name !== action.sensor.sensor.name),
+        Object.assign({}, action.sensor)
       ];
     case LOAD_DEVICES_SUCCESS:
-      return Object.assign([], state, action.devices);
+      return Object.assign([], state, action.sensors);
     default:
       return state;
   }
@@ -21,8 +21,8 @@ const byName = (state = {}, action) => {
     case LOAD_DEVICES_SUCCESS: {
       return {
         ...state,
-        ...action.devices.reduce((obj, device) => {
-          obj[device.name] = device;
+        ...action.sensors.reduce((obj, sensor) => {
+          obj[sensor.name] = sensor;
           return obj;
         }, {})
       };
@@ -32,7 +32,7 @@ const byName = (state = {}, action) => {
       if (name) {
         return {
           ...state,
-          [name]: devices(state[name], action)
+          [name]: sensors(state[name], action)
         };
       }
       return state;
@@ -42,11 +42,11 @@ const byName = (state = {}, action) => {
 
 export default combineReducers({
   byName,
-  devices
+  sensors
 });
 
-export const getDevice = (state, name) =>
+export const getSensor = (state, name) =>
   state.byName[name];
 
-export const getAllDevices = (state) =>
-  state.devices.map(name => getDevice(state, name));
+export const getAllSensors = (state) =>
+  state.sensors.map(name => getSensor(state, name));

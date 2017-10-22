@@ -5,7 +5,7 @@ import {
   MenuItem,
 } from 'react-bootstrap';
 
-const NewDeviceSensorTypeDropdown = (props) => {
+const NewSensorRandomIntervalDropdown = (props) => {
   const handleSelect = (eventKey, event) => {
     props.onSelect(eventKey, event);
   };
@@ -16,16 +16,14 @@ const NewDeviceSensorTypeDropdown = (props) => {
       bsStyle={'primary'}
       title={'Select...'}
       onSelect={handleSelect}>
-      <MenuItem eventKey="1">Sin</MenuItem>
-      <MenuItem eventKey="2">Ramp</MenuItem>
-      <MenuItem eventKey="3">Random</MenuItem>
-      <MenuItem eventKey="4">Binary</MenuItem>
+      <MenuItem eventKey="1">True</MenuItem>
+      <MenuItem eventKey="2">False</MenuItem>
     </DropdownButton>
   );
 };
 
-NewDeviceSensorTypeDropdown.propTypes = {
+NewSensorRandomIntervalDropdown.propTypes = {
   onSelect: PropTypes.func.isRequired,
 };
 
-export default NewDeviceSensorTypeDropdown;
+export default NewSensorRandomIntervalDropdown;
