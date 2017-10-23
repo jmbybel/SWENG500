@@ -1,7 +1,6 @@
 package edu.psu.iot.generator.sensor;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;

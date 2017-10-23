@@ -100,9 +100,10 @@ public abstract class Payload implements Runnable{
 		payload.put("name", this.getName());
 		payload.put("id", this.getId());
 		payload.put("value", getCurrentValue());
+		payload.put("timestamp", System.currentTimeMillis());
 
 		logger.info("current payload: {}", payload.toString());
-		//log to file, TODO:Add timestamps?
+
         BufferedWriter output = null;
         
         try {
