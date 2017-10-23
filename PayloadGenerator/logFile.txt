@@ -1,19 +1,19 @@
-{"name":"Random Sensor","id":1,"value":72}
-{"name":"Binary Sensor","id":2,"value":1}
-{"name":"Ramp Sensor","id":3,"value":5}
-{"name":"Sin Sensor","id":4,"value":0}
-{"name":"Binary Sensor","id":2,"value":2}
-{"name":"Binary Sensor","id":2,"value":1}
-{"name":"Ramp Sensor","id":3,"value":6}
-{"name":"Random Sensor","id":1,"value":80.77305309407232}
-{"name":"Binary Sensor","id":2,"value":2}
-{"name":"Binary Sensor","id":2,"value":1}
-{"name":"Sin Sensor","id":4,"value":0.9129452507276277}
-{"name":"Initialize Test","id":10,"value":0}
-{"name":"Initialize Test","id":10,"value":19.409190028101687}
-{"name":"Initialize Test","id":10,"value":15.894370606425866}
-{"name":"Initialize Test","id":10,"value":36.5406086478784}
-{"name":"Initialize Test","id":10,"value":86.72407807568801}
-{"name":"Test Stop SS","id":1,"value":0}
-{"name":"Test Create SS","id":1,"value":0}
-{"name":"Test Sensor Start and Run","id":1,"value":0}
+{"name":"Random Sensor","id":1,"value":72,"timestamp":1508731428818}
+{"name":"Binary Sensor","id":2,"value":1,"timestamp":1508731428826}
+{"name":"Ramp Sensor","id":3,"value":5,"timestamp":1508731428842}
+{"name":"Sin Sensor","id":4,"value":0,"timestamp":1508731428846}
+{"name":"Binary Sensor","id":2,"value":2,"timestamp":1508731429939}
+{"name":"Sin Sensor","id":4,"value":0.9129452507276277,"timestamp":1508731430976}
+{"name":"Binary Sensor","id":2,"value":1,"timestamp":1508731430988}
+{"name":"Binary Sensor","id":2,"value":2,"timestamp":1508731432043}
+{"name":"Random Sensor","id":1,"value":67.7204320463262,"timestamp":1508731432253}
+{"name":"Ramp Sensor","id":3,"value":6,"timestamp":1508731432433}
+{"name":"Sin Sensor","id":4,"value":0.7451131604793488,"timestamp":1508731432809}
+{"name":"Binary Sensor","id":2,"value":1,"timestamp":1508731433093}
+{"name":"Initialize Test","id":10,"value":0,"timestamp":1508731433855}
+{"name":"Initialize Test","id":10,"value":55.77698657687446,"timestamp":1508731435091}
+{"name":"Initialize Test","id":10,"value":27.078853458473727,"timestamp":1508731436145}
+{"name":"Initialize Test","id":10,"value":56.89313102360642,"timestamp":1508731437194}
+{"name":"Initialize Test","id":10,"value":67.81020963525921,"timestamp":1508731438249}
+{"name":"Test Sensor Start and Run","id":1,"value":0,"timestamp":1508731438892}
+{"name":"Test Create SS","id":1,"value":0,"timestamp":1508731438892}

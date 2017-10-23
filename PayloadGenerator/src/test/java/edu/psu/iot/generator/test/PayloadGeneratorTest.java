@@ -194,12 +194,12 @@ public class PayloadGeneratorTest extends TestCase{
 			Scanner scanner = new Scanner(file);
 		    while (scanner.hasNextLine()) {
 		        String line = scanner.nextLine();
-		   
-	            if(line.contains("{\"name\":\"Test Duration\",\"id\":1,\"value\":0}")) {
+		        System.out.println("Looping through file.");
+	            if(line.contains("{\"name\":\"Test Duration\",\"id\":1,\"value\":0")) {
 	            	zeroCount++;
 	            }
 	            
-	            if(line.contains("{\"name\":\"Test Duration\",\"id\":1,\"value\":100}")){
+	            if(line.contains("{\"name\":\"Test Duration\",\"id\":1,\"value\":100")){
 	            	oneHundredCount++;
 	            }
 		    }
@@ -208,14 +208,8 @@ public class PayloadGeneratorTest extends TestCase{
 		}
 		System.out.println(zeroCount);
 		System.out.println(oneHundredCount);
-		if(zeroCount == 3 && oneHundredCount == 2)
-		{
-			assertTrue(true);
-		}
-		else
-		{
-			assertTrue(false);
-		}
+		assertTrue(zeroCount == 3 && oneHundredCount == 2);
+			
 	
 	}
 	
@@ -305,22 +299,22 @@ public class PayloadGeneratorTest extends TestCase{
 		    	
 		        String line = scanner.nextLine();
 		   
-	            if(line.contains("{\"name\":\"Binary Sensor\",\"id\":2,\"value\":1}")) {
+	            if(line.contains("{\"name\":\"Binary Sensor\",\"id\":2,\"value\":1")) {
 	            	BinFlag = true;
 	            	System.out.println("BinFlag true");
 	            }
 	            
-	            if(line.contains("{\"name\":\"Random Sensor\",\"id\":1,\"value\":72}")){
+	            if(line.contains("{\"name\":\"Random Sensor\",\"id\":1,\"value\":72")){
 	            	RanFlag = true;
 	            	System.out.println("RanFlag true");
 	            }
 
-        		if(line.contains("{\"name\":\"Ramp Sensor\",\"id\":3,\"value\":5}")){
+        		if(line.contains("{\"name\":\"Ramp Sensor\",\"id\":3,\"value\":5")){
         			RamFlag = true;
         			System.out.println("RamFlag true");
         		}
         		
-    			if(line.contains("{\"name\":\"Sin Sensor\",\"id\":4,\"value\":0}")){
+    			if(line.contains("{\"name\":\"Sin Sensor\",\"id\":4,\"value\":0")){
     				SinFlag = true;
     				System.out.println("SinFlag true");
     			}
