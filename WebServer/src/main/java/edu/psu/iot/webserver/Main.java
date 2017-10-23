@@ -5,11 +5,8 @@ import static spark.Spark.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
 import api.APIEndpoint;
-import edu.psu.iot.generator.sensor.SensorConfig;
+import edu.psu.iot.generator.sensor.Sensor;
 import edu.psu.iot.generator.sensor.SensorService;
 
 public class Main {
@@ -20,30 +17,17 @@ public class Main {
         APIEndpoint endpoint = new APIEndpoint();
         
         get("/get-all-sensors", (request, response) -> {
-        	// TODO: Need to figure out why endpoint.getAllSensors 
-        	// is throwing an exception
-        	try {
-        		System.out.println(endpoint.getAllSensors());
-        	}
-        	catch (Exception e) {
-        		System.out.println(e);
-        	}
+        	System.out.println(endpoint.getAllSensors());
         	
-        	return "[]";
+        	return endpoint.getAllSensors();
         });
         
         post("/create-new-sensor", (request, response) -> {
         	System.out.println(String.format("Creating Sensor: %s", request.body()));
         	SensorService ss = new edu.psu.iot.generator.sensor.SensorService();
-        	
-        	JsonParser parser = new JsonParser();
-        	JsonObject obj = parser.parse(request.body()).getAsJsonObject();
-        	
-        	String sensor = obj.getAsJsonObject("sensor").getAsString();
-        	System.out.println(sensor);
-        	// ss.createSensor(new SensorConfig());
+        	ss.createSensor(new Sensor());
 
-        	return endpoint.createUpdateSensor(sensor);
+        	return endpoint.createUpdateSensor(request.body());
         });
     }
     

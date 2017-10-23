@@ -12,7 +12,7 @@ public class Play {
 		
 		
 		//Simulate the "Validator" sending us a config
-		SensorConfig config = new SensorConfig();
+		Sensor config = new Sensor();
 		config.setInterval(1000);
 		config.setName("Duration Sensor");
 		config.setDuration(5000);
@@ -23,50 +23,50 @@ public class Play {
 		
 		//Until we have validator, some sample sensors
 		//Create a Random Sensor config
-		SensorConfig randomConfig = new SensorConfig();
+		Sensor randomConfig = new Sensor();
 		randomConfig.setName("Random Sensor");
 		randomConfig.setId(1);
 		randomConfig.setInitialValue(72);
 		randomConfig.setMax(90);
 		randomConfig.setMin(60);
-		randomConfig.setType(SensorType.RANDOM);
+		randomConfig.setType(PayloadType.RANDOM);
 		randomConfig.setRandomInterval(true);
 		ss.createSensor(randomConfig);
 		
 		//Create a Binary Sensor config
-		SensorConfig binaryConfig = new SensorConfig();
+		Sensor binaryConfig = new Sensor();
 		binaryConfig.setName("Binary Sensor");
 		binaryConfig.setId(2);
 		binaryConfig.setInitialValue(1);
 		binaryConfig.setMax(2);
 		binaryConfig.setMin(1);
-		binaryConfig.setType(SensorType.BINARY);
+		binaryConfig.setType(PayloadType.BINARY);
 		ss.createSensor(binaryConfig);
 		
 		//Create a Ramp Sensor config
-		SensorConfig rampConfig = new SensorConfig();
+		Sensor rampConfig = new Sensor();
 		rampConfig.setName("Ramp Sensor");
 		rampConfig.setId(3);
 		rampConfig.setInitialValue(5);
 		rampConfig.setMax(10);
 		rampConfig.setMin(1);
-		rampConfig.setType(SensorType.RAMP);
+		rampConfig.setType(PayloadType.RAMP);
 		rampConfig.setRandomInterval(true);
 		ss.createSensor(rampConfig);
 		
 		//Create a Sin Sensor config
-		SensorConfig sinConfig = new SensorConfig();
+		Sensor sinConfig = new Sensor();
 		sinConfig.setName("Sin Sensor");
 		sinConfig.setId(4);
 		sinConfig.setInitialValue(0);
 		sinConfig.setMax(0);
 		sinConfig.setMin(0);
-		sinConfig.setType(SensorType.SIN);
+		sinConfig.setType(PayloadType.SIN);
 		sinConfig.setRandomInterval(true);
 		ss.createSensor(sinConfig);
 		
 		
-		logger.info("SS SensorList: {}", ss.sensorList);
+		logger.info("SS SensorList: {}", ss.getSensorList());
 		logger.debug("<<main()");
 	}
 }
