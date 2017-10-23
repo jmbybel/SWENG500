@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MainMenu from './MainMenu';
 import { Switch, Route } from 'react-router-dom';
-import HomePage from './HomePage';
+import Dashboard from './Dashboard';
 import NewSensorPage from '../containers/NewSensorPage';
 import SensorsPage from '../containers/SensorsPage';
 
@@ -69,7 +69,7 @@ class App extends React.Component {
       <section>
         <MainMenu selectedTab={selectedTab} onSelect={this.onSelect} navItemEventKeyToUriArray={this.navItemEventKeyToUriArray} />
         <Switch>
-          <Route exact path="/" component={() => <HomePage history={this.props.history} onHistoryChanged={this.onHistoryChanged} />} />
+          <Route exact path="/" component={() => <Dashboard history={this.props.history} onHistoryChanged={this.onHistoryChanged} />} />
           <Route exact path="/create-new-sensor" component={() => <NewSensorPage history={this.props.history} onHistoryChanged={this.onHistoryChanged} />} />
           <Route exact path="/view-sensors" component={SensorsPage} />
         </Switch>

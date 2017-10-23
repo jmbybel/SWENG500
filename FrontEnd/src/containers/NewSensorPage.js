@@ -7,11 +7,13 @@ import NewSensorForm from '../components/NewSensorForm';
 
 export const NewSensorPage = (props) => {
   return (
-    <NewSensorForm
-      sensor={props.sensor}
-      history={props.history}
-      saveNewSensor={props.actions.saveNewSensor}
-      onHistoryChanged={props.onHistoryChanged} />
+    <section>
+      <NewSensorForm
+        sensor={props.sensor}
+        history={props.history}
+        saveNewSensor={props.actions.saveNewSensor}
+        onHistoryChanged={props.onHistoryChanged} />
+    </section>
   );
 };
 
@@ -19,6 +21,7 @@ NewSensorPage.propTypes = {
   sensor: PropTypes.object,
   history: PropTypes.object,
   actions: PropTypes.object.isRequired,
+  saveNewSensor: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {

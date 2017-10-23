@@ -13,7 +13,7 @@ class SensorList extends React.Component {
     return sensors.length > 0
       ? sensors.map((sensor, index) => (
           <div key={index}>
-            {sensor.sensor.name}
+            {sensor.name}
           </div>
         ))
       : null;

@@ -15,15 +15,15 @@ class NewSensorForm extends React.Component {
     this.state = {
       sensor: {
         name: '',
-        initialValue: 0,
-        max: 0,
-        min: 0,
-        duration: 0,
-        interval: 0,
+        initialValue: null,
+        maxValue: null,
+        minValue: null,
+        duration: null,
+        interval: null,
         type: '',
-        sinInterval: 0,
-        minInterval: 0,
-        maxInterval: 0,
+        sinInterval: null,
+        minInterval: null,
+        maxInterval: null,
         randomInterval: '',
       }
     };
@@ -33,10 +33,19 @@ class NewSensorForm extends React.Component {
   }
 
   newSensorKeypress(field, value) {
-    const sensor = this.state.sensor;
-    sensor[field] = value;
+    const {
+      state: {
+        sensor,
+      },
+    } = this;
+    // sensor[field] = value;
+
     this.setState({
-      sensor,
+      sensor: Object.assign(
+        {},
+        sensor,
+        { [field]: value }
+      )
     });
   }
 
@@ -102,7 +111,7 @@ class NewSensorForm extends React.Component {
           </span>
           <NewSensorTextInput
             name={'maxValue'}
-            value={sensor.max}
+            value={sensor.maxValue}
             onChange={this.newSensorKeypress} />
         </div>
         <div
@@ -113,7 +122,7 @@ class NewSensorForm extends React.Component {
           </span>
           <NewSensorTextInput
             name={'minValue'}
-            value={sensor.min}
+            value={sensor.minValue}
             onChange={this.newSensorKeypress} />
         </div>
         <div

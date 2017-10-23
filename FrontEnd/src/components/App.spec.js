@@ -37,7 +37,7 @@ describe('<App />', () => {
     expect(swch.props.children.length).toEqual(3);
   });
 
-  it('render: should have a route defined for the HomePage', () => {
+  it('render: should have a route defined for the Dashboard', () => {
     // Arrange
     const expected = '/';
 
