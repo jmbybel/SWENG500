@@ -76,6 +76,12 @@ public class MongoRepositoryTest {
 
 	}
 	*/
+	
+	@Test
+	public void getAllSensors() {
+		
+		objectUnderTest.getAllSensors();
+	}
 
 	
 	/**

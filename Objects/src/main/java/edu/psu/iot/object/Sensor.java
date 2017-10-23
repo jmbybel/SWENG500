@@ -1,7 +1,11 @@
 package edu.psu.iot.object;
 
 import java.util.Date;
-import java.util.UUID;
+
+import org.mongojack.MongoCollection;
+import org.mongojack.ObjectId;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import edu.psu.iot.object.base.MongoDatabaseObject;
 
@@ -12,6 +16,7 @@ import edu.psu.iot.object.base.MongoDatabaseObject;
  * @author lynyc
  *
  */
+@MongoCollection(name="Sensor")
 public class Sensor extends MongoDatabaseObject {
 
 	private String name;
@@ -34,18 +39,6 @@ public class Sensor extends MongoDatabaseObject {
 	
 	private Payload payloadConfiguration;
 	
-	//Do not manually use this in live code, use the one that generates a unique ID instead, or create the Sensor via Gson.fromString or from the database.
-	@Deprecated
-	public Sensor() {
-		
-	}
-	
-	//This constructor is to be used by code -- if a new Sensor is made, generate a unique ID for it since it won't live in a separate mongodb collection. 
-	public Sensor(boolean thisConstructorGivesMeAnId) {
-		UUID uniqueId = UUID.randomUUID();
-		this.setId(uniqueId.toString());
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -54,10 +47,14 @@ public class Sensor extends MongoDatabaseObject {
 		this.name = name;
 	}
 
+	@ObjectId
+	@JsonProperty("_id")
 	public String getId() {
 		return id;
 	}
-
+	
+	@ObjectId
+	@JsonProperty("_id")
 	public void setId(String id) {
 		this.id = id;
 	}
