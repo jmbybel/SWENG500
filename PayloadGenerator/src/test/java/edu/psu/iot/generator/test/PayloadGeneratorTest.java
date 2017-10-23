@@ -98,7 +98,7 @@ public class PayloadGeneratorTest extends TestCase{
 			config.setId(1);
 			config.setName("Test Sensor Start and Run");
 			config.setRandomInterval(true);
-			Payload sensor = SensorFactory.createSensor(config);
+			Payload sensor = PayloadFactory.createSensor(config);
 			sensor.start();
 			assertEquals(sensor.isEnable(), true);
 			assertTrue(sensor.getInterval() != 1000);
@@ -117,7 +117,7 @@ public class PayloadGeneratorTest extends TestCase{
 		config.setRandomInterval(true);
 		Payload sensor;
 		try {
-			sensor = SensorFactory.createSensor(config);
+			sensor = PayloadFactory.createSensor(config);
 			sensor.start();
 			assertEquals(sensor.isEnable(), true);
 			sensor.stop();
@@ -134,7 +134,7 @@ public class PayloadGeneratorTest extends TestCase{
 		Sensor config = new Sensor();
 		Payload sensor;
 		try {
-			sensor = SensorFactory.createSensor(config);
+			sensor = PayloadFactory.createSensor(config);
 			assertEquals(sensor.getName(), "name");
 			assertEquals(sensor.getId(), -1);
 			assertEquals(sensor.getCurrentValue(), 0.0);

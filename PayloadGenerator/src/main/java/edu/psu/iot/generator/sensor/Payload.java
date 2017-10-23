@@ -28,7 +28,7 @@ import org.json.*;
  */
 
 
-public abstract class Payload implements Runnable{	//Represents a sensor based on a unique id.
+public abstract class Payload implements Runnable{	
 	protected static final Logger logger = LogManager.getLogger();
 	RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(30 * 1000).build();
 	HttpClient httpClient = HttpClientBuilder.create().setDefaultRequestConfig(requestConfig).build();

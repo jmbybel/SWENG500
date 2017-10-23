@@ -3,12 +3,14 @@ package edu.psu.iot.generator.sensor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public final class SensorFactory{
+import edu.psu.iot.generator.interfaces.ISensor;
+
+public final class PayloadFactory{
 	private static final Logger logger = LogManager.getLogger();
-	public static Payload createSensor(Sensor config) throws PayloadTypeInvalidException{
+	public static Payload createSensor(ISensor config) throws PayloadTypeInvalidException{
 		logger.debug(">>createSensorSensorFactory()");
 		Payload sensor;
-		logger.info("SensorType: {}", config.type);
+		logger.info("SensorType: {}", config.getType());
 		if(config.getType() == PayloadType.BINARY){
 			sensor = new BinaryPayload(config);
 		}

@@ -6,11 +6,7 @@ import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.commons.collections4.queue.CircularFifoQueue;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
@@ -44,7 +40,7 @@ public class SensorService implements ISensorService {
     }
     
     @Override
-    public LinkedList<JSONObject> getQueue(){
+    public CircularFifoQueue<JSONObject> getQueue(){
     	logger.debug(">>SensorServicegetQueue()");
     	logger.debug("<<SensorServicegetQueue()");
     	return PayloadQueue.getQueue();
@@ -58,6 +54,10 @@ public class SensorService implements ISensorService {
     	logger.debug("<<clearQueue()");
     }
     
+    public JSONObject getLastQueueItem() {
+    	return PayloadQueue.getQueue().poll();
+    }
+    
     @Override
     public void createSensor(Sensor config)	
     {	 
@@ -65,8 +65,8 @@ public class SensorService implements ISensorService {
     	
 		try {
 			Payload sensor;
-			sensor = SensorFactory.createSensor(config);
-			sensor.start(this.ses);
+			sensor = PayloadFactory.createSensor(config);
+			sensor.start(SensorService.ses);
 	    	sensorList.put(Integer.valueOf(config.getId()), sensor);
 		} catch (PayloadTypeInvalidException e) {
 			// TODO Auto-generated catch block
@@ -81,13 +81,13 @@ public class SensorService implements ISensorService {
     public Map<Integer,Payload> getSensorList(){
     	logger.debug(">>getSensorList()");
     	logger.debug("<<getSensorList()");
-    	return this.sensorList;
+    	return SensorService.sensorList;
     }
     
     @Override
     public void startSensor(int id){
     	logger.debug(">>startSensor()");
-    	sensorList.get(Integer.valueOf(id)).start(this.ses);
+    	sensorList.get(Integer.valueOf(id)).start(SensorService.ses);
     	logger.debug("<<startSensor()");
     }
     

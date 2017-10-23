@@ -4,16 +4,16 @@
 {"name":"Sin Sensor","id":4,"value":0}
 {"name":"Binary Sensor","id":2,"value":2}
 {"name":"Binary Sensor","id":2,"value":1}
-{"name":"Binary Sensor","id":2,"value":2}
-{"name":"Random Sensor","id":1,"value":85.34145595926654}
-{"name":"Sin Sensor","id":4,"value":0.9129452507276277}
 {"name":"Ramp Sensor","id":3,"value":6}
+{"name":"Random Sensor","id":1,"value":80.77305309407232}
+{"name":"Binary Sensor","id":2,"value":2}
 {"name":"Binary Sensor","id":2,"value":1}
+{"name":"Sin Sensor","id":4,"value":0.9129452507276277}
 {"name":"Initialize Test","id":10,"value":0}
-{"name":"Initialize Test","id":10,"value":16.77633989181526}
-{"name":"Initialize Test","id":10,"value":15.80268402796653}
-{"name":"Initialize Test","id":10,"value":28.6036270248322}
-{"name":"Initialize Test","id":10,"value":11.344633951185434}
+{"name":"Initialize Test","id":10,"value":19.409190028101687}
+{"name":"Initialize Test","id":10,"value":15.894370606425866}
+{"name":"Initialize Test","id":10,"value":36.5406086478784}
+{"name":"Initialize Test","id":10,"value":86.72407807568801}
 {"name":"Test Stop SS","id":1,"value":0}
 {"name":"Test Create SS","id":1,"value":0}
 {"name":"Test Sensor Start and Run","id":1,"value":0}

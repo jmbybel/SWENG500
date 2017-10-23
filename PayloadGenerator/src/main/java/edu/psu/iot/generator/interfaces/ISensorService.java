@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.Executors;
 
+import org.apache.commons.collections4.queue.CircularFifoQueue;
 import org.json.JSONObject;
 
 import edu.psu.iot.generator.queue.PayloadQueue;
@@ -14,7 +15,7 @@ public interface ISensorService {
 	
     public void initialize();
     
-    public LinkedList<JSONObject> getQueue();
+    public CircularFifoQueue<JSONObject> getQueue();
     
     public void clearQueue();
 	
@@ -27,4 +28,6 @@ public interface ISensorService {
     public void stopSensor(int id);
     
     public void deleteSensor(int id);
+    
+    public JSONObject getLastQueueItem();
 }
