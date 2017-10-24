@@ -5,6 +5,9 @@ import static spark.Spark.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 import api.APIEndpoint;
 import edu.psu.iot.generator.sensor.Sensor;
 import edu.psu.iot.generator.sensor.SensorService;
@@ -25,9 +28,21 @@ public class Main {
         post("/create-new-sensor", (request, response) -> {
         	System.out.println(String.format("Creating Sensor: %s", request.body()));
         	SensorService ss = new edu.psu.iot.generator.sensor.SensorService();
-        	ss.createSensor(new Sensor());
-
-        	return endpoint.createUpdateSensor(request.body());
+        	Sensor newSensor = new Sensor();
+        	
+        	JsonObject jobj = new Gson().fromJson(request.body(), JsonObject.class);
+        	String name = ((JsonObject) jobj.get("sensor")).get("name").toString();
+        	if(name != null)
+        		//newSensor.setName(name.substring(2, name.length()-2));
+        		newSensor.setName(name);
+        	double initialValue = ((JsonObject) jobj.get("sensor")).get("initialValue").getAsDouble();
+        	if(((JsonObject) jobj.get("sensor")).get("initialValue").toString() != null)
+        		newSensor.setInitialValue(initialValue);
+        	
+        	ss.createSensor(newSensor);
+        	//return sensor has a mongoID but its a String
+        	String returnSensor = endpoint.createUpdateSensor(request.body());
+        	return returnSensor;
         });
     }
     

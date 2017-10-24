@@ -4,8 +4,8 @@ import { PageHeader } from 'react-bootstrap';
 const Dashboard = () => {
   return (
     <section>
-      <PageHeader>Mock IoT Data Generator Project</PageHeader>
-      <h2>Let's make some mock IoT sensors!</h2>
+      <PageHeader>IoT Data Generator</PageHeader>
+      <h2>Click on Create New Sensor</h2>
     </section>
   );
 };
