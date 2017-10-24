@@ -200,6 +200,17 @@ class NewSensorForm extends React.Component {
             id={'randomIntervalDropdown'}
             onSelect={this.dropdownOnSelect} />
         </div>
+          <div
+          className={'input'}>
+          <span
+            className={'labelSpan'}>
+            URL Endpoint
+          </span>
+          <NewSensorTextInput
+            id={'urlEndpoint'}
+            value={sensor.urlEndpoint}
+            onChange={this.newSensorKeypress} />
+        </div>
         <Button
           className={'saveButton'}
           bsStyle="primary"
