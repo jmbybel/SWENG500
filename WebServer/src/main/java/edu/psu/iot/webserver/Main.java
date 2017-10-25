@@ -14,6 +14,7 @@ import edu.psu.iot.generator.sensor.SensorService;
 
 public class Main {
     public static void main(String[] args) {
+    	port(4000);
     	configureExceptionHandling();
         enableCORS();
 
