@@ -33,7 +33,7 @@ public class MongoRepository implements DatabaseRepository {
 		optionsBuilder.socketTimeout(300000);
 		optionsBuilder.serverSelectionTimeout(300000);
 		MongoClientOptions options = optionsBuilder.build();
-		mongoClient = new MongoClient("SWENG500-Team1", options);
+		mongoClient = new MongoClient("localhost", options);
 		aDatabase = mongoClient.getDB("sweng500");
 	}
 	
