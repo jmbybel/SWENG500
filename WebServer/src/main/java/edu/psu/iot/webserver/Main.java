@@ -41,7 +41,7 @@ public class Main {
         		newSensor.setInitialValue(initialValue);
         	
         	ss.createSensor(newSensor);
-        	//return sensor has a mongoID but its a String
+        	//return sensor has a mongoID but its a String 
         	String returnSensor = endpoint.createUpdateSensor(request.body());
         	return returnSensor;
         });
