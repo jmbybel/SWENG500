@@ -13,6 +13,7 @@ import org.mongojack.WriteResult;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
 
 import edu.psu.iot.database.DatabaseRepository;
 import edu.psu.iot.object.Payload;
@@ -27,7 +28,12 @@ public class MongoRepository implements DatabaseRepository {
 	DB aDatabase;
 	
 	public MongoRepository() {
-		mongoClient = new MongoClient();
+		MongoClientOptions.Builder optionsBuilder = MongoClientOptions.builder();
+		optionsBuilder.connectTimeout(300000);
+		optionsBuilder.socketTimeout(300000);
+		optionsBuilder.serverSelectionTimeout(300000);
+		MongoClientOptions options = optionsBuilder.build();
+		mongoClient = new MongoClient("127.0.0.1:27017", options);
 		aDatabase = mongoClient.getDB("sweng500");
 	}
 	
