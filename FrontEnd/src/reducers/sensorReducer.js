@@ -22,7 +22,7 @@ const byName = (state = {}, action) => {
       return {
         ...state,
         ...action.sensors.reduce((obj, sensor) => {
-          obj[sensor.name] = sensor;
+          obj[sensor] = sensor;
           return obj;
         }, {})
       };
