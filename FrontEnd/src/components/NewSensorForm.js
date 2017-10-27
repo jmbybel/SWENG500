@@ -39,7 +39,7 @@ class NewSensorForm extends React.Component {
         sensor,
       },
     } = this;
-    
+    console.log(field);
     this.setState({
       sensor: Object.assign(
         {},
@@ -52,7 +52,31 @@ class NewSensorForm extends React.Component {
   dropdownOnSelect(eventKey, event) {
     console.dir(eventKey);
     console.dir(event);
-    //TODO MICHAEL & Validation on text boxes after, possibly fix warnings from npm
+    const {
+      state: {
+        sensor,
+      },
+    } = this;
+    if(eventKey === 'True' || eventKey === 'False')
+    {
+      this.setState({
+        sensor: Object.assign(
+          {},
+          sensor,
+          { ['randomInterval']: eventKey }
+        )
+      });
+    }
+    else 
+    {
+      this.setState({
+        sensor: Object.assign(
+          {},
+          sensor,
+          { ['type']: eventKey }
+        )
+      });
+    }
   }
 
   save() {
@@ -156,7 +180,7 @@ class NewSensorForm extends React.Component {
           </span>
           <NewSensorSensorTypeDropdown
             id={'sensorTypeDropdown'}
-            onSelect={this.dropdownOnSelect} />
+            onSelect={this.dropdownOnSelect}  />
         </div>
         <div
           className={'input'}>
