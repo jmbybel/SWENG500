@@ -12,9 +12,14 @@ class SensorList extends React.Component {
   mapSensors(sensors) {
     return sensors.length > 0
       ? sensors.map((sensor, index) => (
-          <div key={index}>
-            {sensor.id}
-          </div>
+<div key={sensor.id}>
+ <hr/>
+  <div>
+    {sensor.id}<br/>
+    {sensor.name}<br/>
+  </div>
+ <hr/>
+</div>
         ))
       : null;
   }

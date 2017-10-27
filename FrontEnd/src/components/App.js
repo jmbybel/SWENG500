@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import MainMenu from './MainMenu';
 import { Switch, Route } from 'react-router-dom';
 import Dashboard from './Dashboard';
-import NewSensorPage from '../containers/NewSensorPage';
-import SensorsPage from '../containers/SensorsPage';
+import NewSensorPage from './NewSensorPage';
+import SensorsPage from './SensorsPage';
 
 // This is a class-based component because the current
 // version of hot reloading won't hot reload a stateless
