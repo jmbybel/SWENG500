@@ -42,13 +42,15 @@ class NewSensorForm extends React.Component {
       },
     } = this;
     console.log(field);
-    this.setState({
-      sensor: Object.assign(
-        {},
-        sensor,
-        { [field]: value }
-      )
-    });
+
+      this.setState({
+        sensor: Object.assign(
+          {},
+          sensor,
+          { [field]: value }
+        )
+      });
+    
   }
 
   dropdownOnSelect(eventKey, event) {
@@ -240,6 +242,7 @@ class NewSensorForm extends React.Component {
           <NewSensorTextInput
             name={'urlEndpoint'}
             value={sensor.urlEndpoint}
+            placeholder={'18.216.43.18:8081/contentListener'}
             onChange={this.newSensorKeypress} />
         </div>
         <Button
