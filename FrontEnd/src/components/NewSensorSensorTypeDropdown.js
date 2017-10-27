@@ -5,7 +5,7 @@ import {
   MenuItem,
 } from 'react-bootstrap';
 
-const NewSensorSensorTypeDropdown = (props, state) => {
+const NewSensorSensorTypeDropdown = (props) => {
   const handleSelect = (eventKey, event) => {
     props.onSelect(eventKey, event);
   };

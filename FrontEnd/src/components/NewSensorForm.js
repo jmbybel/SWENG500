@@ -43,6 +43,7 @@ class NewSensorForm extends React.Component {
     } = this;
     console.log(field);
 
+
       this.setState({
         sensor: Object.assign(
           {},
@@ -93,10 +94,57 @@ class NewSensorForm extends React.Component {
         history,
       },
     } = this;
-
-    saveNewSensor(this.state.sensor);
-    history.push('/view-sensors');
-    onHistoryChanged('/view-sensors');
+    console.log(this.state.sensor.name);
+    if(this.state.sensor.name === '' )
+    {
+      alert('Please enter a valid Sensor Name');
+    }
+    else if (this.state.sensor.initialValue.match(/[a-z]/i) || this.state.sensor.initialValue === '')
+    {
+      alert('Please enter a valid number for initial value');
+    } 
+    else if (this.state.sensor.maxValue.match(/[a-z]/i) || this.state.sensor.maxValue === '')
+    {
+      alert('Please enter a valid number for max value');
+    } 
+    else if (this.state.sensor.minValue.match(/[a-z]/i) || this.state.sensor.minValue === '')
+    {
+      alert('Please enter a valid number for min value');
+    } 
+    else if (this.state.sensor.duration.match(/[a-z]/i) || this.state.sensor.duration === '')
+    {
+      alert('Please enter a valid number for duration');
+    } 
+    else if (this.state.sensor.interval.match(/[a-z]/i) || this.state.sensor.interval === '')
+    {
+      alert('Please enter a valid number for interval');
+    } 
+    else if (this.state.sensor.type === '')
+    {
+      alert('Please select a sensor type');
+    } 
+    else if (this.state.sensor.type === 'Sin' && (this.state.sensor.sinInterval.match(/[a-z]/i) || this.state.sensor.sinInterval === ''))
+    {
+      alert('Please enter a valid number for sin interval');
+    } 
+    else if (this.state.sensor.randomInterval === '')
+    {
+      alert('Please select if you want random interval on or off');
+    } 
+    else if (this.state.sensor.randomInterval === 'True' && (this.state.sensor.maxInterval.match(/[a-z]/i) || this.state.sensor.maxInterval === ''))
+    {
+      alert('Please enter a valid number for max random interval');
+    } 
+    else if (this.state.sensor.randomInterval === 'True' && (this.state.sensor.minInterval.match(/[a-z]/i) || this.state.sensor.minInterval === ''))
+    {
+      alert('Please enter a valid number for min random interval');
+    } 
+    else
+    {
+      saveNewSensor(this.state.sensor);
+      history.push('/view-sensors');
+      onHistoryChanged('/view-sensors');
+    }
   }
 
   render() {
