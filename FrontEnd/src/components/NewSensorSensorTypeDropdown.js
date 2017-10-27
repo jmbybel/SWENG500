@@ -16,10 +16,10 @@ const NewSensorSensorTypeDropdown = (props) => {
       bsStyle={'primary'}
       title={'Select...'}
       onSelect={handleSelect}>
-      <MenuItem eventKey="1">Sin</MenuItem>
-      <MenuItem eventKey="2">Ramp</MenuItem>
-      <MenuItem eventKey="3">Random</MenuItem>
-      <MenuItem eventKey="4">Binary</MenuItem>
+      <MenuItem eventKey="Sin">Sin</MenuItem>
+      <MenuItem eventKey="Ramp">Ramp</MenuItem>
+      <MenuItem eventKey="Random">Random</MenuItem>
+      <MenuItem eventKey="Binary">Binary</MenuItem>
     </DropdownButton>
   );
 };
