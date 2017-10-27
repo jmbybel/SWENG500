@@ -32,6 +32,12 @@ npm run build
 ```
 To build and start the project. Leave the command prompt window open.
 
+To have static pages, Ctrl-C from the run in the above command prompt. Then type
+```
+node app.js
+```
+Leave this window open which is now running the web server. 
+
 Next navigate to your install folder for your mongodb database. 
 In the folder that contains mongod.exe, hold Shift+RightClick to Open Command Window Here
 Then in command prompt, run
