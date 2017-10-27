@@ -15,16 +15,17 @@ class NewSensorForm extends React.Component {
     this.state = {
       sensor: {
         name: '',
-        initialValue: null,
-        maxValue: null,
-        minValue: null,
-        duration: null,
-        interval: null,
+        initialValue: '',
+        maxValue: '',
+        minValue: '',
+        duration: '',
+        interval: '',
         type: '',
-        sinInterval: null,
-        minInterval: null,
-        maxInterval: null,
+        sinInterval: '',
+        minInterval: '',
+        maxInterval: '',
         randomInterval: '',
+        urlEndpoint: '',
       }
     };
     this.newSensorKeypress = this.newSensorKeypress.bind(this);
@@ -38,8 +39,7 @@ class NewSensorForm extends React.Component {
         sensor,
       },
     } = this;
-    // sensor[field] = value;
-
+    
     this.setState({
       sensor: Object.assign(
         {},
@@ -52,6 +52,7 @@ class NewSensorForm extends React.Component {
   dropdownOnSelect(eventKey, event) {
     console.dir(eventKey);
     console.dir(event);
+    //TODO MICHAEL & Validation on text boxes after, possibly fix warnings from npm
   }
 
   save() {
@@ -207,7 +208,7 @@ class NewSensorForm extends React.Component {
             URL Endpoint
           </span>
           <NewSensorTextInput
-            id={'urlEndpoint'}
+            name={'urlEndpoint'}
             value={sensor.urlEndpoint}
             onChange={this.newSensorKeypress} />
         </div>
