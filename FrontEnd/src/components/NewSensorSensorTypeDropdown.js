@@ -5,7 +5,7 @@ import {
   MenuItem,
 } from 'react-bootstrap';
 
-const NewSensorSensorTypeDropdown = (props) => {
+const NewSensorSensorTypeDropdown = (props, state) => {
   const handleSelect = (eventKey, event) => {
     props.onSelect(eventKey, event);
   };
@@ -14,7 +14,7 @@ const NewSensorSensorTypeDropdown = (props) => {
     <DropdownButton
       id={props.id}
       bsStyle={'primary'}
-      title={'Select...'}
+      title={props.value}
       onSelect={handleSelect}>
       <MenuItem eventKey="Sin">Sin</MenuItem>
       <MenuItem eventKey="Ramp">Ramp</MenuItem>

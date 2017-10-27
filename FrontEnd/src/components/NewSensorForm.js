@@ -26,7 +26,9 @@ class NewSensorForm extends React.Component {
         maxInterval: '',
         randomInterval: '',
         urlEndpoint: '',
-      }
+      },
+      btnRandomTitle: 'Select ...',
+      btnTypeTitle: 'Select ...',
     };
     this.newSensorKeypress = this.newSensorKeypress.bind(this);
     this.dropdownOnSelect = this.dropdownOnSelect.bind(this);
@@ -64,7 +66,8 @@ class NewSensorForm extends React.Component {
           {},
           sensor,
           { ['randomInterval']: eventKey }
-        )
+        ),
+        btnRandomTitle: eventKey
       });
     }
     else 
@@ -74,7 +77,8 @@ class NewSensorForm extends React.Component {
           {},
           sensor,
           { ['type']: eventKey }
-        )
+        ),
+        btnTypeTitle: eventKey
       });
     }
   }
@@ -180,6 +184,7 @@ class NewSensorForm extends React.Component {
           </span>
           <NewSensorSensorTypeDropdown
             id={'sensorTypeDropdown'}
+            value={this.state.btnTypeTitle}
             onSelect={this.dropdownOnSelect}  />
         </div>
         <div
@@ -223,6 +228,7 @@ class NewSensorForm extends React.Component {
           </span>
           <NewSensorRandomIntervalDropdown
             id={'randomIntervalDropdown'}
+            value={this.state.btnRandomTitle}
             onSelect={this.dropdownOnSelect} />
         </div>
           <div

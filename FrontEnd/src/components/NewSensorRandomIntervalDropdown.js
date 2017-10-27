@@ -14,7 +14,7 @@ const NewSensorRandomIntervalDropdown = (props) => {
     <DropdownButton
       id={props.id}
       bsStyle={'primary'}
-      title={'Select...'}
+      title={props.value}
       onSelect={handleSelect}>
       <MenuItem eventKey="True">True</MenuItem>
       <MenuItem eventKey="False">False</MenuItem>
