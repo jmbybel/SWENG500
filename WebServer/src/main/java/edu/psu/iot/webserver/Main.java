@@ -42,7 +42,7 @@ public class Main {
         	
         	ss.createSensor(newSensor);
         	//return sensor has a mongoID but its a String 
-        	String returnSensor = endpoint.createUpdateSensor(request.body());
+        	String returnSensor = endpoint.createUpdateSensor(jobj.get("sensor").toString());
         	return returnSensor;
         });
     }

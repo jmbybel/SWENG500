@@ -6,7 +6,7 @@ const sensors = (state = initialState.sensors, action) => {
   switch (action.type) {
     case SAVE_NEW_DEVICE:
       return [
-        ...state.filter(sensor => sensor.sensor.name !== action.sensor.sensor.name),
+        ...state.filter(sensor => sensor.name !== action.sensor.name),
         Object.assign({}, action.sensor)
       ];
     case LOAD_DEVICES_SUCCESS:
