@@ -21,7 +21,6 @@ NewSensorPage.propTypes = {
   sensor: PropTypes.object,
   history: PropTypes.object,
   actions: PropTypes.object.isRequired,
-  saveNewSensor: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
