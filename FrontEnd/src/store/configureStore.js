@@ -8,6 +8,7 @@ import rootReducer from '../reducers';
 export const history = createHistory();
 
 function configureStoreProd(initialState) {
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   const reactRouterMiddleware = routerMiddleware(history);
   const middlewares = [
     // Add other middleware on this line...
@@ -18,7 +19,7 @@ function configureStoreProd(initialState) {
     reactRouterMiddleware,
   ];
 
-  return createStore(rootReducer, initialState, compose(
+  return createStore(rootReducer, initialState, composeEnhancers(
     applyMiddleware(...middlewares)
     )
   );
