@@ -41,8 +41,6 @@ class NewSensorForm extends React.Component {
         sensor,
       },
     } = this;
-    console.log(field);
-
 
       this.setState({
         sensor: Object.assign(
@@ -55,8 +53,6 @@ class NewSensorForm extends React.Component {
   }
 
   dropdownOnSelect(eventKey, event) {
-    console.dir(eventKey);
-    console.dir(event);
     const {
       state: {
         sensor,
@@ -94,7 +90,7 @@ class NewSensorForm extends React.Component {
         history,
       },
     } = this;
-    console.log(this.state.sensor.name);
+
     if(this.state.sensor.name === '' )
     {
       alert('Please enter a valid Sensor Name');
@@ -153,13 +149,15 @@ class NewSensorForm extends React.Component {
         sensor,
       },
     } = this;
+    const newSensorFormStyle = {
+      maxWidth: '50%',
+      padding: '20px',
+    };
 
     return (
       <section
-        className={'newSensorForm'}>
-        <PageHeader>
-          New Sensor Form
-        </PageHeader>
+        className={'newSensorForm'}
+        style={newSensorFormStyle}>
         <div
           className={'input'}>
           <span

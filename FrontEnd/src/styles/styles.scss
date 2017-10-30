@@ -24,7 +24,14 @@ h2 {
     margin-bottom: 30px;
 
     .labelSpan {
+      display: inline-block;
       margin-right: 20px;
+      min-width: 40%;
+    }
+
+    input {
+      min-width: 45%;
+      font-size: 85%;
     }
   }
   .saveButton {
