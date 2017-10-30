@@ -4,7 +4,6 @@ import NewSensorTextInput from './NewSensorTextInput';
 import NewSensorSensorTypeDropdown from './NewSensorSensorTypeDropdown';
 import NewSensorRandomIntervalDropdown from './NewSensorRandomIntervalDropdown';
 import {
-  PageHeader,
   Button,
 } from 'react-bootstrap';
 
@@ -52,7 +51,7 @@ class NewSensorForm extends React.Component {
     
   }
 
-  dropdownOnSelect(eventKey, event) {
+  dropdownOnSelect(eventKey) {
     const {
       state: {
         sensor,
