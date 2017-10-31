@@ -25,6 +25,8 @@ const NewSensorSensorTypeDropdown = (props) => {
 };
 
 NewSensorSensorTypeDropdown.propTypes = {
+  id: PropTypes.String,
+  value: PropTypes.String,
   onSelect: PropTypes.func.isRequired,
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { PageHeader, Button, ButtonGroup, Panel } from 'react-bootstrap';
+import { Button, ButtonGroup, Panel } from 'react-bootstrap';
 
 
 class SensorList extends React.Component {
@@ -38,8 +38,7 @@ class SensorList extends React.Component {
     } = this;
 
     return (
-      <section>
-        <PageHeader>Sensor List</PageHeader>
+      <section className={"sensorList"}>
         <div>
         {this.mapSensors(sensors)}
         <Button>New Sensor</Button>

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import MainMenu from './MainMenu';
 import { Switch, Route } from 'react-router-dom';
 import Dashboard from './Dashboard';
-import NewSensorPage from './NewSensorPage';
 import SensorsPage from './SensorsPage';
 
 // This is a class-based component because the current
@@ -21,11 +20,7 @@ class App extends React.Component {
       },
       {
         navItemKey: 2,
-        uri: '/create-new-sensor',
-      },
-      {
-        navItemKey: 3,
-        uri: '/view-sensors',
+        uri: '/sensors',
       },
     ];
     this.state = {
@@ -70,8 +65,7 @@ class App extends React.Component {
         <MainMenu selectedTab={selectedTab} onSelect={this.onSelect} navItemEventKeyToUriArray={this.navItemEventKeyToUriArray} />
         <Switch>
           <Route exact path="/" component={() => <Dashboard history={this.props.history} onHistoryChanged={this.onHistoryChanged} />} />
-          <Route exact path="/create-new-sensor" component={() => <NewSensorPage history={this.props.history} onHistoryChanged={this.onHistoryChanged} />} />
-          <Route exact path="/view-sensors" component={SensorsPage} />
+          <Route exact path="/sensors" component={() => <SensorsPage history={this.props.history} onHistoryChanged={this.onHistoryChanged} />} />
         </Switch>
       </section>
     );

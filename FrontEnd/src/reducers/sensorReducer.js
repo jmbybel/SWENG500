@@ -1,5 +1,5 @@
-import { combineReducers } from 'redux'
-import { LOAD_DEVICES_SUCCESS, SAVE_NEW_DEVICE } from '../constants/ActionTypes'
+import { combineReducers } from 'redux';
+import { LOAD_DEVICES_SUCCESS, SAVE_NEW_DEVICE } from '../constants/ActionTypes';
 import initialState from './initialState';
 
 const sensors = (state = initialState.sensors, action) => {
@@ -14,7 +14,7 @@ const sensors = (state = initialState.sensors, action) => {
     default:
       return state;
   }
-}
+};
 
 const byName = (state = {}, action) => {
   switch (action.type) {

@@ -24,7 +24,7 @@ class MainMenu extends React.Component {
   render() {
     const {
       props: {
-        selectedTab,    
+        selectedTab,
       },
     } = this;
 
@@ -35,9 +35,8 @@ class MainMenu extends React.Component {
           bsStyle="pills"
           activeKey={selectedTab}
           onSelect={this.onSelect}>
-          <NavItem eventKey={1}>Home</NavItem>
-          <NavItem eventKey={2}>Create New Sensor</NavItem>
-          <NavItem eventKey={3}>View Sensors</NavItem>
+          <NavItem eventKey={1}>Dashboard</NavItem>
+          <NavItem eventKey={2}>Sensors</NavItem>
         </Nav>
       </Navbar>
     );

@@ -18,7 +18,18 @@ h2 {
 	color: $blue;
 }
 
+#sensorsPageTabs {
+  display: inline-block;
+  width: 49%;
+  vertical-align: top;
+  margin-left: 10px;
+}
+
 .newSensorForm {
+  display: inline-block;
+  padding: 20px;
+  width: 100%;
+
   .input {
     display: block;
     margin-bottom: 30px;
@@ -30,11 +41,17 @@ h2 {
     }
 
     input {
-      min-width: 45%;
+      min-width: 50%;
       font-size: 85%;
     }
   }
   .saveButton {
     min-width: 80px;
   }
+}
+
+.sensorList {
+  display: inline-block;
+  vertical-align: top;
+  max-width: 49%;
 }
