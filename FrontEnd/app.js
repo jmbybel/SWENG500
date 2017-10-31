@@ -8,6 +8,10 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/dist/index.html');
 });
 
+app.get('/sensors', function(req, res){
+  res.sendFile(__dirname + '/dist/index.html');
+});
+
 app.get('/favicon.ico', function(req, res){
   res.sendFile(__dirname + '/dist/favicon.ico');
 });
