@@ -1,2 +1,3 @@
 export const LOAD_DEVICES_SUCCESS = 'LOAD_DEVICES_SUCCESS';
 export const SAVE_NEW_DEVICE = 'SAVE_NEW_DEVICE';
+export const GET_SENSOR = 'GET_SENSOR';

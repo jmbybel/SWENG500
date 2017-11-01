@@ -15,6 +15,7 @@ class SensorsPage extends React.Component {
     super(props, context);
 
     this.state = {
+      sensor: null,
       key: 1,
     };
     this.handleSelect = this.handleSelect.bind(this);
@@ -24,6 +25,14 @@ class SensorsPage extends React.Component {
     this.setState({
       key,
     });
+  }
+  
+  fetchSelectedSensorId(sensorId) {
+    //TODO actually fire off the sensorActions.getSensor (which doesn't exist yet in the server), and return the sensor. put that into the NewSensorForm and repaint it. 
+    //also handleSelect(1) to reset the tabs on the Details.
+  
+    //let x = this.actions.getSensor(sensorId);
+	alert(sensorId);
   }
 
   render() {
@@ -41,7 +50,7 @@ class SensorsPage extends React.Component {
 
     return (
       <section>
-        <SensorList
+        <SensorList selectedSensorId={this.fetchSelectedSensorId}
           sensors={sensorList} />
         <Tabs
           activeKey={this.state.key}

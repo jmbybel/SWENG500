@@ -2,9 +2,6 @@ package edu.psu.iot.webserver;
 
 import static spark.Spark.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -24,6 +21,11 @@ public class Main {
         	System.out.println(endpoint.getAllSensors());
         	
         	return endpoint.getAllSensors();
+        });
+        
+        get("/get-sensor", (request, response) -> {
+        	String id = request.params("sensorId");
+        	return endpoint.getSensorById(id);
         });
         
         post("/create-new-sensor", (request, response) -> {

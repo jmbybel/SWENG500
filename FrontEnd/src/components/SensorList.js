@@ -6,7 +6,12 @@ import { Button, ButtonGroup, Panel } from 'react-bootstrap';
 class SensorList extends React.Component {
   constructor(props, context) {
     super(props, context);
+    this.showDetailsClick = this.showDetailsClick.bind(this);
     this.mapSensors = this.mapSensors.bind(this);
+  }
+  
+  showDetailsClick (sensorId) {
+    this.props.selectedSensorId(sensorId);
   }
 
   mapSensors(sensors) {
@@ -16,7 +21,10 @@ class SensorList extends React.Component {
           <Panel header={sensor.name}>
             System ID: {sensor.id}&nbsp;&nbsp;&nbsp;&nbsp;
             <ButtonGroup>
-             <Button >Show/Hide Details</Button>
+             <Button 
+               onClick={()=>this.showDetailsClick(sensor.id)} >
+               Show/Hide Details
+             </Button>
              <Button>Start</Button>
              <Button>Stop</Button>
              <Button>Delete</Button>
@@ -50,6 +58,7 @@ class SensorList extends React.Component {
 
 SensorList.propTypes = {
   sensors: PropTypes.array,
+  selectedSensorId: PropTypes.string,
 };
 
 export default SensorList;

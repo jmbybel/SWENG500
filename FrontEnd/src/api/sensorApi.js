@@ -22,6 +22,14 @@ class sensorApi {
             return error;
         });
     }
+    
+    static getSensor(sensorId) {
+      return fetch('http://sweng500-team1.cloudapp.net:4000/get-sensor?sensorId='+{sensorId}).then(response => {
+            return response.json();
+        }).catch(error => {
+            return error;
+      });
+    }
 }
 
 export default sensorApi;
