@@ -32,6 +32,14 @@ app.get('/main.css', function(req, res){
   res.sendFile(__dirname + '/dist/main.css');
 });
 
+app.get('/bootstrap.min.css', function(req, res){
+  res.sendFile(__dirname + '/dist/bootstrap.min.css');
+});
+
+app.get('/spacelab.bootstrap.min.css', function(req, res){
+  res.sendFile(__dirname + '/dist/spacelab.bootstrap.min.css');
+});
+
 // Listen for requests
 const server = app.listen(app.get('port'), function() {
   server.address().port;

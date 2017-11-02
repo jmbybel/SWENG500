@@ -4,8 +4,13 @@
 import webpack from 'webpack';
 import config from '../webpack.config.prod';
 import {chalkError, chalkSuccess, chalkWarning, chalkProcessing} from './chalkConfig';
+import fs from 'fs';
+import path from 'path';
 
 process.env.NODE_ENV = 'production'; // this assures React is built in prod mode and that the Babel dev config doesn't apply.
+
+fs.createReadStream(path.resolve(__dirname, '../src/styles/bootstrap.min.css')).pipe(fs.createWriteStream(path.resolve(__dirname, '../dist/bootstrap.min.css')));
+fs.createReadStream(path.resolve(__dirname, '../src/styles/spacelab.bootstrap.min.css')).pipe(fs.createWriteStream(path.resolve(__dirname, '../dist/spacelab.bootstrap.min.css')));
 
 console.log(chalkProcessing('Generating minified bundle. This will take a moment...'));
 

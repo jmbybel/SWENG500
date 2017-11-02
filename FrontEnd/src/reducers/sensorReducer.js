@@ -6,7 +6,7 @@ const sensors = (state = initialState.sensors, action) => {
   switch (action.type) {
     case SAVE_NEW_DEVICE:
       return [
-        ...state.filter(sensor => sensor.name !== action.sensor.name),
+        ...state.filter(sensor => sensor.id !== action.sensor.id),
         Object.assign({}, action.sensor)
       ];
     case LOAD_DEVICES_SUCCESS:
@@ -16,7 +16,7 @@ const sensors = (state = initialState.sensors, action) => {
   }
 };
 
-const byName = (state = {}, action) => {
+const byId = (state = {}, action) => {
   switch (action.type) {
     case LOAD_DEVICES_SUCCESS: {
       return {
@@ -28,11 +28,11 @@ const byName = (state = {}, action) => {
       };
     }
     default: {
-      const { name } = action;
-      if (name) {
+      const { id } = action;
+      if (id) {
         return {
           ...state,
-          [name]: sensors(state[name], action)
+          [id]: sensors(state[id], action)
         };
       }
       return state;
@@ -41,12 +41,12 @@ const byName = (state = {}, action) => {
 };
 
 export default combineReducers({
-  byName,
+  byId,
   sensors
 });
 
-export const getSensor = (state, name) =>
-  state.byName[name];
+export const getSensor = (state, id) =>
+  state.byId[id];
 
 export const getAllSensors = (state) =>
-  state.sensors.map(name => getSensor(state, name));
+  state.sensors.map(id => getSensor(state, id));

@@ -5,12 +5,10 @@ import ActiveSensorCount from '../components/ActiveSensorCount';
 const myCount = 100;//TODO dummy value to be replaced by proper pull from the application.
 const Dashboard = () => {
   return (
-    <div>
     <section>
       <PageHeader>Mock IoT Data Generator Project</PageHeader>
-    </section>
       <ActiveSensorCount theCount={myCount}/>
-    </div>
+    </section>
   );
 };
 
