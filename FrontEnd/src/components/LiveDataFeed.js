@@ -1,0 +1,32 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { BootstrapTable,TableHeaderColumn } from 'react-bootstrap-table';
+
+class LiveDataFeed extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+  }
+  
+  render() {
+    const {
+        props: {
+          sensors,
+        },
+      } = this;
+
+    return (
+      <BootstrapTable data={ sensors } bordered={false} options={{noDataText: 'No Sensors are running' }}>
+        <TableHeaderColumn dataField='name' isKey={true}>Sensor Name</TableHeaderColumn>
+        <TableHeaderColumn dataField='timestamp'>Timestamp</TableHeaderColumn>
+        <TableHeaderColumn dataField='type'>Type</TableHeaderColumn>
+        <TableHeaderColumn dataField='payload'>Payload Value</TableHeaderColumn>
+      </BootstrapTable>
+    );
+  }
+}
+
+LiveDataFeed.propTypes = {
+  sensors: PropTypes.any,
+};
+  
+export default LiveDataFeed;
