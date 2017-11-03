@@ -22,12 +22,12 @@ class SensorList extends React.Component {
             System ID: {sensor.id}&nbsp;&nbsp;&nbsp;&nbsp;
             <ButtonGroup>
              <Button 
-               onClick={()=>this.showDetailsClick(sensor.id)} >
+               onClick={()=>this.showDetailsClick(sensor.id)} bsStyle="info" >
                Show/Hide Details
              </Button>
-             <Button>Start</Button>
-             <Button>Stop</Button>
-             <Button>Delete</Button>
+             <Button bsStyle="success">Start</Button>
+             <Button bsStyle="warning">Stop</Button>
+             <Button bsStyle="danger">Delete</Button>
             </ButtonGroup>
             <br/>
             Active: false<br/>
