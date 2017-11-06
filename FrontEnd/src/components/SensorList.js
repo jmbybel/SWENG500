@@ -6,14 +6,13 @@ import { Button, ButtonGroup, Panel } from 'react-bootstrap';
 class SensorList extends React.Component {
   constructor(props, context) {
     super(props, context);
-    this.showDetailsClick = this.showDetailsClick.bind(this);
     this.mapSensors = this.mapSensors.bind(this);
   }
-  
-  showDetailsClick (sensorId) {
-    this.props.selectedSensorId(sensorId);
+      
+  createNewSensorClick() {
+	alert("this needs to call up to the parent, clear the sensor in state, which should repaint the UI. After that make sure we're forced back to the first tab on the right side");
   }
-
+  
   mapSensors(sensors) {
     return sensors.length > 0
       ? sensors.map((sensor) => (
@@ -22,12 +21,12 @@ class SensorList extends React.Component {
             System ID: {sensor.id}&nbsp;&nbsp;&nbsp;&nbsp;
             <ButtonGroup>
              <Button 
-               onClick={()=>this.showDetailsClick(sensor.id)} bsStyle="info" >
+               onClick={()=>this.props.detailsClick(sensor)} bsStyle="info" >
                Show/Hide Details
              </Button>
-             <Button bsStyle="success">Start</Button>
-             <Button bsStyle="warning">Stop</Button>
-             <Button bsStyle="danger">Delete</Button>
+             <Button onClick={()=>this.props.startClick(sensor.id)}  bsStyle="success">Start</Button>
+             <Button onClick={()=>this.props.stopClick(sensor.id)}   bsStyle="warning">Stop</Button>
+             <Button onClick={()=>this.props.deleteClick(sensor.id)}   bsStyle="danger">Delete</Button>
             </ButtonGroup>
             <br/>
             Active: false<br/>
@@ -49,7 +48,7 @@ class SensorList extends React.Component {
       <section className={"sensorList"}>
         <div>
         {this.mapSensors(sensors)}
-        <Button>New Sensor</Button>
+        <Button onClick={()=>this.createNewSensorClick()}>New Sensor</Button>
         </div>
       </section>
     );
