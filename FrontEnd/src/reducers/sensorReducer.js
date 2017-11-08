@@ -43,7 +43,7 @@ const byId = (state = {}, action) => {
 const numRunningSensors = (state = initialState.numRunningSensors, action) => {
   switch (action.type) {
     case GET_NUMBER_OF_RUNNING_SENSORS: {
-      return Object.assign([], state, action.numRunningSensors);
+      return action.numRunningSensors;
     }
     default: {
       return state;

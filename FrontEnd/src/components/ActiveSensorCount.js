@@ -5,7 +5,7 @@ import { Panel } from 'react-bootstrap';
 class ActiveSensorCount extends React.Component {
   constructor(props, context) {
     super(props, context);
-    
+
   }
 
   render() {
@@ -16,9 +16,11 @@ class ActiveSensorCount extends React.Component {
     } = this;
 
   return (
-    <Panel header="Active Sensors">
-      {numRunningSensors}
-    </Panel>
+    <section className={"actionSensorCount"}>
+      <Panel header="Active Sensors">
+        {numRunningSensors}
+      </Panel>
+    </section>
   );
   }
 }
@@ -26,5 +28,5 @@ class ActiveSensorCount extends React.Component {
 ActiveSensorCount.propTypes = {
   numRunningSensors: PropTypes.string,
 };
-  
+
 export default ActiveSensorCount;

@@ -33,18 +33,24 @@ class Dashboard extends React.Component {
 
   render() {
     const {
-      props: {  
+      props: {
         sensors: {
           numRunningSensors,
         },
       },
     } = this;
-   
+
     return (
       <section>
-        <PageHeader>Mock IoT Data Generator Project</PageHeader>
-        <ActiveSensorCount numRunningSensors={numRunningSensors}/>
-        <LiveDataFeed sensors={rows} />
+        <PageHeader>
+          <span>
+            {"Mock IoT Data Generator Project"}
+          </span>
+        </PageHeader>
+        <ActiveSensorCount
+            numRunningSensors={numRunningSensors}/>
+        <LiveDataFeed
+          sensors={rows} />
       </section>
     );
   }
