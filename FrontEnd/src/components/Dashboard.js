@@ -1,9 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as sensorActions from '../actions/sensorActions';
 import { PageHeader } from 'react-bootstrap';
 import ActiveSensorCount from '../components/ActiveSensorCount';
 import LiveDataFeed from '../components/LiveDataFeed';
-
-const myCount = 100;//TODO dummy value to be replaced by proper pull from the application.
 
 //TODO dummy values for live data feed til we can get pushed data
 const rows = [{
@@ -21,15 +23,53 @@ const rows = [{
   timestamp: 'Nov 2, 2017 2:43:01 PM',
   type: 'Ramp',
   payload: '109.2'
-}] 
-const Dashboard = () => {
-  return (
-    <section>
-      <PageHeader>Mock IoT Data Generator Project</PageHeader>
-      <ActiveSensorCount theCount={myCount}/>
-      <LiveDataFeed sensors={rows} />
-    </section>
-  );
+}];
+
+class Dashboard extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    props.actions.getNumberOfRunningSensors();
+  }
+
+  render() {
+    const {
+      props: {  
+        sensors: {
+          numRunningSensors,
+        },
+      },
+    } = this;
+   
+    return (
+      <section>
+        <PageHeader>Mock IoT Data Generator Project</PageHeader>
+        <ActiveSensorCount numRunningSensors={numRunningSensors}/>
+        <LiveDataFeed sensors={rows} />
+      </section>
+    );
+  }
+}
+
+Dashboard.propTypes = {
+  sensors: PropTypes.object,
+  sensor: PropTypes.object,
+  actions: PropTypes.object.isRequired,
 };
 
-export default Dashboard;
+function mapStateToProps(state) {
+  return {
+    sensor: state.sensor,
+    sensors: state.sensors,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(sensorActions, dispatch)
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Dashboard);

@@ -8,7 +8,9 @@ import api.validation.JsonToObjectValidator;
 import edu.psu.iot.object.Payload;
 import edu.psu.iot.object.Sensor;
 import edu.psu.iot.service.IDataService;
+import edu.psu.iot.service.IDataServiceStub;
 import edu.psu.iot.service.impl.DataService;
+import edu.psu.iot.service.impl.DataServiceStub;
 
 /**
  * This is the only thing the WebServer interacts with.
@@ -17,10 +19,16 @@ import edu.psu.iot.service.impl.DataService;
 public class APIEndpoint {
 
 	
-	private edu.psu.iot.service.IDataService dataService = new DataService();
+	private edu.psu.iot.service.IDataServiceStub dataService = new DataServiceStub();
 	private JsonToObjectValidator validator = new JsonToObjectValidator();
 	Gson gson = new Gson();
 		
+	
+	public String getNumberOfRunningSensors() {
+		String numberRunningSensors = dataService.getNumberOfRunningSensors();
+		return gson.toJson(numberRunningSensors);
+	}
+	
 	/**
 	 * For a given sensor ID, find all request/response pairs that the Payload Generator has done and return those.
 	 * @return
@@ -96,7 +104,7 @@ public class APIEndpoint {
 	}
 
 	public void setDeviceService(edu.psu.iot.service.IDataService deviceService) {
-		this.dataService = deviceService;
+		this.dataService = (IDataServiceStub) deviceService;
 	}
 
 	public JsonToObjectValidator getValidator() {

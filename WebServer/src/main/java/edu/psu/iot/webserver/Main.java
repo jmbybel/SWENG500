@@ -17,15 +17,25 @@ public class Main {
 
         APIEndpoint endpoint = new APIEndpoint();
         
+        get("/get-number-of-running-sensors", (request, response) -> {
+        	return endpoint.getNumberOfRunningSensors();
+        });
+        
         get("/get-all-sensors", (request, response) -> {
-        	System.out.println(endpoint.getAllSensors());
-        	
         	return endpoint.getAllSensors();
         });
         
         get("/get-sensor", (request, response) -> {
         	String id = request.params("sensorId");
-        	return endpoint.getSensorById(id);
+        	String sensor = null;
+
+        	if (id != null)
+        		sensor = endpoint.getSensorById(id);
+        	
+        	if (sensor != null)
+        		return sensor;
+        	
+        	return "{}";
         });
         
         post("/create-new-sensor", (request, response) -> {
