@@ -1,16 +1,25 @@
 package api;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import com.google.gson.Gson;
 
 import api.validation.JsonToObjectValidator;
+import edu.psu.iot.generator.interfaces.ISensorService;
+import edu.psu.iot.generator.sensor.SensorService;
 import edu.psu.iot.object.Payload;
 import edu.psu.iot.object.Sensor;
 import edu.psu.iot.service.IDataService;
 import edu.psu.iot.service.IDataServiceStub;
 import edu.psu.iot.service.impl.DataService;
 import edu.psu.iot.service.impl.DataServiceStub;
+import edu.psu.iot.webserver.Main;
 
 /**
  * This is the only thing the WebServer interacts with.
@@ -61,6 +70,23 @@ public class APIEndpoint {
 		return gson.toJson(allSensors);
 	}
 	
+	public String getAllPayloads()
+	{
+		ArrayList<SensorService> ssList = Main.getSSList();
+		List<JSONObject> payloads = new ArrayList<JSONObject>();
+		
+		for (int i = 0; i < ssList.size(); i++) {
+			Map<Integer, edu.psu.iot.generator.sensor.Payload> list = ssList.get(i).getSensorList();
+			if(!list.isEmpty()) {
+				for (Entry<Integer, edu.psu.iot.generator.sensor.Payload> entry : list.entrySet()) {
+				    payloads.add(entry.getValue().getPayload());
+				}
+			}
+		}
+		JSONArray test = new JSONArray(payloads);
+
+		return test.toString();
+	}
 	/**
 	 *  All sensors should be pulled from the DB within the Device fetch, so this should not be needed
 	 */

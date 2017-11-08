@@ -6,29 +6,27 @@ import * as sensorActions from '../actions/sensorActions';
 import { PageHeader } from 'react-bootstrap';
 import ActiveSensorCount from '../components/ActiveSensorCount';
 import LiveDataFeed from '../components/LiveDataFeed';
+import sensorApi from '../api/sensorApi';
 
-//TODO dummy values for live data feed til we can get pushed data
-const rows = [{
-  name: 'Sample Sensor 1',
-  timestamp: 'Nov 1, 2017 4:12:04 AM',
-  type: 'Random',
-  payload: '67.889696'
-},{
-  name: 'Sample Sensor 2',
-  timestamp: 'Nov 2, 2017 2:23:02 PM',
-  type: 'Sin',
-  payload: '36.0'
-},{
-  name: 'Sample Sensor 3',
-  timestamp: 'Nov 2, 2017 2:43:01 PM',
-  type: 'Ramp',
-  payload: '109.2'
-}];
+
 
 class Dashboard extends React.Component {
   constructor(props, context) {
     super(props, context);
+    this.state = {
+      sensors: ''
+    }
     props.actions.getNumberOfRunningSensors();
+  }
+
+  componentDidMount() {
+    this.getSensors().then(result => this.setState({
+      sensors: result
+    }))
+  }
+
+  getSensors() {
+    return sensorApi.getPayloads()
   }
 
   render() {
@@ -40,6 +38,7 @@ class Dashboard extends React.Component {
       },
     } = this;
 
+    
     return (
       <section>
         <PageHeader>
@@ -50,7 +49,7 @@ class Dashboard extends React.Component {
         <ActiveSensorCount
             numRunningSensors={numRunningSensors}/>
         <LiveDataFeed
-          sensors={rows} />
+          sensors={this.state.sensors} />
       </section>
     );
   }

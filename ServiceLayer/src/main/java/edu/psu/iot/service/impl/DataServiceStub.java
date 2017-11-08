@@ -141,6 +141,12 @@ public class DataServiceStub implements IDataService, IDataServiceStub {
 	public void setRepository(DatabaseRepository repository) {
 		this.repository = repository;
 	}
+
+	@Override
+	public ISensorService getSS() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }

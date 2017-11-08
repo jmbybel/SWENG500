@@ -104,4 +104,8 @@ public class SensorService implements ISensorService {
     	sensorList.remove(Integer.valueOf(id));
     	logger.debug("<<deleteSensor()");
     }
+    
+    public Map<Integer,Payload> getList(){
+    	return sensorList;
+    }
 }

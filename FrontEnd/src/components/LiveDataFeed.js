@@ -20,7 +20,7 @@ class LiveDataFeed extends React.Component {
           <TableHeaderColumn dataField='name' isKey={true}>Sensor Name</TableHeaderColumn>
           <TableHeaderColumn dataField='timestamp'>Timestamp</TableHeaderColumn>
           <TableHeaderColumn dataField='type'>Type</TableHeaderColumn>
-          <TableHeaderColumn dataField='payload'>Payload Value</TableHeaderColumn>
+          <TableHeaderColumn dataField='value'>Payload Value</TableHeaderColumn>
         </BootstrapTable>
       </section>
     );

@@ -15,6 +15,14 @@ class sensorApi {
         });
     }
 
+    static getPayloads() {
+        return fetch('http://sweng500-team1.cloudapp.net:4000/get-payloads').then(response => {
+					return response.json();
+        }).catch(error => {
+					return error;
+        });
+    }
+
     static createSensor(sensor) {
         const request = new Request('http://sweng500-team1.cloudapp.net:4000/create-new-sensor', {
 					method: 'POST',

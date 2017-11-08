@@ -54,7 +54,8 @@ public abstract class Payload implements Runnable{
 	long startTime;
 	boolean isFirstRun = true;
 	long endTime;
-
+	JSONObject sensorPayload;
+	
 	public Payload(ISensor config)			
 	{
 		logger.debug(">>sensorConstructor()");
@@ -132,6 +133,7 @@ public abstract class Payload implements Runnable{
 			e.printStackTrace();
 		}
 		System.out.println(payload);
+		sensorPayload = payload;
 		
 		if(isEnable() == true && ((System.currentTimeMillis() < endTime) || getDuration() == 0)){
 
@@ -206,6 +208,10 @@ public abstract class Payload implements Runnable{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public JSONObject getPayload() {
+		return sensorPayload;
 	}
 	
 	public String getUrlEndpoint() {

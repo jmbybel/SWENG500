@@ -133,5 +133,9 @@ public class DataService implements IDataService {
 		this.repository = repository;
 	}
 	
+	public SensorService getSS() {
+		return (SensorService) sensorService;
+	}
+	
 	
 }
