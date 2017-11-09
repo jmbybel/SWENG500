@@ -7,7 +7,7 @@ import { PageHeader } from 'react-bootstrap';
 import ActiveSensorCount from '../components/ActiveSensorCount';
 import LiveDataFeed from '../components/LiveDataFeed';
 import sensorApi from '../api/sensorApi';
-
+import Pusher from 'pusher-js';
 
 
 class Dashboard extends React.Component {
@@ -19,6 +19,7 @@ class Dashboard extends React.Component {
     props.actions.getNumberOfRunningSensors();
   }
 
+  
   componentDidMount() {
     this.getSensors().then(result => this.setState({
       sensors: result
@@ -38,6 +39,15 @@ class Dashboard extends React.Component {
       },
     } = this;
 
+    var pusher = new Pusher('05483fef894d660001a9', {
+      cluster: 'us2',
+      encrypted: true
+    });
+    
+    var channel = pusher.subscribe('my-channel');
+    channel.bind('my-event', function(data) {
+      //alert(data.message);
+    });
     
     return (
       <section>

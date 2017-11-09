@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.concurrent.ScheduledExecutorService;
 
 import edu.psu.iot.generator.interfaces.ISensor;
@@ -19,6 +20,8 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.*;
+
+import com.pusher.rest.Pusher;
 /*
  * SIN - executes a sin function with min and max and a period equal to 100 times the interval
  * RAMP - increases from min to max over the duration or if not duration, 
@@ -134,6 +137,12 @@ public abstract class Payload implements Runnable{
 		}
 		System.out.println(payload);
 		sensorPayload = payload;
+		
+		Pusher pusher = new Pusher("428762", "05483fef894d660001a9", "3e7a9407f569d3833791");
+		pusher.setCluster("us2");
+		pusher.setEncrypted(true);
+
+		pusher.trigger("my-channel", "my-event", Collections.singletonMap("message", payload.toString()));
 		
 		if(isEnable() == true && ((System.currentTimeMillis() < endTime) || getDuration() == 0)){
 
