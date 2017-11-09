@@ -1,35 +1,90 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as sensorActions from '../actions/sensorActions';
 import { PageHeader } from 'react-bootstrap';
 import ActiveSensorCount from '../components/ActiveSensorCount';
 import LiveDataFeed from '../components/LiveDataFeed';
+import sensorApi from '../api/sensorApi';
+import Pusher from 'pusher-js';
 
-const myCount = 100;//TODO dummy value to be replaced by proper pull from the application.
 
-//TODO dummy values for live data feed til we can get pushed data
-const rows = [{
-  name: 'Sample Sensor 1',
-  timestamp: 'Nov 1, 2017 4:12:04 AM',
-  type: 'Random',
-  payload: '67.889696'
-},{
-  name: 'Sample Sensor 2',
-  timestamp: 'Nov 2, 2017 2:23:02 PM',
-  type: 'Sin',
-  payload: '36.0'
-},{
-  name: 'Sample Sensor 3',
-  timestamp: 'Nov 2, 2017 2:43:01 PM',
-  type: 'Ramp',
-  payload: '109.2'
-}] 
-const Dashboard = () => {
-  return (
-    <section>
-      <PageHeader>Mock IoT Data Generator Project</PageHeader>
-      <ActiveSensorCount theCount={myCount}/>
-      <LiveDataFeed sensors={rows} />
-    </section>
-  );
+class Dashboard extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      sensors: ''
+    }
+    props.actions.getNumberOfRunningSensors();
+  }
+
+  
+  componentDidMount() {
+    this.getSensors().then(result => this.setState({
+      sensors: result
+    }))
+  }
+
+  getSensors() {
+    return sensorApi.getPayloads()
+  }
+
+  render() {
+    const {
+      props: {
+        sensors: {
+          numRunningSensors,
+        },
+      },
+    } = this;
+
+    var pusher = new Pusher('05483fef894d660001a9', {
+      cluster: 'us2',
+      encrypted: true
+    });
+    
+    var channel = pusher.subscribe('my-channel');
+    channel.bind('my-event', function(data) {
+      //alert(data.message);
+    });
+    
+    return (
+      <section>
+        <PageHeader>
+          <span>
+            {"Mock IoT Data Generator Project"}
+          </span>
+        </PageHeader>
+        <ActiveSensorCount
+            numRunningSensors={numRunningSensors}/>
+        <LiveDataFeed
+          sensors={this.state.sensors} />
+      </section>
+    );
+  }
+}
+
+Dashboard.propTypes = {
+  sensors: PropTypes.object,
+  sensor: PropTypes.object,
+  actions: PropTypes.object.isRequired,
 };
 
-export default Dashboard;
+function mapStateToProps(state) {
+  return {
+    sensor: state.sensor,
+    sensors: state.sensors,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(sensorActions, dispatch)
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Dashboard);

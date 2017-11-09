@@ -2,6 +2,8 @@ package edu.psu.iot.webserver;
 
 import static spark.Spark.*;
 
+import java.util.ArrayList;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -10,27 +12,45 @@ import edu.psu.iot.generator.sensor.Sensor;
 import edu.psu.iot.generator.sensor.SensorService;
 
 public class Main {
+	static ArrayList<SensorService> ssList = new ArrayList<SensorService>();
+
     public static void main(String[] args) {
     	port(4000);
     	configureExceptionHandling();
         enableCORS();
-
+        
+    	
         APIEndpoint endpoint = new APIEndpoint();
         
+        get("/get-number-of-running-sensors", (request, response) -> {
+        	return endpoint.getNumberOfRunningSensors();
+        });
+        
+        get("/get-payloads", (request, response) -> {
+        	return endpoint.getAllPayloads();
+        });
+        
         get("/get-all-sensors", (request, response) -> {
-        	System.out.println(endpoint.getAllSensors());
-        	
         	return endpoint.getAllSensors();
         });
         
         get("/get-sensor", (request, response) -> {
         	String id = request.params("sensorId");
-        	return endpoint.getSensorById(id);
+        	String sensor = null;
+
+        	if (id != null)
+        		sensor = endpoint.getSensorById(id);
+        	
+        	if (sensor != null)
+        		return sensor;
+        	
+        	return "{}";
         });
         
         post("/create-new-sensor", (request, response) -> {
         	System.out.println(String.format("Creating Sensor: %s", request.body()));
         	SensorService ss = new edu.psu.iot.generator.sensor.SensorService();
+        	ssList.add(ss);
         	Sensor newSensor = new Sensor();
         	
         	JsonObject jobj = new Gson().fromJson(request.body(), JsonObject.class);
@@ -51,6 +71,11 @@ public class Main {
     
     private static void configureExceptionHandling() {
     	exception(Exception.class, (e, req, res) -> e.printStackTrace()); // print all exceptions
+    }
+    
+    public static ArrayList<SensorService> getSSList()
+    {
+    	return ssList;
     }
     
     private static void enableCORS() {

@@ -31,6 +31,8 @@
   "dependencies": {
     "express": "4.16.2",
     "object-assign": "4.1.1",
+    "pusher": "1.5.1",
+    "pusher-js": "4.2.1",
     "react": "15.6.1",
     "react-bootstrap": "0.31.3",
     "react-bootstrap-table": "4.1.1",

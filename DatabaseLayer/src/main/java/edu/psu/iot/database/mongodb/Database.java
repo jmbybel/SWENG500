@@ -16,9 +16,8 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
 import edu.psu.iot.database.IDatabase;
-import edu.psu.iot.object.Payload;
-import edu.psu.iot.object.Sensor;
-import edu.psu.iot.object.base.MongoDatabaseObject;
+import edu.psu.iot.generator.interfaces.ISensor;
+
 
 public class Database implements IDatabase {
 	

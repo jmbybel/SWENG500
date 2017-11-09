@@ -19,6 +19,7 @@ class SensorsPage extends React.Component {
       key: 1,
     };
     this.handleSelect = this.handleSelect.bind(this);
+    this.handleDetailsClick = this.handleDetailsClick.bind(this);
   }
 
   handleSelect(key) {
@@ -27,12 +28,43 @@ class SensorsPage extends React.Component {
     });
   }
   
-  fetchSelectedSensorId(sensorId) {
+  handleDetailsClick(incomingSensor) {
+	this.setState({//TODO this is just not working like i expected it to.
+		sensor: incomingSensor,
+	});
+  }
+  
+  handleStartClick(sensorId){
+	alert("startEvent: " + sensorId);
+  }
+  
+  handleStopClick(sensorId) {
+	alert("stopEvent: " + sensorId);
+  }
+  
+  handleDeleteClick(sensorId) {
+	alert("We want an Are You Sure confirmation here");
+	alert("deleteEvent: " + sensorId);
+  }
+  
+  fetchSelectedSensorId(sensorId) {//TODO delete me soon.
     //TODO actually fire off the sensorActions.getSensor (which doesn't exist yet in the server), and return the sensor. put that into the NewSensorForm and repaint it. 
     //also handleSelect(1) to reset the tabs on the Details.
   
     //let x = this.actions.getSensor(sensorId);
-	alert(sensorId);
+
+	for(let i = 0; i < this.sensors.length; i++) {
+		if (this.sensors[i].id == sensorId) {
+			let x = this.sensors[i];
+			alert(x);
+//			this.setState({TODO not working. this.setState is null for es6 reasons and binding this function breaks the whole damn thing.
+//				sensor: x,
+//			});
+			
+			break;
+		}
+	}
+
   }
 
   render() {
@@ -50,7 +82,7 @@ class SensorsPage extends React.Component {
 
     return (
       <section>
-        <SensorList selectedSensorId={this.fetchSelectedSensorId}
+        <SensorList detailsClick={this.handleDetailsClick} startClick={this.handleStartClick} stopClick = {this.handleStopClick} deleteClick = {this.handleDeleteClick}
           sensors={sensorList} />
         <Tabs
           activeKey={this.state.key}

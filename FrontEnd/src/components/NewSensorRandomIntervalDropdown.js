@@ -23,8 +23,8 @@ const NewSensorRandomIntervalDropdown = (props) => {
 };
 
 NewSensorRandomIntervalDropdown.propTypes = {
-  id: PropTypes.String,
-  value: PropTypes.String,
+  id: PropTypes.string,
+  value: PropTypes.string,
   onSelect: PropTypes.func.isRequired,
 };
 
