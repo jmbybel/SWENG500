@@ -13,14 +13,14 @@ import org.junit.Test;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoSocketOpenException;
 
-import edu.psu.iot.database.DatabaseRepository;
-import edu.psu.iot.database.mongodb.MongoRepository;
+import edu.psu.iot.database.IDatabase;
+import edu.psu.iot.database.mongodb.Database;
 import edu.psu.iot.object.Payload;
 import edu.psu.iot.object.Sensor;
 
 public class MongoRepositoryTest {
 
-	DatabaseRepository objectUnderTest = new MongoRepository();
+	IDatabase objectUnderTest = new Database();
 	
 	@Before
 	public void setUp() {

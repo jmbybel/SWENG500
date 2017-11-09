@@ -22,6 +22,8 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry combineaccessrules="false" kind="src" path="/Objects"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/PayloadGenerator"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ServiceLayer"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/WebServer"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

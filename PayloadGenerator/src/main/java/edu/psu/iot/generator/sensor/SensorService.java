@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
+import edu.psu.iot.generator.interfaces.ISensor;
 import edu.psu.iot.generator.interfaces.ISensorService;
 import edu.psu.iot.generator.queue.PayloadQueue;
 
@@ -18,18 +19,23 @@ public class SensorService implements ISensorService {
 	private static final Logger logger = LogManager.getLogger();
 	private static Map<Integer, Payload> sensorList = new HashMap<Integer, Payload>();
 	private static ScheduledExecutorService ses = Executors.newScheduledThreadPool(25);
+	private static String urlEndpoint = "http://18.216.43.18:8081/contentListener";
 	
-    public SensorService(){
-    	logger.debug(">>SensorServiceConstructor()");
-    	ses.shutdownNow();
-    	ses = Executors.newScheduledThreadPool(25);
-    	this.clearQueue();
-    	sensorList.clear();   	
+    public static String getUrlEndpoint() {
+		return urlEndpoint;
+	}
+
+	public static void setUrlEndpoint(String urlEndpoint) {
+		SensorService.urlEndpoint = urlEndpoint;
+	}
+
+	public SensorService(){
+    	logger.debug(">>SensorServiceConstructor()"); 	
     	logger.debug("<<SensorServiceConstructor()");
     }
     
     @Override
-    public void initialize(){
+    public  void initialize(){
     	logger.debug(">>SensorServieInitialize()");
     	ses.shutdownNow();
     	ses = Executors.newScheduledThreadPool(25);
@@ -56,17 +62,17 @@ public class SensorService implements ISensorService {
     public JSONObject getLastQueueItem() {
     	return PayloadQueue.getQueue().poll();
     }
-    
+
     @Override
-    public void createSensor(Sensor config)	
+    public void createSensor(ISensor config)	
     {	 
     	logger.debug(">>sensorServiceConstructor()");
     	
 		try {
-			Payload sensor;
-			sensor = PayloadFactory.createSensor(config);
-			sensor.start(SensorService.ses);
-	    	sensorList.put(Integer.valueOf(config.getId()), sensor);
+			Payload payload;
+			payload = PayloadFactory.createSensor(config);
+			payload.start(SensorService.ses);
+	    	sensorList.put(Integer.valueOf(config.getId()), payload);
 		} catch (PayloadTypeInvalidException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

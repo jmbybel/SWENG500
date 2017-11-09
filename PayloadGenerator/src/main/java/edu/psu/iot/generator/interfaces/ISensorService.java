@@ -1,12 +1,9 @@
 package edu.psu.iot.generator.interfaces;
 
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.concurrent.Executors;
 
+import java.util.Map;
 import org.apache.commons.collections4.queue.CircularFifoQueue;
 import org.json.JSONObject;
-
 import edu.psu.iot.generator.queue.PayloadQueue;
 import edu.psu.iot.generator.sensor.Payload;
 import edu.psu.iot.generator.sensor.Sensor;
@@ -19,7 +16,7 @@ public interface ISensorService {
     
     public void clearQueue();
 	
-    public void createSensor(Sensor config);
+    public void createSensor(ISensor config);
     
     public Map<Integer,Payload> getSensorList();
     

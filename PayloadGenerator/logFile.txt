@@ -1,19 +1,34 @@
-{"name":"Random Sensor","id":1,"value":72,"timestamp":1508731428818}
-{"name":"Binary Sensor","id":2,"value":1,"timestamp":1508731428826}
-{"name":"Ramp Sensor","id":3,"value":5,"timestamp":1508731428842}
-{"name":"Sin Sensor","id":4,"value":0,"timestamp":1508731428846}
-{"name":"Binary Sensor","id":2,"value":2,"timestamp":1508731429939}
-{"name":"Sin Sensor","id":4,"value":0.9129452507276277,"timestamp":1508731430976}
-{"name":"Binary Sensor","id":2,"value":1,"timestamp":1508731430988}
-{"name":"Binary Sensor","id":2,"value":2,"timestamp":1508731432043}
-{"name":"Random Sensor","id":1,"value":67.7204320463262,"timestamp":1508731432253}
-{"name":"Ramp Sensor","id":3,"value":6,"timestamp":1508731432433}
-{"name":"Sin Sensor","id":4,"value":0.7451131604793488,"timestamp":1508731432809}
-{"name":"Binary Sensor","id":2,"value":1,"timestamp":1508731433093}
-{"name":"Initialize Test","id":10,"value":0,"timestamp":1508731433855}
-{"name":"Initialize Test","id":10,"value":55.77698657687446,"timestamp":1508731435091}
-{"name":"Initialize Test","id":10,"value":27.078853458473727,"timestamp":1508731436145}
-{"name":"Initialize Test","id":10,"value":56.89313102360642,"timestamp":1508731437194}
-{"name":"Initialize Test","id":10,"value":67.81020963525921,"timestamp":1508731438249}
-{"name":"Test Sensor Start and Run","id":1,"value":0,"timestamp":1508731438892}
-{"name":"Test Create SS","id":1,"value":0,"timestamp":1508731438892}
+{"name":"Random Sensor","id":1,"value":72,"timestamp":1510184441489}
+{"name":"Binary Sensor","id":2,"value":1,"timestamp":1510184441499}
+{"name":"Ramp Sensor","id":3,"value":5,"timestamp":1510184441522}
+{"name":"Sin Sensor","id":4,"value":0,"timestamp":1510184441529}
+{"name":"Test Duration","id":1,"value":100,"timestamp":1510184441573}
+{"name":"name","id":-1,"value":1.1769123988271235,"timestamp":1510184441598}
+{"name":"Queue Test","id":10,"value":55.03729469788341,"timestamp":1510184442072}
+{"name":"Binary Sensor","id":2,"value":2,"timestamp":1510184442613}
+{"name":"Test Duration","id":1,"value":100,"timestamp":1510184442621}
+{"name":"name","id":-1,"value":84.22484055077936,"timestamp":1510184442646}
+{"name":"Queue Test","id":10,"value":55.03729469788341,"timestamp":1510184443132}
+{"name":"Test Start SS","id":1,"value":12.352164798308774,"timestamp":1510184443167}
+{"name":"Random Sensor","id":1,"value":74.77339240919956,"timestamp":1510184443374}
+{"name":"Binary Sensor","id":2,"value":1,"timestamp":1510184443663}
+{"name":"Test Duration","id":1,"value":100,"timestamp":1510184443678}
+{"name":"name","id":-1,"value":76.67050445041195,"timestamp":1510184443695}
+{"name":"Queue Test","id":10,"value":55.03729469788341,"timestamp":1510184444176}
+{"name":"Test Start SS","id":1,"value":82.75802726404538,"timestamp":1510184444243}
+{"name":"Binary Sensor","id":2,"value":2,"timestamp":1510184444705}
+{"name":"Test Duration","id":1,"value":100,"timestamp":1510184444719}
+{"name":"name","id":-1,"value":38.8963248968558,"timestamp":1510184444735}
+{"name":"Test Start SS","id":1,"value":86.80572418851862,"timestamp":1510184444742}
+{"name":"Queue Test","id":10,"value":55.03729469788341,"timestamp":1510184445234}
+{"name":"Test Delete SS","id":1,"value":0,"timestamp":1510184445737}
+{"name":"Binary Sensor","id":2,"value":1,"timestamp":1510184445752}
+{"name":"Test Duration","id":1,"value":100,"timestamp":1510184445769}
+{"name":"name","id":-1,"value":1.4790743574847998,"timestamp":1510184445778}
+{"name":"Sin Sensor","id":4,"value":0.9129452507276277,"timestamp":1510184446133}
+{"name":"Queue Test","id":10,"value":55.03729469788341,"timestamp":1510184446285}
+{"name":"Ramp Sensor","id":3,"value":6,"timestamp":1510184446321}
+{"name":"Test Start SS","id":1,"value":2.246650529726457,"timestamp":1510184446459}
+{"name":"Test Stop SS","id":1,"value":0,"timestamp":1510184446562}
+{"name":"Test Create SS","id":1,"value":0,"timestamp":1510184446572}
+{"name":"Test Sensor Start and Run","id":1,"value":0,"timestamp":1510184446581}

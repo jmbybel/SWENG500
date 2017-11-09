@@ -70,7 +70,7 @@ public abstract class Payload implements Runnable{
 		this.setMinInterval(config.getMinInterval());
 		this.setMaxInterval(config.getMaxInterval());
 		this.setRandomInterval(config.isRandomInterval());
-		this.setUrlEndpoint(config.getUrlEndpoint());
+		this.setUrlEndpoint(SensorService.getUrlEndpoint());
 		
 		setMin(Math.min(getMin(),getMax()));
 		setMax(Math.max(getMin(), getMax()));
@@ -126,7 +126,7 @@ public abstract class Payload implements Runnable{
         }
 	        
         try {
-			postEndpoint(this.urlEndpoint, payload);
+			postEndpoint(SensorService.getUrlEndpoint(), payload);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

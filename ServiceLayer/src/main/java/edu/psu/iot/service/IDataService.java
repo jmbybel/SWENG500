@@ -1,35 +1,95 @@
 package edu.psu.iot.service;
 
-import java.util.List;
-
-import edu.psu.iot.database.DatabaseRepository;
-import edu.psu.iot.object.Payload;
-import edu.psu.iot.object.Sensor;
+import edu.psu.iot.generator.sensor.PayloadType;
 
 public interface IDataService {
-
-	List<Sensor> getAllSensors();
+	//sensorSchema:
 	
-	Sensor getSensorById(String id);
+	/*
+	 *
+	 * 
+	 {
+		 name:String,
+		 id:number,
+		 initialValue: number,
+		 max:number,
+		 min:number,
+		 duration:number, 
+		 interval: number,
+		 type: String, (one of several enum values)
+		 sinInterval: number,
+		 minInterval: number,
+		 maxInterval: number,
+		 isRandomInterval: boolean,
+		 randomInterval: number
+	 }
 
+	void setRandomInterval(boolean randomInterval);
+	 * 
+	 * 
+	 */
+	
+	
+	String getNumberOfRunningSensors();
+	/*
+	 * return: {count:number}
+	 */
+		
+	boolean setDestinationIP(String urlEndpoint);
+	/*
+	 * input: {urlEnpoint:String}
+	 * Example: "http://18.216.43.18:8081/contentListener"
+	 */
+	
+	String getAllSensors();
+	/*
+	 * return: {sensor:[sensorSchema, sensorSchema...]}
+	 * 
+	 * Need to add the sensors schema.
+	 */
+	
+	String getSensor(String id);
+	/*
+	 * input: {id:number}
+	 */
+		
+	boolean startSensor(String id);
+	/*
+	 * input: {id:number}
+	 */
+	
+	boolean pauseSensor(String id);
+	/*
+	 * input: {id:number}
+	 */
+	
+	boolean createSensor(String id);
+	/*
+	 * input: {id:number}
+	 */
+	
+	boolean updateSensor(String id);
+	/*
+	 * input: {id:number}
+	 */
+	
 	boolean deleteSensor(String id);
-
-	Sensor cloneSensor(Sensor original);
-
-	Sensor insertUpdateSensor(Sensor sensor);
+	/*
+	 * input: {id:number}
+	 */
 	
-	Boolean startSensor(String sensorId) ;
+	boolean batchStart(String ids);
+	/*
+	 * input: {id:[number, number, number...]}
+	 */
 	
-	Boolean stopSensor(String sensorId);
-
-	Payload getPayloadById(String id);
-
-	boolean deletePayload(String id);
-
-	Payload insertPayload(Payload sensor);
-
-	List<Payload> getAllPayloadsBySensor(String sensorId);
-
-	DatabaseRepository getRepository();
-
+	boolean batchStop(String ids);
+	/*
+	 * input: {id:[number,number,number...]}
+	 */
+	
+	String batchQuery(String batchQuery);
+	/*
+	 * input: {id:number,startTime:String,stopTime:String}
+	 */
 }

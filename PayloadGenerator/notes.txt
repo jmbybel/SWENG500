@@ -1,0 +1,22 @@
+To do:
+
+1)  SensorFactory needs to return an error if integer id is already in use.
+2)  Still need to think through consistency issues between DB and PayloadGenerator.
+3)  How do we want to return errors through the front end?  I can throw exception, 
+but are there certain exceptions that we want to handle gracefully with UI?
+4)  What happens on CRUD operations to running sensors?
+5)  Any properties of a Payload that we want to change (update) after Payload has started need to be
+referenced by Payload in parent sensor.  Should this be hanlded through composition?
+
+DataService -> 	SensorService 	-> 	Sensor -> 	Payload -> 	static - ExecutorService???
+								->	SensorFactory
+			->  DatabaseStuff
+
+6)  More error checking and handling on format of input from front end in DataService?
+
+
+To do:
+
+All database logic from DataService.
+Test Cases.
+Implement "sensor exists" function.

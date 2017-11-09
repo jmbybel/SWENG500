@@ -1,137 +1,108 @@
 package edu.psu.iot.service.impl;
 
-import java.util.List;
-
-import edu.psu.iot.database.DatabaseRepository;
-import edu.psu.iot.database.mongodb.MongoRepository;
+import edu.psu.iot.generator.interfaces.ISensor;
 import edu.psu.iot.generator.interfaces.ISensorService;
+import edu.psu.iot.generator.sensor.Payload;
 import edu.psu.iot.generator.sensor.SensorService;
-import edu.psu.iot.object.Payload;
-import edu.psu.iot.object.Sensor;
 import edu.psu.iot.service.IDataService;
+import edu.psu.iot.service.JsonHandler;
 
 public class DataService implements IDataService {
 	
-	private DatabaseRepository repository = new MongoRepository();
-	private ISensorService sensorService = new SensorService();
+	ISensorService service;
 	
-	public List<Sensor> getAllSensors() {
-		return repository.getAllSensors();
-	}
-	
-	/* (non-Javadoc)
-	 * @see edu.psu.iot.service.impl.IDataService#getSensorById(java.lang.String)
-	 */
-	@Override
-	public Sensor getSensorById(String id) {
-		return repository.readSensorById(id);
+	public DataService() {
+		service = new SensorService();
 	}
 
-	/* (non-Javadoc)
-	 * @see edu.psu.iot.service.impl.IDataService#deleteSensor(java.lang.String)
-	 */
 	@Override
-	public boolean deleteSensor(String id) {
-		
-		//TODO uncomment the sensorService call
-//		sensorService.deleteSensor(id);
-		return repository.deleteSensor(id);
-	}
-
-	/* (non-Javadoc)
-	 * @see edu.psu.iot.service.impl.IDataService#cloneSensor(edu.psu.iot.object.Sensor)
-	 */
-	@Override
-	public Sensor cloneSensor(Sensor original) {
-		original.setId(null);
-		
-		//TODO
-//		sensorService.createSensor(some method in SensorService to copy an existing sensor?);
-		return repository.createSensor(original);
-	}
-
-
-	/* (non-Javadoc)
-	 * @see edu.psu.iot.service.impl.IDataService#insertUpdateSensor(edu.psu.iot.object.Sensor)
-	 */
-	@Override
-	public Sensor insertUpdateSensor(Sensor sensor) {
-		if (sensor.getId() == null) {
-			sensor = repository.createSensor(sensor);
-		} else {
-			sensor = repository.updateSensor(sensor);
+	public String getNumberOfRunningSensors() {	
+		// TODO Auto-generated method stub
+		int count = 0;
+		for(Payload payload: (new SensorService()).getSensorList().values()) {
+			if(payload.isEnable()) count++;			
 		}
-		return sensor;
+		return JsonHandler.buildSingleInt("count", count);
 	}
-	
-	/**
-	 * a direct call to the Sensor Service to add it to the list of active sensors for test data generation.
-	 * @param sensorId
-	 * @return
-	 */
-	public Boolean startSensor(String sensorId) {
-		//TODO
-//		return sensorService.startSensor(id);
-		return null;
-	}
-	
-	/**
-	 * a direct call to the Sensor Service to remove it from the list of active sensors for test data generation.
-	 * @param sensorId
-	 * @return
-	 */
-	public Boolean stopSensor(String sensorId) {
-		//TODO
-//		return sensorService.stopSensor(id);
-		return null;
-	}
-	
-	/* (non-Javadoc)
-	 * @see edu.psu.iot.service.impl.IDataService#getPayloadById(java.lang.String)
-	 */
+
 	@Override
-	public Payload getPayloadById(String id) {
+	public boolean setDestinationIP(String destination) {
+		//"http://18.216.43.18:8081/contentListener";
+		boolean success = true;		
+		if(destination.startsWith("http://") &&
+		destination.endsWith("contentListener")){
+			SensorService.setUrlEndpoint(destination);
+		}
+		else {
+			success = false;
+		}
+		return success;
+	}
+
+	@Override
+	public String getAllSensors() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	
-	/* (non-Javadoc)
-	 * @see edu.psu.iot.service.impl.IDataService#deletePayload(java.lang.String)
-	 */
 	@Override
-	public boolean deletePayload(String id) {
+	public String getSensor(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean startSensor(String id) {
+		int sensorId = JsonHandler.getIdFromJson(id);
+		service.startSensor(sensorId);
+		return true;
+	}
+
+	@Override
+	public boolean pauseSensor(String id) {
+		int sensorId = JsonHandler.getIdFromJson(id);
+		service.stopSensor(sensorId);
+		return true;
+	}
+
+	@Override
+	public boolean createSensor(String jsonString) {
+		ISensor sensor = JsonHandler.getSensorFromJson(jsonString);
+		service.createSensor(sensor);
+		return true;
+	}
+
+	@Override
+	public boolean updateSensor(String jsonString) {
+		ISensor sensor = JsonHandler.getSensorFromJson(jsonString);
+		service.deleteSensor(sensor.getId());	//to update, we delete and create anything with that sensor id
+		service.createSensor(sensor);
+		return true;
+	}
+
+	@Override
+	public boolean deleteSensor(String jsonId) {
+		int id = JsonHandler.getIdFromJson(jsonId);
+		service.deleteSensor(id);
+		return true;
+	}
+
+	@Override
+	public boolean batchStart(String ids) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	/* (non-Javadoc)
-	 * @see edu.psu.iot.service.impl.IDataService#insertPayload(edu.psu.iot.object.Payload)
-	 */
 	@Override
-	public Payload insertPayload(Payload sensor) {
+	public boolean batchStop(String ids) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public String batchQuery(String batchQuery) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see edu.psu.iot.service.impl.IDataService#getAllPayloadResponsesBySensor(java.lang.String)
-	 */
-	@Override
-	public List<Payload> getAllPayloadsBySensor(String sensorId) {
-		return repository.getAllPayloadsBySensorId(sensorId);
-	}
-
-	/* (non-Javadoc)
-	 * @see edu.psu.iot.service.impl.IDataService#getDatabaseAccess()
-	 */
-	public DatabaseRepository getRepository() {
-		return repository;
-	}
-
-	public void setRepository(DatabaseRepository repository) {
-		this.repository = repository;
-	}
-	
-	
 }
