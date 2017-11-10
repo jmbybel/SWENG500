@@ -1,5 +1,7 @@
 package edu.psu.iot.service.impl;
 
+import edu.psu.iot.database.IDatabase;
+import edu.psu.iot.database.mongodb.Database;
 import edu.psu.iot.generator.interfaces.ISensor;
 import edu.psu.iot.generator.interfaces.ISensorService;
 import edu.psu.iot.generator.sensor.Payload;
@@ -10,9 +12,11 @@ import edu.psu.iot.util.JsonHandler;
 public class DataService implements IDataService {
 	
 	ISensorService service;
+	IDatabase db;
 	
 	public DataService() {
 		service = new SensorService();
+		db = new Database();
 	}
 
 	@Override
@@ -41,13 +45,13 @@ public class DataService implements IDataService {
 
 	@Override
 	public String getAllSensors() {
-		return service.getSensorList().values().toString();
+		return db.getAllSensors();
+		//return service.getSensorList().values().toString();
 	}
 
 	@Override
 	public String getSensor(String id) {
-		// TODO Auto-generated method stub
-		return "";
+		return db.getSensor(id);
 	}
 
 	@Override
@@ -83,6 +87,7 @@ public class DataService implements IDataService {
 	public boolean deleteSensor(String jsonId) {
 		int id = JsonHandler.getIdFromJson(jsonId);
 		service.deleteSensor(id);
+		db.deleteSensor(jsonId);
 		return true;
 	}
 
@@ -102,6 +107,11 @@ public class DataService implements IDataService {
 	public String batchQuery(String id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public boolean deleteAll() {
+		return db.deleteAll();
 	}
 
 }

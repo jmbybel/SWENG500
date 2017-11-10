@@ -19,4 +19,6 @@ public interface IDatabase {
 	boolean deleteSensor(String id);
 
 	String batchQuery(String batchQuery);
+	
+	boolean deleteAll();  //Clears the whole database
 }

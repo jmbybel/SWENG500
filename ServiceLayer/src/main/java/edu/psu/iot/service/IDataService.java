@@ -10,7 +10,7 @@ public interface IDataService {
 	 * 
 	 {
 		 name:String,
-		 id:number,
+		 "_id":number,
 		 initialValue: number,
 		 max:number,
 		 min:number,
@@ -43,25 +43,23 @@ public interface IDataService {
 	
 	String getAllSensors();
 	/*
-	 * return: {sensor:[sensorSchema, sensorSchema...]}
-	 * !! Cory, this should be an array? Like .. return: [{id:"qwdqwd", name: "faf", floor: 0 ... etc}, {id:"wefwef", name: "vwwv", floor: 0 ... etc}]
+	 * return: {[sensorSchema, sensorSchema...]}
 	 * 
-	 * Need to add the sensors schema.
 	 */
 	
 	String getSensor(String id);
 	/*
-	 * input: {id:number}
+	 * input: {"_id":number}
 	 */
 		
 	boolean startSensor(String id);
 	/*
-	 * input: {id:number}
+	 * input: {"_id":number}
 	 */
 	
 	boolean pauseSensor(String id);
 	/*
-	 * input: {id:number}
+	 * input: {"_id":number}
 	 */
 	
 	boolean createSensor(String sensorSchema);
@@ -76,21 +74,23 @@ public interface IDataService {
 	
 	boolean deleteSensor(String id);
 	/*
-	 * input: {id:number}
+	 * input: {"_id":number}
 	 */
 	
 	boolean batchStart(String ids);
 	/*
-	 * input: {id:[number, number, number...]}
+	 * input: {"_id":[number, number, number...]}
 	 */
 	
 	boolean batchStop(String ids);
 	/*
-	 * input: {id:[number,number,number...]}
+	 * input: {"_id":[number,number,number...]}
 	 */
 	
 	String batchQuery(String id);
 	/*
-	 * input: {id:number}
+	 * input: {"_id":number}
 	 */
+	
+	boolean deleteAll(); // Clears the whole database!
 }

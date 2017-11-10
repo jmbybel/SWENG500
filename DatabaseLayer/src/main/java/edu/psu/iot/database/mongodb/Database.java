@@ -6,6 +6,8 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bson.Document;
+import org.bson.json.JsonMode;
+import org.bson.json.JsonWriterSettings;
 
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
@@ -13,6 +15,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 
@@ -45,23 +48,66 @@ public class Database implements IDatabase {
 
 	@Override
 	public String getAllSensors() {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("Entered getAllSensors");
+		MongoCursor<Document> cursor = sensorCollection.find().iterator();
+		String all = "[";
+		StringBuilder builder = new StringBuilder(all);
+		try {
+		    while (cursor.hasNext()) {
+		    	builder.append(cursor.next().toJson(new JsonWriterSettings(JsonMode.RELAXED)));
+		    	builder.append(",");
+		    }
+		    int length = builder.length();
+		    builder.delete(length - 1, length);
+		    builder.append("]");
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+		    cursor.close();
+		}
+
+		return builder.toString();
 	}
 
 	@Override
 	public String getSensor(String jsonId) {
 		Document document = sensorCollection.find(Filters.eq("_id", JsonHandler.getIdFromJson(jsonId))).first();
-		return document.toString();
+		return document.toJson(new JsonWriterSettings(JsonMode.RELAXED));
 	}
 
 	@Override
 	public boolean createSensor(ISensor sensor) {
 		boolean success = false;
-		
-		
 		try {
 			sensorCollection.insertOne(JsonHandler.documentFromSensor(sensor));
+			success = true;
+		} catch (Exception e) {
+			success = false;
+			e.printStackTrace();
+		}	
+		return success;
+	}
+
+	@Override
+	public boolean updateSensor(String jsonSensor) {
+		boolean success = false;
+		try {
+			ISensor sensor = JsonHandler.getSensorFromJson(jsonSensor);
+			sensorCollection.replaceOne(
+					Filters.eq("_id", JsonHandler.getIdFromJson(JsonHandler.buildSingleInt("_id", sensor.getId()))), 
+					JsonHandler.documentFromSensor(sensor));
+			success = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return success;
+	}
+
+	@Override
+	public boolean deleteSensor(String jsonId) {
+		boolean success = false;
+		try {
+			sensorCollection.deleteOne(Filters.eq("_id", JsonHandler.getIdFromJson(jsonId)));
 			success = true;
 		} catch (Exception e) {
 			success = false;
@@ -72,21 +118,20 @@ public class Database implements IDatabase {
 	}
 
 	@Override
-	public boolean updateSensor(String id) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean deleteSensor(String id) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public String batchQuery(String batchQuery) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public boolean deleteAll() {
+		boolean success = false;
+		try {
+			database.drop();
+			success = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return success;
 	}
 	
 	

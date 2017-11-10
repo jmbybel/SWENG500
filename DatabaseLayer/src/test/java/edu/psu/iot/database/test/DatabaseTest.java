@@ -12,6 +12,7 @@ import edu.psu.iot.database.IDatabase;
 import edu.psu.iot.database.mongodb.Database;
 import edu.psu.iot.generator.interfaces.ISensor;
 import edu.psu.iot.generator.sensor.Sensor;
+import edu.psu.iot.util.JsonHandler;
 
 public class DatabaseTest {
 	
@@ -34,16 +35,49 @@ public class DatabaseTest {
 	}
 
 	@Test
-	public void insertAndReadSensor() {
+	public void deleteInsertReadFormatSensor() {
 		try {
+			db.deleteSensor("{\"id\":123}");
 			ISensor sensor = new Sensor();
 			sensor.setId(123);
 			db.createSensor(sensor);
-			System.out.println(db.getSensor("{\"id\":123}"));
+			String dbSensor = db.getSensor("{\"id\":123}");
+			System.out.println(dbSensor);			
 			assertTrue(true);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	@Test
+	public void getAllSensors() {
+		
+		ISensor sensor1 = new Sensor();
+		ISensor sensor2 = new Sensor();
+		ISensor sensor3 = new Sensor();
+		ISensor sensor4 = new Sensor();
+		
+		sensor1.setId(1000);
+		sensor2.setId(1001);
+		sensor3.setId(1002);
+		sensor3.setId(1003);
+		
+		db.createSensor(sensor1);
+		db.createSensor(sensor2);
+		db.createSensor(sensor3);
+		db.createSensor(sensor4);
+		
+		String result = db.getAllSensors();
+		
+		System.out.println(result);
+		
+		db.deleteSensor(JsonHandler.buildSingleInt("_id", sensor1.getId()));
+		db.deleteSensor(JsonHandler.buildSingleInt("_id", sensor2.getId()));
+		db.deleteSensor(JsonHandler.buildSingleInt("_id", sensor3.getId()));
+		db.deleteSensor(JsonHandler.buildSingleInt("_id", sensor4.getId()));
+		
+		assertTrue(true);
+		
+		
 	}
 }
