@@ -18,12 +18,11 @@ import org.mockito.MockitoAnnotations;
 
 import com.google.gson.Gson;
 
-import edu.psu.iot.object.Payload;
-import edu.psu.iot.object.Sensor;
+
 import edu.psu.iot.service.impl.DataService;
 
 public class APIEndpointTest {
-
+/**
 	private APIEndpoint objectUnderTest = new APIEndpoint();
 	
 	
@@ -137,4 +136,5 @@ public class APIEndpointTest {
 		String result = objectUnderTest.createUpdateSensor(invalidJson);
 		assertEquals(result, ApiConstants.COULD_NOT_CONVERT_FROM_JSON);
 	}
+	**/
 }

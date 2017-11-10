@@ -2,7 +2,9 @@ package api.validation;
 
 import com.google.gson.Gson;
 
-import edu.psu.iot.object.Sensor;
+import edu.psu.iot.generator.sensor.Sensor;
+
+
 
 public class JsonToObjectValidator {
 	

@@ -100,7 +100,7 @@ public class DataService implements IDataService {
 	}
 
 	@Override
-	public String batchQuery(String batchQuery) {
+	public String batchQuery(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

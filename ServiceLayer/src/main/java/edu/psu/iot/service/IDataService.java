@@ -63,14 +63,14 @@ public interface IDataService {
 	 * input: {id:number}
 	 */
 	
-	boolean createSensor(String id);
+	boolean createSensor(String sensorSchema);
 	/*
-	 * input: {id:number}
+	 * input: sensorSchema
 	 */
 	
-	boolean updateSensor(String id);
+	boolean updateSensor(String sensorSchema);
 	/*
-	 * input: {id:number}
+	 * input: sensorSchema
 	 */
 	
 	boolean deleteSensor(String id);
@@ -88,8 +88,8 @@ public interface IDataService {
 	 * input: {id:[number,number,number...]}
 	 */
 	
-	String batchQuery(String batchQuery);
+	String batchQuery(String id);
 	/*
-	 * input: {id:number,startTime:String,stopTime:String}
+	 * input: {id:number}
 	 */
 }

@@ -10,6 +10,8 @@ import com.google.gson.JsonObject;
 import api.APIEndpoint;
 import edu.psu.iot.generator.sensor.Sensor;
 import edu.psu.iot.generator.sensor.SensorService;
+import edu.psu.iot.service.IDataService;
+import edu.psu.iot.service.impl.DataService;
 
 public class Main {
 	static ArrayList<SensorService> ssList = new ArrayList<SensorService>();
@@ -49,23 +51,13 @@ public class Main {
         
         post("/create-new-sensor", (request, response) -> {
         	System.out.println(String.format("Creating Sensor: %s", request.body()));
-        	SensorService ss = new edu.psu.iot.generator.sensor.SensorService();
-        	ssList.add(ss);
-        	Sensor newSensor = new Sensor();
+        	IDataService ds = new DataService();
+
         	
-        	JsonObject jobj = new Gson().fromJson(request.body(), JsonObject.class);
-        	String name = ((JsonObject) jobj.get("sensor")).get("name").toString();
-        	if(name != null)
-        		//newSensor.setName(name.substring(2, name.length()-2));
-        		newSensor.setName(name);
-        	double initialValue = ((JsonObject) jobj.get("sensor")).get("initialValue").getAsDouble();
-        	if(((JsonObject) jobj.get("sensor")).get("initialValue").toString() != null)
-        		newSensor.setInitialValue(initialValue);
-        	
-        	ss.createSensor(newSensor);
-        	//return sensor has a mongoID but its a String 
-        	String returnSensor = endpoint.createUpdateSensor(jobj.get("sensor").toString());
-        	return returnSensor;
+        	String newSensor = request.body();
+        
+        	return ds.createSensor(newSensor);
+     
         });
     }
     

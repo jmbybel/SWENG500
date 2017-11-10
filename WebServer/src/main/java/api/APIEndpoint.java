@@ -12,11 +12,11 @@ import com.google.gson.Gson;
 
 import api.validation.JsonToObjectValidator;
 import edu.psu.iot.generator.interfaces.ISensorService;
+import edu.psu.iot.generator.sensor.Payload;
+import edu.psu.iot.generator.sensor.Sensor;
 import edu.psu.iot.generator.sensor.SensorService;
-import edu.psu.iot.object.Payload;
-import edu.psu.iot.object.Sensor;
+
 import edu.psu.iot.service.IDataService;
-import edu.psu.iot.service.IDataServiceStub;
 import edu.psu.iot.service.impl.DataService;
 import edu.psu.iot.service.impl.DataServiceStub;
 import edu.psu.iot.webserver.Main;
@@ -28,7 +28,7 @@ import edu.psu.iot.webserver.Main;
 public class APIEndpoint {
 
 	
-	private edu.psu.iot.service.IDataServiceStub dataService = new DataServiceStub();
+	private edu.psu.iot.service.IDataService dataService = new DataServiceStub();
 	private JsonToObjectValidator validator = new JsonToObjectValidator();
 	Gson gson = new Gson();
 		
@@ -43,7 +43,7 @@ public class APIEndpoint {
 	 * @return
 	 */
 	public String getAllPayloadsBySensor(String sensorId) {
-		List<Payload> payloadResponses = dataService.getAllPayloadsBySensor(sensorId);
+		String payloadResponses = dataService.batchQuery(sensorId);
 		return gson.toJson(payloadResponses);
 	}
 	
@@ -52,21 +52,12 @@ public class APIEndpoint {
 	 *  don't create sensors directly, instead call the insert/update Device with the new data.
 	 */
 	
-	public String createUpdateSensor(String json) {
-		String returnString;
-		try {
-			Sensor validatedSensor = validator.validateSensor(json);
-			validatedSensor = dataService.insertUpdateSensor(validatedSensor);
-			return validatedSensor.toJson();
-		} catch (Exception ex) {
-			//TODO this is only the error for when the validator fails to create a Device object.
-			returnString = ApiConstants.COULD_NOT_CONVERT_FROM_JSON;
-		}
-		return returnString;
+	public boolean createUpdateSensor(String json) {
+		return dataService.updateSensor(json);
 	}
 	
 	public String getAllSensors() {
-		List<Sensor> allSensors = dataService.getAllSensors();
+		String allSensors = dataService.getAllSensors();
 		return gson.toJson(allSensors);
 	}
 	
@@ -92,13 +83,13 @@ public class APIEndpoint {
 	 */
 	
 	public String getSensorById(String id) {
-		Sensor sensor = null;
+		String sensor = null;
 		//TODO placeholder for start of try/catch block for db errors bubbling up
-		sensor = dataService.getSensorById(id);
+		sensor = dataService.getSensor(id);
 		if (sensor == null) {
 			return ApiConstants.COULD_NOT_FIND_MATCH;
 		}
-		return sensor.toJson();
+		return sensor;
 	}
 
 	/**
@@ -121,7 +112,7 @@ public class APIEndpoint {
 	}
 	
 	public String stopSensor(String id) {
-		return gson.toJson(dataService.stopSensor(id));
+		return gson.toJson(dataService.pauseSensor(id));
 	}
 
 	
@@ -130,7 +121,7 @@ public class APIEndpoint {
 	}
 
 	public void setDeviceService(edu.psu.iot.service.IDataService deviceService) {
-		this.dataService = (IDataServiceStub) deviceService;
+		this.dataService = (IDataService) deviceService;
 	}
 
 	public JsonToObjectValidator getValidator() {
