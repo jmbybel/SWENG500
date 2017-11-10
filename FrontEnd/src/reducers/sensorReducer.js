@@ -19,9 +19,10 @@ const sensors = (state = initialState.sensors, action) => {
 const byId = (state = {}, action) => {
   switch (action.type) {
     case LOAD_DEVICES_SUCCESS: {
+      const sensorList = JSON.parse(action.sensors);
       return {
         ...state,
-        ...action.sensors.reduce((obj, sensor) => {
+        ...sensorList.reduce((obj, sensor) => {
           obj[sensor] = sensor;
           return obj;
         }, {})

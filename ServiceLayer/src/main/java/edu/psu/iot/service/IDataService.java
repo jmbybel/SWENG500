@@ -44,6 +44,7 @@ public interface IDataService {
 	String getAllSensors();
 	/*
 	 * return: {sensor:[sensorSchema, sensorSchema...]}
+	 * !! Cory, this should be an array? Like .. return: [{id:"qwdqwd", name: "faf", floor: 0 ... etc}, {id:"wefwef", name: "vwwv", floor: 0 ... etc}]
 	 * 
 	 * Need to add the sensors schema.
 	 */

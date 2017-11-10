@@ -41,14 +41,13 @@ public class DataService implements IDataService {
 
 	@Override
 	public String getAllSensors() {
-		// TODO Auto-generated method stub
-		return null;
+		return service.getSensorList().values().toString();
 	}
 
 	@Override
 	public String getSensor(String id) {
 		// TODO Auto-generated method stub
-		return null;
+		return "";
 	}
 
 	@Override

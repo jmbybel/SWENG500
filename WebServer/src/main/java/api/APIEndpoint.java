@@ -28,7 +28,7 @@ import edu.psu.iot.webserver.Main;
 public class APIEndpoint {
 
 	
-	private edu.psu.iot.service.IDataService dataService = new DataServiceStub();
+	private edu.psu.iot.service.IDataService dataService = new DataService();
 	private JsonToObjectValidator validator = new JsonToObjectValidator();
 	Gson gson = new Gson();
 		
