@@ -21,6 +21,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.*;
 
+import com.google.gson.Gson;
 import com.pusher.rest.Pusher;
 /*
  * SIN - executes a sin function with min and max and a period equal to 100 times the interval
