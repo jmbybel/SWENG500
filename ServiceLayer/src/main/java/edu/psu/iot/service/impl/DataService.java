@@ -5,7 +5,7 @@ import edu.psu.iot.generator.interfaces.ISensorService;
 import edu.psu.iot.generator.sensor.Payload;
 import edu.psu.iot.generator.sensor.SensorService;
 import edu.psu.iot.service.IDataService;
-import edu.psu.iot.service.JsonHandler;
+import edu.psu.iot.util.JsonHandler;
 
 public class DataService implements IDataService {
 	
@@ -105,6 +105,4 @@ public class DataService implements IDataService {
 		return null;
 	}
 
-}
-	
 }

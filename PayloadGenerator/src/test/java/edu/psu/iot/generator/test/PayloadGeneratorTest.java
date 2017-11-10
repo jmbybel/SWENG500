@@ -40,7 +40,7 @@ public class PayloadGeneratorTest extends TestCase{
 	//also can be used to test output, not working atm either
 	@Rule
     public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
-	
+	*/
 	
 	public void testCreateSensorService()
 	{

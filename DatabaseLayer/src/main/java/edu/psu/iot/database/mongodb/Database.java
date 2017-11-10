@@ -14,16 +14,21 @@ import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
+
 
 import edu.psu.iot.database.IDatabase;
 import edu.psu.iot.generator.interfaces.ISensor;
+import edu.psu.iot.util.JsonHandler;
 
 
 public class Database implements IDatabase {
 	
-	MongoClient mongoClient;
+	MongoClient mongoClient = new MongoClient();
 	String databaseName = "iot";
 	MongoDatabase database = mongoClient.getDatabase(databaseName);
+	MongoCollection<Document> sensorCollection = database.getCollection("sensors");
+	MongoCollection<Document> payloadCollection = database.getCollection("payloads");
 	
 	public Database() {
 		this.mongoClient = new MongoClient();
@@ -45,18 +50,25 @@ public class Database implements IDatabase {
 	}
 
 	@Override
-	public String getSensor(String id) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getSensor(String jsonId) {
+		Document document = sensorCollection.find(Filters.eq("_id", JsonHandler.getIdFromJson(jsonId))).first();
+		return document.toString();
 	}
 
 	@Override
 	public boolean createSensor(ISensor sensor) {
-		MongoCollection<Document> collection = database.getCollection("sensors");
+		boolean success = false;
 		
 		
-		collection.insertOne(arg0);
-		return false;
+		try {
+			sensorCollection.insertOne(JsonHandler.documentFromSensor(sensor));
+			success = true;
+		} catch (Exception e) {
+			success = false;
+			e.printStackTrace();
+		}
+				
+		return success;
 	}
 
 	@Override

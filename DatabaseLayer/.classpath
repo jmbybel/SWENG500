@@ -23,7 +23,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry combineaccessrules="false" kind="src" path="/PayloadGenerator"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/ServiceLayer"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/WebServer"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Util"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

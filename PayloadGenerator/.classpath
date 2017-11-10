@@ -18,8 +18,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/DatabaseLayer"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/ServiceLayer"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/WebServer"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

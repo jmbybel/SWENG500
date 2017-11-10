@@ -17,6 +17,7 @@ import edu.psu.iot.generator.interfaces.ISensorService;
 import edu.psu.iot.generator.sensor.Sensor;
 import edu.psu.iot.generator.sensor.SensorService;
 import edu.psu.iot.service.impl.DataService;
+import edu.psu.iot.util.JsonHandler;
 
 public class DataServiceTest {
 
