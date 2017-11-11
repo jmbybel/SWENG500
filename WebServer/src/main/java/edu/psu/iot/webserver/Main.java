@@ -36,7 +36,7 @@ public class Main {
         });
         
         post("/create-new-sensor", (request, response) -> {
-        	return endpoint.createUpdateSensor("");
+        	return endpoint.createSensor(request.body());
         });
     }
     

@@ -84,7 +84,9 @@ public class JsonHandler {
 		try {
 			JsonNode sensorJson = objectMapper.readTree(jsonString);
 			sensor = new Sensor();
-			sensor.setId(sensorJson.findValue("id").asInt());
+			if (sensorJson.has("id")) {
+				sensor.setId(sensorJson.findValue("id").asInt());
+			}
 			sensor.setDuration(sensorJson.findValue("duration").asLong());
 			sensor.setInitialValue(sensorJson.findValue("initialValue").asDouble());
 			sensor.setInterval(sensorJson.findValue("interval").asLong());
@@ -95,7 +97,7 @@ public class JsonHandler {
 			sensor.setName(sensorJson.findValue("name").asText());
 			sensor.setRandomInterval(sensorJson.findValue("randomInterval").asBoolean());
 			sensor.setSinInterval(sensorJson.findValue("sinInterval").asInt());
-			sensor.setType(PayloadType.valueOf(sensorJson.findValue("name").asText()));
+			sensor.setType(PayloadType.valueOf(sensorJson.findValue("type").asText()));
 		} catch (Exception e) {
 			e.printStackTrace();
 			sensor = null;

@@ -16,11 +16,11 @@ class LiveDataFeed extends React.Component {
 
     return (
       <section className={"liveDataFeed"}>
-        <BootstrapTable data={sensorFeed} bordered={false} options={{noDataText: 'No Sensors are running' }}>
-          <TableHeaderColumn dataField='name' isKey={true}>Sensor Name</TableHeaderColumn>
-          <TableHeaderColumn dataField='timestamp'>Timestamp</TableHeaderColumn>
-          <TableHeaderColumn dataField='type'>Type</TableHeaderColumn>
-          <TableHeaderColumn dataField='value'>Payload Value</TableHeaderColumn>
+        <BootstrapTable data={sensorFeed} bordered={false} options={{noDataText: "No Sensors are running" }}>
+          <TableHeaderColumn dataField="name" isKey={true}>Sensor Name</TableHeaderColumn>
+          <TableHeaderColumn dataField="timestamp">Timestamp</TableHeaderColumn>
+          <TableHeaderColumn dataField="type">Type</TableHeaderColumn>
+          <TableHeaderColumn dataField="value">Payload Value</TableHeaderColumn>
         </BootstrapTable>
       </section>
     );

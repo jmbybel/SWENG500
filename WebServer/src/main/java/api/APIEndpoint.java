@@ -19,20 +19,12 @@ public class APIEndpoint {
 		return gson.toJson(numberRunningSensors);
 	}
 	
-	/**
-	 * For a given sensor ID, find all request/response pairs that the Payload Generator has done and return those.
-	 * @return
-	 */
-//	public String getAllPayloadsBySensor(String sensorId) {
-//		String payloadResponses = dataService.batchQuery(sensorId);
-//		return gson.toJson(payloadResponses);
-//	}
+	public boolean createSensor(String json) {
+		return dataService.createSensor(json);
+	}
 	
-	/**
-	 *  don't create sensors directly, instead call the insert/update Device with the new data.
-	 */
-	public boolean createUpdateSensor(String json) {
-		return dataService.updateSensor(json);
+	public boolean updateSensor(String json) {
+		return dataService.createSensor(json);
 	}
 	
 	public String getAllSensors() {

@@ -14,15 +14,9 @@ class Dashboard extends React.Component {
     super(props, context);
     this.state = {
       sensorFeed: []
-    }
+    };
 
     this.stripEndQuotes = this.stripEndQuotes.bind(this);
-  }
-
-  stripEndQuotes(s){ var t=s.length; if (s.charAt(0)=='"') s=s.substring(1,t--); if (s.charAt(--t)=='"') s=s.substring(0,t); return s; }
-
-  onComponentWillMount() {
-    this.props.actions.getNumberOfRunningSensors();
   }
 
   componentDidMount() {
@@ -35,12 +29,12 @@ class Dashboard extends React.Component {
       }
     } = this;
 
-    var pusher = new Pusher('05483fef894d660001a9', {
+    const pusher = new Pusher('05483fef894d660001a9', {
       cluster: 'us2',
       encrypted: true
     });
 
-    var channel = pusher.subscribe('my-channel');
+    const channel = pusher.subscribe('my-channel');
     channel.bind('my-event', data => {
       const test = JSON.parse(data.message);
       //this.stripEndQuotes(data.message);
@@ -52,6 +46,12 @@ class Dashboard extends React.Component {
       //this.setState({sensors: this.state.sensors.concat(data.message)})
     });
   }
+
+  onComponentWillMount() {
+    this.props.actions.getNumberOfRunningSensors();
+  }
+
+  stripEndQuotes(s){ let t=s.length; if (s.charAt(0)=='"') s=s.substring(1,t--); if (s.charAt(--t)=='"') s=s.substring(0,t); return s; }
 
   /*
   getSensors() {

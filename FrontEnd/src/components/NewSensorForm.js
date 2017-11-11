@@ -13,18 +13,18 @@ class NewSensorForm extends React.Component {
 
     this.state = {
       sensor: {
-        name: '',
-        initialValue: '',
-        maxValue: '',
-        minValue: '',
-        duration: '',
-        interval: '',
-        type: '',
-        sinInterval: '',
-        minInterval: '',
-        maxInterval: '',
-        randomInterval: '',
-        urlEndpoint: '',
+        name: props.sensor.name,
+        initialValue: props.sensor.initialValue,
+        max: props.sensor.max,
+        min: props.sensor.min,
+        duration: props.sensor.duration,
+        interval: props.sensor.interval,
+        type: props.sensor.type,
+        sinInterval: props.sensor.sinInterval,
+        minInterval: props.sensor.minInterval,
+        maxInterval: props.sensor.maxInterval,
+        randomInterval: props.sensor.randomInterval,
+        urlEndpoint: props.sensor.urlEndpoint,
       },
       btnRandomTitle: 'Select ...',
       btnTypeTitle: 'Select ...',
@@ -32,6 +32,12 @@ class NewSensorForm extends React.Component {
     this.newSensorKeypress = this.newSensorKeypress.bind(this);
     this.dropdownOnSelect = this.dropdownOnSelect.bind(this);
     this.save = this.save.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      sensor: nextProps.sensor,
+    });
   }
 
   newSensorKeypress(field, value) {
@@ -95,11 +101,11 @@ class NewSensorForm extends React.Component {
     {
       alert('Please enter a valid number for initial value');
     }
-    else if (this.state.sensor.maxValue.match(/[a-z]/i) || this.state.sensor.maxValue === '')
+    else if (this.state.sensor.max.match(/[a-z]/i) || this.state.sensor.max === '')
     {
       alert('Please enter a valid number for max value');
     }
-    else if (this.state.sensor.minValue.match(/[a-z]/i) || this.state.sensor.minValue === '')
+    else if (this.state.sensor.min.match(/[a-z]/i) || this.state.sensor.min === '')
     {
       alert('Please enter a valid number for min value');
     }
@@ -177,8 +183,8 @@ class NewSensorForm extends React.Component {
             Max Value
           </span>
           <NewSensorTextInput
-            name={'maxValue'}
-            value={sensor.maxValue}
+            name={'max'}
+            value={sensor.max}
             onChange={this.newSensorKeypress} />
         </div>
         <div
@@ -188,8 +194,8 @@ class NewSensorForm extends React.Component {
             Min Value
           </span>
           <NewSensorTextInput
-            name={'minValue'}
-            value={sensor.minValue}
+            name={'min'}
+            value={sensor.min}
             onChange={this.newSensorKeypress} />
         </div>
         <div

@@ -7,7 +7,7 @@ import {
 
 const NewSensorSensorTypeDropdown = (props) => {
   const handleSelect = (eventKey, event) => {
-    props.onSelect(eventKey, event);
+    props.onSelect(eventKey.toUpperCase(), event);
   };
 
   return (

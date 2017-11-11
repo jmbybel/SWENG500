@@ -15,7 +15,20 @@ class SensorsPage extends React.Component {
     super(props, context);
 
     this.state = {
-      sensor: null,
+      sensor: {
+        name: '',
+        initialValue: '',
+        max: '',
+        min: '',
+        duration: '',
+        interval: '',
+        type: '',
+        sinInterval: '',
+        minInterval: '',
+        maxInterval: '',
+        randomInterval: '',
+        urlEndpoint: '',
+      },
       key: 1,
     };
     this.handleSelect = this.handleSelect.bind(this);
@@ -27,30 +40,49 @@ class SensorsPage extends React.Component {
       key,
     });
   }
-  
+
   handleDetailsClick(incomingSensor) {
-	this.setState({//TODO this is just not working like i expected it to.
-		sensor: incomingSensor,
-	});
+    this.setState({//TODO this is just not working like i expected it to.
+      sensor: incomingSensor,
+    });
   }
-  
+
   handleStartClick(sensorId){
 	alert("startEvent: " + sensorId);
   }
-  
+
   handleStopClick(sensorId) {
 	alert("stopEvent: " + sensorId);
   }
-  
+
   handleDeleteClick(sensorId) {
 	alert("We want an Are You Sure confirmation here");
 	alert("deleteEvent: " + sensorId);
   }
-  
+
+  createNewSensorClick(component) {
+    component.setState({
+      sensor: {
+        name: '',
+        initialValue: '',
+        max: '',
+        min: '',
+        duration: '',
+        interval: '',
+        type: '',
+        sinInterval: '',
+        minInterval: '',
+        maxInterval: '',
+        randomInterval: '',
+        urlEndpoint: '',
+      }
+    });
+  }
+
   fetchSelectedSensorId(sensorId) {//TODO delete me soon.
-    //TODO actually fire off the sensorActions.getSensor (which doesn't exist yet in the server), and return the sensor. put that into the NewSensorForm and repaint it. 
+    //TODO actually fire off the sensorActions.getSensor (which doesn't exist yet in the server), and return the sensor. put that into the NewSensorForm and repaint it.
     //also handleSelect(1) to reset the tabs on the Details.
-  
+
     //let x = this.actions.getSensor(sensorId);
 
 	for(let i = 0; i < this.sensors.length; i++) {
@@ -60,7 +92,7 @@ class SensorsPage extends React.Component {
 //			this.setState({TODO not working. this.setState is null for es6 reasons and binding this function breaks the whole damn thing.
 //				sensor: x,
 //			});
-			
+
 			break;
 		}
 	}
@@ -73,16 +105,23 @@ class SensorsPage extends React.Component {
         sensors: {
           sensors: sensorList,
         },
-        sensor,
         actions: {
           saveNewSensor,
         },
-      }
+      },
+      state: {
+        sensor,
+      },
     } = this;
 
     return (
       <section>
-        <SensorList detailsClick={this.handleDetailsClick} startClick={this.handleStartClick} stopClick = {this.handleStopClick} deleteClick = {this.handleDeleteClick}
+        <SensorList
+          detailsClick={this.handleDetailsClick}
+          startClick={this.handleStartClick}
+          stopClick={this.handleStopClick}
+          deleteClick={this.handleDeleteClick}
+          createNewSensorClick={() => this.createNewSensorClick(this)}
           sensors={sensorList} />
         <Tabs
           activeKey={this.state.key}

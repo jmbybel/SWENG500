@@ -9,9 +9,10 @@ const sensors = (state = initialState.sensors, action) => {
         ...state.filter(sensor => sensor.id !== action.sensor.id),
         Object.assign({}, action.sensor)
       ];
-    case LOAD_DEVICES_SUCCESS:
+    case LOAD_DEVICES_SUCCESS: {
       const sensorList = JSON.parse(action.sensors);
       return Object.assign([], state, sensorList);
+    }
     default:
       return state;
   }
