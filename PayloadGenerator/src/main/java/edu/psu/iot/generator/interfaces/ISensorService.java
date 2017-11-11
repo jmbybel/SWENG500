@@ -27,4 +27,5 @@ public interface ISensorService {
     public void deleteSensor(int id);
     
     public JSONObject getLastQueueItem();
+    
 }

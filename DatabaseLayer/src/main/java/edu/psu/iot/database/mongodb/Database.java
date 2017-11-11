@@ -89,10 +89,9 @@ public class Database implements IDatabase {
 	}
 
 	@Override
-	public boolean updateSensor(String jsonSensor) {
+	public boolean updateSensor(ISensor sensor) {
 		boolean success = false;
 		try {
-			ISensor sensor = JsonHandler.getSensorFromJson(jsonSensor);
 			sensorCollection.replaceOne(
 					Filters.eq("_id", JsonHandler.getIdFromJson(JsonHandler.buildSingleInt("_id", sensor.getId()))), 
 					JsonHandler.documentFromSensor(sensor));
@@ -133,9 +132,4 @@ public class Database implements IDatabase {
 		}
 		return success;
 	}
-	
-	
-
-	
-		
 }

@@ -65,22 +65,12 @@ public class DataServiceStub implements IDataService {
 		return false;
 	}
 
-	@Override
-	public boolean batchStart(String ids) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+
 
 	@Override
-	public boolean batchStop(String ids) {
+	public boolean deleteAll() {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	@Override
-	public String batchQuery(String batchQuery) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 

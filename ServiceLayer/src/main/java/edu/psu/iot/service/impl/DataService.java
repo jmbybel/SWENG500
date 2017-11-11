@@ -18,10 +18,10 @@ public class DataService implements IDataService {
 		service = new SensorService();
 		db = new Database();
 	}
-
+	
 	@Override
 	public String getNumberOfRunningSensors() {	
-		// TODO Auto-generated method stub
+		// Only uses ISensorService
 		int count = 0;
 		for(Payload payload: (new SensorService()).getSensorList().values()) {
 			if(payload.isEnable()) count++;			
@@ -31,7 +31,8 @@ public class DataService implements IDataService {
 
 	@Override
 	public boolean setDestinationIP(String destination) {
-		//"http://18.216.43.18:8081/contentListener";
+		// Only uses ISensorService
+		// Example format: "http://18.216.43.18:8081/contentListener";
 		boolean success = true;		
 		if(destination.startsWith("http://") &&
 		destination.endsWith("contentListener")){
@@ -45,17 +46,19 @@ public class DataService implements IDataService {
 
 	@Override
 	public String getAllSensors() {
+		// Only uses IDatabase
 		return db.getAllSensors();
-		//return service.getSensorList().values().toString();
 	}
 
 	@Override
 	public String getSensor(String id) {
+		// Only uses IDatabase
 		return db.getSensor(id);
 	}
 
 	@Override
 	public boolean startSensor(String id) {
+		// Only uses ISensorService
 		int sensorId = JsonHandler.getIdFromJson(id);
 		service.startSensor(sensorId);
 		return true;
@@ -63,6 +66,7 @@ public class DataService implements IDataService {
 
 	@Override
 	public boolean pauseSensor(String id) {
+		// Only uses ISensorService
 		int sensorId = JsonHandler.getIdFromJson(id);
 		service.stopSensor(sensorId);
 		return true;
@@ -70,21 +74,26 @@ public class DataService implements IDataService {
 
 	@Override
 	public boolean createSensor(String jsonString) {
+		// Uses ISensorService and IDatabase
 		ISensor sensor = JsonHandler.getSensorFromJson(jsonString);
 		service.createSensor(sensor);
+		db.createSensor(sensor);
 		return true;
 	}
 
 	@Override
 	public boolean updateSensor(String jsonString) {
+		// Uses ISensorService and IDatabase
 		ISensor sensor = JsonHandler.getSensorFromJson(jsonString);
 		service.deleteSensor(sensor.getId());	//to update, we delete and create anything with that sensor id
 		service.createSensor(sensor);
+		db.updateSensor(sensor);
 		return true;
 	}
 
 	@Override
 	public boolean deleteSensor(String jsonId) {
+		// Uses ISensorService and IDatabase
 		int id = JsonHandler.getIdFromJson(jsonId);
 		service.deleteSensor(id);
 		db.deleteSensor(jsonId);
@@ -92,26 +101,9 @@ public class DataService implements IDataService {
 	}
 
 	@Override
-	public boolean batchStart(String ids) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean batchStop(String ids) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public String batchQuery(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public boolean deleteAll() {
-		return db.deleteAll();
+		service.initialize();
+		return db.deleteAll();	
 	}
 
 }

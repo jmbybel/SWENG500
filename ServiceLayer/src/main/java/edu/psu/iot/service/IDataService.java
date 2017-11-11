@@ -73,24 +73,30 @@ public interface IDataService {
 	 */
 	
 	boolean deleteSensor(String id);
+	
+	boolean deleteAll(); // Clears the whole database!
+	
+	
+	//Pruned out of backlog at Sprint 3.
+	
 	/*
 	 * input: {"_id":number}
 	 */
-	
+	/*
 	boolean batchStart(String ids);
 	/*
 	 * input: {"_id":[number, number, number...]}
 	 */
-	
+	/*
 	boolean batchStop(String ids);
 	/*
 	 * input: {"_id":[number,number,number...]}
 	 */
-	
+	/*
 	String batchQuery(String id);
 	/*
 	 * input: {"_id":number}
 	 */
 	
-	boolean deleteAll(); // Clears the whole database!
+	
 }

@@ -14,7 +14,7 @@ public interface IDatabase {
 
 	boolean createSensor(ISensor sensor);
 
-	boolean updateSensor(String id);
+	boolean updateSensor(ISensor sensor);
 
 	boolean deleteSensor(String id);
 
