@@ -17,7 +17,7 @@ public class Main {
 	static ArrayList<SensorService> ssList = new ArrayList<SensorService>();
 
     public static void main(String[] args) {
-    	port(4000);
+    	port(4001);
     	configureExceptionHandling();
         enableCORS();
         

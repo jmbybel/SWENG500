@@ -29,5 +29,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry combineaccessrules="false" kind="src" path="/PayloadGenerator"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/DatabaseLayer"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

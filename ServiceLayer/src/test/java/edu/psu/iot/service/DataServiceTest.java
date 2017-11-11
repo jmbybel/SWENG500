@@ -75,4 +75,9 @@ public class DataServiceTest {
 		result = objectUnderTest.setDestinationIP("http://123.123.123.123:1234");
 		assertFalse(result);
 	}
+	
+	@Test
+	public void testGetAllSensors() {
+		System.out.println(objectUnderTest.getAllSensors());
+	}
 }
