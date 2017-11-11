@@ -58,7 +58,12 @@ public class Database implements IDatabase {
 		    	builder.append(",");
 		    }
 		    int length = builder.length();
-		    builder.delete(length - 1, length);
+		    
+		    // If no sensors exist, don't delete the opening [
+		    if (length > 1) {
+		    	builder.delete(length - 1, length);
+		    }
+		    
 		    builder.append("]");
 		} catch(Exception e) {
 			e.printStackTrace();

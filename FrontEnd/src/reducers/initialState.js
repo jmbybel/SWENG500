@@ -1,4 +1,4 @@
 export default {
     sensors: [],
-    numRunningSensors: "0",
+    numRunningSensors: {"count":0},
 };

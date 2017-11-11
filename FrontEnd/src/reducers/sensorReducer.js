@@ -10,7 +10,8 @@ const sensors = (state = initialState.sensors, action) => {
         Object.assign({}, action.sensor)
       ];
     case LOAD_DEVICES_SUCCESS:
-      return Object.assign([], state, action.sensors);
+      const sensorList = JSON.parse(action.sensors);
+      return Object.assign([], state, sensorList);
     default:
       return state;
   }
@@ -44,7 +45,12 @@ const byId = (state = {}, action) => {
 const numRunningSensors = (state = initialState.numRunningSensors, action) => {
   switch (action.type) {
     case GET_NUMBER_OF_RUNNING_SENSORS: {
-      return action.numRunningSensors;
+      const runningSensorCount = JSON.parse(action.numRunningSensors);
+
+      return {
+        ...state,
+        ...runningSensorCount,
+      };
     }
     default: {
       return state;

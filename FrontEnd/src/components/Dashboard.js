@@ -15,11 +15,15 @@ class Dashboard extends React.Component {
     this.state = {
       sensorFeed: []
     }
-    props.actions.getNumberOfRunningSensors();
+
     this.stripEndQuotes = this.stripEndQuotes.bind(this);
   }
 
   stripEndQuotes(s){ var t=s.length; if (s.charAt(0)=='"') s=s.substring(1,t--); if (s.charAt(--t)=='"') s=s.substring(0,t); return s; }
+
+  onComponentWillMount() {
+    this.props.actions.getNumberOfRunningSensors();
+  }
 
   componentDidMount() {
     //this.getSensors().then(result => this.setState({
@@ -35,24 +39,21 @@ class Dashboard extends React.Component {
       cluster: 'us2',
       encrypted: true
     });
-    
+
     var channel = pusher.subscribe('my-channel');
     channel.bind('my-event', data => {
       const test = JSON.parse(data.message);
       //this.stripEndQuotes(data.message);
-      console.log(test);
       sensorFeed.push(test);
       // const newArray = sensorFeed.concat(test);
       // console.log(newArray);
       this.setState({ sensorFeed });
-      
+
       //this.setState({sensors: this.state.sensors.concat(data.message)})
     });
-    console.log(this.state.sensorFeed);
-
   }
 
-  /* 
+  /*
   getSensors() {
     return sensorApi.getPayloads()
   }
@@ -67,8 +68,6 @@ class Dashboard extends React.Component {
       },
     } = this;
 
-    
-    
     return (
       <section>
         <PageHeader>

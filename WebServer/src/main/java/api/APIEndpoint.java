@@ -37,6 +37,7 @@ public class APIEndpoint {
 	
 	public String getAllSensors() {
 		String allSensors = dataService.getAllSensors();
+		System.out.println(allSensors);
 		return gson.toJson(allSensors);
 	}
 	

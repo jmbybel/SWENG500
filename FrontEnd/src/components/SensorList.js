@@ -8,11 +8,11 @@ class SensorList extends React.Component {
     super(props, context);
     this.mapSensors = this.mapSensors.bind(this);
   }
-      
+
   createNewSensorClick() {
 	alert("this needs to call up to the parent, clear the sensor in state, which should repaint the UI. After that make sure we're forced back to the first tab on the right side");
   }
-  
+
   mapSensors(sensors) {
     return sensors.length > 0
       ? sensors.map((sensor) => (
@@ -20,7 +20,7 @@ class SensorList extends React.Component {
           <Panel header={sensor.name}>
             System ID: {sensor.id}&nbsp;&nbsp;&nbsp;&nbsp;
             <ButtonGroup>
-             <Button 
+             <Button
                onClick={()=>this.props.detailsClick(sensor)} bsStyle="info" >
                Show/Hide Details
              </Button>

@@ -11,14 +11,16 @@ class ActiveSensorCount extends React.Component {
   render() {
     const {
       props: {
-        numRunningSensors,
+        numRunningSensors: {
+          count,
+        }
       },
     } = this;
 
   return (
     <section className={"actionSensorCount"}>
       <Panel header="Active Sensors">
-        {numRunningSensors}
+        {count}
       </Panel>
     </section>
   );
@@ -26,7 +28,7 @@ class ActiveSensorCount extends React.Component {
 }
 
 ActiveSensorCount.propTypes = {
-  numRunningSensors: PropTypes.string,
+  numRunningSensors: PropTypes.object,
 };
 
 export default ActiveSensorCount;
