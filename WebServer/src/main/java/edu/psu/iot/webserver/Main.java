@@ -1,27 +1,13 @@
 package edu.psu.iot.webserver;
 
 import static spark.Spark.*;
-
-import java.util.ArrayList;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-
 import api.APIEndpoint;
-import edu.psu.iot.generator.sensor.Sensor;
-import edu.psu.iot.generator.sensor.SensorService;
-import edu.psu.iot.service.IDataService;
-import edu.psu.iot.service.impl.DataService;
 
 public class Main {
-	static ArrayList<SensorService> ssList = new ArrayList<SensorService>();
-
     public static void main(String[] args) {
-    	port(4001);
+    	port(4000);
     	configureExceptionHandling();
-        enableCORS();
-        
-    	
+        enableCORS();      
         APIEndpoint endpoint = new APIEndpoint();
         
         get("/get-number-of-running-sensors", (request, response) -> {
@@ -50,24 +36,12 @@ public class Main {
         });
         
         post("/create-new-sensor", (request, response) -> {
-        	System.out.println(String.format("Creating Sensor: %s", request.body()));
-        	IDataService ds = new DataService();
-
-        	
-        	String newSensor = request.body();
-        
-        	return ds.createSensor(newSensor);
-     
+        	return endpoint.createUpdateSensor("");
         });
     }
     
     private static void configureExceptionHandling() {
     	exception(Exception.class, (e, req, res) -> e.printStackTrace()); // print all exceptions
-    }
-    
-    public static ArrayList<SensorService> getSSList()
-    {
-    	return ssList;
     }
     
     private static void enableCORS() {
