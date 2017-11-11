@@ -19,6 +19,16 @@ public class DataService implements IDataService {
 		db = new Database();
 	}
 	
+	public DataService(String host, int port) {
+		service = new SensorService();
+		db = new Database(host, port);
+	}
+	
+	public DataService(String inputConnectionString) {
+		service = new SensorService();
+		db = new Database(inputConnectionString);
+	}
+	
 	@Override
 	public String getNumberOfRunningSensors() {	
 		// Only uses ISensorService
