@@ -129,14 +129,11 @@ public class JsonHandler {
 	}
 	
 	public static ISensor getSensorFromJson(String jsonString) {
-		
 		ISensor sensor = null;
 		try {
 			JsonNode sensorJson = objectMapper.readTree(jsonString);
 			sensor = new Sensor();
-			if (sensorJson.has("_id")) {
-				sensor.setId(sensorJson.findValue("_id").asInt());
-			}
+			sensor.setId(sensorJson.findValue("_id").asInt());
 			sensor.setDuration(sensorJson.findValue("duration").asLong());
 			sensor.setInitialValue(sensorJson.findValue("initialValue").asDouble());
 			sensor.setInterval(sensorJson.findValue("interval").asLong());
