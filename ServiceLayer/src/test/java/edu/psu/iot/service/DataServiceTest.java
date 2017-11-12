@@ -62,6 +62,49 @@ public class DataServiceTest {
 		String count = objectUnderTest.getNumberOfRunningSensors();
 		System.out.println(count);
 		assertEquals(count,"{\"count\":3}");
+		
+	}
+	
+	@Test
+	public void testJsonFromSensor() {
+		ISensor sensor = new Sensor();
+		sensor.setId(6);
+		System.out.println(JsonHandler.jsonFromSensor(sensor));
+	}
+	
+	@Test
+	public void testAddSensorCount() {
+		
+		ISensorService service = new SensorService();
+		service.initialize();
+		ISensor sensor = new Sensor();
+		ISensor sensor2 = new Sensor();
+		ISensor sensor3 = new Sensor();
+		
+		sensor.setId(1);
+		sensor2.setId(2);
+		sensor3.setId(3);
+		
+		service.createSensor(sensor);
+		service.createSensor(sensor2);
+		service.createSensor(sensor3);
+		
+		String count = objectUnderTest.getNumberOfRunningSensors();
+		System.out.println(count);
+		assertEquals(count,"{\"count\":3}");
+		
+		ISensor sensor4 = new Sensor();
+		sensor4.setId(4);
+		service.createSensor(sensor4);
+		
+		count = objectUnderTest.getNumberOfRunningSensors();
+		System.out.println(count);
+		assertEquals(count,"{\"count\":4}");
+		
+		service.deleteSensor(2);
+		count = objectUnderTest.getNumberOfRunningSensors();
+		System.out.println(count);
+		assertEquals(count,"{\"count\":3}");
 	}
 	
 	@Test
@@ -80,4 +123,38 @@ public class DataServiceTest {
 	public void testGetAllSensors() {
 		System.out.println(objectUnderTest.getAllSensors());
 	}
+	
+	@Test
+	public void testUpdate() {
+		
+		try {
+			ISensor sensor = new Sensor();
+			sensor.setId(100);
+			
+			System.out.println("The id of the sensor is: " + sensor.getId());
+			
+			String sensorJson =  JsonHandler.jsonFromSensor(sensor);
+			
+			System.out.println("The initial Sensor JSON is: " + sensorJson);
+			
+			objectUnderTest.createSensor(sensorJson);
+			Thread.sleep(5000);
+			sensor.setMax(99);
+			sensor.setMin(98);
+			objectUnderTest.updateSensor(JsonHandler.jsonFromSensor(sensor));
+			
+			System.out.println("The new min is: " + sensor.getMin());
+			System.out.println("The new max is: " + sensor.getMax());
+			System.out.println("The updated database entry: \n" + 
+			objectUnderTest.getSensor(JsonHandler.buildSingleInt("_id", sensor.getId())));
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	}
+	
+	
+	
 }

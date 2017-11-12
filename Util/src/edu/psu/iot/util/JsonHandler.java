@@ -10,6 +10,8 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import org.bson.Document;
+import org.bson.json.JsonMode;
+import org.bson.json.JsonWriterSettings;
 import org.bson.types.ObjectId;
 
 import edu.psu.iot.generator.interfaces.ISensor;
@@ -22,6 +24,54 @@ public class JsonHandler {
 
 	public JsonHandler() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public static String jsonFromDocument(Document doc) {
+		return doc.toJson(new JsonWriterSettings(JsonMode.RELAXED));
+	}
+	
+	public static String jsonFromSensor(ISensor sensor) {
+				StringBuilder builder = new StringBuilder();
+				builder.append("{");
+				builder.append("\"_id\":");
+				builder.append(sensor.getId());
+				builder.append(",");
+				builder.append("\"duration\":"); 
+				builder.append(sensor.getDuration());
+				builder.append(",");
+				builder.append("\"initialValue\":");
+				builder.append(sensor.getInitialValue());
+				builder.append(",");
+				builder.append("\"interval\":"); 
+				builder.append(sensor.getInterval());
+				builder.append(",");
+				builder.append("\"max\":");
+				builder.append(sensor.getMax());
+				builder.append(",");
+				builder.append("\"maxInterval\":"); 
+				builder.append(sensor.getMinInterval());
+				builder.append(",");
+				builder.append("\"min\":");
+				builder.append(sensor.getMin());
+				builder.append(",");
+				builder.append("\"minInterval\":");
+				builder.append(sensor.getMinInterval());
+				builder.append(",");
+				builder.append("\"name\":\"");
+				builder.append(sensor.getName());
+				builder.append("\",");
+				builder.append("\"randomInterval\":");
+				builder.append(sensor.isRandomInterval());
+				builder.append(",");
+				builder.append("\"sinInterval\":");
+				builder.append(sensor.getSinInterval());
+				builder.append(",");
+				builder.append("\"type\":\""); 
+				builder.append(sensor.getType().toString());
+				builder.append("\"}");
+		
+		return builder.toString();
+		
 	}
 	
 	public static Document documentFromSensor(ISensor sensor) {
@@ -69,7 +119,7 @@ public class JsonHandler {
 		int id = -1;
 		try {
 			JsonNode idJson = objectMapper.readTree(jsonString);
-			JsonNode value = idJson.findValue("id");
+			JsonNode value = idJson.findValue("_id");
 			id = value.asInt();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -84,8 +134,8 @@ public class JsonHandler {
 		try {
 			JsonNode sensorJson = objectMapper.readTree(jsonString);
 			sensor = new Sensor();
-			if (sensorJson.has("id")) {
-				sensor.setId(sensorJson.findValue("id").asInt());
+			if (sensorJson.has("_id")) {
+				sensor.setId(sensorJson.findValue("_id").asInt());
 			}
 			sensor.setDuration(sensorJson.findValue("duration").asLong());
 			sensor.setInitialValue(sensorJson.findValue("initialValue").asDouble());

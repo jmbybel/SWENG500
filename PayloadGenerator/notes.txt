@@ -16,6 +16,7 @@ DataService -> 	SensorService 	-> 	Sensor -> 	Payload -> 	static - ExecutorServi
 7)  How to handle database rehydration?
 8)  How to handle front end passing id on create?  Should it pass no id, 
 and then the backend should return an id?
+9)  Somethign weird is happening with enforcing mins and max's in payload generator.
 
 To do:
 
