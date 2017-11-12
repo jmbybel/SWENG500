@@ -18,7 +18,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
-
+import com.mongodb.client.model.UpdateOptions;
 
 import edu.psu.iot.database.IDatabase;
 import edu.psu.iot.generator.interfaces.ISensor;
@@ -45,7 +45,7 @@ public class Database implements IDatabase {
 		 MongoClientURI connectionString = new MongoClientURI(inputConnectionString);
 		 mongoClient = new MongoClient(connectionString);
 	}
-
+	
 	@Override
 	public String getAllSensors() {
 		System.out.println("Entered getAllSensors");
@@ -84,7 +84,7 @@ public class Database implements IDatabase {
 	public boolean createSensor(ISensor sensor) {
 		boolean success = false;
 		try {
-			sensorCollection.insertOne(JsonHandler.documentFromSensor(sensor));
+			this.updateSensor(sensor);
 			success = true;
 		} catch (Exception e) {
 			success = false;
@@ -99,7 +99,9 @@ public class Database implements IDatabase {
 		try {
 			sensorCollection.replaceOne(
 					Filters.eq("_id", JsonHandler.getIdFromJson(JsonHandler.buildSingleInt("_id", sensor.getId()))), 
-					JsonHandler.documentFromSensor(sensor));
+					//Filters.eq("_id", sensor.getId()), 
+					JsonHandler.documentFromSensor(sensor),
+					new UpdateOptions().upsert(true));
 			success = true;
 		} catch (Exception e) {
 			e.printStackTrace();

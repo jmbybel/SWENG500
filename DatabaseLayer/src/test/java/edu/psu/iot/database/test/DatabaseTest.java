@@ -37,17 +37,29 @@ public class DatabaseTest {
 	@Test
 	public void deleteInsertReadFormatSensor() {
 		try {
-			db.deleteSensor("{\"id\":123}");
+			db.deleteSensor("{\"_id\":123}");
 			ISensor sensor = new Sensor();
 			sensor.setId(123);
 			db.createSensor(sensor);
-			String dbSensor = db.getSensor("{\"id\":123}");
+			String dbSensor = db.getSensor("{\"_id\":123}");
 			System.out.println(dbSensor);			
 			assertTrue(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
+	/*@Test
+	public void readSensor() {
+		try {
+			String dbSensor = db.getSensor("{\"_id\":9999999}");
+			System.out.println(dbSensor);			
+			assertTrue(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}*/
+	
 	
 	@Test
 	public void getAllSensors() {
