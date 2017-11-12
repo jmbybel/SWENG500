@@ -3,61 +3,58 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as sensorActions from '../actions/sensorActions';
-import { PageHeader } from 'react-bootstrap';
+import { PageHeader, Panel } from 'react-bootstrap';
 import ActiveSensorCount from '../components/ActiveSensorCount';
 import LiveDataFeed from '../components/LiveDataFeed';
 import Pusher from 'pusher-js';
-
 
 class Dashboard extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      sensorFeed: []
+      sensorFeed: [],
     };
-
-    this.stripEndQuotes = this.stripEndQuotes.bind(this);
   }
 
-  componentDidMount() {
-    //this.getSensors().then(result => this.setState({
-      //sensors: result
-    //}))
-    const {
-      state: {
-        sensorFeed
-      }
-    } = this;
-
+  componentWillMount() {
+    this.props.actions.getNumberOfRunningSensors();
     const pusher = new Pusher('05483fef894d660001a9', {
       cluster: 'us2',
       encrypted: true
     });
-
     const channel = pusher.subscribe('my-channel');
-    channel.bind('my-event', data => {
-      const test = JSON.parse(data.message);
-      //this.stripEndQuotes(data.message);
-      sensorFeed.push(test);
-      // const newArray = sensorFeed.concat(test);
-      // console.log(newArray);
-      this.setState({ sensorFeed });
+    this.pusher = pusher.bind(this);
+    this.channel = channel.bind(this);
+  }
 
-      //this.setState({sensors: this.state.sensors.concat(data.message)})
+  componentDidMount() {
+    const {
+      state: {
+        sensorFeed,
+      }
+    } = this;
+
+    this.channel.bind('my-event', data => {
+      const newMessage = JSON.parse(data.message);
+      let newSensorFeed = null;
+
+      if (sensorFeed.length >= 20) {
+        newSensorFeed = sensorFeed.slice(sensorFeed.length - 20, sensorFeed.length);
+      }
+      else {
+        newSensorFeed = sensorFeed;
+      }
+
+      newSensorFeed.push(newMessage);
+      this.setState({
+        sensorFeed: newSensorFeed
+      });
     });
   }
 
-  onComponentWillMount() {
-    this.props.actions.getNumberOfRunningSensors();
+  componentWillUnmount() {
+    this.pusher.unsubscribe('my-channel');
   }
-
-  stripEndQuotes(s){ let t=s.length; if (s.charAt(0)=='"') s=s.substring(1,t--); if (s.charAt(--t)=='"') s=s.substring(0,t); return s; }
-
-  /*
-  getSensors() {
-    return sensorApi.getPayloads()
-  }
-  */
 
   render() {
     const {
@@ -77,8 +74,11 @@ class Dashboard extends React.Component {
         </PageHeader>
         <ActiveSensorCount
             numRunningSensors={numRunningSensors}/>
-        <LiveDataFeed
-          sensorFeed={this.state.sensorFeed} />
+        <Panel
+          style={{height: '600px'}}>
+          <LiveDataFeed
+            sensorFeed={this.state.sensorFeed} />
+        </Panel>
       </section>
     );
   }

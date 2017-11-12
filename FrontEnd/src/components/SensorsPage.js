@@ -8,6 +8,8 @@ import SensorList from '../components/SensorList';
 import {
   Tabs,
   Tab,
+  Panel,
+  Button,
 } from 'react-bootstrap';
 
 class SensorsPage extends React.Component {
@@ -16,6 +18,7 @@ class SensorsPage extends React.Component {
 
     this.state = {
       sensor: {
+        _id: Date.now(),
         name: '',
         initialValue: '',
         max: '',
@@ -60,9 +63,10 @@ class SensorsPage extends React.Component {
 	alert("deleteEvent: " + sensorId);
   }
 
-  createNewSensorClick(component) {
-    component.setState({
+  createNewSensorClick() {
+    this.setState({
       sensor: {
+        _id: Date.now(),
         name: '',
         initialValue: '',
         max: '',
@@ -116,13 +120,23 @@ class SensorsPage extends React.Component {
 
     return (
       <section>
-        <SensorList
-          detailsClick={this.handleDetailsClick}
-          startClick={this.handleStartClick}
-          stopClick={this.handleStopClick}
-          deleteClick={this.handleDeleteClick}
-          createNewSensorClick={() => this.createNewSensorClick(this)}
-          sensors={sensorList} />
+        <div className={"sensorListDiv"}>
+          <Panel
+            style={{height: '680px'}}
+            header={"Existing Sensors"}>
+            <SensorList
+              detailsClick={this.handleDetailsClick}
+              startClick={this.handleStartClick}
+              stopClick={this.handleStopClick}
+              deleteClick={this.handleDeleteClick}
+              sensors={sensorList} />
+          </Panel>
+          <Button
+            bsStyle={"primary"}
+            onClick={() => this.createNewSensorClick()}>
+              {"New Sensor"}
+          </Button>
+        </div>
         <Tabs
           activeKey={this.state.key}
           onSelect={this.handleSelect}

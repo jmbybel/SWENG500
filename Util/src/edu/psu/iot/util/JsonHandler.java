@@ -84,9 +84,7 @@ public class JsonHandler {
 		try {
 			JsonNode sensorJson = objectMapper.readTree(jsonString);
 			sensor = new Sensor();
-			if (sensorJson.has("id")) {
-				sensor.setId(sensorJson.findValue("id").asInt());
-			}
+			sensor.setId(sensorJson.findValue("_id").asInt());
 			sensor.setDuration(sensorJson.findValue("duration").asLong());
 			sensor.setInitialValue(sensorJson.findValue("initialValue").asDouble());
 			sensor.setInterval(sensorJson.findValue("interval").asLong());

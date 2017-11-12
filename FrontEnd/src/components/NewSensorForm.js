@@ -13,6 +13,7 @@ class NewSensorForm extends React.Component {
 
     this.state = {
       sensor: {
+        _id: props.sensor._id,
         name: props.sensor.name,
         initialValue: props.sensor.initialValue,
         max: props.sensor.max,

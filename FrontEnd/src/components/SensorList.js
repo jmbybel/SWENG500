@@ -30,22 +30,20 @@ class SensorList extends React.Component {
           </Panel>
         </div>
         ))
-      : null;
+      : "No sensors currently exist. Create one!";
   }
 
   render() {
     const {
       props: {
         sensors,
-        createNewSensorClick,
       },
     } = this;
 
     return (
       <section className={"sensorList"}>
         <div>
-        {this.mapSensors(sensors)}
-        <Button onClick={createNewSensorClick}>New Sensor</Button>
+          {this.mapSensors(sensors)}
         </div>
       </section>
     );
@@ -59,7 +57,6 @@ SensorList.propTypes = {
   startClick: PropTypes.func.isRequired,
   stopClick: PropTypes.func.isRequired,
   deleteClick: PropTypes.func.isRequired,
-  createNewSensorClick: PropTypes.func.isRequired,
 };
 
 export default SensorList;
