@@ -16,7 +16,7 @@ class LiveDataFeed extends React.Component {
 
     return (
       <section className={"liveDataFeed"}>
-        <BootstrapTable maxHeight={"200px"} data={sensorFeed} bordered={false} options={{noDataText: "No Sensors are running" }}>
+        <BootstrapTable height={"400px"} data={sensorFeed} bordered={false} options={{noDataText: "No Sensors are running" }}>
           <TableHeaderColumn dataField="name" isKey={true}>Sensor Name</TableHeaderColumn>
           <TableHeaderColumn dataField="timestamp">Timestamp</TableHeaderColumn>
           <TableHeaderColumn dataField="type">Type</TableHeaderColumn>

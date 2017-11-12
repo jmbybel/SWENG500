@@ -74,8 +74,7 @@ class Dashboard extends React.Component {
         </PageHeader>
         <ActiveSensorCount
             numRunningSensors={numRunningSensors}/>
-        <Panel
-          style={{height: '600px'}}>
+        <Panel className={"liveDataFeed"}>
           <LiveDataFeed
             sensorFeed={this.state.sensorFeed} />
         </Panel>
