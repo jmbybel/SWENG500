@@ -18,10 +18,10 @@ class SensorList extends React.Component {
             <ButtonGroup>
              <Button
                onClick={()=>this.props.detailsClick(sensor)} bsStyle="info" >
-               Show/Hide Details
+               Details
              </Button>
-             <Button onClick={()=>this.props.startClick(sensor._id)}  bsStyle="success">Start</Button>
-             <Button onClick={()=>this.props.stopClick(sensor._id)}   bsStyle="warning">Stop</Button>
+             <Button disabled={sensor.active} onClick={()=>this.props.startClick(sensor._id)}  bsStyle="success">Start</Button>
+             <Button disabled={!sensor.active} onClick={()=>this.props.stopClick(sensor._id)}   bsStyle="warning">Stop</Button>
              <Button onClick={()=>this.props.deleteClick(sensor._id)}   bsStyle="danger">Delete</Button>
             </ButtonGroup>
             <br/>
