@@ -11,8 +11,8 @@ class SensorList extends React.Component {
 
   mapSensors(sensors) {
     return sensors.length > 0
-      ? sensors.map((sensor) => (
-        <div key={sensor._id}>
+      ? sensors.map((sensor, key) => (
+        <div key={key}>
           <Panel header={sensor.name}>
             System ID: {sensor._id}&nbsp;&nbsp;&nbsp;&nbsp;
             <ButtonGroup>
@@ -42,9 +42,7 @@ class SensorList extends React.Component {
 
     return (
       <section className={"sensorList"}>
-        <div>
-          {this.mapSensors(sensors)}
-        </div>
+        {this.mapSensors(sensors)}
       </section>
     );
   }

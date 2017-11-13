@@ -18,7 +18,7 @@ class SensorsPage extends React.Component {
 
     this.state = {
       sensor: {
-        _id: Date.now(),
+        _id: (((1+Math.random())*0x10000)|0) + (((1+Math.random())*0x10000)|0) + (((1+Math.random())*0x10000)|0),
         name: '',
         initialValue: '',
         max: '',
@@ -67,7 +67,7 @@ class SensorsPage extends React.Component {
   createNewSensorClick() {
     this.setState({
       sensor: {
-        _id: Date.now(),
+        _id: (((1+Math.random())*0x10000)|0) + (((1+Math.random())*0x10000)|0) + (((1+Math.random())*0x10000)|0),
         name: '',
         initialValue: '',
         max: '',
@@ -92,6 +92,8 @@ class SensorsPage extends React.Component {
         },
         actions: {
           saveNewSensor,
+          startSensor,
+          pauseSensor,
         },
       },
       state: {
@@ -107,8 +109,8 @@ class SensorsPage extends React.Component {
             header={"Existing Sensors"}>
             <SensorList
               detailsClick={this.handleDetailsClick}
-              startClick={this.handleStartClick}
-              stopClick={this.handleStopClick}
+              startClick={startSensor}
+              stopClick={pauseSensor}
               deleteClick={this.handleDeleteClick}
               sensors={sensorList} />
           </Panel>

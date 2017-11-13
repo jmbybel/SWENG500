@@ -26,7 +26,15 @@ class sensorApi {
     }
 
     static startSensor(sensorId) {
-      return fetch('http://iotgenerator.ga:4000/start-sensor?sensorId=' + sensorId).then(response => {
+      const request = new Request('http://iotgenerator.ga:4000/start-sensor', {
+        method: 'POST',
+        headers: new Headers({
+            'Content-Type': 'text/plain'
+        }),
+        body: `{"_id": ${sensorId}}`
+      });
+
+      return fetch(request).then(response => {
         return response.json();
       }).catch(error => {
         return error;
@@ -34,7 +42,15 @@ class sensorApi {
     }
 
     static pauseSensor(sensorId) {
-      return fetch('http://iotgenerator.ga:4000/pause-sensor?sensorId=' + sensorId).then(response => {
+      const request = new Request('http://iotgenerator.ga:4000/pause-sensor', {
+        method: 'POST',
+        headers: new Headers({
+            'Content-Type': 'text/plain'
+        }),
+        body: `{"_id": ${sensorId}}`
+      });
+
+      return fetch(request).then(response => {
         return response.json();
       }).catch(error => {
         return error;
