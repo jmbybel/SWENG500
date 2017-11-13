@@ -19,7 +19,7 @@ public class APIEndpoint {
 		return gson.toJson(numberRunningSensors);
 	}
 	
-	public boolean createSensor(String json) {
+	public String createSensor(String json) {
 		return dataService.createSensor(json);
 	}
 	

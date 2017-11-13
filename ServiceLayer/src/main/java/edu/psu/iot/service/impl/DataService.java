@@ -83,12 +83,12 @@ public class DataService implements IDataService {
 	}
 
 	@Override
-	public boolean createSensor(String jsonString) {
+	public String createSensor(String jsonString) {
 		// Uses ISensorService and IDatabase
 		ISensor sensor = JsonHandler.getSensorFromJson(jsonString);
 		service.createSensor(sensor);
 		db.createSensor(sensor);
-		return true;
+		return JsonHandler.jsonFromSensor(sensor);
 	}
 
 	@Override

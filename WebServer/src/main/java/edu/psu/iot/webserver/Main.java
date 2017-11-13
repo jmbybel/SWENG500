@@ -32,7 +32,7 @@ public class Main {
         });
         
         post("/start-sensor", (request, response) -> {
-        	String id = request.params("sensorId");
+        	String id = request.body();
         	String sensor = null;
 
         	if (id != null)
@@ -45,7 +45,7 @@ public class Main {
         });
         
         post("/pause-sensor", (request, response) -> {
-        	String id = request.params("sensorId");
+        	String id = request.body();
         	String sensor = null;
 
         	if (id != null)

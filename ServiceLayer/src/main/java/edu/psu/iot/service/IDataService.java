@@ -62,7 +62,7 @@ public interface IDataService {
 	 * input: {"_id":number}
 	 */
 	
-	boolean createSensor(String sensorSchema);
+	String createSensor(String sensorSchema);
 	/*
 	 * input: sensorSchema
 	 */
