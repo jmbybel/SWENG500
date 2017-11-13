@@ -47,7 +47,6 @@ const numRunningSensors = (state = initialState.numRunningSensors, action) => {
   switch (action.type) {
     case GET_NUMBER_OF_RUNNING_SENSORS: {
       const runningSensorCount = JSON.parse(action.numRunningSensors);
-
       return {
         ...state,
         ...runningSensorCount,

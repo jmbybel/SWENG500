@@ -14,10 +14,6 @@ public class Main {
         	return endpoint.getNumberOfRunningSensors();
         });
         
-        get("/get-payloads", (request, response) -> {
-        	return endpoint.getAllPayloads();
-        });
-        
         get("/get-all-sensors", (request, response) -> {
         	return endpoint.getAllSensors();
         });
@@ -35,8 +31,38 @@ public class Main {
         	return "{}";
         });
         
+        post("/start-sensor", (request, response) -> {
+        	String id = request.params("sensorId");
+        	String sensor = null;
+
+        	if (id != null)
+        		sensor = endpoint.startSensor(id);
+        	
+        	if (sensor != null)
+        		return sensor;
+        	
+        	return "{}";
+        });
+        
+        post("/pause-sensor", (request, response) -> {
+        	String id = request.params("sensorId");
+        	String sensor = null;
+
+        	if (id != null)
+        		sensor = endpoint.pauseSensor(id);
+        	
+        	if (sensor != null)
+        		return sensor;
+        	
+        	return "{}";
+        });
+        
         post("/create-new-sensor", (request, response) -> {
         	return endpoint.createSensor(request.body());
+        });
+        
+        post("/update-sensor", (request, response) -> {
+        	return endpoint.updateSensor(request.body());
         });
     }
     

@@ -15,12 +15,30 @@ class sensorApi {
         });
     }
 
-    static getPayloads() {
-        return fetch('http://iotgenerator.ga:4000/get-payloads').then(response => {
+    static getSensor(sensorId) {
+			if (sensorId != undefined) {
+				return fetch('http://iotgenerator.ga:4000/get-sensor?sensorId=' + sensorId).then(response => {
 					return response.json();
-        }).catch(error => {
+				}).catch(error => {
 					return error;
-        });
+				});
+			}
+    }
+
+    static startSensor(sensorId) {
+      return fetch('http://iotgenerator.ga:4000/start-sensor?sensorId=' + sensorId).then(response => {
+        return response.json();
+      }).catch(error => {
+        return error;
+      });
+    }
+
+    static pauseSensor(sensorId) {
+      return fetch('http://iotgenerator.ga:4000/pause-sensor?sensorId=' + sensorId).then(response => {
+        return response.json();
+      }).catch(error => {
+        return error;
+      });
     }
 
     static createSensor(sensor) {
@@ -39,15 +57,21 @@ class sensorApi {
         });
     }
 
-    static getSensor(sensorId) {
-			if (sensorId != undefined) {
-				return fetch('http://iotgenerator.ga:4000/get-sensor?sensorId='+ sensorId).then(response => {
-					return response.json();
-				}).catch(error => {
-					return error;
-				});
-			}
-    }
+    static updateSensor(sensor) {
+      const request = new Request('http://iotgenerator.ga:4000/update-sensor', {
+        method: 'POST',
+        headers: new Headers({
+            'Content-Type': 'application/json'
+        }),
+        body: JSON.stringify({ sensor })
+      });
+
+      return fetch(request).then(response => {
+        return response.json();
+      }).catch(error => {
+        return error;
+      });
+  }
 }
 
 export default sensorApi;

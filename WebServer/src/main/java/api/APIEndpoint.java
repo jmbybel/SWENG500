@@ -24,7 +24,7 @@ public class APIEndpoint {
 	}
 	
 	public boolean updateSensor(String json) {
-		return dataService.createSensor(json);
+		return dataService.updateSensor(json);
 	}
 	
 	public String getAllSensors() {
@@ -33,24 +33,6 @@ public class APIEndpoint {
 		return gson.toJson(allSensors);
 	}
 	
-	public String getAllPayloads()
-	{
-//		ArrayList<SensorService> ssList = Main.getSSList();
-//		List<JSONObject> payloads = new ArrayList<JSONObject>();
-//		
-//		for (int i = 0; i < ssList.size(); i++) {
-//			Map<Integer, edu.psu.iot.generator.sensor.Payload> list = ssList.get(i).getSensorList();
-//			if(!list.isEmpty()) {
-//				for (Entry<Integer, edu.psu.iot.generator.sensor.Payload> entry : list.entrySet()) {
-//				    payloads.add(entry.getValue().getPayload());
-//				}
-//			}
-//		}
-//		JSONArray test = new JSONArray(payloads);
-//
-//		return test.toString();
-		return "";
-	}
 	/**
 	 *  All sensors should be pulled from the DB within the Device fetch, so this should not be needed
 	 */
@@ -80,7 +62,7 @@ public class APIEndpoint {
 		return gson.toJson(dataService.startSensor(id));
 	}
 	
-	public String stopSensor(String id) {
+	public String pauseSensor(String id) {
 		return gson.toJson(dataService.pauseSensor(id));
 	}
 

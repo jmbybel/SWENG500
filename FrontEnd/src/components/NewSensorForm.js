@@ -251,7 +251,7 @@ class NewSensorForm extends React.Component {
           </span>
           <NewSensorTextInput
             name={'minInterval'}
-            value={sensor.min}
+            value={sensor.minInterval}
             onChange={this.newSensorKeypress} />
         </div>
         <div
