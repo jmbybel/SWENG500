@@ -57,6 +57,16 @@ public class Main {
         	return "{}";
         });
         
+        post("/delete-sensor", (request, response) -> {
+        	String id = request.body();
+        	
+        	if (endpoint.deleteSensor(request.body())) {
+        		return id;
+        	}
+        	
+        	return "{}";
+        });
+        
         post("/create-new-sensor", (request, response) -> {
         	return endpoint.createSensor(request.body());
         });

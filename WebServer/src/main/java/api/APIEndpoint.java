@@ -46,16 +46,8 @@ public class APIEndpoint {
 		return sensor;
 	}
 
-	/**
-	 *  Also do this by performing an Update on the Device.
-	 */
-	public String deleteSensor(String id) {
-		boolean result = dataService.deleteSensor(id);
-		if (result) {
-			return ApiConstants.DELETE_SUCCESS;
-		} else {
-			return ApiConstants.DELETE_FAILED;
-		}
+	public boolean deleteSensor(String id) {
+		return dataService.deleteSensor(id);
 	}
 	
 	public String startSensor(String id) {

@@ -76,7 +76,6 @@ public interface IDataService {
 	
 	boolean deleteAll(); // Clears the whole database!
 	
-	
 	//Pruned out of backlog at Sprint 3.
 	
 	/*
