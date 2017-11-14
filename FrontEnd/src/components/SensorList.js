@@ -1,6 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, ButtonGroup, Panel } from 'react-bootstrap';
+import {
+  Button,
+  ButtonGroup,
+  Panel,
+  ListGroup,
+  ListGroupItem
+} from 'react-bootstrap';
 
 
 class SensorList extends React.Component {
@@ -12,23 +18,21 @@ class SensorList extends React.Component {
   mapSensors(sensors) {
     return sensors.length > 0
       ? sensors.map((sensor, key) => (
-        <div key={key}>
-          <Panel header={sensor.name}>
-            System ID: {sensor._id}&nbsp;&nbsp;&nbsp;&nbsp;
-            <ButtonGroup>
-             <Button
-               onClick={()=>this.props.detailsClick(sensor)} bsStyle="info" >
-               Show/Hide Details
-             </Button>
-             <Button onClick={()=>this.props.startClick(sensor._id)}  bsStyle="success">Start</Button>
-             <Button onClick={()=>this.props.stopClick(sensor._id)}   bsStyle="warning">Stop</Button>
-             <Button onClick={()=>this.props.deleteClick(sensor._id)}   bsStyle="danger">Delete</Button>
-            </ButtonGroup>
-            <br/>
-            Active: false<br/>
-            Created On: {sensor.expiration}<br/>
-          </Panel>
-        </div>
+        <ListGroupItem key={key} header={sensor.name}>
+          System ID: {sensor._id}&nbsp;&nbsp;&nbsp;&nbsp;
+          <ButtonGroup>
+            <Button
+              onClick={()=>this.props.detailsClick(sensor)} bsStyle="info" >
+              Show/Hide Details
+            </Button>
+            <Button onClick={()=>this.props.startClick(sensor._id)}  bsStyle="success">Start</Button>
+            <Button onClick={()=>this.props.stopClick(sensor._id)}   bsStyle="warning">Stop</Button>
+            <Button onClick={()=>this.props.deleteClick(sensor._id)}   bsStyle="danger">Delete</Button>
+          </ButtonGroup>
+          <br/>
+          Active: false<br/>
+          Created On: {sensor.expiration}<br/>
+        </ListGroupItem>
         ))
       : "No sensors currently exist. Create one!";
   }
@@ -41,9 +45,9 @@ class SensorList extends React.Component {
     } = this;
 
     return (
-      <section className={"sensorList"}>
+      <ListGroup className={"sensorList"}>
         {this.mapSensors(sensors)}
-      </section>
+      </ListGroup>
     );
   }
 }

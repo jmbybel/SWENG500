@@ -88,6 +88,22 @@ class sensorApi {
         return error;
       });
   }
+
+  static deleteSensor(sensorId) {
+    const request = new Request('http://iotgenerator.ga:4000/delete-sensor', {
+      method: 'POST',
+      headers: new Headers({
+          'Content-Type': 'text/plain'
+      }),
+      body: `{"_id": ${sensorId}}`
+    });
+
+    return fetch(request).then(response => {
+      return response.json();
+    }).catch(error => {
+      return error;
+    });
+  }
 }
 
 export default sensorApi;

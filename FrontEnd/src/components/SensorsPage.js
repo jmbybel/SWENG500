@@ -94,6 +94,7 @@ class SensorsPage extends React.Component {
           saveNewSensor,
           startSensor,
           pauseSensor,
+          deleteSensor,
         },
       },
       state: {
@@ -111,7 +112,7 @@ class SensorsPage extends React.Component {
               detailsClick={this.handleDetailsClick}
               startClick={startSensor}
               stopClick={pauseSensor}
-              deleteClick={this.handleDeleteClick}
+              deleteClick={deleteSensor}
               sensors={sensorList} />
           </Panel>
           <Button

@@ -29,6 +29,10 @@ export function updateSensorSuccess(sensor) {
   return {type: types.UPDATE_SENSOR, sensor};
 }
 
+export function deleteSensorSuccess(sensorId) {
+  return {type: types.DELETE_SENSOR, sensorId};
+}
+
 export function getNumberOfRunningSensors() {
   return function (dispatch) {
     return sensorApi.getNumberOfRunningSensors().then(responseSensorCount => {
@@ -99,6 +103,17 @@ export function updateSensor(sensor) {
     return sensorApi.updateSensor(sensor).then(responseSensor => {
       dispatch(updateSensorSuccess(responseSensor));
       return responseSensor;
+    }).catch(error => {
+      throw(error);
+    });
+  };
+}
+
+export function deleteSensor(sensorId) {
+  return function (dispatch) {
+    return sensorApi.deleteSensor(sensorId).then(responseSensorId => {
+      dispatch(deleteSensorSuccess(responseSensorId));
+      return responseSensorId;
     }).catch(error => {
       throw(error);
     });

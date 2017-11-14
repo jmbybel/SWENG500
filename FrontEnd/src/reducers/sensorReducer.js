@@ -3,14 +3,14 @@ import {
   LOAD_DEVICES_SUCCESS,
   SAVE_NEW_DEVICE,
   GET_NUMBER_OF_RUNNING_SENSORS,
-  START_SENSOR
+  START_SENSOR,
+  DELETE_SENSOR,
 } from '../constants/ActionTypes';
 import initialState from './initialState';
 
 const sensors = (state = initialState.sensors, action) => {
   switch (action.type) {
     case SAVE_NEW_DEVICE:
-    debugger;
       return [
         ...state.filter(sensor => sensor.id !== action.sensor.id),
         Object.assign({}, action.sensor)
@@ -18,6 +18,9 @@ const sensors = (state = initialState.sensors, action) => {
     case LOAD_DEVICES_SUCCESS: {
       const sensorList = JSON.parse(action.sensors);
       return Object.assign([], state, sensorList);
+    }
+    case DELETE_SENSOR: {
+      return state.filter(e => e ._id !== action.sensorId._id);
     }
     default:
       return state;
