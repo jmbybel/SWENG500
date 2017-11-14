@@ -243,6 +243,17 @@ class NewSensorForm extends React.Component {
             value={sensor.sinInterval}
             onChange={this.newSensorKeypress} />
         </div>
+		<div
+          className={'input'}>
+          <span
+            className={'labelSpan'}>
+            Random Interval
+          </span>
+          <NewSensorRandomIntervalDropdown
+            id={'randomIntervalDropdown'}
+            value={sensor.randomInterval}
+            onSelect={this.dropdownOnSelect} />
+        </div>
         <div
           className={'input'}>
           <span
@@ -252,6 +263,7 @@ class NewSensorForm extends React.Component {
           <NewSensorTextInput
             name={'minInterval'}
             value={sensor.minInterval}
+            disabled={sensor.randomInterval=="False"}
             onChange={this.newSensorKeypress} />
         </div>
         <div
@@ -263,18 +275,8 @@ class NewSensorForm extends React.Component {
           <NewSensorTextInput
             name={'maxInterval'}
             value={sensor.maxInterval}
+            disabled={sensor.randomInterval=="False"}
             onChange={this.newSensorKeypress} />
-        </div>
-        <div
-          className={'input'}>
-          <span
-            className={'labelSpan'}>
-            Random Interval
-          </span>
-          <NewSensorRandomIntervalDropdown
-            id={'randomIntervalDropdown'}
-            value={this.state.btnRandomTitle}
-            onSelect={this.dropdownOnSelect} />
         </div>
           <div
           className={'input'}>
@@ -292,7 +294,7 @@ class NewSensorForm extends React.Component {
           className={'saveButton'}
           bsStyle="primary"
           onClick={this.save}>
-          Save
+          Save
         </Button>
       </section>
     );

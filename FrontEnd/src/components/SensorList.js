@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {
   Button,
   ButtonGroup,
-  Panel,
   ListGroup,
   ListGroupItem
 } from 'react-bootstrap';
@@ -21,12 +20,11 @@ class SensorList extends React.Component {
         <ListGroupItem key={key} header={sensor.name}>
           System ID: {sensor._id}&nbsp;&nbsp;&nbsp;&nbsp;
           <ButtonGroup>
-            <Button
-              onClick={()=>this.props.detailsClick(sensor)} bsStyle="info" >
-              Show/Hide Details
+            <Button onClick={()=>this.props.detailsClick(sensor)} bsStyle="info" >
+              {"Details"}
             </Button>
-            <Button onClick={()=>this.props.startClick(sensor._id)}  bsStyle="success">Start</Button>
-            <Button onClick={()=>this.props.stopClick(sensor._id)}   bsStyle="warning">Stop</Button>
+            <Button disabled={sensor.active} onClick={()=>this.props.startClick(sensor._id)}  bsStyle="success">Start</Button>
+            <Button disabled={!sensor.active} onClick={()=>this.props.stopClick(sensor._id)}   bsStyle="warning">Stop</Button>
             <Button onClick={()=>this.props.deleteClick(sensor._id)}   bsStyle="danger">Delete</Button>
           </ButtonGroup>
           <br/>

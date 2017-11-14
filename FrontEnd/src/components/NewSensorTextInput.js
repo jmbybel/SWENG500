@@ -11,13 +11,14 @@ const NewSensorTextInput = (props) => {
       type="text"
       placeholder={props.placeholder}
       value={props.value}
-      onChange={handleChange} />
+      onChange={handleChange} disabled={props.disabled} />
   );
 };
 
 NewSensorTextInput.propTypes = {
   name: PropTypes.string,
   placeholder: PropTypes.string,
+  disabled: PropTypes.bool,
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,

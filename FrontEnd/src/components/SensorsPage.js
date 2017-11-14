@@ -7,6 +7,8 @@ import NewSensorForm from '../components/NewSensorForm';
 import SensorList from '../components/SensorList';
 import {
   Tabs,
+  DropdownButton,
+  MenuItem,
   Tab,
   Panel,
   Button,
@@ -33,9 +35,17 @@ class SensorsPage extends React.Component {
         urlEndpoint: '',
       },
       key: 1,
+      filterKey: "All",
     };
     this.handleSelect = this.handleSelect.bind(this);
     this.handleDetailsClick = this.handleDetailsClick.bind(this);
+    this.handleFilterDropdown = this.handleFilterDropdown.bind(this);
+  }
+
+  handleFilterDropdown(entry) {
+    this.setState({
+      filterKey: entry,
+    });
   }
 
   handleSelect(key) {
@@ -104,9 +114,26 @@ class SensorsPage extends React.Component {
 
     return (
       <section>
+        <DropdownButton
+          id="filterDropdown"
+          bsStyle="primary"
+          title="Show...."
+          onSelect={this.handleFilterDropdown}>
+          <MenuItem eventKey="All">All</MenuItem>
+          <MenuItem eventKey="Active">Active</MenuItem>
+          <MenuItem eventKey="Inactive">Inactive</MenuItem>
+        </DropdownButton>
+         &nbsp;<b>{this.state.filterKey}</b>
+
+        <Button style={{marginLeft: "400px"}}
+          bsStyle="primary"
+          onClick={() => this.createNewSensorClick()}>
+            {"New Sensor"}
+        </Button><br/>
+
         <div className={"sensorListDiv"}>
           <Panel
-            style={{height: '680px'}}
+            style={{height: '680px', overflow: 'auto'}}
             header={"Existing Sensors"}>
             <SensorList
               detailsClick={this.handleDetailsClick}
@@ -115,11 +142,6 @@ class SensorsPage extends React.Component {
               deleteClick={deleteSensor}
               sensors={sensorList} />
           </Panel>
-          <Button
-            bsStyle={"primary"}
-            onClick={() => this.createNewSensorClick()}>
-              {"New Sensor"}
-          </Button>
         </div>
         <Tabs
           activeKey={this.state.key}
