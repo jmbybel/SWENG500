@@ -91,6 +91,7 @@ class NewSensorForm extends React.Component {
     const {
       props: {
         saveNewSensor,
+        updateSensor,
       },
     } = this;
 
@@ -98,23 +99,23 @@ class NewSensorForm extends React.Component {
     {
       alert('Please enter a valid Sensor Name');
     }
-    else if (this.state.sensor.initialValue.match(/[a-z]/i) || this.state.sensor.initialValue === '')
+    else if (String(this.state.sensor.initialValue).match(/[a-z]/i) || this.state.sensor.initialValue === '')
     {
       alert('Please enter a valid number for initial value');
     }
-    else if (this.state.sensor.max.match(/[a-z]/i) || this.state.sensor.max === '')
+    else if (String(this.state.sensor.max).match(/[a-z]/i) || this.state.sensor.max === '')
     {
       alert('Please enter a valid number for max value');
     }
-    else if (this.state.sensor.min.match(/[a-z]/i) || this.state.sensor.min === '')
+    else if (String(this.state.sensor.min).match(/[a-z]/i) || this.state.sensor.min === '')
     {
       alert('Please enter a valid number for min value');
     }
-    else if (this.state.sensor.duration.match(/[a-z]/i) || this.state.sensor.duration === '')
+    else if (String(this.state.sensor.duration).match(/[a-z]/i) || this.state.sensor.duration === '')
     {
       alert('Please enter a valid number for duration');
     }
-    else if (this.state.sensor.interval.match(/[a-z]/i) || this.state.sensor.interval === '')
+    else if (String(this.state.sensor.interval).match(/[a-z]/i) || this.state.sensor.interval === '')
     {
       alert('Please enter a valid number for interval');
     }
@@ -122,7 +123,7 @@ class NewSensorForm extends React.Component {
     {
       alert('Please select a sensor type');
     }
-    else if (this.state.sensor.type === 'Sin' && (this.state.sensor.sinInterval.match(/[a-z]/i) || this.state.sensor.sinInterval === ''))
+    else if (this.state.sensor.type === 'Sin' && (String(this.state.sensor.sinInterval).match(/[a-z]/i) || this.state.sensor.sinInterval === ''))
     {
       alert('Please enter a valid number for sin interval');
     }
@@ -130,17 +131,22 @@ class NewSensorForm extends React.Component {
     {
       alert('Please select if you want random interval on or off');
     }
-    else if (this.state.sensor.randomInterval === 'True' && (this.state.sensor.maxInterval.match(/[a-z]/i) || this.state.sensor.maxInterval === ''))
+    else if (this.state.sensor.randomInterval === 'True' && (String(this.state.sensor.maxInterval).match(/[a-z]/i) || this.state.sensor.maxInterval === ''))
     {
       alert('Please enter a valid number for max random interval');
     }
-    else if (this.state.sensor.randomInterval === 'True' && (this.state.sensor.minInterval.match(/[a-z]/i) || this.state.sensor.minInterval === ''))
+    else if (this.state.sensor.randomInterval === 'True' && (String(this.state.sensor.minInterval).match(/[a-z]/i) || this.state.sensor.minInterval === ''))
     {
       alert('Please enter a valid number for min random interval');
     }
     else
     {
-      saveNewSensor(this.state.sensor);
+      if (this.props.sensors.find(s => s._id == this.state.sensor._id)) {
+        updateSensor(this.state.sensor);
+      }
+      else {
+        saveNewSensor(this.state.sensor);
+      }
     }
   }
 

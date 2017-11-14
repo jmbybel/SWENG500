@@ -12,7 +12,7 @@ const sensors = (state = initialState.sensors, action) => {
   switch (action.type) {
     case SAVE_NEW_DEVICE:
       return [
-        ...state.filter(sensor => sensor.id !== action.sensor.id),
+        ...state.filter(sensor => sensor._id !== action.sensor._id),
         Object.assign({}, action.sensor)
       ];
     case LOAD_DEVICES_SUCCESS: {
@@ -40,11 +40,11 @@ const byId = (state = {}, action) => {
       };
     }
     default: {
-      const { id } = action;
-      if (id) {
+      const { _id } = action;
+      if (_id) {
         return {
           ...state,
-          [id]: sensors(state[id], action)
+          [_id]: sensors(state[_id], action)
         };
       }
       return state;
@@ -70,11 +70,11 @@ const numRunningSensors = (state = initialState.numRunningSensors, action) => {
 const startSensor = (state = {}, action) => {
   switch (action.type) {
     case START_SENSOR: {
-      const { id } = action;
-      if (id) {
+      const { _id } = action;
+      if (_id) {
         return {
           ...state,
-          [id]: sensors(state[id], action)
+          [_id]: sensors(state[_id], action)
         };
       }
       return state;
@@ -92,8 +92,8 @@ export default combineReducers({
   startSensor,
 });
 
-export const getSensor = (state, id) =>
-  state.byId[id];
+export const getSensor = (state, _id) =>
+  state.byId[_id];
 
 export const getAllSensors = (state) =>
-  state.sensors.map(id => getSensor(state, id));
+  state.sensors.map(_id => getSensor(state, _id));

@@ -74,8 +74,8 @@ class SensorsPage extends React.Component {
 	alert("deleteEvent: " + sensorId);
   }
 
-  createNewSensorClick() {
-    this.setState({
+  createNewSensorClick(component) {
+    component.setState({
       sensor: {
         _id: (((1+Math.random())*0x10000)|0) + (((1+Math.random())*0x10000)|0) + (((1+Math.random())*0x10000)|0),
         name: '',
@@ -103,6 +103,7 @@ class SensorsPage extends React.Component {
         actions: {
           saveNewSensor,
           startSensor,
+          updateSensor,
           pauseSensor,
           deleteSensor,
         },
@@ -110,6 +111,7 @@ class SensorsPage extends React.Component {
       state: {
         sensor,
       },
+      createNewSensorClick,
     } = this;
 
     return (
@@ -127,7 +129,7 @@ class SensorsPage extends React.Component {
 
         <Button style={{marginLeft: "400px"}}
           bsStyle="primary"
-          onClick={() => this.createNewSensorClick()}>
+          onClick={() => this.createNewSensorClick(this)}>
             {"New Sensor"}
         </Button><br/>
 
@@ -151,7 +153,12 @@ class SensorsPage extends React.Component {
           <Tab eventKey={1} title="Properties">
             <NewSensorForm
               sensor={sensor}
-              saveNewSensor={saveNewSensor} />
+              sensors={sensorList}
+              updateSensor={updateSensor}
+              saveNewSensor={(sensor) => {
+                createNewSensorClick(this);
+                saveNewSensor(sensor);
+              }} />
           </Tab>
           <Tab eventKey={2} title="Live">Live Time Series Chart</Tab>
         </Tabs>
