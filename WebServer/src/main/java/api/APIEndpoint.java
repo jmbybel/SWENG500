@@ -23,7 +23,7 @@ public class APIEndpoint {
 		return dataService.createSensor(json);
 	}
 	
-	public boolean updateSensor(String json) {
+	public String updateSensor(String json) {
 		return dataService.updateSensor(json);
 	}
 	

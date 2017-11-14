@@ -67,7 +67,7 @@ public interface IDataService {
 	 * input: sensorSchema
 	 */
 	
-	boolean updateSensor(String sensorSchema);
+	String updateSensor(String sensorSchema);
 	/*
 	 * input: sensorSchema
 	 */

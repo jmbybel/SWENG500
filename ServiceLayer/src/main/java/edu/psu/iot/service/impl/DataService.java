@@ -92,13 +92,13 @@ public class DataService implements IDataService {
 	}
 
 	@Override
-	public boolean updateSensor(String jsonString) {
+	public String updateSensor(String jsonString) {
 		// Uses ISensorService and IDatabase
 		ISensor sensor = JsonHandler.getSensorFromJson(jsonString);
 		service.deleteSensor(sensor.getId());	//to update, we delete and create anything with that sensor id
 		service.createSensor(sensor);
 		db.updateSensor(sensor);
-		return true;
+		return JsonHandler.jsonFromSensor(sensor);
 	}
 
 	@Override
