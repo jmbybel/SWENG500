@@ -35,19 +35,17 @@ class Dashboard extends React.Component {
     } = this;
 
     this.channel.bind('my-event', data => {
+      // get the new payload
       const newMessage = JSON.parse(data.message);
-      let newSensorFeed = null;
+      // convert the payload from milliseconds to a date value
+      newMessage.timestamp = new Date(newMessage.timestamp).toLocaleString();
+      // add the payload to the beginning of the array
+      sensorFeed.unshift(newMessage);
+      // set the array length to 9 to remove old data
+      sensorFeed.length = 9;
 
-      if (sensorFeed.length >= 20) {
-        newSensorFeed = sensorFeed.slice(sensorFeed.length - 20, sensorFeed.length);
-      }
-      else {
-        newSensorFeed = sensorFeed;
-      }
-
-      newSensorFeed.push(newMessage);
       this.setState({
-        sensorFeed: newSensorFeed
+        sensorFeed
       });
     });
   }
@@ -76,7 +74,8 @@ class Dashboard extends React.Component {
             numRunningSensors={numRunningSensors}/>
         <Panel className={"liveDataFeed"}>
           <LiveDataFeed
-            sensorFeed={this.state.sensorFeed} />
+            sensorFeed={this.state.sensorFeed}
+            noDataMessage={numRunningSensors.count === 0 ? "No Sensors are running" : "Waiting for payloads.."} />
         </Panel>
       </section>
     );

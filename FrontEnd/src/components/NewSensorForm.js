@@ -169,7 +169,7 @@ class NewSensorForm extends React.Component {
           </span>
           <NewSensorTextInput
             name={'name'}
-            value={sensor.name}
+            value={String(sensor.name)}
             onChange={this.newSensorKeypress} />
         </div>
         <div
@@ -180,7 +180,7 @@ class NewSensorForm extends React.Component {
           </span>
           <NewSensorTextInput
             name={'initialValue'}
-            value={sensor.initialValue}
+            value={String(sensor.initialValue)}
             onChange={this.newSensorKeypress} />
         </div>
         <div
@@ -191,7 +191,7 @@ class NewSensorForm extends React.Component {
           </span>
           <NewSensorTextInput
             name={'max'}
-            value={sensor.max}
+            value={String(sensor.max)}
             onChange={this.newSensorKeypress} />
         </div>
         <div
@@ -202,7 +202,7 @@ class NewSensorForm extends React.Component {
           </span>
           <NewSensorTextInput
             name={'min'}
-            value={sensor.min}
+            value={String(sensor.min)}
             onChange={this.newSensorKeypress} />
         </div>
         <div
@@ -213,7 +213,7 @@ class NewSensorForm extends React.Component {
           </span>
           <NewSensorTextInput
             name={'duration'}
-            value={sensor.duration}
+            value={String(sensor.duration)}
             onChange={this.newSensorKeypress} />
         </div>
         <div
@@ -224,7 +224,7 @@ class NewSensorForm extends React.Component {
           </span>
           <NewSensorTextInput
             name={'interval'}
-            value={sensor.interval}
+            value={String(sensor.interval)}
             onChange={this.newSensorKeypress} />
         </div>
         <div
@@ -235,7 +235,7 @@ class NewSensorForm extends React.Component {
           </span>
           <NewSensorSensorTypeDropdown
             id={'sensorTypeDropdown'}
-            value={this.state.btnTypeTitle}
+            value={String(this.state.btnTypeTitle)}
             onSelect={this.dropdownOnSelect}  />
         </div>
         <div
@@ -246,7 +246,7 @@ class NewSensorForm extends React.Component {
           </span>
           <NewSensorTextInput
             name={'sinInterval'}
-            value={sensor.sinInterval}
+            value={String(sensor.sinInterval)}
             onChange={this.newSensorKeypress} />
         </div>
 		<div
@@ -257,7 +257,7 @@ class NewSensorForm extends React.Component {
           </span>
           <NewSensorRandomIntervalDropdown
             id={'randomIntervalDropdown'}
-            value={sensor.randomInterval}
+            value={String(sensor.randomInterval)}
             onSelect={this.dropdownOnSelect} />
         </div>
         <div
@@ -268,8 +268,8 @@ class NewSensorForm extends React.Component {
           </span>
           <NewSensorTextInput
             name={'minInterval'}
-            value={sensor.minInterval}
-            disabled={sensor.randomInterval=="False"}
+            value={String(sensor.minInterval)}
+            disabled={String(sensor.randomInterval)=="False"}
             onChange={this.newSensorKeypress} />
         </div>
         <div
@@ -280,8 +280,8 @@ class NewSensorForm extends React.Component {
           </span>
           <NewSensorTextInput
             name={'maxInterval'}
-            value={sensor.maxInterval}
-            disabled={sensor.randomInterval=="False"}
+            value={String(sensor.maxInterval)}
+            disabled={String(sensor.randomInterval)=="False"}
             onChange={this.newSensorKeypress} />
         </div>
           <div
@@ -292,7 +292,7 @@ class NewSensorForm extends React.Component {
           </span>
           <NewSensorTextInput
             name={'urlEndpoint'}
-            value={sensor.urlEndpoint}
+            value={String(sensor.urlEndpoint)}
             placeholder={'18.216.43.18:8081/contentListener'}
             onChange={this.newSensorKeypress} />
         </div>

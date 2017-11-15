@@ -4,6 +4,7 @@ import {
   SAVE_NEW_DEVICE,
   GET_NUMBER_OF_RUNNING_SENSORS,
   START_SENSOR,
+  STOP_SENSOR,
   DELETE_SENSOR,
 } from '../constants/ActionTypes';
 import initialState from './initialState';
@@ -85,11 +86,30 @@ const startSensor = (state = {}, action) => {
   }
 };
 
+const stopSensor = (state = {}, action) => {
+  switch (action.type) {
+    case STOP_SENSOR: {
+      const { _id } = action;
+      if (_id) {
+        return {
+          ...state,
+          [_id]: sensors(state[_id], action)
+        };
+      }
+      return state;
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
 export default combineReducers({
   sensors,
   byId,
   numRunningSensors,
   startSensor,
+  stopSensor,
 });
 
 export const getSensor = (state, _id) =>

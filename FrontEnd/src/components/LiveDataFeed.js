@@ -11,12 +11,13 @@ class LiveDataFeed extends React.Component {
     const {
         props: {
           sensorFeed,
+          noDataMessage,
         },
       } = this;
 
     return (
       <section className={"liveDataFeed"}>
-        <BootstrapTable height={"400px"} data={sensorFeed} bordered={false} options={{noDataText: "No Sensors are running" }}>
+        <BootstrapTable height={"400px"} data={sensorFeed} bordered={false} options={{noDataText: noDataMessage }}>
           <TableHeaderColumn dataField="name" isKey={true}>Sensor Name</TableHeaderColumn>
           <TableHeaderColumn dataField="timestamp">Timestamp</TableHeaderColumn>
           <TableHeaderColumn dataField="type">Type</TableHeaderColumn>
@@ -29,6 +30,7 @@ class LiveDataFeed extends React.Component {
 
 LiveDataFeed.propTypes = {
   sensorFeed: PropTypes.array,
+  noDataMessage: PropTypes.string,
 };
 
 export default LiveDataFeed;
