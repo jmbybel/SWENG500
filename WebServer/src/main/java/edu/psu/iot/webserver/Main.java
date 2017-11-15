@@ -31,6 +31,16 @@ public class Main {
         	return "{}";
         });
         
+        post("/set-destination-ip", (request, response) -> {
+        	String ip = request.body();
+        	
+        	if (endpoint.setDestinationIP(request.body())) {
+        		return ip;
+        	}
+        	
+        	return "{}";
+        });
+        
         post("/start-sensor", (request, response) -> {
         	String id = request.body();
         	String sensor = null;
