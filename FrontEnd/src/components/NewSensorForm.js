@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import NewSensorTextInput from './NewSensorTextInput';
 import NewSensorSensorTypeDropdown from './NewSensorSensorTypeDropdown';
 import NewSensorRandomIntervalDropdown from './NewSensorRandomIntervalDropdown';
+import toPascalCase from 'to-pascal-case';
 import {
   Button,
 } from 'react-bootstrap';
@@ -27,8 +28,6 @@ class NewSensorForm extends React.Component {
         randomInterval: props.sensor.randomInterval,
         urlEndpoint: props.sensor.urlEndpoint,
       },
-      btnRandomTitle: 'Select ...',
-      btnTypeTitle: 'Select ...',
     };
     this.newSensorKeypress = this.newSensorKeypress.bind(this);
     this.dropdownOnSelect = this.dropdownOnSelect.bind(this);
@@ -36,6 +35,8 @@ class NewSensorForm extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    nextProps.sensor.randomInterval = toPascalCase(String(nextProps.sensor.randomInterval));
+    nextProps.sensor.type = toPascalCase(String(nextProps.sensor.type));
     this.setState({
       sensor: nextProps.sensor,
     });
@@ -69,9 +70,8 @@ class NewSensorForm extends React.Component {
         sensor: Object.assign(
           {},
           sensor,
-          { ['randomInterval']: eventKey }
+          { ['randomInterval']: toPascalCase(eventKey) }
         ),
-        btnRandomTitle: eventKey
       });
     }
     else
@@ -80,9 +80,8 @@ class NewSensorForm extends React.Component {
         sensor: Object.assign(
           {},
           sensor,
-          { ['type']: eventKey }
+          { ['type']: toPascalCase(eventKey) }
         ),
-        btnTypeTitle: eventKey
       });
     }
   }
@@ -235,7 +234,7 @@ class NewSensorForm extends React.Component {
           </span>
           <NewSensorSensorTypeDropdown
             id={'sensorTypeDropdown'}
-            value={String(this.state.btnTypeTitle)}
+            value={String(sensor.type)}
             onSelect={this.dropdownOnSelect}  />
         </div>
         <div

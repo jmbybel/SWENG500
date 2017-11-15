@@ -116,23 +116,25 @@ class SensorsPage extends React.Component {
 
     return (
       <section>
-        <DropdownButton
-          id="filterDropdown"
-          bsStyle="primary"
-          title="Show...."
-          onSelect={this.handleFilterDropdown}>
-          <MenuItem eventKey="All">All</MenuItem>
-          <MenuItem eventKey="Active">Active</MenuItem>
-          <MenuItem eventKey="Inactive">Inactive</MenuItem>
-        </DropdownButton>
-         &nbsp;<b>{this.state.filterKey}</b>
-
-        <Button style={{marginLeft: "400px"}}
-          bsStyle="primary"
-          onClick={() => this.createNewSensorClick(this)}>
-            {"New Sensor"}
-        </Button><br/>
-
+        <div>
+          <div className={"filterDiv"}>
+            <DropdownButton
+              id="filterDropdown"
+              bsStyle="primary"
+              title="Show ..."
+              onSelect={this.handleFilterDropdown}>
+              <MenuItem eventKey="All">All</MenuItem>
+              <MenuItem eventKey="Active">Active</MenuItem>
+              <MenuItem eventKey="Inactive">Inactive</MenuItem>
+            </DropdownButton>
+            <b className={"filterSelection"}>{this.state.filterKey}</b>
+          </div>
+          <Button className={"newSensorButton"}
+            bsStyle="primary"
+            onClick={() => this.createNewSensorClick(this)}>
+              {"New Sensor"}
+          </Button>
+        </div>
         <div className={"sensorListDiv"}>
           <Panel
             style={{height: '680px', overflow: 'auto'}}

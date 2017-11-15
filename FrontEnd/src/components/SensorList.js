@@ -17,7 +17,8 @@ class SensorList extends React.Component {
   mapSensors(sensors) {
     return sensors.length > 0
       ? sensors.map((sensor, key) => (
-        <ListGroupItem key={key} header={sensor.name}>
+        <ListGroupItem key={key}>
+          <h4 className="list-group-item-heading">{sensor.name}</h4>
           System ID: {sensor._id}&nbsp;&nbsp;&nbsp;&nbsp;
           <ButtonGroup>
             <Button onClick={()=>this.props.detailsClick(sensor)} bsStyle="info" >

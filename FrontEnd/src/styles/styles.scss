@@ -46,7 +46,7 @@ h2 {
     }
   }
   .saveButton {
-    min-width: 80px;
+    width: 100%;
   }
 }
 
@@ -75,4 +75,23 @@ h2 {
   width: 83%;
   margin-left: 5%;
   overflow: hidden;
+}
+
+.filterDiv {
+  display: inline-block;
+  width: 897px;
+  margin-bottom: 10px;
+}
+
+.filterSelection {
+  margin-left: 9px;
+}
+
+.newSensorButton {
+  display: inline-block;
+}
+
+#randomIntervalDropdown, #sensorTypeDropdown {
+  width: 100px;
+  text-align: left;
 }
