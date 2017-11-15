@@ -104,7 +104,7 @@ public abstract class Payload implements Runnable{
 		
 		JSONObject payload = new JSONObject();
 		payload.put("name", this.getName());
-		payload.put("id", this.getId());
+		payload.put("_id", this.getId());
 		payload.put("value", getCurrentValue());
 		Date d = new Date(System.currentTimeMillis());
 		payload.put("timestamp", d);

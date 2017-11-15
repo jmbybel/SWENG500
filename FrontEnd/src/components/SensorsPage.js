@@ -5,8 +5,7 @@ import {bindActionCreators} from 'redux';
 import * as sensorActions from '../actions/sensorActions';
 import NewSensorForm from '../components/NewSensorForm';
 import SensorList from '../components/SensorList';
-import Pusher from 'pusher-js';
-import { BootstrapTable,TableHeaderColumn } from 'react-bootstrap-table';
+import LiveTabFeed from '../components/LiveTabFeed';
 import {
   Tabs,
   DropdownButton,
@@ -37,7 +36,6 @@ class SensorsPage extends React.Component {
         urlEndpoint: '',
       },
       key: 1,
-      sensorFeed: [],
       filterKey: "All",
     };
     this.handleSelect = this.handleSelect.bind(this);
@@ -85,46 +83,6 @@ class SensorsPage extends React.Component {
 	alert("deleteEvent: " + sensorId);
   }
 
-  componentWillMount() {
-    this.props.actions.getNumberOfRunningSensors();
-    const pusher = new Pusher('05483fef894d660001a9', {
-      cluster: 'us2',
-      encrypted: true
-    });
-    const channel = pusher.subscribe('my-channel');
-    this.pusher = pusher.bind(this);
-    this.channel = channel.bind(this);
-  }
-
-  componentDidMount() {
-    const {
-      state: {
-        sensorFeed,
-      }
-    } = this;
-
-    this.channel.bind('my-event', data => {
-      // get the new payload
-      const newMessage = JSON.parse(data.message);
-      if(newMessage.name === this.state.sensor.name)
-      {
-        // convert the payload from milliseconds to a date value
-        newMessage.timestamp = new Date(newMessage.timestamp).toLocaleString();
-        // add the payload to the beginning of the array
-        sensorFeed.unshift(newMessage);
-        // set the array length to 9 to remove old data
-        sensorFeed.length = 9;
-      }
-      this.setState({
-        sensorFeed
-      });
-    });
-  }
-
-  componentWillUnmount() {
-    this.pusher.unsubscribe('my-channel');
-  }
-
   createNewSensorClick(component) {
     component.setState({
       sensor: {
@@ -161,7 +119,6 @@ class SensorsPage extends React.Component {
       },
       state: {
         sensor,
-        sensorFeed,
       },
       createNewSensorClick,
     } = this;
@@ -217,11 +174,7 @@ class SensorsPage extends React.Component {
               }} />
           </Tab>
           <Tab eventKey={2} title="Live">
-          <BootstrapTable height={"400px"} data={sensorFeed} bordered={false} options={{noDataText: "No sensor selected for live data (Click Details)" }}>
-            <TableHeaderColumn dataField="name" isKey={true}>Sensor Name</TableHeaderColumn>
-            <TableHeaderColumn dataField="timestamp">Timestamp</TableHeaderColumn>
-            <TableHeaderColumn dataField="value">Payload Value</TableHeaderColumn>
-          </BootstrapTable>
+          <LiveTabFeed sensorId={this.state.sensor._id} /> 
           </Tab>
         </Tabs>
       </section>
