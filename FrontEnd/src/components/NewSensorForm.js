@@ -114,9 +114,9 @@ class NewSensorForm extends React.Component {
     {
       alert('Please enter a valid number for duration');
     }
-    else if (String(this.state.sensor.interval).match(/[a-z]/i) || this.state.sensor.interval === '')
+    else if (String(this.state.sensor.interval).match(/[a-z]/i) || this.state.sensor.interval === '' || parseInt(this.state.sensor.interval) < 1000 )
     {
-      alert('Please enter a valid number for interval');
+      alert('Please enter a valid number for interval >= 1000ms');
     }
     else if (this.state.sensor.type === '')
     {
@@ -208,7 +208,9 @@ class NewSensorForm extends React.Component {
           className={'input'}>
           <span
             className={'labelSpan'}>
-            Duration in Milliseconds
+            Duration in ms (0 for ∞)
+          </span>
+          <span>
           </span>
           <NewSensorTextInput
             name={'duration'}
@@ -219,7 +221,7 @@ class NewSensorForm extends React.Component {
           className={'input'}>
           <span
             className={'labelSpan'}>
-            Interval in Milliseconds
+            Interval in ms
           </span>
           <NewSensorTextInput
             name={'interval'}
