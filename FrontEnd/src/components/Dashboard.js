@@ -72,7 +72,7 @@ class Dashboard extends React.Component {
         </PageHeader>
         <ActiveSensorCount
             numRunningSensors={numRunningSensors}/>
-        <Panel className={"liveDataFeed"}>
+        <Panel className={"liveDataFeed"} header="Live Data Feed for All Sensors">
           <LiveDataFeed
             sensorFeed={this.state.sensorFeed}
             noDataMessage={numRunningSensors.count === 0 ? "No Sensors are running" : "Waiting for payloads.."} />

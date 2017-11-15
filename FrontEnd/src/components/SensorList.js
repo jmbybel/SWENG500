@@ -27,6 +27,7 @@ class SensorList extends React.Component {
             <Button disabled={sensor.active} onClick={()=>this.props.startClick(sensor._id)}  bsStyle="success">Start</Button>
             <Button disabled={!sensor.active} onClick={()=>this.props.stopClick(sensor._id)}   bsStyle="warning">Stop</Button>
             <Button onClick={()=>this.props.deleteClick(sensor._id)}   bsStyle="danger">Delete</Button>
+            <Button onClick={()=>this.props.liveClick(sensor)} bsStyle="primary">Live</Button>
           </ButtonGroup>
           <br/>
           Active: false<br/>

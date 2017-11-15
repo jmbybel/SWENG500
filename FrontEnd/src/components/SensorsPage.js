@@ -42,6 +42,7 @@ class SensorsPage extends React.Component {
     };
     this.handleSelect = this.handleSelect.bind(this);
     this.handleDetailsClick = this.handleDetailsClick.bind(this);
+    this.handleLiveClick = this.handleLiveClick.bind(this);
     this.handleFilterDropdown = this.handleFilterDropdown.bind(this);
   }
 
@@ -61,6 +62,13 @@ class SensorsPage extends React.Component {
     this.setState({
       sensor: incomingSensor,
       key: 1,//force the right-side pane to display the Details.
+    });
+  }
+
+  handleLiveClick(incomingSensor) {
+    this.setState({
+      sensor: incomingSensor,
+      key: 2,//force the right-side pane to display the Live Data.
     });
   }
 
@@ -188,6 +196,7 @@ class SensorsPage extends React.Component {
               startClick={startSensor}
               stopClick={pauseSensor}
               deleteClick={deleteSensor}
+              liveClick={this.handleLiveClick}
               sensors={sensorList} />
           </Panel>
         </div>
