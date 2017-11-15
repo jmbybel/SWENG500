@@ -4,7 +4,7 @@ import {
   SAVE_NEW_DEVICE,
   GET_NUMBER_OF_RUNNING_SENSORS,
   START_SENSOR,
-  STOP_SENSOR,
+  PAUSE_SENSOR,
   DELETE_SENSOR,
 } from '../constants/ActionTypes';
 import initialState from './initialState';
@@ -88,7 +88,7 @@ const startSensor = (state = {}, action) => {
 
 const stopSensor = (state = {}, action) => {
   switch (action.type) {
-    case STOP_SENSOR: {
+    case PAUSE_SENSOR: {
       const { _id } = action;
       if (_id) {
         return {
