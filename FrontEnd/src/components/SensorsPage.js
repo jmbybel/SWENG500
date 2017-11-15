@@ -137,7 +137,7 @@ class SensorsPage extends React.Component {
         </div>
         <div className={"sensorListDiv"}>
           <Panel
-            style={{height: '680px', overflow: 'auto'}}
+            style={{height: '747px', overflow: 'auto'}}
             header={"Existing Sensors"}>
             <SensorList
               detailsClick={this.handleDetailsClick}
