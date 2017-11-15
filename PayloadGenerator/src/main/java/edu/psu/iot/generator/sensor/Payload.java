@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Date;
 import java.util.concurrent.ScheduledExecutorService;
 
 import edu.psu.iot.generator.interfaces.ISensor;
@@ -105,7 +106,8 @@ public abstract class Payload implements Runnable{
 		payload.put("name", this.getName());
 		payload.put("id", this.getId());
 		payload.put("value", getCurrentValue());
-		payload.put("timestamp", System.currentTimeMillis());
+		Date d = new Date(System.currentTimeMillis());
+		payload.put("timestamp", d);
 
 		logger.info("current payload: {}", payload.toString());
 
