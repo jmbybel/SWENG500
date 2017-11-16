@@ -10,6 +10,7 @@ class LiveTabFeed extends React.Component {
     this.state = {
       sensorFeed: [],
     };
+    this.messageHandler = this.messageHandler.bind(this);
     this.bindDataSource = this.bindDataSource.bind(this);
   }
 
@@ -23,37 +24,27 @@ class LiveTabFeed extends React.Component {
     this.channel = channel.bind(this);
   }
 
-
-  bindDataSource(props) {
+  messageHandler(data, sensorId) {
     const {
       state: {
         sensorFeed,
       }
     } = this;
-    const {
-        sensorId,
-    } = props;
 
-    console.log(this.props);
-    this.channel.bind('my-event', data => messageHandler(data));
-  }
-
-  messageHandler(data) {
     // get the new payload
     const newMessage = JSON.parse(data.message);
-        console.log(sensorId);
-    if(newMessage._id === sensorId)
-    {
-        // convert the payload from milliseconds to a date value
+    if (newMessage._id === sensorId) {
         newMessage.timestamp = new Date(newMessage.timestamp).toLocaleString();
-        // add the payload to the beginning of the array
-        sensorFeed.unshift(newMessage);
-        // set the array length to 9 to remove old data
-        sensorFeed.length = 17;
-        console.log(sensorFeed);
-        this.setState({
-            sensorFeed
-        });  
+        if (sensorFeed.some((element) => {return element.timestamp == newMessage.timestamp}) === false) {
+          // convert the payload from milliseconds to a date value
+          // add the payload to the beginning of the array
+          sensorFeed.unshift(newMessage);
+          // set the array length to 17 to remove old data
+          sensorFeed.length = 17;
+          this.setState({
+              sensorFeed
+          });
+      }
     }
   }
 
@@ -69,6 +60,10 @@ class LiveTabFeed extends React.Component {
     this.pusher.unsubscribe('my-channel');
   }
 
+  bindDataSource(props) {
+    this.channel.bind('my-event', data => this.messageHandler(data, props.sensorId));
+  }
+
   render() {
     const {
       state: {
@@ -76,8 +71,6 @@ class LiveTabFeed extends React.Component {
       },
     } = this;
 
-
-    console.log(this.props.sensorName);
     return (
       <section className={"liveTabFeed"}>
        <BootstrapTable height={"400px"} data={sensorFeed} bordered={false} options={{noDataText: "No sensor selected for live data (Click Live on Running Sensor)" }}>
@@ -91,7 +84,7 @@ class LiveTabFeed extends React.Component {
 }
 
 LiveTabFeed.propTypes = {
-    sensorId: PropTypes.string,
+    sensorId: PropTypes.number,
   };
 
 export default LiveTabFeed;

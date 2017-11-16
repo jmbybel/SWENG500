@@ -174,7 +174,7 @@ class SensorsPage extends React.Component {
               }} />
           </Tab>
           <Tab eventKey={2} title="Live">
-          <LiveTabFeed sensorId={this.state.sensor._id} /> 
+          <LiveTabFeed sensorId={this.state.sensor._id} />
           </Tab>
         </Tabs>
       </section>
