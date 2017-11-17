@@ -31,6 +31,10 @@ public class Main {
         	return "{}";
         });
         
+        get("get-destination-ip", (request, response) -> {
+        	return String.format("{\"ip\":\"%s\"}", endpoint.getDestinationIP());
+        });
+        
         post("/set-destination-ip", (request, response) -> {
         	String ip = request.body();
         	
