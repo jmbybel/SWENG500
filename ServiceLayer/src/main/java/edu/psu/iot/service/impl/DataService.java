@@ -53,6 +53,11 @@ public class DataService implements IDataService {
 		}
 		return success;
 	}
+	
+	@Override
+	public String getDestinationIP() {
+		return SensorService.getUrlEndpoint();
+	}
 
 	@Override
 	public String getAllSensors() {

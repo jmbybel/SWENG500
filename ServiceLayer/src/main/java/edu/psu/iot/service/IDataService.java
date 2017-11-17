@@ -41,6 +41,8 @@ public interface IDataService {
 	 * Example: "http://18.216.43.18:8081/contentListener"
 	 */
 	
+	String getDestinationIP();
+	
 	String getAllSensors();
 	/*
 	 * return: {[sensorSchema, sensorSchema...]}

@@ -50,6 +50,10 @@ public class APIEndpoint {
 		return dataService.setDestinationIP(urlEndpoint);
 	}
 	
+	public String getDestinationIP() {
+		return dataService.getDestinationIP();
+	}
+	
 	public boolean deleteSensor(String id) {
 		return dataService.deleteSensor(id);
 	}
