@@ -25,6 +25,30 @@ class sensorApi {
 			}
     }
 
+    static getDestinationIP() {
+      return fetch('http://iotgenerator.ga:4000/get-destination-ip').then(response => {
+        return response.json();
+      }).catch(error => {
+        return error;
+      });
+    }
+
+    static setDestinationIP(destinationIP) {
+      const request = new Request('http://iotgenerator.ga:4000/set-destination-ip', {
+        method: 'POST',
+        headers: new Headers({
+            'Content-Type': 'text/plain'
+        }),
+        body: destinationIP
+      });
+
+      return fetch(request).then(response => {
+        return response.json();
+      }).catch(error => {
+        return error;
+      });
+    }
+
     static startSensor(sensorId) {
       const request = new Request('http://iotgenerator.ga:4000/start-sensor', {
         method: 'POST',

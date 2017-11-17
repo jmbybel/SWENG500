@@ -18,6 +18,7 @@ class Dashboard extends React.Component {
 
   componentWillMount() {
     this.props.actions.getNumberOfRunningSensors();
+    this.props.actions.getDestinationIP();
     const pusher = new Pusher('05483fef894d660001a9', {
       cluster: 'us2',
       encrypted: true

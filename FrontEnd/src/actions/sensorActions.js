@@ -33,6 +33,34 @@ export function deleteSensorSuccess(sensorId) {
   return {type: types.DELETE_SENSOR, sensorId};
 }
 
+export function getDestinationIPSuccess(sensorIP) {
+  return {type: types.GET_DESTINATION_IP, sensorIP};
+}
+
+export function setDestinationIPSuccess(sensorIP) {
+  return {type: types.SET_DESTINATION_IP, sensorIP};
+}
+
+export function getDestinationIP() {
+  return function(dispatch) {
+    return sensorApi.getDestinationIP().then(destinationIP => {
+      dispatch(getDestinationIPSuccess(destinationIP));
+    }).catch(error => {
+      throw(error);
+    });
+  };
+}
+
+export function setDestinationIP(destinationIP) {
+  return function(dispatch) {
+    return sensorApi.setDestinationIP(destinationIP).then(destinationIP => {
+      dispatch(setDestinationIPSuccess(destinationIP));
+    }).catch(error => {
+      throw(error);
+    });
+  };
+}
+
 export function getNumberOfRunningSensors() {
   return function (dispatch) {
     return sensorApi.getNumberOfRunningSensors().then(responseSensorCount => {

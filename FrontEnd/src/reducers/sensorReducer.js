@@ -6,6 +6,8 @@ import {
   START_SENSOR,
   PAUSE_SENSOR,
   DELETE_SENSOR,
+  GET_DESTINATION_IP,
+  SET_DESTINATION_IP,
 } from '../constants/ActionTypes';
 import initialState from './initialState';
 
@@ -104,12 +106,50 @@ const stopSensor = (state = {}, action) => {
   }
 };
 
+const getDestinationIP = (state = {}, action) => {
+  switch (action.type) {
+    case GET_DESTINATION_IP: {
+      const { sensorIP } = action;
+      if (sensorIP) {
+        return {
+          ...state,
+          ...sensorIP,
+        };
+      }
+      return state;
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
+const setDestinationIP = (state = {}, action) => {
+  switch (action.type) {
+    case SET_DESTINATION_IP: {
+      const { sensorIP } = action;
+      if (sensorIP) {
+        return {
+          ...state,
+          ...sensorIP,
+        };
+      }
+      return state;
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
 export default combineReducers({
   sensors,
   byId,
   numRunningSensors,
   startSensor,
   stopSensor,
+  getDestinationIP,
+  setDestinationIP,
 });
 
 export const getSensor = (state, _id) =>
