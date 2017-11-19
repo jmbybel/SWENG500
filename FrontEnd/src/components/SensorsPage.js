@@ -149,6 +149,7 @@ class SensorsPage extends React.Component {
             style={{height: '747px', overflow: 'auto'}}
             header={"Existing Sensors"}>
             <SensorList
+              filter={this.state.filterKey}
               detailsClick={this.handleDetailsClick}
               startClick={startSensor}
               stopClick={pauseSensor}
