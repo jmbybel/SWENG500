@@ -26,10 +26,13 @@ class SensorList extends React.Component {
   
   renderSingleSensor(sensor, key) {
   let renderMe = this.props.filter == "All" || (this.props.filter == "Active" && sensor.active) || (this.props.filter == "Inactive" && !sensor.active);
+  let floatRigthStyleForJsx = {float:"right"};
+  
   if (renderMe) {
     return <ListGroupItem key={key}>
-      <h4 className="list-group-item-heading">{sensor.name}</h4>
-      System ID: {sensor._id}&nbsp;&nbsp;&nbsp;&nbsp;
+      <h4 title={sensor._id} className="list-group-item-heading">{sensor.name}<span style={floatRigthStyleForJsx}>ID: {sensor._id}</span></h4>
+      <span>Active: {sensor.active}</span><br/>
+      
       <ButtonGroup>
         <Button onClick={()=>this.props.detailsClick(sensor)} bsStyle="info" >
           {"Details"}
@@ -40,8 +43,6 @@ class SensorList extends React.Component {
         <Button onClick={()=>this.props.liveClick(sensor)} bsStyle="primary">Live</Button>
       </ButtonGroup>
       <br/>
-      Active: false<br/>
-      Created On: {sensor.expiration}<br/>
     </ListGroupItem>
     }
     return;
