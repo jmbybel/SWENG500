@@ -113,7 +113,7 @@ const getDestinationIP = (state = {}, action) => {
       if (sensorIP) {
         return {
           ...state,
-          ...sensorIP,
+          destinationIP: sensorIP,
         };
       }
       return state;
@@ -131,10 +131,12 @@ const setDestinationIP = (state = {}, action) => {
       if (sensorIP) {
         return {
           ...state,
-          ...sensorIP,
+          destinationIP: sensorIP,
         };
       }
-      return state;
+      return [
+        ...state,
+      ];
     }
     default: {
       return state;

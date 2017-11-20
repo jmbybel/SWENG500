@@ -33,7 +33,6 @@ class SensorsPage extends React.Component {
         minInterval: '',
         maxInterval: '',
         randomInterval: '',
-        urlEndpoint: '',
       },
       key: 1,
       filterKey: "All",
@@ -98,7 +97,6 @@ class SensorsPage extends React.Component {
         minInterval: '',
         maxInterval: '',
         randomInterval: '',
-        urlEndpoint: '',
       }
     });
   }

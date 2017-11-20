@@ -62,18 +62,32 @@ h2 {
   }
 }
 
-.actionSensorCount {
-  width: 12%;
-  font-size: 12px;
+.activeSensorCount {
+  width: 40%;
   display: inline-block;
   vertical-align: top;
 }
 
-.liveDataFeed {
+.destinationIPDiv {
   display: inline-block;
-  vertical-align: top;
-  width: 83%;
-  margin-left: 5%;
+  margin-left: 20px;
+  vertical-align: bottom;
+  margin-bottom: 20px;
+  height: 100%;
+  text-align: right;
+  
+  input {
+    margin-left: 10px;
+    width: 370px;
+  }
+}
+
+.destinationIPSaveButton {
+  width: 100px;
+  margin-left: 10px;
+}
+
+.liveDataFeed {
   overflow: hidden;
 }
 

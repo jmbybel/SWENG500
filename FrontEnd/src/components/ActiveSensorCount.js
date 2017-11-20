@@ -18,9 +18,9 @@ class ActiveSensorCount extends React.Component {
     } = this;
 
   return (
-    <section className={"actionSensorCount"}>
+    <section className={"activeSensorCount"}>
       <Panel header="Active Sensors">
-        {count}
+        {`The current number of actively running sensors is: ${count}`}
       </Panel>
     </section>
   );

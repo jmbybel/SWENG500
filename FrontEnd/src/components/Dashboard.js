@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import NewSensorTextInput from './NewSensorTextInput';
+import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as sensorActions from '../actions/sensorActions';
-import { PageHeader, Panel } from 'react-bootstrap';
+import { PageHeader, Panel, Button } from 'react-bootstrap';
 import ActiveSensorCount from '../components/ActiveSensorCount';
 import LiveDataFeed from '../components/LiveDataFeed';
 import Pusher from 'pusher-js';
@@ -11,9 +12,11 @@ import Pusher from 'pusher-js';
 class Dashboard extends React.Component {
   constructor(props, context) {
     super(props, context);
+    
     this.state = {
       sensorFeed: [],
     };
+    this.destinationIPKeypress = this.destinationIPKeypress.bind(this);
   }
 
   componentWillMount() {
@@ -55,11 +58,33 @@ class Dashboard extends React.Component {
     this.pusher.unsubscribe('my-channel');
   }
 
+  destinationIPKeypress(field, value) {
+    // const {
+    //   state: {
+    //     sensor,
+    //   },
+    // } = this;
+
+    //   this.setState({
+    //     sensor: Object.assign(
+    //       {},
+    //       sensor,
+    //       { [field]: value }
+    //     )
+    //   });
+    console.log("nothing for now." + field + value);
+  }
+
   render() {
     const {
       props: {
         sensors: {
           numRunningSensors,
+          getDestinationIP: {
+            destinationIP: {
+              ip,
+            }
+          }
         },
       },
     } = this;
@@ -71,8 +96,27 @@ class Dashboard extends React.Component {
             {"Mock IoT Data Generator Project"}
           </span>
         </PageHeader>
-        <ActiveSensorCount
-            numRunningSensors={numRunningSensors}/>
+        <div className={"upperHalfDashboard"}>
+          <ActiveSensorCount
+              numRunningSensors={numRunningSensors}/>
+          <div
+            className={'destinationIPDiv'}>
+            <span
+              className={'labelSpan'}>
+              {"Destination IP"}
+            </span>
+            <NewSensorTextInput
+                name={'destinationIP'}
+                value={String(ip)}
+                onChange={this.newSensorKeypress} />
+            <Button
+              className={'destinationIPSaveButton'}
+              bsStyle="primary"
+              onClick={this.save}>
+              {"Save"}
+            </Button>
+          </div>
+        </div>
         <Panel className={"liveDataFeed"} header="Live Data Feed for All Sensors">
           <LiveDataFeed
             sensorFeed={this.state.sensorFeed}

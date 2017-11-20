@@ -26,7 +26,6 @@ class NewSensorForm extends React.Component {
         minInterval: props.sensor.minInterval,
         maxInterval: props.sensor.maxInterval,
         randomInterval: props.sensor.randomInterval,
-        urlEndpoint: props.sensor.urlEndpoint,
       },
     };
     this.newSensorKeypress = this.newSensorKeypress.bind(this);
@@ -283,18 +282,6 @@ class NewSensorForm extends React.Component {
             name={'maxInterval'}
             value={String(sensor.maxInterval)}
             disabled={String(sensor.randomInterval)=="False"}
-            onChange={this.newSensorKeypress} />
-        </div>
-          <div
-          className={'input'}>
-          <span
-            className={'labelSpan'}>
-            URL Endpoint
-          </span>
-          <NewSensorTextInput
-            name={'urlEndpoint'}
-            value={String(sensor.urlEndpoint)}
-            placeholder={'18.216.43.18:8081/contentListener'}
             onChange={this.newSensorKeypress} />
         </div>
         <Button
