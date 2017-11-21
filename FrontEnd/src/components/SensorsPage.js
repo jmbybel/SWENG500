@@ -165,10 +165,11 @@ class SensorsPage extends React.Component {
             <NewSensorForm
               sensor={sensor}
               sensors={sensorList}
-              updateSensor={updateSensor}
+              updateSensor={(sensor) => {
+                updateSensor(sensor);
+              }}
               saveNewSensor={(sensor) => {
                 createNewSensorClick(this);
-                sensor.type = sensor.type.toUpperCase();
                 saveNewSensor(sensor);
               }} />
           </Tab>

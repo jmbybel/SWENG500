@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import {
   LOAD_DEVICES_SUCCESS,
   SAVE_NEW_DEVICE,
+  UPDATE_SENSOR,
   GET_NUMBER_OF_RUNNING_SENSORS,
   START_SENSOR,
   PAUSE_SENSOR,
@@ -18,6 +19,12 @@ const sensors = (state = initialState.sensors, action) => {
         ...state.filter(sensor => sensor._id !== action.sensor._id),
         Object.assign({}, action.sensor)
       ];
+    case UPDATE_SENSOR: {
+      return [
+        ...state.filter(e => e ._id !== action.sensor._id),
+        Object.assign({}, action.sensor)
+      ];
+    }
     case LOAD_DEVICES_SUCCESS: {
       const sensorList = JSON.parse(action.sensors);
       return Object.assign([], state, sensorList);

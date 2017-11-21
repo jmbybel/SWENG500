@@ -144,7 +144,7 @@ public class JsonHandler {
 			sensor.setName(sensorJson.findValue("name").asText());
 			sensor.setRandomInterval(sensorJson.findValue("randomInterval").asBoolean());
 			sensor.setSinInterval(sensorJson.findValue("sinInterval").asInt());
-			sensor.setType(PayloadType.valueOf(sensorJson.findValue("type").asText()));
+			sensor.setType(PayloadType.valueOf(sensorJson.findValue("type").asText().toUpperCase()));
 		} catch (Exception e) {
 			e.printStackTrace();
 			sensor = null;
