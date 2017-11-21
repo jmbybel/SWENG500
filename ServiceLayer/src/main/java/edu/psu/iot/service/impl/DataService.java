@@ -63,6 +63,11 @@ public class DataService implements IDataService {
 		}
 		return success;
 	}
+	
+	@Override
+	public String getDestinationIP() {
+		return SensorService.getUrlEndpoint();
+	}
 
 	@Override
 	public String getAllSensors() {
@@ -125,7 +130,7 @@ public class DataService implements IDataService {
 	}
 
 	@Override
-	public boolean updateSensor(String jsonString) {
+	public String updateSensor(String jsonString) {
 		ISensor sensor = JsonHandler.getSensorFromJson(jsonString);
 		System.out.println(service.getSensorList().keySet());
 		service.deleteSensor(sensor.getId());	//to update, we delete and create anything with that sensor id
@@ -133,7 +138,7 @@ public class DataService implements IDataService {
 		service.createSensor(sensor);
 		System.out.println(service.getSensorList().keySet());
 		db.updateSensor(sensor);
-		return true;
+		return JsonHandler.jsonFromSensor(sensor);
 	}
 
 	@Override

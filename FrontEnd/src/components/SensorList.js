@@ -1,36 +1,51 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, ButtonGroup, Panel } from 'react-bootstrap';
+import {
+  Button,
+  ButtonGroup,
+  ListGroup,
+  ListGroupItem
+} from 'react-bootstrap';
 
 
 class SensorList extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.mapSensors = this.mapSensors.bind(this);
+    this.renderSingleSensor = this.renderSingleSensor.bind(this);
   }
+  
 
   mapSensors(sensors) {
     return sensors.length > 0
       ? sensors.map((sensor, key) => (
-        <div key={key}>
-          <Panel header={sensor.name}>
-            System ID: {sensor._id}&nbsp;&nbsp;&nbsp;&nbsp;
-            <ButtonGroup>
-             <Button
-               onClick={()=>this.props.detailsClick(sensor)} bsStyle="info" >
-               Details
-             </Button>
-             <Button disabled={sensor.active} onClick={()=>this.props.startClick(sensor._id)}  bsStyle="success">Start</Button>
-             <Button disabled={!sensor.active} onClick={()=>this.props.stopClick(sensor._id)}   bsStyle="warning">Stop</Button>
-             <Button onClick={()=>this.props.deleteClick(sensor._id)}   bsStyle="danger">Delete</Button>
-            </ButtonGroup>
-            <br/>
-            Active: false<br/>
-            Created On: {sensor.expiration}<br/>
-          </Panel>
-        </div>
+        this.renderSingleSensor(sensor,key)
         ))
       : "No sensors currently exist. Create one!";
+  }
+  
+  renderSingleSensor(sensor, key) {
+  let renderMe = this.props.filter == "All" || (this.props.filter == "Active" && sensor.active) || (this.props.filter == "Inactive" && !sensor.active);
+  let floatRigthStyleForJsx = {float:"right"};
+  
+  if (renderMe) {
+    return <ListGroupItem key={key}>
+      <h4 title={sensor._id} className="list-group-item-heading">{sensor.name}<span style={floatRigthStyleForJsx}>ID: {sensor._id}</span></h4>
+      <span>Active: {sensor.active}</span><br/>
+      
+      <ButtonGroup>
+        <Button onClick={()=>this.props.detailsClick(sensor)} bsStyle="info" >
+          {"Details"}
+        </Button>
+        <Button disabled={sensor.active} onClick={()=>this.props.startClick(sensor._id)}  bsStyle="success">Start</Button>
+        <Button disabled={!sensor.active} onClick={()=>this.props.stopClick(sensor._id)}   bsStyle="warning">Stop</Button>
+        <Button onClick={()=>this.props.deleteClick(sensor._id)}   bsStyle="danger">Delete</Button>
+        <Button onClick={()=>this.props.liveClick(sensor)} bsStyle="primary">Live</Button>
+      </ButtonGroup>
+      <br/>
+    </ListGroupItem>
+    }
+    return;
   }
 
   render() {
@@ -41,9 +56,9 @@ class SensorList extends React.Component {
     } = this;
 
     return (
-      <section className={"sensorList"}>
+      <ListGroup className={"sensorList"}>
         {this.mapSensors(sensors)}
-      </section>
+      </ListGroup>
     );
   }
 }
@@ -55,6 +70,7 @@ SensorList.propTypes = {
   startClick: PropTypes.func.isRequired,
   stopClick: PropTypes.func.isRequired,
   deleteClick: PropTypes.func.isRequired,
+  filter: PropTypes.string,
 };
 
 export default SensorList;

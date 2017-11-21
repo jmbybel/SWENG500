@@ -42,6 +42,8 @@ public interface IDataService {
 	 * Example: "http://18.216.43.18:8081/contentListener"
 	 */
 	
+	String getDestinationIP();
+	
 	String getAllSensors();
 	/*
 	 * return: {[sensorSchema, sensorSchema...]}
@@ -68,7 +70,7 @@ public interface IDataService {
 	 * input: sensorSchema
 	 */
 	
-	boolean updateSensor(String sensorSchema);
+	String updateSensor(String sensorSchema);
 	/*
 	 * input: sensorSchema
 	 */
@@ -76,7 +78,6 @@ public interface IDataService {
 	boolean deleteSensor(String id);
 	
 	boolean deleteAll(); // Clears the whole database!
-	
 	
 	//Pruned out of backlog at Sprint 3.
 	

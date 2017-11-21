@@ -23,7 +23,7 @@ public class APIEndpoint {
 		return dataService.createSensor(json);
 	}
 	
-	public boolean updateSensor(String json) {
+	public String updateSensor(String json) {
 		return dataService.updateSensor(json);
 	}
 	
@@ -46,16 +46,16 @@ public class APIEndpoint {
 		return sensor;
 	}
 
-	/**
-	 *  Also do this by performing an Update on the Device.
-	 */
-	public String deleteSensor(String id) {
-		boolean result = dataService.deleteSensor(id);
-		if (result) {
-			return ApiConstants.DELETE_SUCCESS;
-		} else {
-			return ApiConstants.DELETE_FAILED;
-		}
+	public boolean setDestinationIP(String urlEndpoint) {
+		return dataService.setDestinationIP(urlEndpoint);
+	}
+	
+	public String getDestinationIP() {
+		return dataService.getDestinationIP();
+	}
+	
+	public boolean deleteSensor(String id) {
+		return dataService.deleteSensor(id);
 	}
 	
 	public String startSensor(String id) {

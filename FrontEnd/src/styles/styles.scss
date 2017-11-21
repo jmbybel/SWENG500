@@ -46,7 +46,7 @@ h2 {
     }
   }
   .saveButton {
-    min-width: 80px;
+    width: 100%;
   }
 }
 
@@ -54,19 +54,58 @@ h2 {
   display: inline-block;
   vertical-align: top;
   width: 49%;
-  height: 688px;
+  height: 747px;
+
+  .sensorList {
+    height: auto;
+    max-height: 610px;
+  }
 }
 
-.actionSensorCount {
-  width: 12%;
-  font-size: 12px;
+.activeSensorCount {
+  width: 40%;
   display: inline-block;
   vertical-align: top;
+}
+
+.destinationIPDiv {
+  display: inline-block;
+  margin-left: 20px;
+  vertical-align: bottom;
+  margin-bottom: 20px;
+  height: 100%;
+  text-align: right;
+  
+  input {
+    margin-left: 10px;
+    width: 370px;
+  }
+}
+
+.destinationIPSaveButton {
+  width: 100px;
+  margin-left: 10px;
 }
 
 .liveDataFeed {
+  overflow: hidden;
+}
+
+.filterDiv {
   display: inline-block;
-  vertical-align: top;
-  width: 83%;
-  margin-left: 5%;
+  width: 897px;
+  margin-bottom: 10px;
+}
+
+.filterSelection {
+  margin-left: 9px;
+}
+
+.newSensorButton {
+  display: inline-block;
+}
+
+#randomIntervalDropdown, #sensorTypeDropdown {
+  width: 100px;
+  text-align: left;
 }

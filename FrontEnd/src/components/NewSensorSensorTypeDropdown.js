@@ -14,7 +14,7 @@ const NewSensorSensorTypeDropdown = (props) => {
     <DropdownButton
       id={props.id}
       bsStyle={'primary'}
-      title={props.value}
+      title={props.value === "" ? "Select ..." : props.value}
       onSelect={handleSelect}>
       <MenuItem eventKey="Sin">Sin</MenuItem>
       <MenuItem eventKey="Ramp">Ramp</MenuItem>

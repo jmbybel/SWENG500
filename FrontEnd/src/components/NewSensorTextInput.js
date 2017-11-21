@@ -18,7 +18,7 @@ const NewSensorTextInput = (props) => {
 NewSensorTextInput.propTypes = {
   name: PropTypes.string,
   placeholder: PropTypes.string,
-  disabled: PropTypes.boolean,
+  disabled: PropTypes.bool,
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,

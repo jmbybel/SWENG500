@@ -5,6 +5,7 @@ import {bindActionCreators} from 'redux';
 import * as sensorActions from '../actions/sensorActions';
 import NewSensorForm from '../components/NewSensorForm';
 import SensorList from '../components/SensorList';
+import LiveTabFeed from '../components/LiveTabFeed';
 import {
   Tabs,
   DropdownButton,
@@ -32,13 +33,13 @@ class SensorsPage extends React.Component {
         minInterval: '',
         maxInterval: '',
         randomInterval: '',
-        urlEndpoint: '',
       },
       key: 1,
       filterKey: "All",
     };
     this.handleSelect = this.handleSelect.bind(this);
     this.handleDetailsClick = this.handleDetailsClick.bind(this);
+    this.handleLiveClick = this.handleLiveClick.bind(this);
     this.handleFilterDropdown = this.handleFilterDropdown.bind(this);
   }
 
@@ -61,6 +62,13 @@ class SensorsPage extends React.Component {
     });
   }
 
+  handleLiveClick(incomingSensor) {
+    this.setState({
+      sensor: incomingSensor,
+      key: 2,//force the right-side pane to display the Live Data.
+    });
+  }
+
   handleStartClick(sensorId){
 	alert("startEvent: " + sensorId);
   }
@@ -74,8 +82,8 @@ class SensorsPage extends React.Component {
 	alert("deleteEvent: " + sensorId);
   }
 
-  createNewSensorClick() {
-    this.setState({
+  createNewSensorClick(component) {
+    component.setState({
       sensor: {
         _id: (((1+Math.random())*0x10000)|0) + (((1+Math.random())*0x10000)|0) + (((1+Math.random())*0x10000)|0),
         name: '',
@@ -89,7 +97,6 @@ class SensorsPage extends React.Component {
         minInterval: '',
         maxInterval: '',
         randomInterval: '',
-        urlEndpoint: '',
       }
     });
   }
@@ -103,42 +110,49 @@ class SensorsPage extends React.Component {
         actions: {
           saveNewSensor,
           startSensor,
+          updateSensor,
           pauseSensor,
+          deleteSensor,
         },
       },
       state: {
         sensor,
       },
+      createNewSensorClick,
     } = this;
 
     return (
       <section>
-        <DropdownButton
-          id="filterDropdown"
-          bsStyle="primary"
-          title="Show...."
-          onSelect={this.handleFilterDropdown}>
-          <MenuItem eventKey="All">All</MenuItem>
-          <MenuItem eventKey="Active">Active</MenuItem>
-          <MenuItem eventKey="Inactive">Inactive</MenuItem>
-        </DropdownButton>
-         &nbsp;<b>{this.state.filterKey}</b>
-        
-        <Button style={{"margin-left": "400px"}}
-          bsStyle="primary"
-          onClick={() => this.createNewSensorClick()}>
-            {"New Sensor"}
-        </Button><br/>        
-        
+        <div>
+          <div className={"filterDiv"}>
+            <DropdownButton
+              id="filterDropdown"
+              bsStyle="primary"
+              title="Show"
+              onSelect={this.handleFilterDropdown}>
+              <MenuItem eventKey="All">All</MenuItem>
+              <MenuItem eventKey="Active">Active</MenuItem>
+              <MenuItem eventKey="Inactive">Inactive</MenuItem>
+            </DropdownButton>
+            <b className={"filterSelection"}>{this.state.filterKey}</b>
+          </div>
+          <Button className={"newSensorButton"}
+            bsStyle="primary"
+            onClick={() => this.createNewSensorClick(this)}>
+              {"New Sensor"}
+          </Button>
+        </div>
         <div className={"sensorListDiv"}>
           <Panel
-            style={{height: '680px', overflow: 'auto'}}
+            style={{height: '747px', overflow: 'auto'}}
             header={"Existing Sensors"}>
             <SensorList
+              filter={this.state.filterKey}
               detailsClick={this.handleDetailsClick}
               startClick={startSensor}
               stopClick={pauseSensor}
-              deleteClick={this.handleDeleteClick}
+              deleteClick={deleteSensor}
+              liveClick={this.handleLiveClick}
               sensors={sensorList} />
           </Panel>
         </div>
@@ -150,9 +164,19 @@ class SensorsPage extends React.Component {
           <Tab eventKey={1} title="Properties">
             <NewSensorForm
               sensor={sensor}
-              saveNewSensor={saveNewSensor} />
+              sensors={sensorList}
+              updateSensor={(sensor) => {
+                updateSensor(sensor);
+              }}
+              saveNewSensor={(sensor) => {
+                createNewSensorClick(this);
+                saveNewSensor(sensor);
+              }} />
           </Tab>
-          <Tab eventKey={2} title="Live">Live Time Series Chart</Tab>
+          <Tab eventKey={2} title="Live">
+          <LiveTabFeed sensorId={this.state.sensor._id} 
+          noDataMessage={this.state.sensor.name === '' ? "No Sensors are running" : "Waiting for payloads.."} />
+          </Tab>
         </Tabs>
       </section>
     );

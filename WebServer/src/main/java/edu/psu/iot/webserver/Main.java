@@ -31,6 +31,20 @@ public class Main {
         	return "{}";
         });
         
+        get("get-destination-ip", (request, response) -> {
+        	return String.format("{\"ip\":\"%s\"}", endpoint.getDestinationIP());
+        });
+        
+        post("/set-destination-ip", (request, response) -> {
+        	String ip = request.body();
+        	
+        	if (endpoint.setDestinationIP(request.body())) {
+        		return ip;
+        	}
+        	
+        	return "{}";
+        });
+        
         post("/start-sensor", (request, response) -> {
         	String id = request.body();
         	String sensor = null;
@@ -53,6 +67,16 @@ public class Main {
         	
         	if (sensor != null)
         		return sensor;
+        	
+        	return "{}";
+        });
+        
+        post("/delete-sensor", (request, response) -> {
+        	String id = request.body();
+        	
+        	if (endpoint.deleteSensor(request.body())) {
+        		return id;
+        	}
         	
         	return "{}";
         });
