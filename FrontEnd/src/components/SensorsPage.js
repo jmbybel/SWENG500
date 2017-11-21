@@ -173,7 +173,8 @@ class SensorsPage extends React.Component {
               }} />
           </Tab>
           <Tab eventKey={2} title="Live">
-          <LiveTabFeed sensorId={this.state.sensor._id} />
+          <LiveTabFeed sensorId={this.state.sensor._id} 
+          noDataMessage={this.state.sensor.name === '' ? "No Sensors are running" : "Waiting for payloads.."} />
           </Tab>
         </Tabs>
       </section>

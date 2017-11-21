@@ -76,12 +76,13 @@ class LiveTabFeed extends React.Component {
     const {
       state: {
         sensorFeed,
+        noDataMessage,
       },
     } = this;
 
     return (
       <section className={"liveTabFeed"}>
-       <BootstrapTable height={"400px"} data={sensorFeed} bordered={false} options={{noDataText: "No sensor selected for live data (Click Live on Running Sensor)" }}>
+       <BootstrapTable height={"400px"} data={sensorFeed} bordered={false} options={{noDataText: noDataMessage }}>
           <TableHeaderColumn dataField="name" isKey={true}>Sensor Name</TableHeaderColumn>
           <TableHeaderColumn dataField="timestamp">Timestamp</TableHeaderColumn>
           <TableHeaderColumn dataField="value">Payload Value</TableHeaderColumn>
@@ -93,6 +94,7 @@ class LiveTabFeed extends React.Component {
 
 LiveTabFeed.propTypes = {
     sensorId: PropTypes.number,
+    noDataMessage: PropTypes.string,
   };
 
 export default LiveTabFeed;
