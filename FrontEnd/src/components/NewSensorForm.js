@@ -246,6 +246,7 @@ class NewSensorForm extends React.Component {
           </span>
           <NewSensorTextInput
             name={'sinInterval'}
+            disabled={String(sensor.type)!="Sin"}
             value={String(sensor.sinInterval)}
             onChange={this.newSensorKeypress} />
         </div>
@@ -269,7 +270,7 @@ class NewSensorForm extends React.Component {
           <NewSensorTextInput
             name={'minInterval'}
             value={String(sensor.randomInterval)=="False" ? 0:String(sensor.minInterval)}
-            disabled={String(sensor.randomInterval)=="False"}
+            disabled={String(sensor.randomInterval)!="True"}
             onChange={this.newSensorKeypress} />
         </div>
         <div
@@ -281,7 +282,7 @@ class NewSensorForm extends React.Component {
           <NewSensorTextInput
             name={'maxInterval'}
             value={String(sensor.randomInterval)=="False" ? 0:String(sensor.maxInterval)}
-            disabled={String(sensor.randomInterval)=="False"}
+            disabled={String(sensor.randomInterval)!="True"}
             onChange={this.newSensorKeypress} />
         </div>
         <Button
