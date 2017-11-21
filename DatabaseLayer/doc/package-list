@@ -1,0 +1,13 @@
+api
+api.validation
+edu.psu.iot.database
+edu.psu.iot.database.mongodb
+edu.psu.iot.database.test
+edu.psu.iot.generator.interfaces
+edu.psu.iot.generator.queue
+edu.psu.iot.generator.sensor
+edu.psu.iot.generator.test
+edu.psu.iot.service
+edu.psu.iot.service.impl
+edu.psu.iot.util
+edu.psu.iot.webserver
