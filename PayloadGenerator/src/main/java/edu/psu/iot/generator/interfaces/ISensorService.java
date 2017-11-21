@@ -10,6 +10,8 @@ import edu.psu.iot.generator.sensor.Sensor;
 
 public interface ISensorService {
 	
+	public boolean isEnabled(int id);
+	
     public void initialize();
     
     public CircularFifoQueue<JSONObject> getQueue();

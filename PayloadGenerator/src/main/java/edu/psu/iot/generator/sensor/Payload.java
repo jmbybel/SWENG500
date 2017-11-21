@@ -95,60 +95,65 @@ public abstract class Payload implements Runnable{
 	public void run() 
 	{		
 		logger.debug(">>sensorRun()");
-		if(isFirstRun){
+		
+		if(isFirstRun) {
 			startTime = System.currentTimeMillis();
 			endTime = startTime + getDuration();
-			isFirstRun = false;
 		}
-		
-		JSONObject payload = new JSONObject();
-		payload.put("name", this.getName());
-		payload.put("id", this.getId());
-		payload.put("value", getCurrentValue());
-		payload.put("timestamp", System.currentTimeMillis());
 
-		logger.info("current payload: {}", payload.toString());
-
-        BufferedWriter output = null;
-        
-        try {
-            File file = new File("logFile.txt");
-            output = new BufferedWriter(new FileWriter(file, true));
-            output.write(payload.toString() + "\n");
-            PayloadQueue.getQueue().add(payload);	//Adds payload to list.
-        } 
-        catch ( IOException e ) {
-            e.printStackTrace();
-        }
-        finally {
-            if ( output != null ) {
-                try {
-					output.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-              }
-        }
-	        
-        try {
-			postEndpoint(SensorService.getUrlEndpoint(), payload);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println(payload);
-		sensorPayload = payload;
-		
-		Pusher pusher = new Pusher("428762", "05483fef894d660001a9", "3e7a9407f569d3833791");
-		pusher.setCluster("us2");
-		pusher.setEncrypted(true);
-
-		pusher.trigger("my-channel", "my-event", Collections.singletonMap("message", payload.toString()));
-		
 		if(isEnable() == true && ((System.currentTimeMillis() < endTime) || getDuration() == 0)){
+		
+			if(!isFirstRun) {
+				this.setCurrentValue(this.calcValue());
+				logger.info("currentValue: {}", this.calcValue());
+			}
+			
+			JSONObject payload = new JSONObject();
+			payload.put("name", this.getName());
+			payload.put("id", this.getId());
+			payload.put("value", getCurrentValue());
+			payload.put("timestamp", System.currentTimeMillis());
+	
+			logger.info("current payload: {}", payload.toString());
+	
+	        BufferedWriter output = null;
+	        
+	        try {
+	            File file = new File("logFile.txt");
+	            output = new BufferedWriter(new FileWriter(file, true));
+	            output.write(payload.toString() + "\n");
+	            PayloadQueue.getQueue().add(payload);	//Adds payload to list.
+	        } 
+	        catch ( IOException e ) {
+	            e.printStackTrace();
+	        }
+	        finally {
+	            if ( output != null ) {
+	                try {
+						output.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+	              }
+	        }
+		        
+	        try {
+				postEndpoint(SensorService.getUrlEndpoint(), payload);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println(payload);
+			sensorPayload = payload;
+			
+			Pusher pusher = new Pusher("428762", "05483fef894d660001a9", "3e7a9407f569d3833791");
+			pusher.setCluster("us2");
+			pusher.setEncrypted(true);
+	
+			pusher.trigger("my-channel", "my-event", Collections.singletonMap("message", payload.toString()));
+				
 
-			this.setCurrentValue(this.calcValue());
-			logger.info("currentValue: {}", this.calcValue());
+			
 		}
 			
 		if(isRandomInterval() == true){
@@ -169,7 +174,15 @@ public abstract class Payload implements Runnable{
 			ses.schedule(this, getInterval(), TimeUnit.MILLISECONDS);
 		}
 		
+		if(isFirstRun){
+			isFirstRun = false;
+		}
+		
+		
 		logger.debug("<<sensorRun()");
+		
+		
+		
 	}
 
 	abstract public double calcValue();

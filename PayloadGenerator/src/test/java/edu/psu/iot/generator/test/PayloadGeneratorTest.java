@@ -9,6 +9,7 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Before;
+import org.junit.Test;
 
 import edu.psu.iot.generator.interfaces.*;
 import edu.psu.iot.generator.interfaces.ISensor;
@@ -72,10 +73,29 @@ public class PayloadGeneratorTest extends TestCase{
 		Sensor config = new Sensor();
 		config.setName("Test Start SS");
 		config.setId(1);
-		config.setRandomInterval(true);
+		//config.setRandomInterval(true);
 		ss.createSensor(config);
+		
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		ss.stopSensor(1);
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		ss.startSensor(1);
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertEquals((ss.getSensorList().get(1)).isEnable(), true);
 	}
 	
@@ -111,16 +131,31 @@ public class PayloadGeneratorTest extends TestCase{
 	
 	public void testSensorStartAndStop()
 	{
-		Sensor config = new Sensor();
-		config.setId(1);
-		config.setName("Test Sensor Start and Stop");
-		config.setRandomInterval(true);
-		Payload sensor;
 		try {
+			Sensor config = new Sensor();
+			config.setId(1);
+			config.setName("Test Sensor Start and Stop");
+			config.setInterval(1000);
+			Payload sensor;
+		
 			sensor = PayloadFactory.createSensor(config);
 			sensor.start();
 			assertEquals(sensor.isEnable(), true);
+			System.out.println("Something...");
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("Something...");
 			sensor.stop();
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			assertEquals(sensor.isEnable(), false);
 		} catch (PayloadTypeInvalidException e) {
 			// TODO Auto-generated catch block
@@ -209,8 +244,6 @@ public class PayloadGeneratorTest extends TestCase{
 		System.out.println(zeroCount);
 		System.out.println(oneHundredCount);
 		assertTrue(zeroCount == 3 && oneHundredCount == 2);
-			
-	
 	}
 	
 	//tests log file works and multiple sensor types work as well
@@ -401,6 +434,7 @@ public class PayloadGeneratorTest extends TestCase{
 		
 	}
 	
+	@Test
 	public void testSensorServiceStop() {
 		
 		try {

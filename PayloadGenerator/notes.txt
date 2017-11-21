@@ -23,3 +23,18 @@ To do:
 All database logic from DataService.
 Test Cases.
 Implement "sensor exists" function.
+
+
+Notes from David:
+
+1)  How to handle new sensor Id's
+2)  Should creating a sensor start it?
+3)  Backend needs to fail sensor creation if fields are not valid or use default values.
+
+Move JSON Handler to Util
+
+Also, update Architecture diagram, especially dependencies and associations when complete.
+
+
+
+

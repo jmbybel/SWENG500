@@ -33,6 +33,17 @@ public class SensorService implements ISensorService {
     	logger.debug(">>SensorServiceConstructor()"); 	
     	logger.debug("<<SensorServiceConstructor()");
     }
+	
+	@Override
+	public boolean isEnabled(int id) {
+		boolean enabled = false;
+		Payload payload = this.getSensorList().getOrDefault(id, null);
+		if(payload!=null) {
+			enabled = payload.isEnable();
+		}
+			
+		return enabled;
+	}
     
     @Override
     public  void initialize(){
@@ -92,7 +103,8 @@ public class SensorService implements ISensorService {
     @Override
     public void startSensor(int id){
     	logger.debug(">>startSensor()");
-    	sensorList.get(Integer.valueOf(id)).start(SensorService.ses);
+    	//sensorList.get(Integer.valueOf(id)).start(SensorService.ses);
+    	sensorList.get(Integer.valueOf(id)).setEnable(true);
     	logger.debug("<<startSensor()");
     }
     
