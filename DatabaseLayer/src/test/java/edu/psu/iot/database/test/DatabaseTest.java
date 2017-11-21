@@ -2,6 +2,9 @@ package edu.psu.iot.database.test;
 
 import static org.junit.Assert.*;
 
+import org.bson.Document;
+import org.bson.json.JsonMode;
+import org.bson.json.JsonWriterSettings;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -37,12 +40,12 @@ public class DatabaseTest {
 	@Test
 	public void deleteInsertReadFormatSensor() {
 		try {
-			db.deleteSensor("{\"_id\":123}");
+			//db.deleteSensor("{\"_id\":123}");
 			ISensor sensor = new Sensor();
 			sensor.setId(123);
 			db.createSensor(sensor);
-			String dbSensor = db.getSensor("{\"_id\":123}");
-			System.out.println(dbSensor);			
+			Document dbSensor = db.getSensor("{\"_id\":123}");
+			System.out.println(dbSensor.toJson(new JsonWriterSettings(JsonMode.RELAXED)));			
 			assertTrue(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -60,7 +63,7 @@ public class DatabaseTest {
 		}
 	}*/
 	
-	
+	/*
 	@Test
 	public void getAllSensors() {
 		
@@ -91,5 +94,5 @@ public class DatabaseTest {
 		assertTrue(true);
 		
 		
-	}
+	}*/
 }

@@ -1,5 +1,13 @@
 package edu.psu.iot.service.impl;
 
+import java.util.Map;
+
+import org.bson.Document;
+import org.bson.json.JsonMode;
+import org.bson.json.JsonWriterSettings;
+
+import com.mongodb.client.MongoCursor;
+
 import edu.psu.iot.database.IDatabase;
 import edu.psu.iot.database.mongodb.Database;
 import edu.psu.iot.generator.interfaces.ISensor;
@@ -38,6 +46,8 @@ public class DataService implements IDataService {
 		}
 		return JsonHandler.buildSingleInt("count", count);
 	}
+	
+
 
 	@Override
 	public boolean setDestinationIP(String destination) {
@@ -56,19 +66,43 @@ public class DataService implements IDataService {
 
 	@Override
 	public String getAllSensors() {
-		// Only uses IDatabase
-		return db.getAllSensors();
+		MongoCursor<Document> cursor = db.getAllSensors();
+		String all = "[";
+		StringBuilder builder = new StringBuilder(all);
+		Document doc = null;
+		try {
+		    while (cursor.hasNext()) {
+		    	doc = cursor.next();
+		    	doc.append("enabled", service.isEnabled(doc.getInteger("_id")));
+		    	builder.append(doc.toJson(new JsonWriterSettings(JsonMode.RELAXED)));
+		    	builder.append(",");
+		    }
+		    int length = builder.length();
+		    
+		    // If no sensors exist, don't delete the opening [
+		    if (length > 1) {
+		    	builder.delete(length - 1, length);
+		    }
+		    
+		    builder.append("]");
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+		    cursor.close();
+		}
+
+		return builder.toString();
 	}
 
 	@Override
 	public String getSensor(String id) {
-		// Only uses IDatabase
-		return db.getSensor(id);
+		Document doc = db.getSensor(id);
+		doc.append("enabled", service.isEnabled(doc.getInteger("_id")));
+		return doc.toJson(new JsonWriterSettings(JsonMode.RELAXED));
 	}
 
 	@Override
 	public boolean startSensor(String id) {
-		// Only uses ISensorService
 		int sensorId = JsonHandler.getIdFromJson(id);
 		service.startSensor(sensorId);
 		return true;
@@ -76,7 +110,6 @@ public class DataService implements IDataService {
 
 	@Override
 	public boolean pauseSensor(String id) {
-		// Only uses ISensorService
 		int sensorId = JsonHandler.getIdFromJson(id);
 		service.stopSensor(sensorId);
 		return true;
@@ -93,10 +126,12 @@ public class DataService implements IDataService {
 
 	@Override
 	public boolean updateSensor(String jsonString) {
-		// Uses ISensorService and IDatabase
 		ISensor sensor = JsonHandler.getSensorFromJson(jsonString);
+		System.out.println(service.getSensorList().keySet());
 		service.deleteSensor(sensor.getId());	//to update, we delete and create anything with that sensor id
+		System.out.println(service.getSensorList().keySet());
 		service.createSensor(sensor);
+		System.out.println(service.getSensorList().keySet());
 		db.updateSensor(sensor);
 		return true;
 	}

@@ -30,6 +30,7 @@ public interface IDataService {
 	 */
 	
 	
+	
 	String getNumberOfRunningSensors();
 	/*
 	 * return: {count:number}

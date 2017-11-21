@@ -15,12 +15,16 @@ import org.bson.json.JsonWriterSettings;
 import org.bson.types.ObjectId;
 
 import edu.psu.iot.generator.interfaces.ISensor;
+import edu.psu.iot.generator.interfaces.ISensorService;
 import edu.psu.iot.generator.sensor.PayloadType;
 import edu.psu.iot.generator.sensor.Sensor;
+import edu.psu.iot.generator.sensor.SensorService;
+
 
 public class JsonHandler {
 	
 	private static ObjectMapper objectMapper = new ObjectMapper();
+	private static ISensorService service = new SensorService();
 
 	public JsonHandler() {
 		// TODO Auto-generated constructor stub
@@ -68,6 +72,9 @@ public class JsonHandler {
 				builder.append(",");
 				builder.append("\"type\":\""); 
 				builder.append(sensor.getType().toString());
+				builder.append("\",");
+				builder.append("\"enabled\":\"");
+				builder.append(service.isEnabled(sensor.getId()));  //TODO: Fix this.
 				builder.append("\"}");
 		
 		return builder.toString();
@@ -157,7 +164,6 @@ public class JsonHandler {
 		ArrayList<Integer> array = new ArrayList<Integer>();
 		try {
 			JsonNode ids = objectMapper.readTree(jsonString).get("id");
-			int i = 0;
 			for(JsonNode node: ids) {
 				array.add(Integer.valueOf(node.asInt()));
 			}

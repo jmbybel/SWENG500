@@ -2,15 +2,19 @@ package edu.psu.iot.database;
 
 import java.util.List;
 
+import org.bson.Document;
+
+import com.mongodb.client.MongoCursor;
+
 import edu.psu.iot.generator.interfaces.ISensor;
 
 
 
 public interface IDatabase {
 
-	String getAllSensors();
+	MongoCursor<Document> getAllSensors();
 
-	String getSensor(String id);
+	Document getSensor(String id);
 
 	boolean createSensor(ISensor sensor);
 

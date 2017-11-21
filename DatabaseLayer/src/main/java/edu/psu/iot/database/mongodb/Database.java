@@ -22,6 +22,8 @@ import com.mongodb.client.model.UpdateOptions;
 
 import edu.psu.iot.database.IDatabase;
 import edu.psu.iot.generator.interfaces.ISensor;
+import edu.psu.iot.generator.interfaces.ISensorService;
+import edu.psu.iot.generator.sensor.SensorService;
 import edu.psu.iot.util.JsonHandler;
 
 
@@ -32,6 +34,7 @@ public class Database implements IDatabase {
 	MongoDatabase database = mongoClient.getDatabase(databaseName);
 	MongoCollection<Document> sensorCollection = database.getCollection("sensors");
 	MongoCollection<Document> payloadCollection = database.getCollection("payloads");
+	ISensorService service = new SensorService();
 	
 	public Database() {
 		this.mongoClient = new MongoClient();
@@ -47,37 +50,16 @@ public class Database implements IDatabase {
 	}
 	
 	@Override
-	public String getAllSensors() {
-		System.out.println("Entered getAllSensors");
+	public MongoCursor<Document> getAllSensors() {
 		MongoCursor<Document> cursor = sensorCollection.find().iterator();
-		String all = "[";
-		StringBuilder builder = new StringBuilder(all);
-		try {
-		    while (cursor.hasNext()) {
-		    	builder.append(cursor.next().toJson(new JsonWriterSettings(JsonMode.RELAXED)));
-		    	builder.append(",");
-		    }
-		    int length = builder.length();
-		    
-		    // If no sensors exist, don't delete the opening [
-		    if (length > 1) {
-		    	builder.delete(length - 1, length);
-		    }
-		    
-		    builder.append("]");
-		} catch(Exception e) {
-			e.printStackTrace();
-		} finally {
-		    cursor.close();
-		}
-
-		return builder.toString();
+		return cursor;
 	}
 
 	@Override
-	public String getSensor(String jsonId) {
+	public Document getSensor(String jsonId) {
 		Document document = sensorCollection.find(Filters.eq("_id", JsonHandler.getIdFromJson(jsonId))).first();
-		return document.toJson(new JsonWriterSettings(JsonMode.RELAXED));
+		document.append("enabled", service.isEnabled(document.getInteger("_id")));
+		return document;
 	}
 
 	@Override
