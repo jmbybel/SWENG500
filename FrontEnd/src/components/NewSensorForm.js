@@ -129,11 +129,11 @@ class NewSensorForm extends React.Component {
     {
       alert('Please select if you want random interval on or off');
     }
-    else if (this.state.sensor.randomInterval === 'True' && ((String(this.state.sensor.maxInterval).match(/[a-z]/i) || this.state.sensor.maxInterval === '')) && parseInt(this.state.sensor.maxInterval) < 1000)
+    else if (this.state.sensor.randomInterval === 'True' && (String(this.state.sensor.maxInterval).match(/[a-z]/i) || this.state.sensor.maxInterval === '') || parseInt(this.state.sensor.maxInterval) < 1000 && parseInt(this.state.sensor.minInterval) != 0)
     {
       alert('Please enter a valid number for max random interval >= 1000ms');
     }
-    else if (this.state.sensor.randomInterval === 'True' && ((String(this.state.sensor.minInterval).match(/[a-z]/i) || this.state.sensor.minInterval === '')) && parseInt(this.state.sensor.minInterval) < 1000)
+    else if (this.state.sensor.randomInterval === 'True' && (String(this.state.sensor.minInterval).match(/[a-z]/i) || this.state.sensor.minInterval === '') || parseInt(this.state.sensor.minInterval) < 1000 && parseInt(this.state.sensor.minInterval) != 0)
     {
       alert('Please enter a valid number for min random interval >= 1000ms');
     }
@@ -268,7 +268,7 @@ class NewSensorForm extends React.Component {
           </span>
           <NewSensorTextInput
             name={'minInterval'}
-            value={String(sensor.minInterval)}
+            value={String(sensor.randomInterval)=="False" ? 0:String(sensor.minInterval)}
             disabled={String(sensor.randomInterval)=="False"}
             onChange={this.newSensorKeypress} />
         </div>
@@ -280,7 +280,7 @@ class NewSensorForm extends React.Component {
           </span>
           <NewSensorTextInput
             name={'maxInterval'}
-            value={String(sensor.maxInterval)}
+            value={String(sensor.randomInterval)=="False" ? 0:String(sensor.maxInterval)}
             disabled={String(sensor.randomInterval)=="False"}
             onChange={this.newSensorKeypress} />
         </div>
