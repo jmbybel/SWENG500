@@ -80,11 +80,6 @@ class Dashboard extends React.Component {
       props: {
         sensors: {
           numRunningSensors,
-          getDestinationIP: {
-            destinationIP: {
-              ip,
-            }
-          }
         },
       },
     } = this;
@@ -107,7 +102,7 @@ class Dashboard extends React.Component {
             </span>
             <NewSensorTextInput
                 name={'destinationIP'}
-                value={String(ip)}
+                value={""}
                 onChange={this.newSensorKeypress} />
             <Button
               className={'destinationIPSaveButton'}

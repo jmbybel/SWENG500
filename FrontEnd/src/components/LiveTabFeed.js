@@ -33,6 +33,7 @@ class LiveTabFeed extends React.Component {
 
     // get the new payload
     const newMessage = JSON.parse(data.message);
+
     if (newMessage._id === sensorId) {
         newMessage.timestamp = new Date(newMessage.timestamp).toLocaleString();
         if (sensorFeed.some((element) => {return element.timestamp == newMessage.timestamp}) === false) {
@@ -45,11 +46,18 @@ class LiveTabFeed extends React.Component {
               sensorFeed
           });
       }
+
+      
     }
   }
 
   componentWillReceiveProps(nextProps) {
+
+        this.setState({
+            sensorFeed:[]
+        });
     this.bindDataSource(nextProps);
+
   }
 
   componentDidMount() {

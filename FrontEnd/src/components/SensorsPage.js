@@ -128,7 +128,7 @@ class SensorsPage extends React.Component {
             <DropdownButton
               id="filterDropdown"
               bsStyle="primary"
-              title="Show ..."
+              title="Show"
               onSelect={this.handleFilterDropdown}>
               <MenuItem eventKey="All">All</MenuItem>
               <MenuItem eventKey="Active">Active</MenuItem>
