@@ -1,3 +1,5 @@
+import "isomorphic-fetch"
+
 class sensorApi {
     static getNumberOfRunningSensors() {
         return fetch('http://iotgenerator.ga:4000/get-number-of-running-sensors').then(response => {

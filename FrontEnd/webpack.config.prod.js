@@ -6,6 +6,7 @@ import WebpackMd5Hash from 'webpack-md5-hash';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import autoprefixer from 'autoprefixer';
 import path from 'path';
+import "babel-polyfill";
 
 const GLOBALS = {
   'process.env.NODE_ENV': JSON.stringify('production'),
@@ -17,7 +18,10 @@ export default {
     extensions: ['*', '.js', '.jsx', '.json']
   },
   devtool: 'source-map', // more info:https://webpack.js.org/guides/production/#source-mapping and https://webpack.js.org/configuration/devtool/
-  entry: path.resolve(__dirname, 'src/index'),
+  entry: [
+    "babel-polyfill",
+    path.resolve(__dirname, 'src/index'),
+  ],
   target: 'web',
   output: {
     path: path.resolve(__dirname, 'dist'),
