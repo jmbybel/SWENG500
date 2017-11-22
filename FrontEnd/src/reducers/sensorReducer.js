@@ -32,6 +32,28 @@ const sensors = (state = initialState.sensors, action) => {
     case DELETE_SENSOR: {
       return state.filter(e => e ._id !== action.sensorId._id);
     }
+    case START_SENSOR: {
+      const sensor = action.sensorId;
+      if (sensor) {
+        const startedSensor = state.find(e => e ._id == sensor._id);
+        return [
+          ...state.filter(sensor => sensor._id !== startedSensor._id),
+          Object.assign({}, sensor)
+        ];
+      }
+      return state;
+    }
+    case PAUSE_SENSOR: {
+      const sensor = action.sensorId;
+      if (sensor) {
+        const pausedSensor = state.find(e => e ._id == sensor._id);
+        return [
+          ...state.filter(sensor => sensor._id !== pausedSensor._id),
+          Object.assign({}, sensor)
+        ];
+      }
+      return state;
+    }
     default:
       return state;
   }
@@ -77,41 +99,41 @@ const numRunningSensors = (state = initialState.numRunningSensors, action) => {
   }
 };
 
-const startSensor = (state = {}, action) => {
-  switch (action.type) {
-    case START_SENSOR: {
-      const { _id } = action;
-      if (_id) {
-        return {
-          ...state,
-          [_id]: sensors(state[_id], action)
-        };
-      }
-      return state;
-    }
-    default: {
-      return state;
-    }
-  }
-};
+// const startSensor = (state = {}, action) => {
+//   switch (action.type) {
+//     case START_SENSOR: {
+//       const _id = JSON.parse(action.sensorId)._id;
+//       if (_id) {
+//         return {
+//           ...state,
+//           [_id]: sensors(state[_id], action)
+//         };
+//       }
+//       return state;
+//     }
+//     default: {
+//       return state;
+//     }
+//   }
+// };
 
-const stopSensor = (state = {}, action) => {
-  switch (action.type) {
-    case PAUSE_SENSOR: {
-      const { _id } = action;
-      if (_id) {
-        return {
-          ...state,
-          [_id]: sensors(state[_id], action)
-        };
-      }
-      return state;
-    }
-    default: {
-      return state;
-    }
-  }
-};
+// const stopSensor = (state = {}, action) => {
+//   switch (action.type) {
+//     case PAUSE_SENSOR: {
+//       const _id = JSON.parse(action.sensorId)._id;
+//       if (_id) {
+//         return {
+//           ...state,
+//           [_id]: sensors(state[_id], action)
+//         };
+//       }
+//       return state;
+//     }
+//     default: {
+//       return state;
+//     }
+//   }
+// };
 
 const getDestinationIP = (state = {}, action) => {
   switch (action.type) {
@@ -155,8 +177,6 @@ export default combineReducers({
   sensors,
   byId,
   numRunningSensors,
-  startSensor,
-  stopSensor,
   getDestinationIP,
   setDestinationIP,
 });

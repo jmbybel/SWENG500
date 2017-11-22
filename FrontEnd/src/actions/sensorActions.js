@@ -93,22 +93,22 @@ export function getSensor(sensorId) {
   };
 }
 
-export function startSensor(sensorId) {
+export function startSensor(sensor) {
   return function (dispatch) {
-    return sensorApi.startSensor(sensorId).then(responseSensorId => {
-      dispatch(startSensorSuccess(responseSensorId));
-      return responseSensorId;
+    return sensorApi.startSensor(sensor).then(responseSensor => {
+      dispatch(startSensorSuccess(responseSensor));
+      return responseSensor;
     }).catch(error => {
       throw(error);
     });
   };
 }
 
-export function pauseSensor(sensorId) {
+export function pauseSensor(responseSensor) {
   return function (dispatch) {
-    return sensorApi.pauseSensor(sensorId).then(responseSensorId => {
-      dispatch(pauseSensorSuccess(responseSensorId));
-      return responseSensorId;
+    return sensorApi.pauseSensor(responseSensor).then(responseSensor => {
+      dispatch(pauseSensorSuccess(responseSensor));
+      return responseSensor;
     }).catch(error => {
       throw(error);
     });

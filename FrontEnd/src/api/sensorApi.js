@@ -1,6 +1,6 @@
 class sensorApi {
     static getNumberOfRunningSensors() {
-        return fetch('http://iotgenerator.ga:4000/get-number-of-running-sensors').then(response => {
+        return fetch('http://localhost:4000/get-number-of-running-sensors').then(response => {
 					return response.json();
         }).catch(error => {
 					return error;
@@ -8,7 +8,7 @@ class sensorApi {
     }
 
     static getAllSensors() {
-        return fetch('http://iotgenerator.ga:4000/get-all-sensors').then(response => {
+        return fetch('http://localhost:4000/get-all-sensors').then(response => {
 					return response.json();
         }).catch(error => {
 					return error;
@@ -17,7 +17,7 @@ class sensorApi {
 
     static getSensor(sensorId) {
 			if (sensorId != undefined) {
-				return fetch('http://iotgenerator.ga:4000/get-sensor?sensorId=' + sensorId).then(response => {
+				return fetch('http://localhost:4000/get-sensor?sensorId=' + sensorId).then(response => {
 					return response.json();
 				}).catch(error => {
 					return error;
@@ -26,7 +26,7 @@ class sensorApi {
     }
 
     static getDestinationIP() {
-      return fetch('http://iotgenerator.ga:4000/get-destination-ip').then(response => {
+      return fetch('http://localhost:4000/get-destination-ip').then(response => {
         return response.json();
       }).catch(error => {
         return error;
@@ -34,7 +34,7 @@ class sensorApi {
     }
 
     static setDestinationIP(destinationIP) {
-      const request = new Request('http://iotgenerator.ga:4000/set-destination-ip', {
+      const request = new Request('http://localhost:4000/set-destination-ip', {
         method: 'POST',
         headers: new Headers({
             'Content-Type': 'text/plain'
@@ -49,13 +49,13 @@ class sensorApi {
       });
     }
 
-    static startSensor(sensorId) {
-      const request = new Request('http://iotgenerator.ga:4000/start-sensor', {
+    static startSensor(sensor) {
+      const request = new Request('http://localhost:4000/start-sensor', {
         method: 'POST',
         headers: new Headers({
             'Content-Type': 'text/plain'
         }),
-        body: `{"_id": ${sensorId}}`
+        body: JSON.stringify({ sensor })
       });
 
       return fetch(request).then(response => {
@@ -65,13 +65,13 @@ class sensorApi {
       });
     }
 
-    static pauseSensor(sensorId) {
-      const request = new Request('http://iotgenerator.ga:4000/pause-sensor', {
+    static pauseSensor(sensor) {
+      const request = new Request('http://localhost:4000/pause-sensor', {
         method: 'POST',
         headers: new Headers({
             'Content-Type': 'text/plain'
         }),
-        body: `{"_id": ${sensorId}}`
+        body: JSON.stringify({ sensor })
       });
 
       return fetch(request).then(response => {
@@ -82,7 +82,7 @@ class sensorApi {
     }
 
     static createSensor(sensor) {
-        const request = new Request('http://iotgenerator.ga:4000/create-new-sensor', {
+        const request = new Request('http://localhost:4000/create-new-sensor', {
 					method: 'POST',
 					headers: new Headers({
 							'Content-Type': 'application/json'
@@ -98,7 +98,7 @@ class sensorApi {
     }
 
     static updateSensor(sensor) {
-      const request = new Request('http://iotgenerator.ga:4000/update-sensor', {
+      const request = new Request('http://localhost:4000/update-sensor', {
         method: 'POST',
         headers: new Headers({
             'Content-Type': 'application/json'
@@ -114,7 +114,7 @@ class sensorApi {
   }
 
   static deleteSensor(sensorId) {
-    const request = new Request('http://iotgenerator.ga:4000/delete-sensor', {
+    const request = new Request('http://localhost:4000/delete-sensor', {
       method: 'POST',
       headers: new Headers({
           'Content-Type': 'text/plain'

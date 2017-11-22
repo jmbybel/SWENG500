@@ -34,7 +34,7 @@ class LiveTabFeed extends React.Component {
     // get the new payload
     const newMessage = JSON.parse(data.message);
 
-    if (newMessage._id === sensorId) {
+    if (newMessage.id === sensorId) {
         newMessage.timestamp = new Date(newMessage.timestamp).toLocaleString();
         if (sensorFeed.some((element) => {return element.timestamp == newMessage.timestamp}) === false) {
           // convert the payload from milliseconds to a date value
@@ -46,18 +46,15 @@ class LiveTabFeed extends React.Component {
               sensorFeed
           });
       }
-
-      
     }
   }
 
   componentWillReceiveProps(nextProps) {
-
         this.setState({
             sensorFeed:[]
-        });
-    this.bindDataSource(nextProps);
-
+        },
+        this.bindDataSource(nextProps)
+      );
   }
 
   componentDidMount() {
@@ -69,6 +66,7 @@ class LiveTabFeed extends React.Component {
   }
 
   bindDataSource(props) {
+    this.channel.unbind();
     this.channel.bind('my-event', data => this.messageHandler(data, props.sensorId));
   }
 

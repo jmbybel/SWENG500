@@ -9,6 +9,7 @@ public class Main {
     	configureExceptionHandling();
         enableCORS();      
         APIEndpoint endpoint = new APIEndpoint();
+        endpoint.deleteAllSensors();
         
         get("/get-number-of-running-sensors", (request, response) -> {
         	return endpoint.getNumberOfRunningSensors();
@@ -46,27 +47,27 @@ public class Main {
         });
         
         post("/start-sensor", (request, response) -> {
-        	String id = request.body();
-        	String sensor = null;
+        	String sensor = request.body();
+        	String responseSensor = null;
 
-        	if (id != null)
-        		sensor = endpoint.startSensor(id);
-        	
         	if (sensor != null)
-        		return sensor;
+        		responseSensor = endpoint.startSensor(sensor);
+        	
+        	if (responseSensor != null)
+        		return responseSensor;
         	
         	return "{}";
         });
         
         post("/pause-sensor", (request, response) -> {
-        	String id = request.body();
-        	String sensor = null;
+        	String sensor = request.body();
+        	String responseSensor = null;
 
-        	if (id != null)
-        		sensor = endpoint.pauseSensor(id);
-        	
         	if (sensor != null)
-        		return sensor;
+        		responseSensor = endpoint.pauseSensor(sensor);
+        	
+        	if (responseSensor != null)
+        		return responseSensor;
         	
         	return "{}";
         });

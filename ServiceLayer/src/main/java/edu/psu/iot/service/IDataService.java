@@ -55,12 +55,12 @@ public interface IDataService {
 	 * input: {"_id":number}
 	 */
 		
-	boolean startSensor(String id);
+	String startSensor(String jsonString);
 	/*
 	 * input: {"_id":number}
 	 */
 	
-	boolean pauseSensor(String id);
+	String pauseSensor(String jsonString);
 	/*
 	 * input: {"_id":number}
 	 */

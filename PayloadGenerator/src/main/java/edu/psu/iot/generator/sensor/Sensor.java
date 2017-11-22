@@ -147,6 +147,7 @@ public class Sensor implements ISensor {
 	long maxInterval = 5000; 
 	boolean randomInterval = false;
 	String urlEndpoint = "http://18.216.43.18:8081/contentListener"; //Nifi default
+	boolean enabled = false;
 		
 	public Sensor(){}
 	

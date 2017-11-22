@@ -49,8 +49,9 @@ class SensorsPage extends React.Component {
     });
   }
 
-  handleSelect(key) {
+  handleSelect(key, sensor) {
     this.setState({
+      sensor,
       key,
     });
   }
@@ -69,19 +70,6 @@ class SensorsPage extends React.Component {
     });
   }
 
-  handleStartClick(sensorId){
-	alert("startEvent: " + sensorId);
-  }
-
-  handleStopClick(sensorId) {
-	alert("stopEvent: " + sensorId);
-  }
-
-  handleDeleteClick(sensorId) {
-	alert("We want an Are You Sure confirmation here");
-	alert("deleteEvent: " + sensorId);
-  }
-
   createNewSensorClick(component) {
     component.setState({
       sensor: {
@@ -97,7 +85,8 @@ class SensorsPage extends React.Component {
         minInterval: '',
         maxInterval: '',
         randomInterval: '',
-      }
+      },
+      key: 1,//force the right-side pane to display the Details.
     });
   }
 
@@ -158,7 +147,7 @@ class SensorsPage extends React.Component {
         </div>
         <Tabs
           activeKey={this.state.key}
-          onSelect={this.handleSelect}
+          onSelect={(key) => this.handleSelect(key, sensor)}
           id={"sensorsPageTabs"}
           bsStyle={"tabs"}>
           <Tab eventKey={1} title="Properties">
@@ -173,9 +162,12 @@ class SensorsPage extends React.Component {
                 saveNewSensor(sensor);
               }} />
           </Tab>
-          <Tab eventKey={2} title="Live">
-          <LiveTabFeed sensorId={this.state.sensor._id} 
-          noDataMessage={this.state.sensor.name === '' ? "No Sensors are running" : "Waiting for payloads.."} />
+          <Tab
+            eventKey={2}
+            title="Live">
+          <LiveTabFeed
+            sensorId={this.state.sensor._id}
+            noDataMessage={this.state.sensor.name === '' ? "No Sensors are running" : "Waiting for payloads.."} />
           </Tab>
         </Tabs>
       </section>

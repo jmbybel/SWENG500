@@ -58,12 +58,16 @@ public class APIEndpoint {
 		return dataService.deleteSensor(id);
 	}
 	
-	public String startSensor(String id) {
-		return gson.toJson(dataService.startSensor(id));
+	public boolean deleteAllSensors() {
+		return dataService.deleteAll();
 	}
 	
-	public String pauseSensor(String id) {
-		return gson.toJson(dataService.pauseSensor(id));
+	public String startSensor(String json) {
+		return dataService.startSensor(json);
+	}
+	
+	public String pauseSensor(String json) {
+		return dataService.pauseSensor(json);
 	}
 
 	public IDataService getDeviceService() {
