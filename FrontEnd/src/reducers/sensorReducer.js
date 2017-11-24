@@ -99,73 +99,27 @@ const numRunningSensors = (state = initialState.numRunningSensors, action) => {
   }
 };
 
-// const startSensor = (state = {}, action) => {
-//   switch (action.type) {
-//     case START_SENSOR: {
-//       const _id = JSON.parse(action.sensorId)._id;
-//       if (_id) {
-//         return {
-//           ...state,
-//           [_id]: sensors(state[_id], action)
-//         };
-//       }
-//       return state;
-//     }
-//     default: {
-//       return state;
-//     }
-//   }
-// };
-
-// const stopSensor = (state = {}, action) => {
-//   switch (action.type) {
-//     case PAUSE_SENSOR: {
-//       const _id = JSON.parse(action.sensorId)._id;
-//       if (_id) {
-//         return {
-//           ...state,
-//           [_id]: sensors(state[_id], action)
-//         };
-//       }
-//       return state;
-//     }
-//     default: {
-//       return state;
-//     }
-//   }
-// };
-
-const getDestinationIP = (state = {}, action) => {
+const destinationIP = (state = initialState.destinationIP, action) => {
   switch (action.type) {
     case GET_DESTINATION_IP: {
       const { sensorIP } = action;
       if (sensorIP) {
         return {
           ...state,
-          destinationIP: sensorIP,
+          destinationIPfromServer: sensorIP,
         };
       }
       return state;
     }
-    default: {
-      return state;
-    }
-  }
-};
-
-const setDestinationIP = (state = {}, action) => {
-  switch (action.type) {
     case SET_DESTINATION_IP: {
       const { sensorIP } = action;
       if (sensorIP) {
         return {
           ...state,
-          destinationIP: sensorIP,
+          destinationIPfromServer: sensorIP,
         };
       }
-      return [
-        ...state,
-      ];
+      return state;
     }
     default: {
       return state;
@@ -177,8 +131,7 @@ export default combineReducers({
   sensors,
   byId,
   numRunningSensors,
-  getDestinationIP,
-  setDestinationIP,
+  destinationIP,
 });
 
 export const getSensor = (state, _id) =>
