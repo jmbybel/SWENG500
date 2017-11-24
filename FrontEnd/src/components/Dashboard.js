@@ -1,22 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import NewSensorTextInput from './NewSensorTextInput';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as sensorActions from '../actions/sensorActions';
-import { PageHeader, Panel, Button } from 'react-bootstrap';
+import { PageHeader, Panel } from 'react-bootstrap';
 import ActiveSensorCount from '../components/ActiveSensorCount';
+import DestinationIPSection from '../components/DestinationIPSection';
 import LiveDataFeed from '../components/LiveDataFeed';
 import Pusher from 'pusher-js';
 
 class Dashboard extends React.Component {
   constructor(props, context) {
     super(props, context);
-    
+
     this.state = {
       sensorFeed: [],
+      destinationIP: '',
     };
     this.destinationIPKeypress = this.destinationIPKeypress.bind(this);
+    this.setDestinationIP = this.setDestinationIP.bind(this);
   }
 
   componentWillMount() {
@@ -35,6 +37,15 @@ class Dashboard extends React.Component {
     const {
       state: {
         sensorFeed,
+      },
+      props: {
+        sensors: {
+          destinationIP: {
+            destinationIPfromServer: {
+              ip,
+            }
+          },
+        }
       }
     } = this;
 
@@ -47,10 +58,27 @@ class Dashboard extends React.Component {
       sensorFeed.unshift(newMessage);
       // set the array length to 9 to remove old data
       sensorFeed.length = 9;
+    });
 
-      this.setState({
-        sensorFeed
-      });
+    this.setState({
+      sensorFeed,
+      destinationIP: ip,
+    });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const {
+      sensors: {
+        destinationIP: {
+          destinationIPfromServer: {
+            ip,
+          }
+        },
+      }
+    } = nextProps;
+
+    this.setState({
+      destinationIP: ip,
     });
   }
 
@@ -59,20 +87,24 @@ class Dashboard extends React.Component {
   }
 
   destinationIPKeypress(field, value) {
-    // const {
-    //   state: {
-    //     sensor,
-    //   },
-    // } = this;
+    this.setState({
+      destinationIP: value,
+    });
+  }
 
-    //   this.setState({
-    //     sensor: Object.assign(
-    //       {},
-    //       sensor,
-    //       { [field]: value }
-    //     )
-    //   });
-    console.log("nothing for now." + field + value);
+  setDestinationIP() {
+    const {
+      props: {
+        actions: {
+          setDestinationIP,
+        },
+      },
+      state: {
+        destinationIP,
+      }
+    } = this;
+
+    setDestinationIP(destinationIP);
   }
 
   render() {
@@ -82,6 +114,9 @@ class Dashboard extends React.Component {
           numRunningSensors,
         },
       },
+      state: {
+        destinationIP,
+      }
     } = this;
 
     return (
@@ -94,23 +129,11 @@ class Dashboard extends React.Component {
         <div className={"upperHalfDashboard"}>
           <ActiveSensorCount
               numRunningSensors={numRunningSensors}/>
-          <div
-            className={'destinationIPDiv'}>
-            <span
-              className={'labelSpan'}>
-              {"Destination IP"}
-            </span>
-            <NewSensorTextInput
-                name={'destinationIP'}
-                value={""}
-                onChange={this.newSensorKeypress} />
-            <Button
-              className={'destinationIPSaveButton'}
-              bsStyle="primary"
-              onClick={this.save}>
-              {"Save"}
-            </Button>
-          </div>
+          <DestinationIPSection
+            name={"destinationIP"}
+            value={destinationIP}
+            onChange={(name, value) => this.destinationIPKeypress(name, value)}
+            save={() => this.setDestinationIP()} />
         </div>
         <Panel className={"liveDataFeed"} header="Live Data Feed for All Sensors">
           <LiveDataFeed
