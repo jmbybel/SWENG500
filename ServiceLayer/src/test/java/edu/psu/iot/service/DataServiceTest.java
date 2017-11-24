@@ -109,14 +109,14 @@ public class DataServiceTest {
 	
 	@Test
 	public void testSetDestination() {
-		boolean result = objectUnderTest.setDestinationIP("http://18.216.43.18:8081/contentListener");
-		assertTrue(result);
+		String result = objectUnderTest.setDestinationIP("http://18.216.43.18:8081/contentListener");
+		assertEquals("http://18.216.43.18:8081/contentListener", result);
 		result = objectUnderTest.setDestinationIP("http://123.456.789.123:12344/contentListener");
-		assertTrue(result);
+		assertEquals("http://18.216.43.18:8081/contentListener", result);
 		result = objectUnderTest.setDestinationIP("123.456.234/contentListener");
-		assertFalse(result);
+		assertEquals("http://18.216.43.18:8081/contentListener", result);
 		result = objectUnderTest.setDestinationIP("http://123.123.123.123:1234");
-		assertFalse(result);
+		assertEquals("http://18.216.43.18:8081/contentListener", result);
 	}
 	
 	@Test

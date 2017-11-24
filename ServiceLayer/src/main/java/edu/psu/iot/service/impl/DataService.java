@@ -47,21 +47,21 @@ public class DataService implements IDataService {
 		return JsonHandler.buildSingleInt("count", count);
 	}
 	
-
-
 	@Override
-	public boolean setDestinationIP(String destination) {
+	public String setDestinationIP(String destination) {
 		// Only uses ISensorService
 		// Example format: "http://18.216.43.18:8081/contentListener";
 		boolean success = true;		
-		if(destination.startsWith("http://") &&
-		destination.endsWith("contentListener")){
+		if(destination.startsWith("http://")){
 			SensorService.setUrlEndpoint(destination);
 		}
 		else {
 			success = false;
 		}
-		return success;
+		
+		return success ?
+				SensorService.getUrlEndpoint()
+				: "";
 	}
 	
 	@Override

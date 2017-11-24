@@ -37,13 +37,7 @@ public class Main {
         });
         
         post("/set-destination-ip", (request, response) -> {
-        	String ip = request.body();
-        	
-        	if (endpoint.setDestinationIP(request.body())) {
-        		return ip;
-        	}
-        	
-        	return "{}";
+        	return String.format("{\"ip\":\"%s\"}", endpoint.setDestinationIP(request.body()));
         });
         
         post("/start-sensor", (request, response) -> {

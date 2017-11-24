@@ -36,7 +36,7 @@ public interface IDataService {
 	 * return: {count:number}
 	 */
 		
-	boolean setDestinationIP(String urlEndpoint);
+	String setDestinationIP(String urlEndpoint);
 	/*
 	 * input: {urlEnpoint:String}
 	 * Example: "http://18.216.43.18:8081/contentListener"
