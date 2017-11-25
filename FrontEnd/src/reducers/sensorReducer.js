@@ -20,9 +20,17 @@ const sensors = (state = initialState.sensors, action) => {
         Object.assign({}, action.sensor)
       ];
     case UPDATE_SENSOR: {
+      const sensor = action.sensor;
+      const returnSensors = state.slice(0);
+      const pausedSensor = returnSensors.find(e => e ._id == sensor._id);
+      const sensorIndex = returnSensors.findIndex(sensor => sensor._id == pausedSensor._id);
+
+      returnSensors.splice(
+        sensorIndex,
+        1,
+        sensor);
       return [
-        ...state.filter(e => e ._id !== action.sensor._id),
-        Object.assign({}, action.sensor)
+        ...returnSensors,
       ];
     }
     case LOAD_DEVICES_SUCCESS: {
@@ -35,21 +43,33 @@ const sensors = (state = initialState.sensors, action) => {
     case START_SENSOR: {
       const sensor = action.sensorId;
       if (sensor) {
-        const startedSensor = state.find(e => e ._id == sensor._id);
+        const returnSensors = state.slice(0);
+        const pausedSensor = returnSensors.find(e => e ._id == sensor._id);
+        const sensorIndex = returnSensors.findIndex(sensor => sensor._id == pausedSensor._id);
+
+        returnSensors.splice(
+          sensorIndex,
+          1,
+          sensor);
         return [
-          ...state.filter(sensor => sensor._id !== startedSensor._id),
-          Object.assign({}, sensor)
-        ];
+            ...returnSensors,
+          ];
       }
       return state;
     }
     case PAUSE_SENSOR: {
       const sensor = action.sensorId;
       if (sensor) {
-        const pausedSensor = state.find(e => e ._id == sensor._id);
+        const returnSensors = state.slice(0);
+        const pausedSensor = returnSensors.find(e => e ._id == sensor._id);
+        const sensorIndex = returnSensors.findIndex(sensor => sensor._id == pausedSensor._id);
+
+        returnSensors.splice(
+          sensorIndex,
+          1,
+          sensor);
         return [
-          ...state.filter(sensor => sensor._id !== pausedSensor._id),
-          Object.assign({}, sensor)
+          ...returnSensors,
         ];
       }
       return state;

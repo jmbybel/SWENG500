@@ -155,6 +155,7 @@ class SensorsPage extends React.Component {
               sensor={sensor}
               sensors={sensorList}
               updateSensor={(sensor) => {
+                createNewSensorClick(this);
                 updateSensor(sensor);
               }}
               saveNewSensor={(sensor) => {

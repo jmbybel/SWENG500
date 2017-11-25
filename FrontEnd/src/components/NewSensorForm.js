@@ -34,8 +34,8 @@ class NewSensorForm extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    nextProps.sensor.randomInterval = toPascalCase(String(nextProps.sensor.randomInterval));
-    nextProps.sensor.type = toPascalCase(String(nextProps.sensor.type));
+    // nextProps.sensor.randomInterval = toPascalCase(String(nextProps.sensor.randomInterval));
+    // nextProps.sensor.type = toPascalCase(String(nextProps.sensor.type));
     this.setState({
       sensor: nextProps.sensor,
     });
@@ -269,8 +269,8 @@ class NewSensorForm extends React.Component {
           </span>
           <NewSensorTextInput
             name={'minInterval'}
-            value={String(sensor.randomInterval)=="False" ? 0:String(sensor.minInterval)}
-            disabled={String(sensor.randomInterval)!="True"}
+            value={String(sensor.randomInterval) == "false" ? 0:String(sensor.minInterval)}
+            disabled={String(sensor.randomInterval) != "true"}
             onChange={this.newSensorKeypress} />
         </div>
         <div
@@ -281,8 +281,8 @@ class NewSensorForm extends React.Component {
           </span>
           <NewSensorTextInput
             name={'maxInterval'}
-            value={String(sensor.randomInterval)=="False" ? 0:String(sensor.maxInterval)}
-            disabled={String(sensor.randomInterval)!="True"}
+            value={String(sensor.randomInterval) == "false" ? 0:String(sensor.maxInterval)}
+            disabled={String(sensor.randomInterval) != "true"}
             onChange={this.newSensorKeypress} />
         </div>
         <Button

@@ -25,26 +25,27 @@ class SensorList extends React.Component {
   }
 
   renderSingleSensor(sensor, key) {
-  let renderMe = this.props.filter == "All" || (this.props.filter == "Active" && String(sensor.enabled) == "true") || (this.props.filter == "Inactive" && String(!sensor.enabled) == "true");
-  let floatRigthStyleForJsx = {float:"right"};
+    const sensorEnabled = String(sensor.enabled) == "true";
+    const renderMe = this.props.filter == "All" || (this.props.filter == "Active" && sensorEnabled || (this.props.filter == "Inactive" && !sensorEnabled));
+    const floatRigthStyleForJsx = {float:"right"};
 
-  if (renderMe) {
-    return <ListGroupItem key={key}>
-      <h4 title={sensor._id} className="list-group-item-heading">{sensor.name}<span style={floatRigthStyleForJsx}>ID: {sensor._id}</span></h4>
-      <span>{`Active: ${toPascalCase(String(sensor.enabled))}`}</span><br/>
+    if (renderMe) {
+      return <ListGroupItem key={key}>
+        <h4 title={sensor._id} className="list-group-item-heading">{sensor.name}<span style={floatRigthStyleForJsx}>ID: {sensor._id}</span></h4>
+        <span>{`Active: ${toPascalCase(String(sensor.enabled))}`}</span><br/>
 
-      <ButtonGroup>
-        <Button onClick={()=>this.props.detailsClick(sensor)} bsStyle="info" >
-          {"Details"}
-        </Button>
-        <Button disabled={String(sensor.enabled) == "true"} onClick={()=>this.props.startClick(sensor)}  bsStyle="success">Start</Button>
-        <Button disabled={String(!sensor.enabled) == "true"} onClick={()=>this.props.stopClick(sensor)}   bsStyle="warning">Stop</Button>
-        <Button onClick={()=>this.props.deleteClick(sensor._id)}   bsStyle="danger">Delete</Button>
-        <Button onClick={()=>this.props.liveClick(sensor)} bsStyle="primary">Live</Button>
-      </ButtonGroup>
-      <br/>
-    </ListGroupItem>
-    }
+        <ButtonGroup>
+          <Button onClick={()=>this.props.detailsClick(sensor)} bsStyle="info" >
+            {"Details"}
+          </Button>
+          <Button disabled={sensorEnabled} onClick={()=>this.props.startClick(sensor)}  bsStyle="success">Start</Button>
+          <Button disabled={!sensorEnabled} onClick={()=>this.props.stopClick(sensor)}   bsStyle="warning">Stop</Button>
+          <Button onClick={()=>this.props.deleteClick(sensor._id)}   bsStyle="danger">Delete</Button>
+          <Button onClick={()=>this.props.liveClick(sensor)} bsStyle="primary">Live</Button>
+        </ButtonGroup>
+        <br/>
+      </ListGroupItem>
+      }
     return;
   }
 

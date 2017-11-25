@@ -58,10 +58,12 @@ class Dashboard extends React.Component {
       sensorFeed.unshift(newMessage);
       // set the array length to 9 to remove old data
       sensorFeed.length = 9;
+      this.setState({
+        sensorFeed,
+      });
     });
 
     this.setState({
-      sensorFeed,
       destinationIP: ip,
     });
   }
@@ -138,7 +140,7 @@ class Dashboard extends React.Component {
         <Panel className={"liveDataFeed"} header="Live Data Feed for All Sensors">
           <LiveDataFeed
             sensorFeed={this.state.sensorFeed}
-            noDataMessage={numRunningSensors.count === 0 ? "No Sensors are running" : "Waiting for payloads.."} />
+            noDataMessage={numRunningSensors.count === 0 ? "No sensors are currently running" : "Waiting for payloads ..."} />
         </Panel>
       </section>
     );
