@@ -1,6 +1,6 @@
 # IoT Data Generator SWENG 500 Group 1 Project
 
-This project generates sample Sensors and Payloads to an endpoint based on user entry specification for their sensor generation. This is done using Java, React, MongoDB, and AWS to host our runtime and endpoint.
+This project generates sample Sensors and Payloads to an endpoint based on user entry specification for their sensor generation. This is done using Java, React, Redux, MongoDB, AWS, and Azure to host our runtime and endpoint.
 
 ## Getting Started
 
