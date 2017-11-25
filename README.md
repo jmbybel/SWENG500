@@ -30,13 +30,13 @@ Once that is done, run
 ```
 npm run build
 ```
-To build and start the project. Leave the command prompt window open.
+To build the project. Leave the command prompt window open.
 
-To have static pages, Ctrl-C from the run in the above command prompt. Then type
+To host the application, run
 ```
 node app.js
 ```
-Leave this window open which is now running the web server. 
+Leave this window open, as it is now running the web server with statically hosted files. 
 
 Next navigate to your install folder for your mongodb database. 
 In the folder that contains mongod.exe, hold Shift+RightClick to Open Command Window Here
@@ -67,7 +67,7 @@ Example of data that comes out of system running to the front end and endpoint:
 
 ## Built With
 
-* [Java](http://www.java.com/) - The coding framework
+* [Java](http://www.java.com/) - The backend coding framework
 * [React](https://reactjs.org/) - The frontend UI library
 * [React-Bootstrap](https://react-bootstrap.github.io/) - The frontend component library
 * [MongoDB](https://www.mongodb.com/) - The database  
