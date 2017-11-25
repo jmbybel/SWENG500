@@ -81,8 +81,8 @@ We used [github](https://github.com/jmbybel/SWENG500).
 ## Authors
 
 * **Cory Perdue** - *Initial and continued setup of Data Generator* - [dk-csperdue](https://github.com/dk-csperdue)
-* **Michael Cantu** - *Assistance working on and testing Data Generator* - [MichaelCantu93](https://github.com/MichaelCantu93)
-* **David Lambl** - *Group member working on front end* - [davidlambl](https://github.com/davidlambl)
+* **Michael Cantu** - *Assistance working on and testing Data Generator/frontend* - [MichaelCantu93](https://github.com/MichaelCantu93)
+* **David Lambl** - *Group member working on frontend/web server* - [davidlambl](https://github.com/davidlambl)
 * **Jeremy Bybel** - *Group member working on database/frontend* - [jmbybel](https://github.com/jmbybel)
 * **James Ward** - *Scrum Master* - [wardja28](https://github.com/wardja28)
 
