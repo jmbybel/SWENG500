@@ -19,7 +19,7 @@ class SensorList extends React.Component {
   mapSensors(sensors) {
     return sensors.length > 0
       ? sensors.map((sensor, key) => (
-        this.renderSingleSensor(sensor,key)
+        this.renderSingleSensor(sensor, key)
         ))
       : "No sensors currently exist. Create one!";
   }

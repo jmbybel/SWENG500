@@ -4,6 +4,7 @@ import {
   DropdownButton,
   MenuItem,
 } from 'react-bootstrap';
+import toPascalCase from 'to-pascal-case';
 
 const NewSensorSensorTypeDropdown = (props) => {
   const handleSelect = (eventKey, event) => {
@@ -14,7 +15,7 @@ const NewSensorSensorTypeDropdown = (props) => {
     <DropdownButton
       id={props.id}
       bsStyle={'primary'}
-      title={props.value === "" ? "Select ..." : props.value}
+      title={props.value === "" ? "Select ..." : toPascalCase(props.value)}
       onSelect={handleSelect}>
       <MenuItem eventKey="Sin">Sin</MenuItem>
       <MenuItem eventKey="Ramp">Ramp</MenuItem>

@@ -4,6 +4,7 @@ import {
   DropdownButton,
   MenuItem,
 } from 'react-bootstrap';
+import toPascalCase from 'to-pascal-case';
 
 const NewSensorRandomIntervalDropdown = (props) => {
   const handleSelect = (eventKey, event) => {
@@ -14,7 +15,7 @@ const NewSensorRandomIntervalDropdown = (props) => {
     <DropdownButton
       id={props.id}
       bsStyle={'primary'}
-      title={props.value === "" ? "Select ..." : props.value}
+      title={props.value === "" ? "Select ..." : toPascalCase(props.value)}
       onSelect={handleSelect}>
       <MenuItem eventKey="True">True</MenuItem>
       <MenuItem eventKey="False">False</MenuItem>
