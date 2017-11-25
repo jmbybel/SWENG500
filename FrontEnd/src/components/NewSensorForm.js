@@ -209,8 +209,6 @@ class NewSensorForm extends React.Component {
             className={'labelSpan'}>
             Duration in ms (0 for ∞)
           </span>
-          <span>
-          </span>
           <NewSensorTextInput
             name={'duration'}
             value={String(sensor.duration)}
@@ -298,7 +296,9 @@ class NewSensorForm extends React.Component {
 
 NewSensorForm.propTypes = {
   sensor: PropTypes.object,
+  sensors: PropTypes.array,
   saveNewSensor: PropTypes.func.isRequired,
+  updateSensor: PropTypes.func.isRequired,
 };
 
 export default NewSensorForm;

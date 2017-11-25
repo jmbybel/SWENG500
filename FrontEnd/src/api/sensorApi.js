@@ -1,4 +1,4 @@
-import "isomorphic-fetch"
+import "isomorphic-fetch";
 
 class sensorApi {
     static getNumberOfRunningSensors() {

@@ -63,6 +63,7 @@ class Dashboard extends React.Component {
       });
     });
 
+    /* eslint react/no-did-mount-set-state: 0 */
     this.setState({
       destinationIP: ip,
     });

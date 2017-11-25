@@ -24,6 +24,22 @@ class LiveTabFeed extends React.Component {
     this.channel = channel.bind(this);
   }
 
+  componentDidMount() {
+    this.bindDataSource(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+        sensorFeed:[]
+    },
+    this.bindDataSource(nextProps)
+  );
+}
+
+  componentWillUnmount() {
+    this.pusher.unsubscribe('my-channel');
+  }
+
   messageHandler(data, sensorId) {
     const {
       state: {
@@ -36,7 +52,7 @@ class LiveTabFeed extends React.Component {
 
     if (newMessage.id === sensorId) {
         newMessage.timestamp = new Date(newMessage.timestamp).toLocaleString();
-        if (sensorFeed.some((element) => {return element.timestamp == newMessage.timestamp}) === false) {
+        if (sensorFeed.some((element) => {return element.timestamp == newMessage.timestamp;}) === false) {
           // convert the payload from milliseconds to a date value
           // add the payload to the beginning of the array
           sensorFeed.unshift(newMessage);
@@ -47,22 +63,6 @@ class LiveTabFeed extends React.Component {
           });
       }
     }
-  }
-
-  componentWillReceiveProps(nextProps) {
-        this.setState({
-            sensorFeed:[]
-        },
-        this.bindDataSource(nextProps)
-      );
-  }
-
-  componentDidMount() {
-    this.bindDataSource(this.props);
-  }
-
-  componentWillUnmount() {
-    this.pusher.unsubscribe('my-channel');
   }
 
   bindDataSource(props) {
