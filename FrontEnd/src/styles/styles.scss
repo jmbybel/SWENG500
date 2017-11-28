@@ -132,7 +132,9 @@ h2 {
 
 .liveTabFeed, .liveDataFeed {
   .liveTabFeedTable {
-    overflow-y: scroll;
+    .react-bs-container-body { 
+      overflow-y: auto;
+    }
     td:first-of-type {
       white-space: normal !important;
       // These are technically the same, but use both.

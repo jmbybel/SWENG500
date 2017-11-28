@@ -80,7 +80,7 @@ class LiveTabFeed extends React.Component {
 
     return (
       <section className={"liveTabFeed"}>
-       <BootstrapTable className={"liveTabFeedTable"} height={"700px"} data={sensorFeed} bordered={false} options={{noDataText: noDataMessage }}>
+       <BootstrapTable className={"liveTabFeedTable"} height={"720px"} data={sensorFeed} bordered={false} options={{noDataText: noDataMessage }}>
           <TableHeaderColumn dataField="name" isKey={true}>Sensor Name</TableHeaderColumn>
           <TableHeaderColumn dataField="timestamp">Timestamp</TableHeaderColumn>
           <TableHeaderColumn dataField="value">Payload Value</TableHeaderColumn>
