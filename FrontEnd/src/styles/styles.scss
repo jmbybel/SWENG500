@@ -129,3 +129,43 @@ h2 {
   -webkit-hyphens: auto !important;
   hyphens: auto !important;
 }
+
+.liveTabFeed, .liveDataFeed {
+  .liveTabFeedTable {
+    overflow-y: scroll;
+    td:first-of-type {
+      white-space: normal !important;
+      // These are technically the same, but use both.
+      overflow-wrap: break-word !important;
+      word-wrap: break-word !important;
+      -ms-word-break: break-all !important;
+      // This is the dangerous one in WebKit, as it breaks things wherever.
+      word-break: break-all !important;
+      // Instead use this non-standard one.
+      word-break: break-word !important;
+      // Adds a hyphen where the word breaks, if supported (No Blink).
+      -ms-hyphens: auto !important;
+      -moz-hyphens: auto !important;
+      -webkit-hyphens: auto !important;
+      hyphens: auto !important;
+    }
+  }
+  .liveDataFeedTable {
+    td:first-of-type {
+      white-space: normal !important;
+      // These are technically the same, but use both.
+      overflow-wrap: break-word !important;
+      word-wrap: break-word !important;
+      -ms-word-break: break-all !important;
+      // This is the dangerous one in WebKit, as it breaks things wherever.
+      word-break: break-all !important;
+      // Instead use this non-standard one.
+      word-break: break-word !important;
+      // Adds a hyphen where the word breaks, if supported (No Blink).
+      -ms-hyphens: auto !important;
+      -moz-hyphens: auto !important;
+      -webkit-hyphens: auto !important;
+      hyphens: auto !important;
+    }
+  }
+}

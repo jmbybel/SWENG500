@@ -80,6 +80,7 @@ class Dashboard extends React.Component {
       }
     } = nextProps;
 
+    this.props.actions.getNumberOfRunningSensors();
     this.setState({
       destinationIP: ip,
     });
