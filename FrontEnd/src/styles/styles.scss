@@ -59,6 +59,9 @@ h2 {
   .sensorList {
     height: auto;
     max-height: 610px;
+    div {
+      margin-bottom: 5px;
+    }
   }
 }
 
@@ -75,7 +78,7 @@ h2 {
   margin-bottom: 20px;
   height: 100%;
   text-align: right;
-  
+
   input {
     margin-left: 10px;
     width: 370px;

@@ -27,17 +27,23 @@ class NewSensorForm extends React.Component {
         maxInterval: props.sensor.maxInterval,
         randomInterval: props.sensor.randomInterval,
       },
+      sinSelected: false,
+      randomSelected: false,
     };
     this.newSensorKeypress = this.newSensorKeypress.bind(this);
     this.dropdownOnSelect = this.dropdownOnSelect.bind(this);
+    this.renderSinIntervalInput = this.renderSinIntervalInput.bind(this);
+    this.renderRandomIntervalContainer = this.renderRandomIntervalContainer.bind(this);
     this.save = this.save.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    // nextProps.sensor.randomInterval = toPascalCase(String(nextProps.sensor.randomInterval));
-    // nextProps.sensor.type = toPascalCase(String(nextProps.sensor.type));
+    const sin = toPascalCase(String(nextProps.sensor.type));
+    const random = toPascalCase(String(nextProps.sensor.randomInterval));
     this.setState({
       sensor: nextProps.sensor,
+      sinSelected: sin === "Sin" ? true : false,
+      randomSelected: random === "True" ? true : false,
     });
   }
 
@@ -48,13 +54,13 @@ class NewSensorForm extends React.Component {
       },
     } = this;
 
-      this.setState({
-        sensor: Object.assign(
-          {},
-          sensor,
-          { [field]: value }
-        )
-      });
+    this.setState({
+      sensor: Object.assign(
+        {},
+        sensor,
+        { [field]: String(value) }
+      )
+    });
   }
 
   dropdownOnSelect(eventKey) {
@@ -63,26 +69,75 @@ class NewSensorForm extends React.Component {
         sensor,
       },
     } = this;
-    if(eventKey === 'True' || eventKey === 'False')
+    if (eventKey === 'True' || eventKey === 'False')
     {
+      const randomSelected = eventKey === 'True' ? true : false;
       this.setState({
         sensor: Object.assign(
           {},
           sensor,
           { ['randomInterval']: toPascalCase(eventKey) }
         ),
+        randomSelected,
       });
     }
     else
     {
+      const sinSelected = toPascalCase(eventKey) == "Sin";
       this.setState({
         sensor: Object.assign(
           {},
           sensor,
           { ['type']: toPascalCase(eventKey) }
         ),
+        sinSelected,
       });
     }
+  }
+
+  renderSinIntervalInput(sinSelected, sensor, eventHandler) {
+    return sinSelected === true
+    ? (<div
+        className={'input'}>
+        <span
+          className={'labelSpan'}>
+          {"Sin interval"}
+        </span>
+        <NewSensorTextInput
+          name={'sinInterval'}
+          value={String(sensor.sinInterval)}
+          onChange={eventHandler} />
+      </div>)
+    : null;
+  }
+
+  renderRandomIntervalContainer(randomSelected, sensor, eventHandler) {
+    return randomSelected === true
+      ? (<div>
+           <div
+            className={'input'}>
+            <span
+              className={'labelSpan'}>
+              Minimum Interval
+            </span>
+            <NewSensorTextInput
+              name={'minInterval'}
+              value={randomSelected === false ? "0" : String(sensor.minInterval)}
+              onChange={eventHandler} />
+          </div>
+          <div
+            className={'input'}>
+            <span
+              className={'labelSpan'}>
+              Maximum Interval
+            </span>
+            <NewSensorTextInput
+              name={'maxInterval'}
+              value={randomSelected === "false" ? "0" : String(sensor.maxInterval)}
+              onChange={eventHandler} />
+          </div>
+         </div>)
+      : null;
   }
 
   save() {
@@ -152,6 +207,8 @@ class NewSensorForm extends React.Component {
     const {
       state: {
         sensor,
+        sinSelected,
+        randomSelected,
       },
     } = this;
 
@@ -236,19 +293,8 @@ class NewSensorForm extends React.Component {
             value={String(sensor.type)}
             onSelect={this.dropdownOnSelect}  />
         </div>
+        {this.renderSinIntervalInput(sinSelected, sensor, this.newSensorKeypress)}
         <div
-          className={'input'}>
-          <span
-            className={'labelSpan'}>
-            Sin interval
-          </span>
-          <NewSensorTextInput
-            name={'sinInterval'}
-            disabled={String(sensor.type)!="Sin"}
-            value={String(sensor.sinInterval)}
-            onChange={this.newSensorKeypress} />
-        </div>
-		<div
           className={'input'}>
           <span
             className={'labelSpan'}>
@@ -259,30 +305,7 @@ class NewSensorForm extends React.Component {
             value={String(sensor.randomInterval)}
             onSelect={this.dropdownOnSelect} />
         </div>
-        <div
-          className={'input'}>
-          <span
-            className={'labelSpan'}>
-            Minimum Interval
-          </span>
-          <NewSensorTextInput
-            name={'minInterval'}
-            value={String(sensor.randomInterval) == "false" ? 0:String(sensor.minInterval)}
-            disabled={String(sensor.randomInterval) != "true"}
-            onChange={this.newSensorKeypress} />
-        </div>
-        <div
-          className={'input'}>
-          <span
-            className={'labelSpan'}>
-            Maximum Interval
-          </span>
-          <NewSensorTextInput
-            name={'maxInterval'}
-            value={String(sensor.randomInterval) == "false" ? 0:String(sensor.maxInterval)}
-            disabled={String(sensor.randomInterval) != "true"}
-            onChange={this.newSensorKeypress} />
-        </div>
+        {this.renderRandomIntervalContainer(randomSelected, sensor, this.newSensorKeypress)}
         <Button
           className={'saveButton'}
           bsStyle="primary"
