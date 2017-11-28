@@ -32,7 +32,7 @@ class SensorList extends React.Component {
     if (renderMe) {
       return (
           <ListGroupItem key={key}>
-            <h4 title={sensor._id} className="list-group-item-heading">{sensor.name}<span style={floatRigthStyleForJsx}>ID: {sensor._id}</span></h4>
+            <h4 title={sensor._id} className="list-group-item-heading wrap">{sensor.name}<span style={floatRigthStyleForJsx}>ID: {sensor._id}</span></h4>
             <div>{`Active: ${toPascalCase(String(sensor.enabled))}`}</div>
 
             <ButtonGroup>
