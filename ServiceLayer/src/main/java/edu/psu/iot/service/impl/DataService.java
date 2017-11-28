@@ -110,14 +110,14 @@ public class DataService implements IDataService {
 	public String startSensor(String jsonString) {
 		ISensor sensor = JsonHandler.getSensorFromJson(jsonString);
 		service.startSensor(sensor.getId());
-		return JsonHandler.jsonFromSensor(sensor);
+		return JsonHandler.jsonFromSensor(sensor, true);
 	}
 
 	@Override
 	public String pauseSensor(String jsonString) {
 		ISensor sensor = JsonHandler.getSensorFromJson(jsonString);
 		service.stopSensor(sensor.getId());
-		return JsonHandler.jsonFromSensor(sensor);
+		return JsonHandler.jsonFromSensor(sensor, false);
 	}
 
 	@Override

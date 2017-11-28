@@ -53,7 +53,7 @@ public class JsonHandler {
 				builder.append(sensor.getMax());
 				builder.append(",");
 				builder.append("\"maxInterval\":"); 
-				builder.append(sensor.getMinInterval());
+				builder.append(sensor.getMaxInterval());
 				builder.append(",");
 				builder.append("\"min\":");
 				builder.append(sensor.getMin());
@@ -78,8 +78,53 @@ public class JsonHandler {
 				builder.append("\"}");
 		
 		return builder.toString();
-		
 	}
+	
+	public static String jsonFromSensor(ISensor sensor, boolean overloadedEnabledValue) {
+		StringBuilder builder = new StringBuilder();
+		builder.append("{");
+		builder.append("\"_id\":");
+		builder.append(sensor.getId());
+		builder.append(",");
+		builder.append("\"duration\":"); 
+		builder.append(sensor.getDuration());
+		builder.append(",");
+		builder.append("\"initialValue\":");
+		builder.append(sensor.getInitialValue());
+		builder.append(",");
+		builder.append("\"interval\":"); 
+		builder.append(sensor.getInterval());
+		builder.append(",");
+		builder.append("\"max\":");
+		builder.append(sensor.getMax());
+		builder.append(",");
+		builder.append("\"maxInterval\":"); 
+		builder.append(sensor.getMaxInterval());
+		builder.append(",");
+		builder.append("\"min\":");
+		builder.append(sensor.getMin());
+		builder.append(",");
+		builder.append("\"minInterval\":");
+		builder.append(sensor.getMinInterval());
+		builder.append(",");
+		builder.append("\"name\":\"");
+		builder.append(sensor.getName());
+		builder.append("\",");
+		builder.append("\"randomInterval\":");
+		builder.append(sensor.isRandomInterval());
+		builder.append(",");
+		builder.append("\"sinInterval\":");
+		builder.append(sensor.getSinInterval());
+		builder.append(",");
+		builder.append("\"type\":\""); 
+		builder.append(sensor.getType().toString());
+		builder.append("\",");
+		builder.append("\"enabled\":\"");
+		builder.append(overloadedEnabledValue);
+		builder.append("\"}");
+
+return builder.toString();
+}
 	
 	public static Document documentFromSensor(ISensor sensor) {
 		Document document = new Document("_id", sensor.getId())
@@ -87,7 +132,7 @@ public class JsonHandler {
 				.append("initialValue", sensor.getInitialValue())
 				.append("interval", sensor.getInterval())
 				.append("max", sensor.getMax())
-				.append("maxInterval", sensor.getMinInterval())
+				.append("maxInterval", sensor.getMaxInterval())
 				.append("min", sensor.getMin())
 				.append("minInterval", sensor.getMinInterval())
 				.append("name", sensor.getName())
@@ -149,7 +194,7 @@ public class JsonHandler {
 			sensor.setMin(sensorJson.findValue("min").asDouble());
 			sensor.setMinInterval(sensorJson.findValue("minInterval").asLong());
 			sensor.setName(sensorJson.findValue("name").asText());
-			sensor.setRandomInterval(sensorJson.findValue("randomInterval").asBoolean());
+			sensor.setRandomInterval(Boolean.parseBoolean(sensorJson.findValue("randomInterval").asText()));
 			sensor.setSinInterval(sensorJson.findValue("sinInterval").asInt());
 			sensor.setType(PayloadType.valueOf(sensorJson.findValue("type").asText().toUpperCase()));
 		} catch (Exception e) {

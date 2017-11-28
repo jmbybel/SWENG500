@@ -60,8 +60,10 @@ public class Main {
         	if (sensor != null)
         		responseSensor = endpoint.pauseSensor(sensor);
         	
-        	if (responseSensor != null)
+        	if (responseSensor != null) {
+        		System.out.println("returning: " + responseSensor);
         		return responseSensor;
+        	}
         	
         	return "{}";
         });
@@ -81,7 +83,9 @@ public class Main {
         });
         
         post("/update-sensor", (request, response) -> {
-        	return endpoint.updateSensor(request.body());
+        	String returnVal = endpoint.updateSensor(request.body());
+        	System.out.println(returnVal);
+        	return returnVal;
         });
     }
     
