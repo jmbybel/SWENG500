@@ -12,6 +12,10 @@ public class RampPayload extends Payload {
 	
 	public double calcValue(){
 		logger.debug(">>calcValue()");
+		
+		
+		
+		
 		if(getCurrentValue() == getMax())
 		{
 			rampFlagUp = false;

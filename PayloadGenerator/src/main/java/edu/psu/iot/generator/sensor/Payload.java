@@ -142,8 +142,10 @@ public abstract class Payload implements Runnable{
 				postEndpoint(SensorService.getUrlEndpoint(), payload);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.error(e);
 			}
+	        	
+	        
 			System.out.println(payload);
 			sensorPayload = payload;
 			
@@ -153,7 +155,7 @@ public abstract class Payload implements Runnable{
 	
 			pusher.trigger("my-channel", "my-event", Collections.singletonMap("message", payload.toString()));
 				
-
+	  
 			
 		}
 			
