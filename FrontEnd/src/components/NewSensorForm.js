@@ -72,14 +72,31 @@ class NewSensorForm extends React.Component {
     if (eventKey === 'True' || eventKey === 'False')
     {
       const randomSelected = eventKey === 'True' ? true : false;
-      this.setState({
-        sensor: Object.assign(
-          {},
-          sensor,
-          { ['randomInterval']: toPascalCase(eventKey) }
-        ),
-        randomSelected,
-      });
+
+      if (randomSelected === false) {
+        this.setState({
+          sensor: Object.assign(
+            {},
+            sensor,
+            {
+              ['randomInterval']: toPascalCase(eventKey),
+              ['minInterval']: '',
+              ['maxInterval']: '',
+            }
+          ),
+          randomSelected,
+        });
+      }
+      else {
+        this.setState({
+          sensor: Object.assign(
+            {},
+            sensor,
+            { ['randomInterval']: toPascalCase(eventKey) }
+          ),
+          randomSelected,
+        });
+      }
     }
     else
     {

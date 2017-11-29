@@ -73,9 +73,9 @@ h2 {
 
 .destinationIPDiv {
   display: inline-block;
-  margin-left: 20px;
+  margin-left: 10px;
   vertical-align: bottom;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   height: 100%;
   text-align: right;
 
@@ -132,7 +132,7 @@ h2 {
 
 .liveTabFeed, .liveDataFeed {
   .liveTabFeedTable {
-    .react-bs-container-body { 
+    .react-bs-container-body {
       overflow-y: auto;
     }
     td:first-of-type {

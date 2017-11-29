@@ -80,6 +80,7 @@ class Dashboard extends React.Component {
       }
     } = nextProps;
 
+    this.props.actions.getNumberOfRunningSensors();
     this.setState({
       destinationIP: ip,
     });
@@ -133,10 +134,7 @@ class Dashboard extends React.Component {
           <ActiveSensorCount
               numRunningSensors={numRunningSensors}/>
           <DestinationIPSection
-            name={"destinationIP"}
-            value={destinationIP}
-            onChange={(name, value) => this.destinationIPKeypress(name, value)}
-            save={() => this.setDestinationIP()} />
+            value={destinationIP} />
         </div>
         <Panel className={"liveDataFeed"} header="Live Data Feed for All Sensors">
           <LiveDataFeed
