@@ -142,7 +142,7 @@ public abstract class Payload implements Runnable{
 				postEndpoint(SensorService.getUrlEndpoint(), payload);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				logger.error(e);
+				System.out.println(e);
 			}
 	        	
 	        
@@ -196,6 +196,7 @@ public abstract class Payload implements Runnable{
         request.addHeader("content-type", "application/json");
         request.setEntity(params);
         HttpResponse response = httpClient.execute(request);
+        System.out.println(response.toString());
         //TODO: Handle response
     }
 	

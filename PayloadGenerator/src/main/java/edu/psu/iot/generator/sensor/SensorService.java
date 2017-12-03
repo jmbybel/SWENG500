@@ -19,7 +19,7 @@ public class SensorService implements ISensorService {
 	private static final Logger logger = LogManager.getLogger();
 	private static Map<Integer, Payload> sensorList = new HashMap<Integer, Payload>();
 	private static ScheduledExecutorService ses = Executors.newScheduledThreadPool(25);
-	private static String urlEndpoint = "http://18.216.43.18:8081/contentListener";
+	private static String urlEndpoint = "http://40.76.8.49:8081/contentListener";
 	
     public static String getUrlEndpoint() {
 		return urlEndpoint;
