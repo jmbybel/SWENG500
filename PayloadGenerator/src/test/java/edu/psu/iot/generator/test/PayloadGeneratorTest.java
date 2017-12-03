@@ -42,10 +42,14 @@ public class PayloadGeneratorTest extends TestCase{
 	@Rule
     public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
 	*/
+	SensorService ss =new SensorService();
+	@Before
+	public void setUp() {
+		ss.initialize();
+	}
 	
 	public void testCreateSensorService()
 	{
-		SensorService ss = new SensorService();
 		Sensor config = new Sensor();
 		config.setName("Test Create SS");
 		config.setId(1);
@@ -57,7 +61,6 @@ public class PayloadGeneratorTest extends TestCase{
 	
 	public void testStopSensorService()
 	{
-		SensorService ss = new SensorService();
 		Sensor config = new Sensor();
 		config.setId(1);
 		config.setName("Test Stop SS");
@@ -69,7 +72,6 @@ public class PayloadGeneratorTest extends TestCase{
 	
 	public void testStartSensorService()
 	{
-		SensorService ss = new SensorService();
 		Sensor config = new Sensor();
 		config.setName("Test Start SS");
 		config.setId(1);
@@ -101,7 +103,6 @@ public class PayloadGeneratorTest extends TestCase{
 	
 	public void testDeleteSensorService()
 	{
-		SensorService ss = new SensorService();
 		Sensor config = new Sensor();
 		config.setName("Test Delete SS");
 		config.setId(1);
@@ -211,7 +212,7 @@ public class PayloadGeneratorTest extends TestCase{
 			e1.printStackTrace();
 		}
 		
-		SensorService ss = new SensorService();
+		
 		Sensor config = new Sensor();
 		config.setName("Test Duration");
 		config.setId(1);
@@ -262,7 +263,7 @@ public class PayloadGeneratorTest extends TestCase{
 			e1.printStackTrace();
 		}
 		
-		SensorService ss = new SensorService();
+		
 		
 		//Create a Random Sensor config
 		Sensor randomConfig = new Sensor();
@@ -378,7 +379,7 @@ public class PayloadGeneratorTest extends TestCase{
 			config.setId(10);
 			config.setName("Queue Test");
 			
-			SensorService ss = new SensorService();
+			
 			ss.createSensor(config);
 			
 			Thread.sleep(5000);
@@ -409,7 +410,7 @@ public class PayloadGeneratorTest extends TestCase{
 			config.setId(10);
 			config.setName("Initialize Test");
 			
-			SensorService ss = new SensorService();
+			
 			
 			assertTrue(ss.getSensorList().isEmpty());
 			assertTrue(ss.getQueue().isEmpty());
@@ -438,7 +439,7 @@ public class PayloadGeneratorTest extends TestCase{
 	public void testSensorServiceStop() {
 		
 		try {
-			SensorService ss = new SensorService();
+			
 			assertTrue(ss.getQueue().isEmpty());
 			assertTrue(ss.getSensorList().isEmpty());
 			Sensor sensor = new Sensor();
@@ -451,7 +452,7 @@ public class PayloadGeneratorTest extends TestCase{
 			
 			System.out.println("The Queue size is: " + ss.getQueue().size());
 			
-			ss = new SensorService();
+			ss.initialize();
 			
 			System.out.println("The Queue size is: " + ss.getQueue().size());
 			

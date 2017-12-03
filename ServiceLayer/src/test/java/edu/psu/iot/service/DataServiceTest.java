@@ -111,12 +111,12 @@ public class DataServiceTest {
 	public void testSetDestination() {
 		String result = objectUnderTest.setDestinationIP("http://18.216.43.18:8081/contentListener");
 		assertEquals("http://18.216.43.18:8081/contentListener", result);
-		result = objectUnderTest.setDestinationIP("http://123.456.789.123:12344/contentListener");
-		assertEquals("http://18.216.43.18:8081/contentListener", result);
+		result = objectUnderTest.setDestinationIP("onion://123.456.789.123:12344/contentListener");
+		assertEquals("", result.trim());
 		result = objectUnderTest.setDestinationIP("123.456.234/contentListener");
-		assertEquals("http://18.216.43.18:8081/contentListener", result);
+		assertEquals("", result.trim());
 		result = objectUnderTest.setDestinationIP("http://123.123.123.123:1234");
-		assertEquals("http://18.216.43.18:8081/contentListener", result);
+		assertEquals("http://123.123.123.123:1234", result);
 	}
 	
 	@Test
@@ -137,10 +137,10 @@ public class DataServiceTest {
 			objectUnderTest.createSensor(sensorJson);
 			Thread.sleep(10000);
 			System.out.println("Pause Sensor");
-			objectUnderTest.pauseSensor("{\"_id\":100}");
+			objectUnderTest.pauseSensor(sensorJson);
 			Thread.sleep(10000);
 			System.out.println("Start Sensor");
-			objectUnderTest.startSensor("{\"_id\":100}");
+			objectUnderTest.startSensor(sensorJson);
 			//sensor.setMax(99);
 			//sensor.setMin(97);
 			//objectUnderTest.updateSensor(JsonHandler.jsonFromSensor(sensor));
@@ -165,9 +165,9 @@ public class DataServiceTest {
 			System.out.println("The initial Sensor JSON is: " + sensorJson);
 			objectUnderTest.createSensor(sensorJson);
 			Thread.sleep(5000);
-			objectUnderTest.pauseSensor("{\"_id\":100}");
+			objectUnderTest.pauseSensor(sensorJson);
 			Thread.sleep(5000);
-			objectUnderTest.startSensor("{\"_id\":100}");
+			objectUnderTest.startSensor(sensorJson);
 			sensor.setMax(99);
 			sensor.setMin(97);
 			objectUnderTest.updateSensor(JsonHandler.jsonFromSensor(sensor));
@@ -190,9 +190,9 @@ public class DataServiceTest {
 			objectUnderTest.createSensor(JsonHandler.jsonFromSensor(sensor));
 			Thread.sleep(3000);
 			System.out.println(JsonHandler.jsonFromSensor(sensor));
-			objectUnderTest.pauseSensor("{\"_id\":121}");
+			objectUnderTest.pauseSensor(JsonHandler.jsonFromSensor(sensor));
 			System.out.println(JsonHandler.jsonFromSensor(sensor));
-			objectUnderTest.startSensor("{\"_id\":121}");
+			objectUnderTest.startSensor(JsonHandler.jsonFromSensor(sensor));
 			//objectUnderTest.deleteAll();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
